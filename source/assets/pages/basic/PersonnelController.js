@@ -1,0 +1,47 @@
+// 员工管理
+angular.module('fiona').controller('PersonnelController', function ($scope, $controller) {
+
+    // 声明要使用的下拉选项
+    $scope.dropboxargs = {
+        dicts: {personStatusSet: "会员状态"},
+
+        userdicts: {sexSet: "性别"}
+    };
+
+    $scope.dropdowns = {
+        isSyncEasSet: [{id: "true", valueNameCn: "是"}, {id: "false", valueNameCn: "否"}],
+        roleSet: [{id: "1", valueNameCn: "医生"}, {id: "2", valueNameCn: "护士"}, {id: "3", valueNameCn: "销售员"}, {id: "4", valueNameCn: "系统管理员"}]
+    };
+
+    $controller('BaseController', {$scope: $scope}); //继承
+
+    $scope.dropboxinit($scope.dropboxargs);
+
+    /**
+     * 经销商与生产商
+     * ---------------------------
+     * */
+    $scope.personnelportal = {
+
+        id: "personnel",
+
+        name: "员工管理",
+
+        server: "/api/v2/personss",
+
+        defilters: {
+            "personCode": "员工编号",
+            "personName": "员工名称 "
+        },
+
+        callback: {
+            insert: function () {
+                $scope.setSelectDefault("personnel", ["isSyncEas", "personStatus", "sex", "roleId"]);
+            }
+        }
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.personnelportal}); //继承
+
+    $scope.personnelportal.filter();
+});

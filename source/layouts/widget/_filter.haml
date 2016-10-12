@@ -1,0 +1,48 @@
+- @portal_id = @portal_id || @page_id
+
+- @portal_name = @portal_name || @page_title
+
+- $portal_object = "" << @portal_id << "portal"
+
+- @portal_prefix = @module[@portal_id]
+
+- @portal = data["" << @module[@portal_id] << "-" << @portal_id]
+
+%div
+  .input-group
+    .input-group-btn
+      %button.form-control.input-noborder-right.input-circle-left.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+        {{#{$portal_object}.searchbar.fieldName}}
+        %i.fa.fa-angle-down
+
+      %ul.dropdown-menu
+        %li
+          %a{:href => "javascript:;", 'ng-click' => "#{$portal_object}.setField('', '综合搜索', '')" } 综合搜索
+
+        %li.divider
+
+        - @portal.searchFields.each do |field|
+          - if field.fieldName == '---'
+
+            %li.divider
+
+          - if field.fieldName != '---'
+            %li
+              %a{:href => "javascript:;", 'ng-click' => "#{$portal_object}.setField('#{@fields[field.fieldName] || 'error'}', '#{field.fieldName}')" } #{field.fieldName}
+
+
+    %input.form-control{:type => "text", :placeholder => "{{#{$portal_object}.searchbar.firstTextPlaceholder}}", "ng":{ 'model':"#{$portal_object}.searchbar.firstValue", "readonly"=>"#{$portal_object}.searchbar.dataType == 'date'" }}/
+
+    .input-group-btn{"ng": {"show"=>"#{$portal_object}.searchbar.dataType == 'date'"}}
+      %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+        %i.fa.fa-calendar
+
+    %input.form-control{:type => "text", :placeholder => "{{#{$portal_object}.searchbar.lastTextPlaceholder}}",  "ng": {"show"=>"#{$portal_object}.searchbar.type == 'between'", "model"=> "#{$portal_object}.searchbar.lastValue", "readonly"=>"#{$portal_object}.searchbar.dataType == 'date'"}, "style"=>"display: table-cell;" }/
+
+    .input-group-btn{"ng": {"show"=>"#{$portal_object}.searchbar.type == 'between' && #{$portal_object}.searchbar.dataType == 'date'"}}
+      %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+        %i.fa.fa-calendar
+
+    .input-group-btn
+      %button.btn.green.input-circle-right{"ng-click"=>"#{$portal_object}.filter()"}
+        %i.fa.fa-search

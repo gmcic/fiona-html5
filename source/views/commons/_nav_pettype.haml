@@ -1,0 +1,22 @@
+-#宠物种类, 侧边导航
+
+- content_for :outline_title do
+  #{name}
+
+- content_for :outline_toolbar do
+  %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng":{"click" => "pettype()"}}
+    %i.fa.fa-plus
+    增加
+
+  %a.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;"}
+    %i.fa.fa-remove
+    删除
+
+  %a.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;"}
+    %i.fa.fa-remove
+    修改
+
+- content_for :outline_body do
+  %div.list-group
+    %a.list-group-item{:href => 'javascript:;', "ng":{ "repeat":"petype in petypes", "click": "setPetypeId(petype.id)"}}
+      {{petype.name}}

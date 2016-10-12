@@ -1,0 +1,45 @@
+.input-group
+  .input-group-btn
+    %button.form-control.input-noborder-right.input-circle-left.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+      {{searchbar.fieldName}}
+      %i.fa.fa-angle-down
+
+    %ul.dropdown-menu
+      %li
+        %a{:href => "javascript:;", 'ng-click' => "setField('', '综合搜索', '')" } 综合搜索
+
+      %li.divider
+
+      %li
+        %a{:href => "javascript:;", 'ng-click' => "setField('gestCode', '宠物病例号')" } 宠物病例号
+
+      %li
+        %a{:href => "javascript:;", 'ng-click' => "setField('gestCode', '宠物昵称')" } 宠物昵称
+
+      %li.divider
+
+      %li
+        %a{:href => "javascript:;", 'ng-click' => "setField('gestCode', '会员编号')"  } 会员编号
+      %li
+        %a{:href => "javascript:;", 'ng-click' => "setField('gestCode', '会员名称')"  } 会员名称
+      %li
+        %a{:href => "javascript:;", 'ng-click' => "setField('gestCode', '会员电话' , '', '')" } 会员电话
+      %li.divider
+      %li
+        %a{:href => "javascript:;", 'ng-click' => "setField('gestCode', '登记日期', 'date', 'between')"  } 登记日期
+
+  %input.form-control{:type => "text", :placeholder => "{{searchbar.firstTextPlaceholder}}", "ng":{ 'model':"searchbar.firstValue", "readonly"=>"searchbar.dataType == 'date'" }}/
+
+  .input-group-btn{"ng": {"show"=>"searchbar.dataType == 'date'"}}
+    %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+      %i.fa.fa-calendar
+
+  %input.form-control{:type => "text", :placeholder => "{{searchbar.lastTextPlaceholder}}",  "ng": {"show"=>"searchbar.type == 'between'", "model"=> "searchbar.lastValue", "readonly"=>"searchbar.dataType == 'date'"}, "style"=>"display: table-cell;" }/
+
+  .input-group-btn{"ng": {"show"=>"searchbar.type == 'between' && searchbar.dataType == 'date'"}}
+    %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+      %i.fa.fa-calendar
+
+  .input-group-btn
+    %button.btn.green.input-circle-right{"ng-click"=>"submit()"}
+      %i.fa.fa-search

@@ -1,0 +1,35 @@
+---
+layout: "page"
+---
+
+- page '库存查询', 'stock'
+
+#operate_msg_box
+.row
+  .col-md-3
+    - portal "仓库", "storage"
+    = partial 'layouts/widget/side', :locals => {:name => "仓库", :id=> 'storage', :fieldName => "name"}
+
+  .col-md-9
+    - portal '库存查询', 'stock'
+    = partial 'layouts/widget/portal', :locals => {:pagefilter => "storageportal.selectedId", :filterbar => "none", :pagingbar => "none"}
+-#
+-#
+-#-#数据字典类别
+-#= partial 'views/commons/nav_datumtype', :locals => {:sidename => "种类", :sidefieldname=> 'name'}
+-#
+-#- content_for :toolbar do
+-#  = partial :'layouts/buttons/insert'
+-#  = partial :'layouts/buttons/removes'
+-#
+-#- content_for :theader do
+-#  - @page.listFields.each do |field|
+-#    %th #{field.aliasName || field.fieldName}
+-#
+-#- content_for :tbody do
+-#  - @page.listFields.each do |column|
+-#    %td
+-#      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'

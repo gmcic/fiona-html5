@@ -1,0 +1,56 @@
+module:
+  id: fosteragedetail
+  name: 寄养期间消费
+  data: fosterrecorddetails
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 收费名称
+
+  - fieldName: 规格
+
+  - fieldName: 生产商
+
+  - fieldName: 价格
+
+  - fieldName: 数量
+
+  - fieldName: 单位
+
+  - fieldName: 小计
+
+searchFields:
+  - fieldName: 收费名称
+
+fields: #可定义多个中文名称指向同一个字段
+  寄养ID: fosterId
+  寄养编号: fosterNo
+
+  类型编号: itemCode
+  类型名称: itemName
+
+  数量: itemNum
+
+  商品服务种类: itemStyle
+
+  小计: totalCost
+  价格: sellPrice
+  单位: recipeUnit
+  规格: itemStandard
+  使用方式: useWay
+  状态: itemCountStatus
+
+  备注: remark
+
+  影像状态: paidStatus
+  影像时间: paidTime
+  记录时间: recordTime
+  仓库ID: warehouseId
+  生产商Code: manufacturerCode
+  生产商: manufacturerName
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

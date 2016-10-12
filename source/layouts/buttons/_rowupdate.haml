@@ -1,0 +1,7 @@
+- $click = ((defined? click) ? click: "update(" +@page_id+ ".id)")
+
+- $label = ((defined? label) ? label: "编辑")
+
+%a.btn.btn-outline.btn-circle.btn-sm.purple{'ng-click' => "#{$click}"}
+  %i.fa.fa-edit
+  #{$label}

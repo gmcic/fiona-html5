@@ -1,0 +1,48 @@
+module:
+  id: vipprepay
+  name: 预付金额
+  data: prepaymoneys
+
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 充值记录
+
+portalFields: # 选择会员弹出图层字段
+  - fieldName: 会员编号
+
+
+searchFields:
+  - fieldName: 操作时间
+
+  - fieldName: 金额
+
+  - fieldName: 操作员
+
+# 宠物
+fields:
+  会员ID: gestId
+
+  业务类型: businessType
+
+  类型: optionType
+
+  关联ID: relationId
+
+  金额: inputMoney
+
+  操作时间: recordTime
+
+  备注: remark
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
+

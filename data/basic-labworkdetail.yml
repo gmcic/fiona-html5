@@ -1,0 +1,50 @@
+# 化验项目管理
+listFields:
+  - fieldName: 医疗类型
+
+  - fieldName: 参考值上限
+
+  - fieldName: 参考值下限
+
+  - fieldName: 年龄段
+
+searchFields:
+  - fieldName: 宠物病例号
+
+  - fieldName: 宠物昵称
+
+  - fieldName: ---
+
+  - fieldName: 宠物昵称
+
+fields: #可定义多个中文名称指向同一个字段
+
+  化验项目ID: cheTestTypdId
+
+  种类: petRaceName
+
+  医疗类型: petRaceName
+
+  年龄从: petAgeMothFrom
+
+  年龄到: petAgeMothTo
+
+  参考值上限: referenceValueUp
+
+  参考值下限: referenceValueDonw
+
+  年龄段: petAgeWord
+
+  结论: result
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate

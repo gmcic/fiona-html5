@@ -1,0 +1,51 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 数量
+
+  - fieldName: 单位
+
+  - fieldName: 单价
+
+  - fieldName: 规格
+
+  - fieldName: 小计
+
+  - fieldName: 生产商
+
+  - fieldName: 条码
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: ---
+
+
+
+fields: #可定义多个中文名称指向同一个字段
+  销售单号: directSellCode
+
+  总项数: totalNum
+  总金额: totalCost
+
+  会员ID: gestId
+  会员编号: gestCode
+  会员姓名: gestName
+  会员手机: mobilePhone
+
+  宠物ID: petId
+  宠物名称: petName
+
+  折扣: discount
+
+  影像状态: paidStatus
+  影像时间: paidTime
+  备注: remark
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

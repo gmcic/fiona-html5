@@ -1,0 +1,45 @@
+/ BEGIN SAMPLE FORM PORTLET
+.portlet.light.bordered
+  .portlet-title
+    .caption
+      %i.icon-settings.font-dark
+      %span.caption-subject.font-dark.sbold.uppercase 宠物资料
+    .actions
+      = partial :'layouts/buttons/insert', :locals => {:click => 'petportal.insert()', :label => '新增宠物'}
+      = partial :'layouts/buttons/btn_find', :locals => {:click => 'petportal.search()', :label => '选择宠物'}
+
+  .portlet-body.form
+    .form-body
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '会员编号', :maxlength => '32', :required => 'true'}
+
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '会员姓名', :maxlength => '32'}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '宠物名称', :maxlength => '32'}
+
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '性别', :labelName =>"valueNameCn", :maxlength => '32'}
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '年龄', :maxlength => '16'}
+
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '体重', :maxlength => '16'}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '种类', :maxlength => '16'}
+
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '品种', :maxlength => '16'}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '绝育状态', :maxlength => '16'}
+
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '病例编号', :maxlength => '16'}

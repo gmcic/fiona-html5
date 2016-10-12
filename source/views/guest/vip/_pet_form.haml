@@ -1,0 +1,64 @@
+.form-body
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '编号(自动)', :required => "true", :maxlength => '16'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '宠物昵称', :required => "true", :maxlength => '16'}
+
+
+    .col-md-4
+      .form-group
+        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in petportal.dropdowns.petSexSet"}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/date', :locals => { :keyword => "pet", :fieldName => '出生日期', :maxlength => '16', :required => "true" }
+
+    .col-md-4
+      = partial :'layouts/inputs/textview', :locals => { :keyword => "pet", :fieldName => '宠物年龄', :maxlength => '16'}
+
+    .col-md-4
+      .form-group
+        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '绝育状态', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in petportal.dropdowns.petBreedSet"}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物颜色', :maxlength => '32', :options => "type as type.valueNameCn for type in petportal.dropdowns.petSkinColorSet"}
+
+    .col-md-4
+      .form-group
+        = partial :'layouts/inputs/selectview', :locals => {:keyword => "pet", :fieldName => '宠物种类', :options => "type.name for type in petportal.dropdowns.raceTypeSet"}
+
+    .col-md-4
+      .form-group
+        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物品种', :maxlength => '32', :required => "true", :options => "type as type.type for type in petportal.dropdowns.petRaceSet"}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物状态', :maxlength => '32', :options => "type as type.valueNameCn for type in petportal.dropdowns.sickFileCodeSet"}
+
+
+  -#.col-md-7
+  -#  = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '病例号', :maxlength => '16', :required => "true"}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '身高(cm)', :maxlength => '16'}
+
+    .col-md-3
+      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '体重(kg)', :maxlength => '16'}
+
+    .col-md-3
+      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '肩宽(cm)', :maxlength => '16'}
+
+    .col-md-3
+      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '体长(cm)', :maxlength => '16'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '宠物牌号', :maxlength => '16'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textarea', :locals => { :keyword => "pet", :fieldName => '备注', :maxlength => '16'}

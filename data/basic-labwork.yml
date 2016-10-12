@@ -1,0 +1,47 @@
+module:
+  name: 化验项目
+  id: labwork
+  data: medicchemicalexamtypes
+
+listFields:
+  - fieldName: 参数
+
+  - fieldName: 化验单位
+    filter: dropdown
+
+  - fieldName: 指标类型
+    filter: dropdown
+
+searchFields:
+  - fieldName: 宠物病例号
+
+  - fieldName: 宠物昵称
+
+  - fieldName: ---
+
+  - fieldName: 宠物昵称
+
+fields:
+  编码: itemCode
+
+  名称: itemName
+
+  参数: cheTestName
+
+  化验单位: cheTestUnit
+
+  指标类型: indexType
+
+  化验项目ID: cateNo
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate

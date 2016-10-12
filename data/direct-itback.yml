@@ -1,0 +1,57 @@
+module:
+  name: 销售退缩
+  id: itback
+  data: returncommoditys
+
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 退货单号
+
+  - fieldName: 会员姓名
+
+  - fieldName: 会员电话
+
+  - fieldName: 退款金额
+
+  - fieldName: 总项
+
+  - fieldName: 业务员
+
+  - fieldName: 经手人
+
+  - fieldName: 申请日期
+
+  - fieldName: 结算单号
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: ---
+
+
+fields: #可定义多个中文名称指向同一个字段
+  退货单号: rcCode
+
+  结算ID: cashId
+  结算单号: cashCode
+
+  会员ID: gestId
+  会员姓名: gestName
+  会员电话: gestPhone
+  业务员ID: handlerId
+  业务员: handlerName
+
+  总项: countNum
+  总金额: totalCost
+
+  时间: handOn
+  影像状态: paidStatus
+  影像名称: paidTime
+  备注: remark
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

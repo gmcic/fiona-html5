@@ -1,0 +1,26 @@
+# 商品与服务管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 名称
+
+  - fieldName: 规格
+
+  - fieldName: 销售单位
+
+  - fieldName: 默认进价
+
+  - fieldName: 基本售价
+
+fields: #可定义多个中文名称指向同一个字段
+
+  主键: id
+
+# 商品分类
+  父类名称: id
+
+  类别名称: id
+
+  业务类型: id
+
+  零售预期毛利: id
+

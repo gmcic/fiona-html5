@@ -1,0 +1,20 @@
+- $keyword = ((defined? keyword) ? keyword : @page_id)
+
+- fields = data["" << @module[$keyword] << "-" << $keyword].fields
+
+- $required = ((defined? required) ? required : 'false')
+
+- $columnName = inputName($keyword, (fields[fieldName] || 'error'))
+
+- $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
+
+- $maxlength = ((defined? maxlength) ? maxlength : '32')
+
+.form-group
+  %label.control-label
+    #{fieldName} #{@formIdName}
+
+  %select.form-control{:name => "selectedname"}
+    %option{"ng-repeat" => "type in dropdowns.raceTypeSet", "value" => "{{type.id}}"}
+      {{type.name}}
+

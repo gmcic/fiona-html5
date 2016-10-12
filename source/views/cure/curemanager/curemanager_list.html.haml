@@ -1,0 +1,286 @@
+---
+layout: "page"
+---
+- page '就诊管理', 'curemanager'
+
+#operate_msg_box
+.row
+  .col-md-3
+    .tabbable-line
+      %ul#curelist.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "//#play_pets"}
+            就诊
+            %span.badge.badge-success 3
+
+        %li
+          %a{"data-toggle" => "tab", :href => "//#pause_pets"}
+            暂停
+            %span.badge.badge-danger 3
+
+        %li
+          %a{"data-toggle" => "tab", :href => "//#cure_pet"}
+            宠物
+
+      .tab-content
+        #play_pets.tab-pane.active
+          .clearfix
+            %button.btn.btn-success{:type => "button"}
+              %i.fa.fa-user
+              快捷
+            %button.btn.btn-info{:type => "button"}
+              %i.fa.fa-user
+              会员
+          %br
+          %div.list-group
+            %a.list-group-item.active{:href => 'javascript:;', "ng" => {"click":"curepet()"}}
+              %img{:src => '/assets/images/avatar1.jpg'}
+              小米
+
+            %a.list-group-item{:href => 'javascript:;', "ng" => {"click":"curepet()"}}
+              %img{:src => '/assets/images/avatar2.jpg'}
+              小白
+
+            %a.list-group-item{:href => 'javascript:;', "ng" => {"click":"curepet()"}}
+              %img{:src => '/assets/images/avatar3.jpg'}
+              小黑
+
+            %a.list-group-item{:href => 'javascript:;', "ng" => {"click":"curepet()"}}
+              %img{:src => '/assets/images/avatar2.jpg'}
+              宝宝
+
+        #pause_pets.tab-pane
+          .clearfix
+            %button.btn.btn-success{:type => "button"} 快捷
+            %button.btn.btn-info{:type => "button"} 会员
+          %br
+          %div.list-group
+            %a.list-group-item{:href => 'javascript:;'}
+              %img{:src => '/assets/images/avatar1.jpg'}
+              大米
+
+            %a.list-group-item{:href => 'javascript:;'}
+              %img{:src => '/assets/images/avatar2.jpg'}
+              大白
+
+            %a.list-group-item{:href => 'javascript:;'}
+              %img{:src => '/assets/images/avatar3.jpg'}
+              大黑
+
+            %a.list-group-item{:href => 'javascript:;'}
+              %img{:src => '/assets/images/avatar2.jpg'}
+              宝宝
+
+        #cure_pet.tab-pane
+          .clearfix
+            %button.btn.btn-warning{:type => "button"}
+              %i.fa.fa-pause
+              暂停诊断
+            %button.btn.btn-danger{:type => "button"}
+              %i.fa.fa-stop
+              结束诊断
+            %button.btn.btn-info{:type => "button"}
+              %i.fa.fa-file
+              疫苗登记
+
+          = partial :'views/commons/pet/portal_pet_view', :locals => {:model => 'readonly'}
+
+  .col-md-9
+    .tabbable-line
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "//#pets_diagnose"}
+            诊断信息
+
+        %li
+          %a{"data-toggle" => "tab", :href => "//#pets_testing"}
+            化验信息
+
+        %li
+          %a{"data-toggle" => "tab", :href => "//#pets_image"}
+            影像检查
+
+        %li
+          %a{"data-toggle" => "tab", :href => "//#pets_recipe"}
+            处置处方
+
+      .tab-content
+        #pets_diagnose.tab-pane.active
+
+          - modal '就诊管理', 'curemanager'
+
+          %form{:id => "#{@modal_id}form", :name => "#{@modal_id}form", :novalidate => "", "ng-submit" => "#{@modal_id}submit()", :role => "form"}
+            .form-body
+              .row
+                .col-md-3
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体温', :maxlength => '32'}
+
+                .col-md-3
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '心跳', :maxlength => '32'}
+
+                .col-md-3
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '呼吸', :maxlength => '32'}
+
+                .col-md-3
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '血压', :maxlength => '32'}
+
+              .row
+                .col-md-12
+                  = partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '主述', :maxlength => '32'}
+
+              .row
+                .col-md-12
+                  = partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '临床检查', :maxlength => '32'}
+
+              .row
+                .col-md-12
+                  = partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '医生诊断', :maxlength => '32'}
+
+              .row
+                .col-md-12
+                  = partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '医嘱', :maxlength => '32'}
+
+        #pets_testing.tab-pane
+          .row
+            .col-md-3
+              .portlet
+                .portlet-title
+                  .actions
+                    %a.btn.btn-circle.btn-danger.btn-sm{:href => "javascript:;"}
+                      %i.fa.fa-remove
+                        删除
+
+                    %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+                      %i.fa.fa-plus
+                        增加
+
+                    %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+                      %i.fa.fa-print
+                        打印
+
+                .portlet-body.portlet-empty
+                  %div.list-group
+                    %a.list-group-item{:href => 'javascript:;'}
+                      血常规
+                      %span.badge.badge-danger 3
+
+                    %a.list-group-item{:href => 'javascript:;'}
+                      血生化
+                      %span.badge.badge-primary 3
+
+                    %a.list-group-item{:href => 'javascript:;'}
+                      尿常规
+                      %span.badge.badge-success 3
+
+            .col-md-9
+              .row
+                .col-md-12
+                  = partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '诊断结果', :maxlength => '32'}
+              .row
+                .col-md-12
+                  -#附件列表
+                  = partial 'views/commons/file_list'
+              .row
+                .col-md-12
+                  %table#sample_editable_1.table.table-striped.table-hover.table-bordered
+                    %thead
+                      %tr
+                        - ['名称', '物种', '年龄段', '检验值', '正常值', '结论'].each do |fieldName|
+                          %th #{fieldName}
+
+                    %tbody
+                      %tr.odd.gradeX{ "ng-repeat" => @page_id + " in " +@page_id+ "s" }
+                        - ['名称', '物种', '年龄段', '检验值', '正常值', '结论'].each do |fieldName|
+                          %td
+                            = bind @page_id, (@fields[fieldName] || 'error')
+
+        #pets_image.tab-pane
+          .row
+            .col-md-3
+              .portlet
+                .portlet-title
+                  .caption
+                  .actions
+                    %a.btn.btn-circle.btn-danger.btn-sm{:href => "javascript:;"}
+                      %i.fa.fa-remove
+                        删除
+
+                    %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng" => {"click": "filmmodal()"}}
+                      %i.fa.fa-plus
+                        增加
+
+                    %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+                      %i.fa.fa-print
+                        打印
+
+                .portlet-body.portlet-empty
+                  %div.list-group
+                    %a.list-group-item{:href => 'javascript:;'}
+                      X光
+                      %span.badge.badge-danger 3
+
+                    %a.list-group-item{:href => 'javascript:;'}
+                      B超
+                      %span.badge.badge-primary 3
+
+            .col-md-9
+              .row
+                .col-md-12
+                  = partial :'layouts/inputs/textarea', :locals => {:keyword => 'vip', :fieldName => '诊断结果', :maxlength => '32'}
+              .row
+                .col-md-12
+                  -#附件列表
+                  = partial 'views/commons/file_list'
+              .row
+                .col-md-12
+                  %img{:src => '/assets/images/1.jpg', :width => "300px"}
+
+        #pets_recipe.tab-pane
+          .row
+            .col-md-3
+              .portlet
+                .portlet-title
+                  .caption
+                  .actions
+                    %a.btn.btn-circle.btn-danger.btn-sm{:href => "javascript:;"}
+                      %i.fa.fa-remove
+                        删除
+
+                    %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng" => {"click": "recipemodal()"}}
+                      %i.fa.fa-plus
+                        增加
+
+                    %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+                      %i.fa.fa-print
+                        打印
+
+                .portlet-body.portlet-empty
+                  %div.list-group
+                    %a.list-group-item{:href => 'javascript:;'}
+                      处方
+                      %span.badge.badge-danger 1
+
+                    %a.list-group-item{:href => 'javascript:;'}
+                      处方
+                      %span.badge.badge-primary 2
+
+            .col-md-9
+              -#处置处方
+              = partial 'views/commons/recipe_list'
+/ Modal
+- modal "化验信息", "testing"
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'testing'
+
+/ Modal
+- modal "医学影像", "film"
+
+= partial :'layouts/partials/modal-lg' do
+  = partial 'film'
+
+/ Modal
+- modal "处置处方", "recipe"
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'recipe'

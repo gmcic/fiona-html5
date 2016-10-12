@@ -1,0 +1,33 @@
+var url = 'server/php/';
+// 宠物管理
+angular.module('fiona')
+
+.controller('CasesController', ['$scope', '$http', '$filter', '$window', function($scope, $http) {
+    $scope.options = {
+        url: '/fileupload/'
+    };
+
+    $scope.filterdata = "";
+
+    $scope.dictmodal = function (key) {
+
+        $scope.selected = key;
+
+        $scope.books = $scope.dictbook[key];
+
+        console.log($scope.books);
+
+        $('#dictmodal').modal('toggle');
+    }
+
+    $scope.modules = <%= data.module2.to_json %>;
+
+    $scope.dictbook = {
+      <% data.module.each do |key, value| %>
+        <% dict = data["" << value << "-" << key] %>
+        <%= key%>: <%= dict.to_json %>,
+      <% end %>
+      "Footer": {}
+    };
+
+}]);

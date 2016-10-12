@@ -1,0 +1,31 @@
+---
+layout: "page"
+---
+
+- page '化验项目管理', 'labwork'
+
+#operate_msg_box
+.row
+  .col-md-3
+    - portal "化验项目", "labworktype"
+    = partial 'layouts/widget/tree', :locals => {:sidename => "化验项目", :sidefieldname=> 'name'}
+
+  .col-md-9
+    - portal '化验项目管理', 'labwork'
+    = partial 'layouts/widget/portal'
+
+/ Modal
+- modal  '化验项目管理', 'labwork'
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'
+
+/ 参考值设置
+- modal "参考值设置", "labworkdetail"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'labworkdetail'
+
+/ 化验分类
+- modal "服务商品分类", "labworktype"
+
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'labworktype'

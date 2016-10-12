@@ -1,0 +1,16 @@
+.form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '支出类型', :maxlength => '64', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/date', :locals => {:fieldName => '支出时间', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '金额', :maxlength => '16'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textarea', :locals => {:fieldName => '描述', :maxlength => '16'}

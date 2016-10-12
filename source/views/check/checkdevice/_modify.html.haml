@@ -1,0 +1,169 @@
+/ BEGIN SAMPLE FORM PORTLET
+.portlet.light.bordered
+  .portlet-title
+    .caption
+      %i.icon-settings.font-dark
+      %span.caption-subject.font-dark.sbold.uppercase 会员信息
+    .actions
+      %a.btn.btn-circle.grey-salsa.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-plus
+        新增主人
+
+      %a.btn.btn-circle.grey-salsa.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-remove
+        选择主人
+
+  .portlet-body.form
+    .form-body
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '会员编号', :maxlength => '32', :required => 'true'}
+
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '会员姓名', :maxlength => '32'}
+
+        .col-md-4
+
+          .form-group
+            %label.control-label 会员等级
+            %select.form-control
+              %option 普通会员
+              %option VIP会员
+
+      .row
+        .col-md-4
+          .form-group
+            %label.control-label 会员性别
+            %select.form-control{:name => "petSex", 'ng': {'model':'petSex', 'options':"petSex.cnname for petSex in combox.sex"}}
+
+        .col-md-4
+          = partial :'layouts/inputs/date', :locals => {:keyword => 'vip', :fieldName => '出生日期', :maxlength => '16'}
+
+
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '年龄', :maxlength => '16'}
+
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '手机', :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '电话', :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/money', :locals => {:keyword => 'vip', :fieldName => '账户金额', :maxlength => '16'}
+
+      .row
+        .col-md-8
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '联系地址', :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/date', :locals => {:keyword => 'vip', :fieldName => '登记日期', :maxlength => '16'}
+
+.portlet.light.bordered
+  .portlet-title
+    .caption
+      %i.icon-settings.font-dark
+      %span.caption-subject.font-dark.sbold.uppercase 宠物信息
+
+  .portlet-body.form
+    .tabbable-line
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "//#pet_basic"} 基本信息
+        %li
+          %a{"data-toggle" => "tab", :href => "//#pet_pictures"} 图片信息
+        %li
+          %a{"data-toggle" => "tab", :href => "//#pet_vaccine"} 疫苗注射情况
+
+      .tab-content
+        #pet_basic.tab-pane.active
+          .form-body
+            .row
+              .col-md-4
+                = partial :'layouts/inputs/text', :locals => { :fieldName => '编号(自动)', :maxlength => '16'}
+
+              .col-md-4
+                = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物昵称', :maxlength => '16'}
+
+
+              .col-md-4
+                .form-group
+                  %label.control-label 宠物性别
+                  %select.form-control
+                    %option 雄性
+                    %option 雌性
+
+            .row
+              .col-md-4
+                = partial :'layouts/inputs/date', :locals => { :fieldName => '出生日期', :maxlength => '16'}
+
+              .col-md-4
+                = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物年龄', :maxlength => '16'}
+
+              .col-md-4
+                .form-group
+                  %label.control-label 绝育状态
+                  %select.form-control
+                    %option 未绝育
+                    %option 已绝育
+
+            .row
+              .col-md-4
+                .form-group
+                  %label.control-label 宠物颜色
+                  %input.form-control{:type => "text"}/
+
+              .col-md-4
+                .form-group
+                  %label.control-label 宠物种类
+                  %select.form-control{:type => '', 'ng': {'model':'pet.type', 'options':"pettype.name for pettype in combox.types"}}
+
+
+              .col-md-4
+                .form-group
+                  %label.control-label 宠物品种
+                  %select.form-control
+                    %option 加菲猫
+                    %option 阿拉斯加
+            .row
+              .col-md-4
+                .form-group
+                  %label.control-label 宠物状态
+                  %select.form-control
+                    %option 在世
+                    %option 过世
+
+              .col-md-7
+                = partial :'layouts/inputs/text', :locals => { :fieldName => '病例号', :maxlength => '16'}
+
+            .row
+              .col-md-3
+                = partial :'layouts/inputs/double', :locals => { :fieldName => '身高(cm)', :maxlength => '16'}
+
+              .col-md-3
+                = partial :'layouts/inputs/double', :locals => { :fieldName => '体重(kg)', :maxlength => '16'}
+
+              .col-md-3
+                = partial :'layouts/inputs/double', :locals => { :fieldName => '肩宽(cm)', :maxlength => '16'}
+
+              .col-md-3
+                = partial :'layouts/inputs/double', :locals => { :fieldName => '体长(cm)', :maxlength => '16'}
+
+            .row
+              .col-md-12
+                = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物牌号', :maxlength => '16'}
+
+            .row
+              .col-md-12
+                = partial :'layouts/inputs/textarea', :locals => { :fieldName => '备注', :maxlength => '16'}
+
+        #pet_pictures.tab-pane
+          %button.btn.blue{:type => "button"} 上传图片
+          %button.btn.blue{:type => "button"} 拍摄照片
+          %button.btn.blue{:type => "button"} 删除图片
+          %button.btn.blue{:type => "button"} 设为头像
+
+
+        #pet_vaccine.tab-pane
+          疫苗注射情况

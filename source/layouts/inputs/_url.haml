@@ -1,0 +1,30 @@
+- $keyword = ((defined? keyword) ? keyword : @page_id)
+
+- fields = data["" << @module[$keyword] << "-" << $keyword].fields
+
+- $required = ((defined? required) ? required : 'false')
+
+- $columnName = inputName($keyword, (fields[fieldName] || 'error'))
+
+- $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
+
+- $maxlength = ((defined? maxlength) ? maxlength : '32')
+
+.form-group
+  %label.control-label
+    #{fieldName} #{@formIdName}
+    - if $required == 'true'
+      %span.required *
+
+  - if $required == 'true'
+    %input.form-control{:type => "url", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+
+  - if $required == 'false'
+    %input.form-control{:type => "url", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+
+  - if $required == 'true'
+    %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.
+
+  %p.help-block.font-red-thunderbird{"ng-show" => "#{validmaxlength($keyword, (fields[fieldName] || 'error'))}"} #{fieldName} 超过最大长度
+
+  %p.help-block.font-red-thunderbird{"ng-show" => "#{validurl($keyword, (fields[fieldName] || 'error'))}"} #{fieldName} 不是有效的URL格式

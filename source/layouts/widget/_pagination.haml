@@ -1,0 +1,36 @@
+- @portal_id = @portal_id || @page_id
+
+- @portal_name = @portal_name || @page_title
+
+- $portal_object = "" << @portal_id << "portal"
+
+- @portal_prefix = @module[@portal_id]
+
+- @portal = data["" << @module[@portal_id] << "-" << @portal_id]
+
+%form.form-inline{:role => "form", :name => "paginationform", :novalidate => "", "ng-submit" => "#{$portal_object}.jump()"}
+  .form-group
+    %button.btn.btn-sm.default.prev{:type => 'button', 'ng' => {'disabled': "#{$portal_object}.pagination.first==true", 'click': "#{$portal_object}.prevpage()"}}
+      %i.fa.fa-angle-left
+
+    %input.pagination-panel-input.form-control.input-sm.input-inline.input-mini{:type => "text", :maxlenght => "5", :style => "text-align:center; margin: 0 5px;", 'ng' => {'model': "#{$portal_object}.pagination.pageNumber"}}/
+
+    %button.btn.btn-sm.default.next{:type => 'button', 'ng' => {'disabled': "#{$portal_object}.pagination.last==true", 'click': "#{$portal_object}.nextpage()" }}
+      %i.fa.fa-angle-right
+
+    共 {{#{$portal_object}.pagination.totalElements}} 条 {{#{$portal_object}.pagination.totalPages}} 页
+
+    %label
+      %span.seperator | 每页
+
+    %select.form-control.input-xs.input-sm.input-inline{:name => "datatable_ajax_length", 'ng' =>{'model':"#{$portal_object}.pagination.pageSize", 'change': "#{$portal_object}.jump(1)" }}
+      %option{:value => "1"} 1
+      %option{:value => "2"} 2
+      %option{:value => "10"} 10
+      %option{:value => "20"} 20
+      %option{:value => "50"} 50
+
+    条
+
+  %button.btn.btn-default{:type => "submit"} 跳转
+

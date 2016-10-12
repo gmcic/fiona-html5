@@ -1,0 +1,366 @@
+dashboard: 
+  - id: dashboard
+    name: XX
+    server: XX
+
+#检测影像
+analysed:
+  - id: analysed
+    name: XX
+    server: XX
+  
+  - id: film
+    name: MM
+    server: MM
+
+# 结算服务
+balance:
+  - id: payment
+    name: MM
+    server: MM
+
+  - id: statement
+    name: MM
+    server: MM
+
+#基础数据
+basic:
+  - id: varietie
+    name: 品种
+    server: varieties
+    remark: Finish
+
+  - id: varietietype
+    name: 种类
+    server: petraces
+    remark: Finish
+  
+  - id: dealer
+    name: 经销商与生产商
+    server: dealers
+    remark: Finish
+  
+  - id: grade
+    name: 会员等级管理
+    server: gestlevels
+    remark: Finish
+  
+  - id: hospital
+    name: 医院信息
+    server: enterprises
+    server: 未实现
+  
+  - id: labwork
+    name: 化验项目
+    server: medicchemicalexamtypes
+    remark: Finish
+  
+  - id: labworktype
+    name: 化验项目分类
+    server: chemicalexamcates
+    remark: Finish
+  
+  - id: labworkdetail
+    name: 化验项目明细
+    server: medicchemicalexamtypedetails
+    remark: Finish
+  
+  - id: personnel
+    name: 员工管理
+    server: personss
+    remark: Finish
+  
+  - id: role
+    name: MM
+    server: MM
+    remark: 未实现
+  
+  - id: setting
+    name: MM
+    server: MM
+    remark: 不实现
+  
+  - id: product
+    name: 商品与服务管理
+    server: itemtypes
+    remark: Finish
+  
+  - id: producttype
+    name: 商品&服务-分类
+    server: itemcates
+    remark: Finish
+  
+  - id: storage
+    name: 仓库信息管理
+    server: warehouses
+    remark: Finish
+  
+  - id: dictionarytype
+    name: 字典分类
+    server: dicttypes
+    remark: Finish
+
+  - id: dictionary
+    name: 字典类型明细
+    server: dicttypedetails
+    remark: Finish
+
+  - id: userdicttype
+    name: 用户字典分类
+    server: userdicts
+    remark: Finish
+
+  - id: userdict
+    name: 用户字典明细
+    server: userdictdetails
+    remark: Finish
+
+  - id: businestype
+    name: 业务类型
+    server: businescates
+    remark: Finish
+
+#检验检查
+check:
+  - id: check
+    name: 检验检测
+    server: checkprocesssheets
+  
+  - id: checkdevice
+    name: 尿检设备
+    server: MM
+
+#诊疗服务
+cure:
+  - id: curemanager
+    name: 就诊管理
+    server: medicmedictreatrecords
+  
+  - id: medicalrecord
+    name: MM
+    server: MM
+  
+  - id: invaccine
+    name: 疫苗登记
+    server: MM
+
+  - id: prescriptiontype
+    name: 模板类型
+    server: prescriptiontemplatetypes
+  
+  - id: prescription
+    name: 处方模版
+    server: prescriptiontemplates
+  
+  - id: prescriptiondetail
+    name: 处方模版明细
+    server: prescriptiontemplates
+  
+# 直连目录
+direct:
+  - id: itback
+    name: 销售退缩
+    server: returncommoditys
+
+  - id: itbackdetail
+    name: 销售退货明细
+    server: returncommoditydetails
+
+  - id: bespeak
+    name: MM
+    server: MM
+  
+  - id: beauty
+    name: 美容服务
+    server: services
+  
+  - id: beautydetail
+    name: 服务项目
+    server: beautydetail
+  
+  - id: fosterage
+    name: 寄养管理
+    server: fosterrecords
+  
+  - id: fosteragehealth
+    name: 健康状态记录
+    server: fosterhealths
+  
+  - id: fosteragedetail
+    name: 寄养期间消费
+    server: fosterrecorddetails
+  
+  - id: inhospital
+    name: 住院管理
+    server: inhospitalrecords
+  
+  - id: inhospitaldetail
+    name: 住院期间消费
+    server: inhospitalrecorddetails
+  
+  - id: inhospitalprescription
+    name: 住院处方
+    server: inhospitalprescriptions
+  
+  - id: inhospitalprescriptiondetail
+    name: 住院处方明细
+    server: inhospitalprescriptiondetails
+
+  - id: inhospitalhealth
+    name: 健康状态记录
+    server: inhospitalhealths
+  
+# 会员管理
+guest:
+  - id: pet
+    name: MM
+    server: MM
+  
+  - id: vip
+    name: 会员管理
+    server: gests
+
+  - id: vipprepay
+    name: 预付金额
+    server: prepaymoneys
+
+management:
+  - id: expendituretype
+    name: 支出分类
+    server: expensescates
+
+  - id: expenditure
+    name: 支出管理
+    server: expensesexpends
+
+message:
+  - id: msgfind
+    name: MM
+    server: MM
+  
+  - id: msgself
+    name: MM
+    server: MM
+  
+  - id: msgsetting
+    name: MM
+    server: MM
+  
+  - id: msgwarn
+    name: MM
+    server: MM
+  
+  - id: wechat
+    name: MM
+    server: MM
+
+registration:
+  - id: register
+    name: 挂号查询
+    server: medicregisterrecords
+
+# 报表
+report:
+  - id: reportachievements
+    name: MM
+    server: MM
+  
+  - id: reportcases
+    name: MM
+    server: MM
+  
+  - id: reportconsumption
+    name: MM
+    server: MM
+  
+  - id: reportgrossprofit
+    name: MM
+    server: MM
+  
+  - id: reportpurchase
+    name: MM
+    server: MM
+  
+  - id: reportreg
+    name: MM
+    server: MM
+  
+  - id: reportsales
+    name: MM
+    server: MM
+  
+  - id: reportstock
+    name: MM
+    server: MM
+  
+  - id: reportstorefront
+    name: MM
+    server: MM
+  
+  - id: reportturnover
+    name: MM
+    server: MM
+  
+  - id: reportvisit
+    name: MM
+    server: MM
+
+# 销售
+sales:
+  - id: saleplate
+    name: 直接销售
+    server: storedirectsells
+  
+  - id: saleplatedetail
+    name: 直接销售明细
+    server: storedirectselldetails
+
+# 库存
+stock:
+  - id: instorage
+    name: 入库管理
+    server: warehouseinrecords
+    remark: 
+  
+  - id: instoragedetail
+    name: 入库明细
+    server: warehouseinrecorddetails
+  
+  - id: backstorage
+    name: 退回记录
+    server: warehousebackrecords
+  
+  - id: backstoragedetail
+    name: 移库明细
+    server: warehouseinrecorddetails
+  
+  - id: movestorage
+    name: 移库记录
+    server: warehousemoverecords
+  
+  - id: movestoragedetail
+    name: 移库明细
+    server: warehouseinrecorddetails
+  
+  - id: outstorage
+    name: 出库管理
+    server: warehouseoutrecords
+  
+  - id: outstoragedetail
+    name: 出库明细
+    server: warehouseinrecorddetails
+  
+  - id: stock
+    name: 库存查询
+    server: itemcounts
+
+
+# Cases
+api:
+  - id: case
+    name: MM
+    server: MM
+  
+  - id: index
+    name: MM
+    server: MM

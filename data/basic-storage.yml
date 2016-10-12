@@ -1,0 +1,29 @@
+# 仓库信息管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 仓库编号
+
+  - fieldName: 仓库名称
+
+  - fieldName: 是否是药库
+    filter: dropdown
+
+  - fieldName: 是否销售库
+    filter: dropdown
+
+searchFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 仓库编号
+
+  - fieldName: 仓库名称
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  仓库编号: code
+
+  仓库名称: name
+
+  备注: remark
+
+  是否是药库: drugStore
+
+  是否销售库: sellStore

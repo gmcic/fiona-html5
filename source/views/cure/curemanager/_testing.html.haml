@@ -1,0 +1,33 @@
+
+-#化验项目分类
+= partial 'views/commons/nav_labwork_type'
+.row
+  .col-md-3
+    .portlet
+      .portlet-title
+        .caption
+          %i.fa.fa-user
+          项目类别
+      .portlet-body.portlet-empty
+        = yield_content :outline_body
+
+  .col-md-9
+    %table.table.table-striped.table-hover.table-bordered
+      %thead
+        %tr
+          %th
+            %input.group-checkable{:type => "checkbox"}/
+          %th 操作
+          %th
+          - ['项目', '单位'].each do |fieldName|
+            %th #{fieldName}
+
+      %tbody
+        %tr.odd.gradeX{ "ng-repeat" => @page_id + " in " +@page_id+ "s" }
+          %td
+            %input.checkboxes{:type => "checkbox", 'ng': {'model': 'selection[' +@page_id+ '.id]', 'change': 'selectChange()'} }/
+          %td
+
+          - ['项目', '单位'].each do |fieldName|
+            %td
+              = bind @page_id, (@fields[fieldName] || 'error')

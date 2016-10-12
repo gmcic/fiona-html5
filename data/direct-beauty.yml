@@ -1,0 +1,77 @@
+# 美容服务
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 单号
+
+  - fieldName: 会员编码
+
+  - fieldName: 主人姓名
+
+  - fieldName: 宠物昵称
+
+  - fieldName: 总项
+
+  - fieldName: 总金额
+
+  - fieldName: 服务师
+
+  - fieldName: 助理
+
+  - fieldName: 服务时间
+
+  - fieldName: 单据状态
+
+
+searchFields:
+  - fieldName: 单号
+
+  - fieldName: ---
+
+  - fieldName: 会员编号
+
+  - fieldName: 主人姓名
+
+  - fieldName: 宠物昵称
+
+  - fieldName: ---
+
+
+  - fieldName: 服务师
+
+  - fieldName: 助理
+
+  - fieldName: ---
+
+  - fieldName: 服务时间
+
+  - fieldName: 状态
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate
+
+  宠物主人ID: gestId
+  宠物主人编号: gestCode
+  宠物主人名称: gestName
+
+  宠物ID: petId
+  宠物名称: petName
+
+  服务助理: assistantId
+  服务助理姓名: assistantName
+
+  服务师: hairdresserId
+  服务师姓名: hairdresserName
+
+  服务单号: serviceCode
+  总项: totalNum
+  总金额: totalCost
+  备注: remark
+
+  电话: mobilePhone
+  影像状态状态: paidStatus
+  影像时间: paidTime
+

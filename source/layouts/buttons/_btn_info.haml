@@ -1,0 +1,15 @@
+- $click = ((defined? click) ? click: "warning()")
+
+- $label = ((defined? label) ? label: "Warning")
+
+- $icon = ((defined? icon) ? icon: "fa-warning")
+
+- if !(defined? disabled)
+  %button.btn.btn-circle.btn-info.btn-sm{:type => "button", 'ng': {'click':"#{$click}"}}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- if defined? disabled
+  %button.btn.btn-circle.btn-info.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}"}}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}

@@ -1,0 +1,31 @@
+/ BEGIN SAMPLE FORM PORTLET
+.row
+  .col-md-3
+    = partial :'views/commons/pet/portal_pet_view'
+
+  .col-md-9
+    .row
+      .col-md-3
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '服务单号', :maxlength => '16'}
+
+      .col-md-3
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '总项', :maxlength => '16'}
+
+      .col-md-3
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '总金额', :maxlength => '16'}
+
+      .col-md-3
+        = partial :'layouts/inputs/select', :locals => {:fieldName => '服务师', :options => "type.id as type.personName for type in dropdowns.hairdresserIdSet"}
+
+    .row
+      .col-md-3
+        = partial :'layouts/inputs/select', :locals => {:fieldName => '服务助理', :options => "type.id as type.personName for type in dropdowns.assistantIdSet"}
+
+      .col-md-9
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '备注', :maxlength => '16'}
+
+    / Portal
+    - portal "服务项目", "beautydetail"
+    = partial :'layouts/table/portal' do
+      = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+      = partial :'layouts/buttons/removes', :locals => {:click => 'beautydetailportal.removes()', 'disabled': 'beautydetailportal.isRemoves'}

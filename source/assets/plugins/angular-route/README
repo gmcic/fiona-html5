@@ -1,0 +1,68 @@
+<h1 id="packaged-angular-route">packaged angular-route</h1>
+
+<p>This repo is for distribution on <code>npm</code> and <code>bower</code>. The source for this module is in the
+<a href="https://github.com/angular/angular.js/tree/master/src/ngRoute">main AngularJS repo</a>.
+Please file issues and pull requests against that repo.</p>
+
+<h2 id="install">Install</h2>
+
+<p>You can install this package either with <code>npm</code> or with <code>bower</code>.</p>
+
+<h3 id="npm">npm</h3>
+
+<p><code>shell
+npm install angular-route
+</code></p>
+
+<p>Then add <code>ngRoute</code> as a dependency for your app:</p>
+
+<p><code>javascript
+angular.module('myApp', [require('angular-route')]);
+</code></p>
+
+<h3 id="bower">bower</h3>
+
+<p><code>shell
+bower install angular-route
+</code></p>
+
+<p>Add a <code>&lt;script&gt;</code> to your <code>index.html</code>:</p>
+
+<p><code>html
+&lt;script src="/bower_components/angular-route/angular-route.js"&gt;&lt;/script&gt;
+</code></p>
+
+<p>Then add <code>ngRoute</code> as a dependency for your app:</p>
+
+<p><code>javascript
+angular.module('myApp', ['ngRoute']);
+</code></p>
+
+<h2 id="documentation">Documentation</h2>
+
+<p>Documentation is available on the
+<a href="http://docs.angularjs.org/api/ngRoute">AngularJS docs site</a>.</p>
+
+<h2 id="license">License</h2>
+
+<p>The MIT License</p>
+
+<p>Copyright (c) 2010-2015 Google, Inc. http://angularjs.org</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>

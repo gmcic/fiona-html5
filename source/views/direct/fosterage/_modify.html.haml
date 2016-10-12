@@ -1,0 +1,86 @@
+/ BEGIN SAMPLE FORM PORTLET
+.row
+  .col-md-3
+    = partial :'views/commons/pet/portal_pet_view'
+
+  .col-md-9
+    -#寄养登记表单
+    .row
+      .col-md-3
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '寄养号', :maxlength => '16'}
+
+      .col-md-3
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '寄养类型', :maxlength => '16'}
+
+      .col-md-2
+        = partial :'layouts/inputs/date', :locals => { :fieldName => '开始日期', :maxlength => '16'}
+
+      .col-md-2
+        = partial :'layouts/inputs/date', :locals => { :fieldName => '结束日期', :maxlength => '16'}
+
+      .col-md-2
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '预计天数', :maxlength => '16'}
+
+    .row
+      .col-md-3
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '笼舍编号', :maxlength => '16'}
+
+      .col-md-3
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '预付金额', :maxlength => '16'}
+
+      .col-md-2
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '价格', :maxlength => '16'}
+
+      .col-md-2
+        = partial :'layouts/inputs/select', :locals => {:fieldName => '主管人员', :options => "type.id as type.personName for type in dropdowns.managerIdSet"}
+
+      .col-md-2
+        = partial :'layouts/inputs/select', :locals => {:fieldName => '业务员', :options => "type.id as type.personName for type in dropdowns.manufacturerIdSet"}
+
+    .row
+      .col-md-12
+        = partial :'layouts/inputs/textarea', :locals => { :fieldName => '备注', :maxlength => '16'}
+
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-settings.font-dark
+          %span.caption-subject.font-dark.sbold.uppercase 宠物信息
+
+      .portlet-body.form
+        .tabbable-line
+          %ul.nav.nav-tabs
+            %li.active
+              %a{"data-toggle" => "tab", :href => "//#fosterage_consume"} 寄养期间消费
+
+            %li
+              %a{"data-toggle" => "tab", :href => "//#fosterage_prepay"} 预付金记录
+
+            %li
+              %a{"data-toggle" => "tab", :href => "//#fosterage_health"} 健康状态记录
+
+          .tab-content
+            -#寄养期间消费
+            #fosterage_consume.tab-pane.active
+              - portal "寄养期间消费", "fosteragedetail"
+
+              = partial :'layouts/table/portal' do
+                = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+                = partial :'layouts/buttons/removes', :locals => {:click => 'beautydetailportal.removes()', 'disabled': 'beautydetailportal.isRemoves'}
+
+            -#预付金记录
+            #fosterage_prepay.tab-pane
+              - portal "预付金额记录", "vipprepay"
+
+              = partial :'layouts/table/portal' do
+                = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
+
+            -#健康状态记录
+            #fosterage_health.tab-pane
+              - portal "健康状态记录", "fosteragehealth"
+
+              = partial :'layouts/table/portal' do
+                = partial :'layouts/buttons/insert', :locals => {:click => 'fosteragehealthportal.insert()'}
+
+              -#= partial 'views/commons/health_list'
+

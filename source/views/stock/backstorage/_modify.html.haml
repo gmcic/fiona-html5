@@ -1,0 +1,35 @@
+.form-body
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '退货单号', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '总项', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '仓库', :options => "type.code as type.text for type in dropdowns.warehousesSet"}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '审核日期', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '审核人', :maxlength => '32', :required => 'true'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '经销商', :maxlength => '32', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '退货原因', :maxlength => '32', :required => 'true'}
+
+/ Portal
+- portal "入库商品清单", "backstoragedetail"
+
+= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none"} do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+

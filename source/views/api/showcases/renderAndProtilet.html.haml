@@ -1,0 +1,67 @@
+- page 'Case', 'case'
+
+// = partial( :'partial', :userName => "tim", :layout=>"portlet" )
+
+// , :userName => "Tim"
+
+// = partial( :'layouts/partials/message', :userName => "tim" )
+
+%hr{:style=>'border: 1px solid green'}
+.div.bg-yellow-gold.bg-font-yellow-gold
+  inbox.haml
+
+= partial( :'inbox', :userName => "tim", :layout=>"portlet" )
+
+%hr{:style=>'border: 1px solid green'}
+.div.bg-yellow-gold.bg-font-yellow-gold
+  render >> inbox.haml
+
+= render :haml, 'inbox', :layout => "portlet", :locals => { :foo => 'bar' }
+
+%hr{:style=>'border: 1px solid green'}
+.div.bg-yellow-gold.bg-font-yellow-gold
+  render >> email.haml
+
+= render :haml, 'email', :layout => "portlet", :locals => { :foo => 'bar' } do
+  - content_for :toolbar33 do
+    %a.btn.dark.btn-outline.sbold{"data-toggle" => "modal", :href => "/#full"} Full
+  这个杀手不太冷
+
+%hr{:style=>'border: 1px solid green'}
+.div.bg-yellow-gold.bg-font-yellow-gold
+  foo.haml
+
+= partial :'foo', :locals => { :userName => 'tim' } do
+  Am i the only one around here who has this failing?
+
+%hr{:style=>'border: 1px solid green'}
+.div.bg-yellow-gold.bg-font-yellow-gold
+  portlet.haml
+
+= partial 'portlet' do
+  = partial( :'inbox', :userName => "tim", :layout=>"portlet" )
+
+  %table.table.table-striped.table-bordered.table-advance.table-hover
+    %thead
+      %tr
+        %th
+          %i.fa.fa-briefcase
+          Company
+        %th.hidden-xs
+          %i.fa.fa-user
+          Contact
+        %th
+          %i.fa.fa-shopping-cart
+          Total
+        %th
+    %tbody
+      %tr
+        %td.highlight
+          .success
+          %a{:href => "javascript:;"} RedBull
+        %td.hidden-xs Mike Nilson
+        %td 2560.60$
+        %td
+          %a.btn.btn-outline.btn-circle.btn-sm.purple{:href => "javascript:;"}
+            %i.fa.fa-edit
+            Edit

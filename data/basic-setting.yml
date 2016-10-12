@@ -1,0 +1,7 @@
+# 应用参数配置
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 挂号状态
+    fieldKey: status.valueNameCn
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id

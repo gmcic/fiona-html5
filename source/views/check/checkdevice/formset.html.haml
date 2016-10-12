@@ -1,0 +1,94 @@
+---
+layout: "formset"
+---
+- page '尿检设备', 'checkdevice'
+
+- content_for :toolbar do
+  %button.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", 'ng': {'click':'update()'}}
+    %i.fa.fa-plus
+    增加
+  %button.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;", 'ng': {'click':'removes()', 'disabled': 'isRemoves'} }
+    %i.fa.fa-remove
+    删除
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+%form.form-horizontal{:id => "deviceform", :name => "deviceform", :novalidate => "", "ng-submit" => "devicesubmit()", :role => "form"}
+  .portlet.light.bordered
+    .portlet-title
+      .caption
+        %i.icon-bubble.font-green-sharp
+        %span.caption-subject.font-green-sharp.sbold 尿检单
+      .actions
+        .btn-group
+          %a.btn.green-haze.btn-outline.btn-circle.btn-sm{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+            Actions
+            %i.fa.fa-angle-down
+          %ul.dropdown-menu.pull-right
+            %li
+              %a{:href => "javascript:;"} Option 1
+            %li.divider
+            %li
+              %a{:href => "javascript:;"} Option 2
+            %li
+              %a{:href => "javascript:;"} Option 3
+            %li
+              %a{:href => "javascript:;"} Option 4
+    .portlet-body
+      .form-body
+        .row
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '医院名称', :maxlength => '16'}
+
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '医院地址', :maxlength => '16'}
+
+        .row
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '负责人', :maxlength => '16'}
+
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '医院电话', :maxlength => '16'}
+
+      %hr
+
+      .form-body
+        .row
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '尿胆原', :maxlength => '16'}
+
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '胆红素', :maxlength => '16'}
+
+        .row
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '酮体', :maxlength => '16'}
+
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '潜血', :maxlength => '16'}
+
+        .row
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '蛋白质', :maxlength => '16'}
+
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '亚硝酸盐', :maxlength => '16'}
+
+        .row
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '白细胞', :maxlength => '16'}
+
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '葡萄糖', :maxlength => '16'}
+
+        .row
+          .col-md-6
+            = partial :'layouts/inputs/textline', :locals => {:fieldName => '比重', :maxlength => '16'}
+

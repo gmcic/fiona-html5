@@ -1,0 +1,36 @@
+- page '检测查询', 'check'
+
+- content_for :toolbar do
+  = partial :'layouts/buttons/insert', :locals => {:label => "检验申报"}
+  = partial :'layouts/buttons/removes'
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+/ 编辑
+= partial :'layouts/partials/modal-lg' do
+  = partial 'modify'
+
+/ 选择病历号
+- modal "选择病历号", "cases"
+
+= partial :'layouts/partials/modal-lg' do
+  = partial 'cases'
+
+/ 选择关联单号
+- modal "选择关联单号", "joincheck"
+
+= partial :'layouts/partials/modal-lg' do
+  = partial 'joincheck'
+
+/ 选择检验部位
+- modal "选择检验部位", "checkpart"
+
+= partial :'layouts/partials/modal-lg' do
+  = partial 'checkpart'

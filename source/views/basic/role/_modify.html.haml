@@ -1,0 +1,14 @@
+
+.form-body
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '角色名称', :maxlength => '32', :required => 'true'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '角色描述', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      %h2 相关权限
+      %hr
+      #role_popdom.tree-demo

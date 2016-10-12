@@ -1,0 +1,31 @@
+
+module:
+  name: 业务类型
+  id: businestype
+  data: businescates
+
+listFields:
+  - fieldName: 类型名称
+
+  - fieldName: 状态
+
+searchFields:
+  - fieldName: 类型名称
+
+  - fieldName: 状态
+
+fields:
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
+
+  类型名称: cateName
+

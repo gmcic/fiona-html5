@@ -1,0 +1,25 @@
+module:
+  name: 支出管理分类
+  id: expendituretype
+  data: expensescates
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 支出时间
+
+searchFields:
+
+  - fieldName: 费用类别
+
+fields: #可定义多个中文名称指向同一个字段
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate
+
+  分类编号: cateNo
+  分类名称: cateName
+  排序: sort

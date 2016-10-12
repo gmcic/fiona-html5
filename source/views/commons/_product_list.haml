@@ -1,0 +1,21 @@
+
+-#商品&服务类型分组合计
+%table#sample_editable_1.table.table-striped.table-hover.table-bordered
+  %thead
+    %tr
+      %th
+        %input.group-checkable{:type => "checkbox"}/
+      %th 操作
+      %th
+      - ['类型名称', '项目数', '消费额', '优惠额', '支付额'].each do |fieldName|
+        %th #{fieldName}
+
+  %tbody
+    %tr.odd.gradeX{ "ng-repeat" => @page_id + " in " +@page_id+ "s" }
+      %td
+        %input.checkboxes{:type => "checkbox", 'ng': {'model': 'selection[' +@page_id+ '.id]', 'change': 'selectChange()'} }/
+      %td
+
+      - ['类型名称', '项目数', '消费额', '优惠额', '支付额'].each do |fieldName|
+        %td
+          = bind @page_id, (@fields[fieldName] || 'error')

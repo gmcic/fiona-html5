@@ -1,0 +1,33 @@
+module:
+  id: inhospitalprescription
+  name: 住院处方
+  server: inhospitalprescriptions
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 住院号
+
+searchFields:
+  - fieldName: 住院号
+
+fields: #可定义多个中文名称指向同一个字段
+  住院号: inHospitalNo
+  住院ID: inHospitalId
+
+  病例号: sickFileCode
+
+  宠物主人名称: gestName
+  宠物名称: petName
+
+  开处方编号: prescriptionCode
+  开处方费用: prescriptionCost
+
+  医生: doctor
+  影像状态: paidStatus
+  影像时间: paidTime
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

@@ -1,0 +1,19 @@
+---
+layout: "page"
+---
+- page '数据字典', 'dictionary'
+
+#operate_msg_box
+.row
+  .col-md-3
+    - portal "分类", "dictionarytype"
+    = partial 'layouts/widget/side', :locals => {:name => "分类", :id=> 'dictionarytype', :fieldName => "dictName"} do
+      / 不显示工具条
+
+  .col-md-9
+    - portal '数据字典', 'dictionary'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none"}
+
+/ Modal
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'

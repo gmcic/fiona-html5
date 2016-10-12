@@ -1,0 +1,8 @@
+!!!5
+%html
+  %head
+  %body
+    #operate_msg_box
+    = yield
+
+- puts ( "- Layout:[page] " + ( @page_title || "" ) + " (" + @page_prefix  + "/" + @page_id + ")" )

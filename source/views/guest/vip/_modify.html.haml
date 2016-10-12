@@ -1,0 +1,116 @@
+.form-body
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '会员编号', :maxlength => '32', :required => 'true' }
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '会员姓名', :maxlength => '32', :required => 'true' }
+
+    .col-md-3
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '会员性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.gestSexSet"}
+
+    .col-md-3
+      = partial :'layouts/inputs/date', :locals => {:fieldName => '出生日期', :maxlength => '32'}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '会员年龄', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '会员电话', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '固定电话', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '联系邮箱', :maxlength => '32'}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '账户金额', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '积分', :maxlength => '32'}
+
+    .col-md-3
+      .form-group
+        = partial :'layouts/inputs/select', :locals => {:fieldName => '会员等级', :maxlength => '32', :required => "true", :options => "type as type.levelName for type in dropdowns.gestStyleSet"}
+
+    .col-md-3
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '会员状态', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.statusSet"}
+
+  .row
+    .col-md-9
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '联系地址', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/date', :locals => {:fieldName => '登记日期', :maxlength => '32'}
+
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/textarea', :locals => {:fieldName => '备注', :maxlength => '32'}
+
+
+/ Portal
+- portal "宠物管理", "pet"
+
+= partial :'layouts/table/portal' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'petportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'petportal.removes()', 'disabled': 'petportal.isRemoves'}
+-#
+-#/ BEGIN SAMPLE FORM PORTLET
+-#.portlet.light.bordered
+-#  .portlet-title
+-#    .caption
+-#      %i.icon-settings.font-dark
+-#      %span.caption-subject.font-dark.sbold.uppercase 宠物信息
+-#    .actions
+-#      %a.btn.btn-circle.grey-salsa.btn-sm{:href => "javascript:;"}
+-#        %i.fa.fa-plus
+-#        增加
+-#
+-#      %a.btn.btn-circle.grey-salsa.btn-sm{:href => "javascript:;"}
+-#        %i.fa.fa-remove
+-#        删除
+-#
+-#  .portlet-body.form
+-#    %table#sample_1.table.table-striped.table-bordered.table-hover.table-checkable.order-column
+-#      %thead
+-#        %tr
+-#          %th
+-#            %input.group-checkable{"data-set" => "#sample_1 .checkboxes", :type => "checkbox"}/
+-#          %th 操作
+-#          %th 挂号状态
+-#          %th 宠物状态
+-#          %th 会员编号
+-#          %th 会员姓名
+-#          %th 宠物卡号
+-#          %th 宠物牌号
+-#          %th 宠物病例号
+-#          %th 宠物昵称
+-#          %th 宠物性别
+-#          %th 宠物生日
+-#          %th 身高
+-#          %th 体重(kg)
+-#          %th 颜色
+-#          %th 宠物种类
+-#          %th 宠物品种
+-#          %th 宠物卡号
+-#      %tbody
+-#        %tr.odd.gradeX
+-#          %td
+-#            %input.checkboxes{:type => "checkbox", :value => "1"}/
+-#          %td
+-#            %a.btn.btn-outline.btn-circle.btn-sm.purple{:href => "#/pet/update/1"}
+-#              %i.fa.fa-edit
+-#              编辑
+-#            %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "#/pet/update/1"}
+-#              %i.fa.fa-trash-o
+-#              删除
+-#          %td
+-#            %a{:href => "mailto:shuxer@gmail.com"} shuxer@gmail.com
+-#          %td 120
+-#          %td.center 12 Jan 2012
+-#          %td
+-#            %span.label.label-sm.label-success Approved
+-#

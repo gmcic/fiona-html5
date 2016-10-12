@@ -1,0 +1,9 @@
+-#编辑处方类型
+.form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textview', :locals => {:keyword => 'prescriptiontype', :fieldName => '父类名称', :maxlength => '32', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'prescriptiontype', :fieldName => '子类名称', :maxlength => '32'}

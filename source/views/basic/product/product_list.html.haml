@@ -1,0 +1,27 @@
+---
+layout: "page"
+---
+
+- page '商品与服务管理', 'product'
+
+#operate_msg_box
+.row
+  .col-md-3
+    - portal "分类", "producttype"
+    = partial 'layouts/widget/tree', :locals => {:sidename => "商品&服务", :sidefieldname=> 'name'}
+
+  .col-md-9
+    - portal '商品与服务', 'product'
+    = partial 'layouts/widget/portal'
+
+/ 商品&服务
+- modal '商品服务管理', 'product'
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'
+
+
+/ 商品&服务分类
+- modal "服务商品分类", "producttype"
+
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'producttype'

@@ -1,0 +1,26 @@
+%form.form-inline{:role => "form", :name => "paginationform", :novalidate => "", "ng-submit" => "jump()"}
+  .form-group
+    %button.btn.btn-sm.default.prev{:type => 'button',:href => "javascript:;", 'ng' => {'disabled': 'pagination.first==true', 'click': 'jump(pagination.pageNumber-1)'}}
+      %i.fa.fa-angle-left
+
+    %input.pagination-panel-input.form-control.input-sm.input-inline.input-mini{:type => "text", :maxlenght => "5", :style => "text-align:center; margin: 0 5px;", 'ng' => {'model': 'pagination.pageNumber'}}/
+
+    %button.btn.btn-sm.default.next{:type => 'button', :href => "javascript:;", 'ng' => {'disabled': 'pagination.last==true', 'click': 'jump(pagination.pageNumber+1)' }}
+      %i.fa.fa-angle-right
+
+    共 {{pagination.totalElements}} 条 {{pagination.totalPages}} 页
+
+    %label
+      %span.seperator | 每页
+
+    %select.form-control.input-xs.input-sm.input-inline{:name => "datatable_ajax_length", 'ng' =>{'model':'pagination.pageSize', 'change': 'jump(1)' }}
+      %option{:value => "1"} 1
+      %option{:value => "2"} 2
+      %option{:value => "10"} 10
+      %option{:value => "20"} 20
+      %option{:value => "50"} 50
+
+    条
+
+  %button.btn.btn-default{:type => "submit"} 跳转
+

@@ -1,0 +1,5 @@
+- @modal_id = @modal_id || @page_id
+
+- @modal_name = @modal_name || @page_title
+
+%div{"js-tree" => "#{@modal_id}panel.treeConfig", "ng-model"=>"#{@modal_id}s", "tree-events-obj" => "#{@modal_id}panel.treeEventsObj", "tree" => "treeInstance" }

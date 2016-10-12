@@ -1,0 +1,42 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 会员编号
+
+  - fieldName: 会员姓名
+
+  - fieldName: 会员电话
+
+  - fieldName: 总消费金额
+
+  - fieldName: 最后结算日期
+
+  - fieldName: 付款状态
+
+
+searchFields:
+  - fieldName: 会员编号
+
+  - fieldName: 会员姓名
+
+
+  - fieldName: 会员电话
+
+  - fieldName: ---
+
+  - fieldName: 付款状态
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  总项数: XX
+
+  总消费额: XX
+
+  优惠总额: XX
+
+  请支付金额: XX
+
+  已支付金额: XX
+
+  找零: XX
+

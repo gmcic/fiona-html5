@@ -1,0 +1,13 @@
+- $click = ((defined? click) ? click: "search()")
+
+- $label = ((defined? label) ? label: "查找")
+
+- if !(defined? disabled)
+  %button.btn.btn-circle.btn-success.btn-sm{:type => "button", 'ng': {'click':"#{$click}"}}
+    %i.fa.fa-search
+    #{$label}
+
+- if defined? disabled
+  %button.btn.btn-circle.btn-success.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}"}}
+    %i.fa.fa-search
+    #{$label}

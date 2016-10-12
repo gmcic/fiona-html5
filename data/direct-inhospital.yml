@@ -1,0 +1,88 @@
+module:
+  id: inhospital
+  name: 住院管理
+  server: inhospitalrecords
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 住院号
+
+  - fieldName: 会员姓名
+
+  - fieldName: 宠物姓名
+
+  - fieldName: 开始日期
+
+  - fieldName: 预付金
+
+  - fieldName: 预计天数
+
+  - fieldName: 管理员
+
+  - fieldName: 业务员
+
+  - fieldName: 类型
+
+  - fieldName: 状态
+
+
+searchFields:
+  - fieldName: 住院号
+
+  - fieldName: ---
+
+  - fieldName: 会员编号
+  - fieldName: 会员姓名
+  - fieldName: 主人手机
+
+  - fieldName: ---
+
+  - fieldName: 类型
+  - fieldName: 状态
+  - fieldName: 住院日期
+  - fieldName: 到期天数
+
+
+fields: #可定义多个中文名称指向同一个字段
+
+  顾客ID: gestId
+  顾客编号: gestCode
+  顾客名称: gestName
+  手机: mobilePhone
+  VIP编号: vipNo
+
+  宠物ID: petId
+  宠物名称: petName
+
+  主管人员ID: managerId
+  主管人员: managerBy
+
+  业务员Id: manufacturerId
+  业务员: manufacturerName
+
+  住院类型Code: itemCode
+  住院类型: itemName
+
+  价格: price
+  实际价格: realPrice
+  总价: totalMoney
+  住院诊断: remark
+
+  住院号: inHospitalNo
+  开始日期: startTime
+  结束日期: endTime
+  预付金额: inputMoney
+  预计天数: preDays
+  实际天数: realDays
+  笼舍编号: cageNo
+
+  记录时间: recordTime
+  影像状态: paidStatus
+  影像时间: paidTime
+  updateTime: updateTime
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

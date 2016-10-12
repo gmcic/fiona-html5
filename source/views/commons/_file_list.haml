@@ -1,0 +1,16 @@
+-#附件列表
+%table#sample_editable_1.table.table-striped.table-hover.table-bordered
+  %thead
+    %tr
+      %th 下载
+      - ['附件名称'].each do |fieldName|
+        %th #{fieldName}
+
+  %tbody
+    %tr.odd.gradeX{ "ng-repeat" => @page_id + " in " +@page_id+ "s" }
+      %th
+        %a.btn.btn-link 下载
+
+      - ['附件名称'].each do |fieldName|
+        %td
+          = bind @page_id, (@fields[fieldName] || 'error')

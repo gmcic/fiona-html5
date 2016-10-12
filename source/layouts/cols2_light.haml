@@ -1,0 +1,32 @@
+!!!5
+%html
+  %body
+    #operate_msg_box
+    .row
+      .col-md-3
+        / BEGIN Outline
+        .portlet.light.bordered
+          .portlet-title
+            .caption.font-dark
+              %i.fa.fa-sitemap.font-dark
+              %span.caption-subject.bold.uppercase=yield_content :outline_title
+            .actions
+              = yield_content :outline_toolbar
+
+          .portlet-body
+            = yield_content :outline_body
+
+      .col-md-9
+        / BEGIN EXAMPLE TABLE PORTLET
+        .portlet.light.bordered
+          .portlet-title
+            .caption.font-dark
+              %i.fa.fa-beer.font-dark
+              %span.caption-subject.bold.uppercase=yield_content :title
+            .actions
+              =yield_content :toolbar
+
+          .portlet-body
+            =yield
+
+- puts ("-- Page[cols2_light]: " + @page_title + " (" + @page_prefix  + "/" + @page_id + ")")

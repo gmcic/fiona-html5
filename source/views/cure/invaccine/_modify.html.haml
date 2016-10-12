@@ -1,0 +1,53 @@
+/ BEGIN SAMPLE FORM PORTLET
+.row
+  .col-md-3
+    .portlet
+      .portlet-title
+        .caption
+          %i.fa.fa-user
+          会员信息
+        .actions
+          %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+            %i.fa.fa-plus
+            选择宠物
+
+          %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+            %i.fa.fa-remove
+            新增宠物
+
+      .portlet-body.portlet-empty
+        = partial 'views/commons/pet_header'
+
+  .col-md-9
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.fa.fa-file
+          %span.caption-subject.font-dark.sbold.uppercase 疫苗选项
+        .actions
+          %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng" => {"click":"vaccinesmodal()"}}
+            %i.fa.fa-plus
+            添加疫苗
+
+      .portlet-body.form
+        -#住院登记表单
+        .row
+          .col-md-3
+            = partial :'layouts/inputs/text', :locals => { :fieldName => '组号', :maxlength => '16'}
+
+          .col-md-3
+            = partial :'layouts/inputs/text', :locals => { :fieldName => '主治医生', :maxlength => '16'}
+
+          .col-md-2
+            = partial :'layouts/inputs/text', :locals => { :fieldName => '助理医生', :maxlength => '16'}
+
+          .col-md-2
+            = partial :'layouts/inputs/text', :locals => { :fieldName => '合计金额', :maxlength => '16'}
+
+          .col-md-2
+            = partial :'layouts/inputs/text', :locals => { :fieldName => '针数', :maxlength => '16'}
+
+        -#疫苗登记
+        = partial 'views/commons/invaccine_list'
+
+

@@ -1,0 +1,68 @@
+module:
+  name: 挂号查询
+  id: register
+  data: medicregisterrecords
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 挂号类型
+
+  - fieldName: 会员姓名
+
+  - fieldName: 手机
+
+  - fieldName: 宠物昵称
+
+  - fieldName: 性别
+
+  - fieldName: 年龄
+
+  - fieldName: 体重
+
+  - fieldName: 种类
+
+  - fieldName: 品种
+
+  - fieldName: 挂号状态
+
+  - fieldName: 付费状态
+
+  - fieldName: 暂停原因
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: ---
+
+
+fields: #可定义多个中文名称指向同一个字段
+  宠物名称: petName
+  宠物ID: petId
+  会员姓名: gestName
+
+  医生姓名: doctor
+  医生: doctorId
+
+  助理医生: assistantDoctorId
+  助理姓名: assistantDoctorName
+
+  挂号类型编码: registerNo
+  挂号类型: registerStyle
+
+  类型名称: itemName
+  类型编号: itemCode
+
+  金额: registerPrice
+
+  皮肤文件编号: sickFileCode
+
+  操作人: operatorMan
+  影像状态: paidStatus
+  影像时间: paidTime
+  原因: pauseReason
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

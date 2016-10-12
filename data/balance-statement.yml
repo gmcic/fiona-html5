@@ -1,0 +1,51 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 结费单号
+
+  - fieldName: 会员编号
+
+  - fieldName: 会员姓名
+
+  - fieldName: 消费金额
+
+  - fieldName: 优惠金额
+
+  - fieldName: 应收金额
+
+  - fieldName: 实付金额
+
+  - fieldName: 退款金额
+
+  - fieldName: 找零金额
+
+  - fieldName: 结算日期
+
+
+searchFields:
+  - fieldName: 会员编号
+  - fieldName: 会员姓名
+  - fieldName: 会员电话
+
+  - fieldName: ---
+
+  - fieldName: 结算单号
+  - fieldName: 结算日期
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  主键: id
+
+  主键: id
+
+  主键: id
+
+  主键: id
+
+  主键: id
+
+  主键: id
+
+  主键: id
+

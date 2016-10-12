@@ -1,0 +1,91 @@
+
+%center
+  %h1
+    医学检验实验室送检单
+  %h3
+    宠物医学检测中心（tel: 4006-640-365）
+
+.form-body
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/textline_btn', :locals => {:fieldName => '关联单号', :maxlength => '16', :btnname => '选择', :btnclick => 'joincheckmodal(0)', :delname => '取消', :delclick => 'casesmodal(0)'}
+
+    .col-md-6
+      = partial :'layouts/inputs/textline_btn', :locals => {:fieldName => '病历号', :maxlength => '16', :btnname => '选择', :btnclick => 'casesmodal(0)', :delname => '取消', :delclick => 'casesmodal(0)'}
+
+.portlet.light.bordered
+  .portlet-title
+    .caption
+      %i.icon-bubble.font-green-sharp
+      %span.caption-subject.font-green-sharp.sbold 送检医院
+
+  .portlet-body
+    .form-body
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:fieldName => '医院名称', :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:fieldName => '医院编号', :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:fieldName => '医师姓名', :maxlength => '16'}
+
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/text', :locals => {:fieldName => '医师编号', :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/date', :locals => {:fieldName => '采样日期', :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/select', :locals => {:fieldName => '是否加急', :options => "type.code as type.name for type in [{code: '1', name: '是'}, {code: '0', name: '否'}]"}
+
+.portlet.light.bordered
+  .portlet-title
+    .caption
+      %i.icon-bubble.font-green-sharp
+      %span.caption-subject.font-green-sharp.sbold 宠物资料
+    .actions
+      .btn-group
+        %a.btn.green-haze.btn-outline.btn-circle.btn-sm{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+          Actions
+          %i.fa.fa-angle-down
+        %ul.dropdown-menu.pull-right
+          %li
+            %a{:href => "javascript:;"} Option 1
+          %li.divider
+          %li
+            %a{:href => "javascript:;"} Option 2
+          %li
+            %a{:href => "javascript:;"} Option 3
+          %li
+            %a{:href => "javascript:;"} Option 4
+  .portlet-body
+    = partial 'views/commons/pet/portal_pet_formset'
+
+
+.portlet.light.bordered
+  .portlet-title
+    .caption
+      %i.icon-bubble.font-green-sharp
+      %span.caption-subject.font-green-sharp.sbold 样本信息
+    .actions
+  .portlet-body
+    .row
+      .col-md-12
+        = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '采样部位', :maxlength => '16', :btnname => '选择部位', :btnclick => 'checkpartportal.insert()'}
+    .row
+      .col-md-12
+        .row
+          .col-md-3{"ng" => {"repeat": "sample in dropdowns.sampleSet"}}
+            %label
+              %input{:type => 'checkbox', "ng" => {"model": "data.simple", "true-value": "true", "false-value": "false" } } {{ sample.name }}
+
+    .row
+      .col-md-12
+        = partial :'layouts/inputs/textarea', :locals => {:fieldName => '用药经历', :maxlength => '16'}
+
+
+
+

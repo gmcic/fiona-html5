@@ -1,0 +1,50 @@
+module:
+  id: inhospitalprescriptiondetail
+  name: 住院处方明细
+  server: inhospitalprescriptiondetails
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+  - fieldName: 处方单位
+  - fieldName: 数量
+  - fieldName: 售价
+  - fieldName: 用药频次
+  - fieldName: 单次用量
+  - fieldName: 投药单位
+  - fieldName: 用法
+  - fieldName: 生产商
+
+searchFields:
+  - fieldName: 住院号
+
+fields: #可定义多个中文名称指向同一个字段
+  处方ID: prescriptionId
+
+  执行ID: executorId
+  执行名称: executorName
+
+  名称: itemName
+  编号: itemCode
+  费用: itemCost
+  数量: itemNum
+  单位: recipeUnit
+  使用方式: useWay
+  组名称: groupName
+
+  生产商Code: manufacturerCode
+  生产商: manufacturerName
+
+  发生率: frequency
+  一次剂量: dose
+  使用单位: useUnit
+
+  影像状态: paidStatus
+  影像时间: paidTime
+  类型状态: itemCountStatus
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

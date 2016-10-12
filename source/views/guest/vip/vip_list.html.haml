@@ -1,0 +1,17 @@
+---
+layout: "page"
+---
+
+- page '会员管理', 'vip'
+
+
+= partial 'layouts/widget/portal'
+
+/ 编辑
+= partial :'layouts/partials/modal-portal-full' do
+  = partial 'modify'
+
+/ 添加宠物
+- modal "添加宠物", "pet"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'pet_form'

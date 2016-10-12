@@ -1,0 +1,31 @@
+
+-#商品服务分类
+= partial 'views/commons/vip/sale_vipheader'
+
+.form-body
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '退货单号', :maxlength => '32', :required => 'true'}
+
+    .col-md-4
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :maxlength => '32'}
+
+    .col-md-4
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32'}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '业务员', :maxlength => '32', :required => 'true'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '备注', :maxlength => '32'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '结算单号', :maxlength => '32'}
+
+
+- portal "退货明细", "itbackdetail"
+
+= partial :'layouts/table/portal' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+

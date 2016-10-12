@@ -1,0 +1,12 @@
+---
+layout: "page"
+---
+
+- page '仓库信息管理', 'storage'
+
+- portal '仓库信息管理', 'storage'
+= partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none"}
+
+/ 编辑
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'

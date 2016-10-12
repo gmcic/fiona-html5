@@ -1,0 +1,15 @@
+.form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '仓库编号', :maxlength => '32', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '仓库名称', :maxlength => '32'}
+
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '是否是药库', :maxlength => '32', :required => "true", :options => "type.id as type.valueNameCn for type in dropdowns.drugStoreSet"}
+
+    .col-md-6
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '是否销售库', :maxlength => '32', :required => "true", :options => "sellStore.id as sellStore.valueNameCn for sellStore in dropdowns.sellStoreSet"}

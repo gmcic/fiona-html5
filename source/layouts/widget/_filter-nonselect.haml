@@ -1,0 +1,27 @@
+- @portal_id = @portal_id || @page_id
+
+- @portal_name = @portal_name || @page_title
+
+- $portal_object = "" << @portal_id << "portal"
+
+- @portal_prefix = @module[@portal_id]
+
+- @portal = data["" << @module[@portal_id] << "-" << @portal_id]
+
+%div
+  .input-group
+    %input.form-control.input-circle-left{:type => "text", :placeholder => "{{#{$portal_object}.searchbar.firstTextPlaceholder}}", "ng":{ 'model':"#{$portal_object}.searchbar.firstValue", "readonly"=>"#{$portal_object}.searchbar.dataType == 'date'" }}/
+
+    .input-group-btn{"ng": {"show"=>"#{$portal_object}.searchbar.dataType == 'date'"}}
+      %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+        %i.fa.fa-calendar
+
+    %input.form-control{:type => "text", :placeholder => "{{#{$portal_object}.searchbar.lastTextPlaceholder}}",  "ng": {"show"=>"#{$portal_object}.searchbar.type == 'between'", "model"=> "#{$portal_object}.searchbar.lastValue", "readonly"=>"#{$portal_object}.searchbar.dataType == 'date'"}, "style"=>"display: table-cell;" }/
+
+    .input-group-btn{"ng": {"show"=>"#{$portal_object}.searchbar.type == 'between' && #{$portal_object}.searchbar.dataType == 'date'"}}
+      %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+        %i.fa.fa-calendar
+
+    .input-group-btn
+      %button.btn.green.input-circle-right{"ng-click"=>"submit()"}
+        %i.fa.fa-search

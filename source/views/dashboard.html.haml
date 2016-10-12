@@ -1,0 +1,981 @@
+- page "Dashboard", "dashboard"
+.row
+  .col-lg-12
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-group
+      %div Users
+      %span.badge.badge-danger 2
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-barcode
+      %div Products
+      %span.badge.badge-success 4
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-bar-chart-o
+      %div Reports
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-sitemap
+      %div Categories
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-calendar
+      %div Calendar
+      %span.badge.badge-success 4
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-envelope
+      %div Inbox
+      %span.badge.badge-info 12
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-bullhorn
+      %div Notification
+      %span.badge.badge-danger 3
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-map-marker
+      %div Locations
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-money
+        %i
+      %div Finance
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-plane
+      %div Projects
+      %span.badge.badge-info 21
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-thumbs-up
+      %div Feedback
+      %span.badge.badge-info 2
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-cloud
+      %div Servers
+      %span.badge.badge-danger 2
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-globe
+      %div Regions
+    %a.icon-btn{:href => "javascript:;"}
+      %i.fa.fa-heart-o
+      %div Popularity
+      %span.badge.badge-info 221
+
+.row
+  .col-md-12
+    &nbsp;
+.row
+  .col-lg-3.col-md-3.col-sm-6.col-xs-12
+    .dashboard-stat.blue
+      .visual
+        %i.fa.fa-comments
+      .details
+        .number
+          %span{"data-counter" => "counterup", "data-value" => "1349"} 0
+        .desc New Feedbacks
+      %a.more{:href => "javascript:;"}
+        View more
+        %i.m-icon-swapright.m-icon-white
+  .col-lg-3.col-md-3.col-sm-6.col-xs-12
+    .dashboard-stat.red
+      .visual
+        %i.fa.fa-bar-chart-o
+      .details
+        .number
+          %span{"data-counter" => "counterup", "data-value" => "12,5"}> 0
+          M$
+        .desc Total Profit
+      %a.more{:href => "javascript:;"}
+        View more
+        %i.m-icon-swapright.m-icon-white
+  .col-lg-3.col-md-3.col-sm-6.col-xs-12
+    .dashboard-stat.green
+      .visual
+        %i.fa.fa-shopping-cart
+      .details
+        .number
+          %span{"data-counter" => "counterup", "data-value" => "549"} 0
+        .desc New Orders
+      %a.more{:href => "javascript:;"}
+        View more
+        %i.m-icon-swapright.m-icon-white
+  .col-lg-3.col-md-3.col-sm-6.col-xs-12
+    .dashboard-stat.purple
+      .visual
+        %i.fa.fa-globe
+      .details
+        .number
+          +
+          = succeed "%" do
+            %span{"data-counter" => "counterup", "data-value" => "89"}
+        .desc Brand Popularity
+      %a.more{:href => "javascript:;"}
+        View more
+        %i.m-icon-swapright.m-icon-white
+
+.row
+  .col-md-6.col-sm-6
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-share.font-blue
+          %span.caption-subject.font-blue.bold.uppercase Recent Activities
+        .actions
+          .btn-group
+            %a.btn.btn-sm.blue.btn-outline.btn-circle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+              Filter By
+              %i.fa.fa-angle-down
+            .dropdown-menu.hold-on-click.dropdown-checkboxes.pull-right
+              %label
+                %input{:type => "checkbox"}/
+                Finance
+              %label
+                %input{:checked => "checked", :type => "checkbox"}/
+                Membership
+              %label
+                %input{:type => "checkbox"}/
+                Customer Support
+              %label
+                %input{:checked => "checked", :type => "checkbox"}/
+                HR
+              %label
+                %input{:type => "checkbox"}/
+                System
+      .portlet-body
+        .scroller{"data-always-visible" => "1", "data-rail-visible" => "0", :style => "height: 300px;"}
+          %ul.feeds
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-check
+                  .cont-col2
+                    .desc
+                      You have 4 pending tasks.
+                      %span.label.label-sm.label-warning
+                        Take action
+                        %i.fa.fa-share
+              .col2
+                .date Just now
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-success
+                        %i.fa.fa-bar-chart-o
+                    .cont-col2
+                      .desc Finance Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-danger
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-shopping-cart
+                  .cont-col2
+                    .desc
+                      New order received with
+                      %span.label.label-sm.label-success Reference Number: DR23923
+              .col2
+                .date 30 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-success
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-default
+                      %i.fa.fa-bell-o
+                  .cont-col2
+                    .desc
+                      Web server hardware needs to be upgraded.
+                      %span.label.label-sm.label-default Overdue
+              .col2
+                .date 2 hours
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-default
+                        %i.fa.fa-briefcase
+                    .cont-col2
+                      .desc IPO Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-check
+                  .cont-col2
+                    .desc
+                      You have 4 pending tasks.
+                      %span.label.label-sm.label-warning
+                        Take action
+                        %i.fa.fa-share
+              .col2
+                .date Just now
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-danger
+                        %i.fa.fa-bar-chart-o
+                    .cont-col2
+                      .desc Finance Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-default
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-shopping-cart
+                  .cont-col2
+                    .desc
+                      New order received with
+                      %span.label.label-sm.label-success Reference Number: DR23923
+              .col2
+                .date 30 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-success
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-warning
+                      %i.fa.fa-bell-o
+                  .cont-col2
+                    .desc
+                      Web server hardware needs to be upgraded.
+                      %span.label.label-sm.label-default Overdue
+              .col2
+                .date 2 hours
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-info
+                        %i.fa.fa-briefcase
+                    .cont-col2
+                      .desc IPO Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+        .scroller-footer
+          .btn-arrow-link.pull-right
+            %a{:href => "javascript:;"} See All Records
+            %i.icon-arrow-right
+
+  .col-md-6.col-sm-6
+    .portlet.light.tasks-widget.bordered
+      .portlet-title
+        .caption
+          %i.icon-share.font-green-haze.hide
+          %span.caption-subject.font-green.bold.uppercase Tasks
+          %span.caption-helper tasks summary...
+        .actions
+          .btn-group
+            %a.btn.green.btn-circle.btn-sm{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+              More
+              %i.fa.fa-angle-down
+            %ul.dropdown-menu.pull-right
+              %li
+                %a{:href => "javascript:;"} All Project
+              %li.divider
+              %li
+                %a{:href => "javascript:;"} AirAsia
+              %li
+                %a{:href => "javascript:;"} Cruise
+              %li
+                %a{:href => "javascript:;"} HSBC
+              %li.divider
+              %li
+                %a{:href => "javascript:;"}
+                  Pending
+                  %span.badge.badge-danger 4
+              %li
+                %a{:href => "javascript:;"}
+                  Completed
+                  %span.badge.badge-success 12
+              %li
+                %a{:href => "javascript:;"}
+                  Overdue
+                  %span.badge.badge-warning 9
+      .portlet-body
+        .task-content
+          .scroller{"data-always-visible" => "1", "data-rail-visible1" => "1", :style => "height: 312px;"}
+            / START TASK LIST
+            %ul.task-list
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp Present 2013 Year IPO Statistics at Board Meeting
+                  %span.label.label-sm.label-success Company
+                  %span.task-bell
+                    %i.fa.fa-bell-o
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp Hold An Interview for Marketing Manager Position
+                  %span.label.label-sm.label-danger Marketing
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp AirAsia Intranet System Project Internal Meeting
+                  %span.label.label-sm.label-success AirAsia
+                  %span.task-bell
+                    %i.fa.fa-bell-o
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp Technical Management Meeting
+                  %span.label.label-sm.label-warning Company
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp Kick-off Company CRM Mobile App Development
+                  %span.label.label-sm.label-info Internal Products
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp Prepare Commercial Offer For SmartVision Website Rewamp
+                  %span.label.label-sm.label-danger SmartVision
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp Sign-Off The Comercial Agreement With AutoSmart
+                  %span.label.label-sm.label-default AutoSmart
+                  %span.task-bell
+                    %i.fa.fa-bell-o
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp Company Staff Meeting
+                  %span.label.label-sm.label-success Cruise
+                  %span.task-bell
+                    %i.fa.fa-bell-o
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+              %li.last-line
+                .task-checkbox
+                  %input.liChild{:type => "checkbox", :value => ""}/
+                .task-title
+                  %span.task-title-sp KeenThemes Investment Discussion
+                  %span.label.label-sm.label-warning KeenThemes
+                .task-config
+                  .task-config-btn.btn-group
+                    %a.btn.btn-sm.default{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      %i.fa.fa-cog
+                      %i.fa.fa-angle-down
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-check
+                          Complete
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-pencil
+                          Edit
+                      %li
+                        %a{:href => "javascript:;"}
+                          %i.fa.fa-trash-o
+                          Cancel
+        / END START TASK LIST
+        .task-footer
+          .btn-arrow-link.pull-right
+            %a{:href => "javascript:;"} See All Records
+            %i.icon-arrow-right
+
+.row
+  .col-md-6.col-sm-6
+    / BEGIN PORTLET
+    .portlet.light.bordered
+      .portlet-title.tabbable-line
+        .caption
+          %i.icon-globe.font-green-sharp
+          %span.caption-subject.font-green-sharp.bold.uppercase Feeds
+        %ul.nav.nav-tabs
+          %li.active
+            %a.active{"data-toggle" => "tab", :href => "#tab_1_1"} System
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab_1_2"} Activities
+      .portlet-body
+        / BEGIN TABS
+        .tab-content
+          #tab_1_1.tab-pane.active
+            .scroller{"data-always-visible" => "1", "data-rail-visible" => "0", :style => "height: 339px;"}
+              %ul.feeds
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-success
+                          %i.fa.fa-bell-o
+                      .cont-col2
+                        .desc
+                          You have 4 pending tasks.
+                          %span.label.label-sm.label-info
+                            Take action
+                            %i.fa.fa-share
+                  .col2
+                    .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New version v1.4 just lunched!
+                    .col2
+                      .date 20 mins
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-danger
+                          %i.fa.fa-bolt
+                      .cont-col2
+                        .desc Database server #12 overloaded. Please fix the issue.
+                  .col2
+                    .date 24 mins
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-info
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 30 mins
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-success
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 40 mins
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-warning
+                          %i.fa.fa-plus
+                      .cont-col2
+                        .desc New user registered.
+                  .col2
+                    .date 1.5 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-success
+                          %i.fa.fa-bell-o
+                      .cont-col2
+                        .desc
+                          Web server hardware needs to be upgraded.
+                          %span.label.label-sm.label-default Overdue
+                  .col2
+                    .date 2 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-default
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 3 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-warning
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 5 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-info
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 18 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-default
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 21 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-info
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 22 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-default
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 21 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-info
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 22 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-default
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 21 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-info
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 22 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-default
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 21 hours
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-info
+                          %i.fa.fa-bullhorn
+                      .cont-col2
+                        .desc New order received. Please take care of it.
+                  .col2
+                    .date 22 hours
+          #tab_1_2.tab-pane
+            .scroller{"data-always-visible" => "1", "data-rail-visible1" => "1", :style => "height: 290px;"}
+              %ul.feeds
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New order received
+                    .col2
+                      .date 10 mins
+                %li
+                  .col1
+                    .cont
+                      .cont-col1
+                        .label.label-sm.label-danger
+                          %i.fa.fa-bolt
+                      .cont-col2
+                        .desc
+                          Order #24DOP4 has been rejected.
+                          %span.label.label-sm.label-danger
+                            Take action
+                            %i.fa.fa-share
+                  .col2
+                    .date 24 mins
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+                %li
+                  %a{:href => "javascript:;"}
+                    .col1
+                      .cont
+                        .cont-col1
+                          .label.label-sm.label-success
+                            %i.fa.fa-bell-o
+                        .cont-col2
+                          .desc New user registered
+                    .col2
+                      .date Just now
+  .col-md-6.col-sm-6
+    / BEGIN PORTLET
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-bubble.font-red-sunglo
+          %span.caption-subject.font-red-sunglo.bold.uppercase Chats
+        .actions
+          .portlet-input.input-inline
+            .input-icon.right
+              %i.icon-magnifier
+              %input.form-control.input-circle{:placeholder => "search...", :type => "text"}/
+      #chats.portlet-body
+        .scroller{"data-always-visible" => "1", "data-rail-visible1" => "1", :style => "height: 525px;"}
+          %ul.chats
+            %li.out
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar2.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Lisa Wong
+                %span.datetime at 20:11
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.out
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar2.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Lisa Wong
+                %span.datetime at 20:11
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.in
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar1.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Bob Nilson
+                %span.datetime at 20:30
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.in
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar1.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Bob Nilson
+                %span.datetime at 20:30
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.out
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Richard Doe
+                %span.datetime at 20:33
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.in
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Richard Doe
+                %span.datetime at 20:35
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.out
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar1.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Bob Nilson
+                %span.datetime at 20:40
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.in
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Richard Doe
+                %span.datetime at 20:40
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+            %li.out
+              %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar1.jpg"}/
+              .message
+                %span.arrow
+                %a.name{:href => "javascript:;"} Bob Nilson
+                %span.datetime at 20:54
+                %span.body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. sed diam nonummy nibh euismod tincidunt ut laoreet.
+        .chat-form
+          .input-cont
+            %input.form-control{:placeholder => "Type a message here...", :type => "text"}/
+          .btn-cont
+            %span.arrow
+            %a.btn.blue.icn-only{:href => ""}
+              %i.fa.fa-check.icon-white

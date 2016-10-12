@@ -1,0 +1,34 @@
+- $keyword = ((defined? keyword) ? keyword : @page_id)
+
+- fields = data["" << @module[$keyword] << "-" << $keyword].fields
+
+- $required = ((defined? required) ? required : 'false')
+
+- $btnName = ((defined? btnname) ? btnname: '选择')
+
+- $btnClick = btnclick
+
+- $columnName = inputName($keyword, (fields[fieldName] || 'error'))
+
+- $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
+
+- $maxlength = ((defined? maxlength) ? maxlength : '32')
+
+.form-group
+  %label.control-label
+    #{fieldName} #{@formIdName}
+    - if $required == 'true'
+      %span.required *
+
+  .input-group
+    - if $required == 'true'
+      %input.form-control{:type => "text", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+
+    - if $required == 'false'
+      %input.form-control{:type => "text", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+
+    %span.input-group-btn
+      %button.btn.red{:type => "button", "ng" => {'click' => "#{$btnClick}"}} #{$btnName}
+
+  - if $required == 'true'
+    %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.

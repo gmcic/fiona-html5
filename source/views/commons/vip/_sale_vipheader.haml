@@ -1,0 +1,34 @@
+.well
+  %form.form-horizontal
+    .row
+      .col-md-2
+        .form-control-static
+          %label
+            %input{:type => "radio", :name => "purchaserType-radio", "ng-value" => "1", "ng-model" => "vipportal.purchaserType", "ng-change" => "vipportal.purchaser()" }
+            会员
+          %label
+            %input{:type => "radio", :name => "purchaserType-radio", "ng-value" => "2", "ng-model" => "vipportal.purchaserType", "ng-change" => "vipportal.purchaser()" }
+            散客
+
+      .col-md-7{"ng" => {"show" => "vipportal.purchaserType == 1"}}
+        .form-control{"ng" => {"show" => "!vip.id"}}
+          %label.font-grey-silver 请选择会员...
+
+        .form-control{"ng" => {"show" => "!!vip.id"}}
+          %label.text-muted 会员编号:
+
+          %b {{ vip.gestCode }},
+
+          %label.text-muted 会员姓名:
+          %b {{ vip.gestName }},
+
+          %label.text-muted 会员等级:
+          %b {{ vip.gestStyle.levelName }}
+
+      .col-md-3{"ng" => {"show" => "vipportal.purchaserType == 1"}}
+        .btn-group.btn-group-circle.btn-group-solid
+          %button.btn.green{:type => "button", ng: {'click' => 'vipportal.search()'} }
+            %i.fa.fa-search
+            选择会员
+          %button.btn.red{:type => "button", ng: {'click' => 'vipportal.cancel()'} }
+            %i.fa.fa-remove

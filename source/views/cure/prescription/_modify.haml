@@ -1,0 +1,15 @@
+-#编辑处方类型
+.form-body
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'prescription', :fieldName => '所属类型', :maxlength => '32', :required => 'true'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'prescription', :fieldName => '名称', :maxlength => '32'}
+
+-# 门户组件
+.portlet
+  - portal "商品列表", "prescriptiondetail"
+
+  = partial :'layouts/table/portal' do
+    = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()', :label => "选择药物"}

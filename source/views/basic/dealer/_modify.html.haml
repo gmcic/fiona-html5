@@ -1,0 +1,49 @@
+/ BEGIN SAMPLE FORM PORTLET
+.form-body
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '自动编号', :maxlength => '32', :required => 'true'}
+
+    .col-md-8
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '经销商名称', :maxlength => '32'}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '联系人', :maxlength => '16'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '电话', :maxlength => '16'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '传真', :maxlength => '16'}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '手机', :maxlength => '16'}
+
+    .col-md-8
+      = partial :'layouts/inputs/email', :locals => {:fieldName => '电子信箱', :maxlength => '16'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '地址', :maxlength => '16'}
+
+    .col-md-12
+      = partial :'layouts/inputs/url', :locals => {:fieldName => '网站', :maxlength => '16'}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '类型', :maxlength => '32', :required => "true", :options => "type.id as type.valueNameCn for type in dropdowns.companyTypeSet"}
+
+    .col-md-8
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '税号', :maxlength => '16'}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '开户银行', :maxlength => '16'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '用户名', :maxlength => '16'}
+
+    .col-md-4
+      = partial :'layouts/inputs/number', :locals => {:fieldName => '银行账号', :maxlength => '16'}

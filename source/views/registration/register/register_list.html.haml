@@ -1,0 +1,23 @@
+---
+layout: "page"
+---
+
+- page "挂号查询", "register"
+
+= partial 'layouts/widget/portal' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'registerfastmodal()', :label => '快捷挂号'}
+  = partial :'layouts/buttons/insert', :locals => {:label => '会员挂号', :click => "registerportal.insert()"}
+  = partial :'layouts/buttons/removes'
+
+/ 会员挂号
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'git
+
+/ 快捷挂号
+- modal "快捷挂号", "registerfast"
+
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'registerfast'
+
+/ 弹出选择宠物
+= partial 'views/commons/pet/pet_popup_select'

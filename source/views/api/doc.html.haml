@@ -1,0 +1,185 @@
+---
+layout: "doc"
+---
+
+%body{"ng-controller" => "CasesController"}
+  #operate_msg_box
+  .row
+    .col-md-3
+      / BEGIN Outline
+      .portlet.light.bordered
+        .portlet-title
+          .caption.font-dark
+            %i.fa.fa-sitemap.font-dark
+            %span.caption-subject.bold.uppercase 目录
+          .actions
+            .portlet-input.input-inline
+              .input-icon.right
+                %i.icon-magnifier
+                %input.form-control.input-circle{:id => "filterdata", :name => "filterdata", :type=>"text", :size =>'60' ,:placeholder=>"search...", "ng-model" => "filterdata"}
+
+        .portlet-body
+          %div.list-group{"ng" => {"repeat":"(header, module) in modules "}}
+            %a.list-group-item{"ng" => {"class":"{active: selected == module.id}", "repeat":"module in module | filter:filterdata", "click": "dictmodal(module.id)"}}
+              {{module.id}}
+
+    .col-md-9
+      / BEGIN EXAMPLE TABLE PORTLET
+      .portlet.light.bordered
+        .portlet-title
+          .caption.font-dark
+            %i.fa.fa-beer.font-dark
+            %span.caption-subject.bold.uppercase 字典
+          .actions
+
+        .portlet-body
+
+          / 搜索条
+          / {"code": "自动编号", "name": "经销商名称", "contractMan": "联系人", "mobilePhone": "手机", "dealerAddress": "地址"},
+          .note.note-info
+            {
+            %label{"ng-repeat" => "field in books.searchFields", "ng-hide" => "field.fieldName == '---'"}
+              "{{ books.fields[field.fieldName] }}": "{{field.fieldName}}"
+              %label{ "ng-show" => "$index != (books.searchFields.length-1)" }
+                ,
+            }
+
+          / 列表字段
+          .well
+            %table
+              %tbody
+                %tr
+                  %td{"ng-repeat" => "field in books.listFields"}
+                    %label.label.label-success
+                      {{field.fieldName}}
+
+          %table.table.table-striped.table-bordered.table-advance.table-hover
+            %thead
+              %tr
+                %th{width: '160px'}
+                  %i.fa.fa-adn
+                  Name
+                %th
+                  %i.fa.fa-modx
+                  URI
+            %tbody
+              %tr{"ng-repeat" => "(key, value) in books.fields"}
+                %td {{key}}
+                %td {{value}}
+
+
+  -#.portlet-body{"ng" => {"class":"{active: false}", "repeat":"header in sidebar"}}
+  -#  %div.list-group{"ng" => {"class":"{active: false}", "repeat":"modules in header.menus"}}
+  -#    %a.list-group-item{"ng" => {"class":"{active: false}", "repeat":"module in modules.menus  | filter:filterdata", "click": "dictmodal(module.id)"}}
+  -#      {{module.name}}
+  -#      {{module.uri}}
+
+
+  -#  .div
+  -#    {{books.fields}}
+  -#  %ol
+  -#    %li{"ng-repeat" => "(key, value) in books.fields"}
+  -#      {{value}}
+  -#
+  -#  .portlet-body.portlet-empty
+  -#    .tabbable-line
+  -#      %ul.nav.nav-tabs
+  -#        %li
+  -#          %a{"data-toggle" => "tab", :href => "//#api_links"} 链接
+  -#        %li.active
+  -#          %a{"data-toggle" => "tab", :href => "//#api_filter"} 过滤器
+  -#
+  -#      .tab-content
+  -#        #api_links.tab-pane
+  -#          %table.table.table-striped.table-hover.table-bordered
+  -#            %thead
+  -#              %tr
+  -#                %th Name
+  -#                %th URI
+  -#            %tbody
+  -#              %tr.odd.gradeX{"ng-repeat" => "side in sidebar | filter:filterdata"}
+  -#                %th {{side.name}}
+  -#                %th {{side.uri}}
+  -#                %th
+  -#                  %button.btn.btn-default{"ng-click" => "dictmodal()"} 查看
+  -#
+  -#        #api_filter.tab-pane.active
+  -#          %table.table.table-striped.table-hover.table-bordered
+  -#            %thead
+  -#              %tr
+  -#                %th Name
+  -#                %th URI
+  -#            %tbody
+  -#              %tr.odd.gradeX{"ng-repeat" => "filter in filters | filter:filterdata"}
+  -#                %th{:width => "80px"} {{filter.key}}
+  -#                %th{:width => "80px"} {{filter.prefix}}
+  -#                %td
+  -#                  %p.bg-danger
+  -#                    %span{"ng-repeat" => "field in filter.fields | filter:'isfield'"}
+  -#                      %span{"ng-if" => "$index > 0"} /
+  -#                      %span{"ng-if" => "field.name == 'Error'"}
+  -#                        %span.label.label-danger
+  -#                          {{field.label}}
+  -#
+  -#                      %span{"ng-if" => "field.name != 'Error'"}
+  -#                        {{field.label}}
+  -#
+  -#
+  -#                  %p.bg-info
+  -#                    %span{"ng-repeat" => "field in filter.fields | filter:'isfield'"}
+  -#                      %span{"ng-if" => "$index > 0"},
+  -#                      %span{"ng-if" => "field.name == 'Error'"}
+  -#                        {"
+  -#                        %span.label.label-danger
+  -#                          {{field.name}}
+  -#                        ": "name","operator": "EQ", "value":""}
+  -#
+  -#                      %span{"ng-if" => "field.name != 'Error'"}
+  -#                        {"{{field.name}}": "name","operator": "EQ", "value":""}
+  -#
+  -#-#
+  -#.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1", :id => "dictmodal"}
+  -#  .modal-dialog.modal-lg
+  -#    .modal-content
+  -#      %form{:id => "apiform", :name => "apiform", :novalidate => "", "ng-submit" => "apisubmit()", :role => "form"}
+  -#        .modal-header
+  -#          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
+  -#          %h4.modal-title 数据字典
+  -#
+  -#        .modal-body
+  -#
+  -#          %table.table.table-striped.table-hover.table-bordered
+  -#            %thead
+  -#              %tr
+  -#                %th Name
+  -#                %th URI
+  -#            %tbody
+  -#              %tr.odd.gradeX{"ng-repeat" => "(key, value) in books.fields"}
+  -#                %th {{key}}
+  -#                %th {{value}}
+  -#
+  -#          %hr
+  -#
+  -#          %table.table.table-striped.table-hover.table-bordered
+  -#            %thead
+  -#              %tr
+  -#                %th Name
+  -#                %th URI
+  -#            %tbody
+  -#              %tr.odd.gradeX{"ng-repeat" => "field in books.listFields"}
+  -#                %th {{field.fieldKey}}
+  -#                %th {{field.fieldName}}
+  -#          %hr
+  -#
+  -#          %table.table.table-striped.table-hover.table-bordered
+  -#            %thead
+  -#              %tr
+  -#                %th Name
+  -#                %th URI
+  -#            %tbody
+  -#              %tr.odd.gradeX{"ng-repeat" => "field in books.searchFields"}
+  -#                %th {{field.fieldKey}}
+  -#                %th {{field.fieldName}}
+  -#
+  -#        .modal-footer
+  -#          %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭

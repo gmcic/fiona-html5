@@ -1,0 +1,16 @@
+.form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '数据分类', :maxlength => '32', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '数据分类ID', :maxlength => '64', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '编码', :maxlength => '32', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '名称', :maxlength => '32', :required => 'true'}

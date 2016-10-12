@@ -1,0 +1,136 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 员工姓名
+
+  - fieldName: 员工电话
+
+  - fieldName: 宠物名字
+
+  - fieldName: 宠物年龄
+
+  - fieldName: 预约人
+
+  - fieldName: 预约人手机
+
+  - fieldName: 预约会诊日期
+
+  - fieldName: 登记日期
+
+  - fieldName: 状态
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: 员工电话
+
+  - fieldName: ---
+
+  - fieldName: 预约人
+
+  - fieldName: 预约人手机
+
+  - fieldName: 预约状态
+
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+
+# 短信发送
+
+  会员姓名: name
+
+  会员电话: phone
+
+  信息类型: type
+
+  短信内容: message
+
+# 挂号信息
+
+  挂号类型:
+
+  金额: price
+
+  业务员: bus
+
+  医生: XX
+
+  助理医生: XX
+
+
+# 寄养信息
+
+  寄养号: XX
+
+  开始日期: XX
+
+  结束日期: XX
+
+  预付金额: XX
+
+  预计天数: XX
+
+  主管人员: XX
+
+  寄养类型: XX
+
+  价格: XX
+
+  笼舍编号: XX
+
+  业务员: XX
+
+# 住院登记
+
+  住院号: XX
+
+  开始日期: XX
+
+  结束日期: XX
+
+  预付金额: XX
+
+  预计天数: XX
+
+  主管人员: XX
+
+  住院类型: XX
+
+  价格: XX
+
+  笼舍编号: XX
+
+  业务员: XX
+
+# 预约明细
+
+  员工: XX
+
+  员工手机: XX
+
+  预约人: XX
+
+  预约人电话: XX
+
+  预约会诊日期: XX
+
+  登记日期: XX
+
+  宠物昵称: XX
+
+  宠物年龄: XX
+
+  症状: XX
+
+  期望的帮助: XX
+
+  当前状态: XX
+
+  操作人: XX
+
+
+
+
+
+

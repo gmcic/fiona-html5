@@ -1,0 +1,23 @@
+# 医院信息
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 编号
+
+fields: #可定义多个中文名称指向同一个字段
+  编号: name
+
+  医院名称: name
+
+  联系人: name
+
+  电话: name
+
+  传真: name
+
+  手机: name
+
+  电子信箱: name
+
+  地址: name
+
+  备注: name
+

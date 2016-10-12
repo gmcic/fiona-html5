@@ -1,0 +1,102 @@
+/ BEGIN SAMPLE FORM PORTLET
+.row
+  .col-md-12
+    .portlet
+      .portlet-title
+        .caption
+          %i.fa.fa-user
+          会员信息
+
+      .portlet-body.portlet-empty
+        .form-body
+          .row
+            .col-md-4
+              = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '会员编号', :maxlength => '16'}
+
+            .col-md-4
+              = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '会员姓名', :maxlength => '16'}
+
+            .col-md-4
+              = partial :'layouts/inputs/select', :locals => {:keyword => 'vip', :fieldName => '会员性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.gestSexSet"}
+
+          .row
+            .col-md-4
+              = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '会员电话', :maxlength => '16'}
+
+            .col-md-4
+              = partial :'layouts/inputs/select', :locals => {:keyword => 'vip', :fieldName => '会员等级', :maxlength => '32', :required => "true", :options => "type as type.levelName for type in dropdowns.gestStyleSet"}
+
+            .col-md-4
+              = partial :'layouts/inputs/date', :locals => {:keyword => 'vip', :fieldName => '登记日期', :maxlength => '16'}
+
+.row
+  .col-md-12
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-settings.font-dark
+          %span.caption-subject.font-dark.sbold.uppercase 宠物信息
+
+      .portlet-body.form
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '编号(自动)', :maxlength => '16'}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:keyword => 'pet', :fieldName => '宠物病历号', :maxlength => '16'}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:keyword => 'pet', :fieldName => '宠物昵称', :maxlength => '16'}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:keyword => 'pet', :fieldName => '宠物性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.petSexSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:keyword => 'pet', :fieldName => '宠物年龄', :maxlength => '16'}
+
+          .col-md-4
+            = partial :'layouts/inputs/date', :locals => {:keyword => 'pet', :fieldName => '出生日期', :maxlength => '16'}
+
+        .row
+
+          .col-md-4
+            = partial :'layouts/inputs/selectview', :locals => {:keyword => 'pet', :fieldName => '宠物种类', :options => "type.name for type in dropdowns.raceTypeSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:keyword => 'pet', :fieldName => '绝育状态', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in dropdowns.petBreedSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:keyword => 'pet', :fieldName => '体重', :maxlength => '16'}
+
+.row
+  .col-md-12
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-settings.font-dark
+          %span.caption-subject.font-dark.sbold.uppercase 挂号信息
+
+      .portlet-body.form
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '挂号类型', :options => "type.itemName for type in dropdowns.registerStyleSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '金额', :maxlength => '16'}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '业务员', :maxlength => '16'}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '医生', :options => "type.personName for type in dropdowns.doctorIdSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '助理医生', :options => "type.personName for type in dropdowns.assistantDoctorIdSet"}
+
+
+.form-actions.text-center
+  %button.btn.blue{:type => "submit"} 保存挂号
+  %button.btn.blue{:type => "submit"} 挂号并付款
+  %button.btn.default{:type => "button"} 取消挂号

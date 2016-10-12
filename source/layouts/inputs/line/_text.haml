@@ -1,0 +1,28 @@
+- $keyword = ((defined? keyword) ? keyword : @page_id)
+
+- fields = data["" << @module[$keyword] << "-" << $keyword].fields
+
+- $required = ((defined? required) ? required : 'false')
+
+- $columnName = inputName($keyword, (fields[fieldName] || 'error'))
+
+- $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
+
+- $maxlength = ((defined? maxlength) ? maxlength : '32')
+
+- $cols = ((defined? cols) ? cols : '2 8').split
+
+%label.control-label{:for => "form_control_1", :class => "col-md-#{$cols[0]}"}
+  #{fieldName} #{@formIdName}
+  - if $required == 'true'
+    %span.required *
+
+%div{:class => "col-md-#{$cols[1]}"}
+  - if $required == 'true'
+    %input.form-control{:type => "text", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+
+  - if $required == 'false'
+    %input.form-control{:type => "text", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+
+  - if $required == 'true'
+    %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.

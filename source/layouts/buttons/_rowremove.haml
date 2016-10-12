@@ -1,0 +1,7 @@
+- $click = ((defined? click) ? click: "remove(" +@page_id+ ".id)")
+
+- $label = ((defined? label) ? label: "删除")
+
+%a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", "ng":{"click": "#{$click}"} }
+  %i.fa.fa-close
+  #{$label}

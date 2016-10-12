@@ -1,0 +1,19 @@
+.form-body
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '会员姓名', :maxlength => '16'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '会员电话', :maxlength => '16'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '信息类型', :maxlength => '16'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textarea', :locals => {:keyword => 'vip', :fieldName => '短信内容', :maxlength => '16'}
+
+.form-actions.text-center
+  %button.btn.blue{:type => "submit"} 发送
+  %button.btn.default{:type => "button"} 取消

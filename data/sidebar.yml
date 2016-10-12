@@ -1,0 +1,369 @@
+#- name: Cases
+#  menus:
+#    - name: 案例
+#      prefix: /api
+#      uri: javascript:;
+#      menus:
+#        - name: Index
+#          uri: /index
+#          controller: CasesController
+#          template: /index/index.html
+#
+#        - name: Table
+#          uri: /cases/list
+#          controller: CasesController
+#          template: /showcases/caselist.html
+#
+#        - name: Filter
+#          uri: /cases/filter
+#          controller: CasesController
+#          template: /showcases/casefilter.html
+#
+#        - name: Form
+#          uri: /cases/form
+#          controller: CasesController
+#          template: /showcases/caseform.html
+
+# 业务办理
+- name: 业务办理
+  menus:
+  #Reception - BEGIN
+
+    - name: 诊疗服务
+      icon: fa fa-medkit
+      prefix: /cure
+      uri: javascript:;
+      menus:
+        - name: 就诊管理
+          icon: fa fa-stethoscope
+          controller: CuremanagerController
+          uri: /curemanager/list
+          template: /curemanager/curemanager_list.html
+
+        - name: 疫苗登记
+          icon: fa fa-stethoscope
+          controller: InvaccineController
+          uri: /invaccine/list
+          template: /invaccine/invaccine_list.html
+
+        - name: 处方模板管理
+          icon: fa fa-stethoscope
+          controller: PrescriptionController
+          uri: /prescription/list
+          template: /prescription/prescription_list.html
+
+        - name: 病案管理
+          icon: fa fa-sticky-note
+          controller: MedicalrecordController
+          uri: /medicalrecord/list
+          template: /medicalrecord/list.html
+
+    - name: 化验影像
+      icon: fa fa-flask
+      prefix: /analysed
+      uri: javascript:;
+      menus:
+        - name: 化验检查
+          icon: fa fa-flask
+          controller: AnalysedController
+          uri: /analysed/list
+          template: /analysed/list.html
+
+        - name: 影像检查
+          icon: fa fa-camera-retro
+          controller: FilmController
+          uri: /film/list
+          template: /film/list.html
+
+    - name: 拓瑞检测
+      icon: fa fa-flask
+      prefix: /check
+      uri: javascript:;
+      menus:
+        - name: 检测查询
+          icon: fa fa-flask
+          controller: CheckController
+          uri: /check/list
+          template: /check/check_list.html
+
+        - name: 尿检设备
+          icon: fa fa-balance-scale
+          controller: CheckdeviceController
+          uri: /checkdevice/formset
+          template: /checkdevice/formset.html
+
+# 经营管理
+- name: 经营管理
+  menus:
+    - name: 结算服务
+      icon: fa fa-object-ungroup
+      prefix: /balance
+      uri: javascript:;
+      menus:
+        - name: 收费管理
+          icon: fa fa-th-large
+          uri: /payment/list
+          template: /payment/list.html
+          controller: PaymentController
+
+        - name: 结算单管理
+          icon: fa fa-th-large
+          uri: /statement/list
+          controller: StatementController
+          template: /statement/list.html
+
+# 会员管理
+- name: Finished
+  menus:
+    - name: 会员信息
+      prefix: /guest
+      icon: glyphicon glyphicon-credit-card
+      uri: javascript:;
+      menus:
+        - name: 宠物管理
+          icon: fa fa-paw
+          uri: /pet/list
+          controller: PetController
+          template: /pet/pet_list.html
+
+        - name: 会员管理
+          icon: fa fa-user
+          uri: /vip/list
+          controller: VipController
+          template: /vip/vip_list.html
+
+    - name: 经营管理
+      prefix: /management
+      uri: javascript:;
+      menus:
+        - name: 支出管理
+          icon: fa fa-th-large
+          uri: /expenditure/list
+          controller: ExpenditureController
+          template: /expenditure/expenditure_list.html
+  
+    - name: 销售服务
+      icon: fa fa-tty
+      prefix: /sales
+      uri: javascript:;
+      menus:
+        - name: 直接销售
+          uri: /saleplatedetail
+          icon: fa fa-suitcase
+          controller: SaleplatedetailController
+          template: /saleplatedetail/saleplatedetail_list.html
+
+        - name: 销售查询
+          uri: /saleplate
+          icon: fa fa-suitcase
+          controller: SaleplateController
+          template: /saleplate/saleplate_list.html
+
+    - name: 直达通道
+      icon: fa fa-ambulance
+      prefix: /direct
+      uri: javascript:;
+      menus:
+        - name: 预约管理
+          uri: /bespeak/list
+          icon: fa fa-th-large
+          controller: BespeakController
+          template: /bespeak/bespeak_list.html
+
+        - name: 美容服务
+          uri: /beauty/list
+          icon: fa fa-th-large
+          controller: BeautyController
+          template: /beauty/beauty_list.html
+
+        - name: 寄养管理
+          uri: /fosterage/list
+          icon: fa fa-th-large
+          controller: FosterageController
+          template: /fosterage/fosterage_list.html
+
+        - name: 住院管理
+          uri: /inhospital/list
+          icon: fa fa-hospital-o
+          controller: InhospitalController
+          template: /inhospital/inhospital_list.html
+
+        - name: 销售退货
+          uri: /itback/list
+          icon: fa fa-th-large
+          controller: ItbackController
+          template: /itback/itback_list.html
+
+    - name: 挂号
+      icon: fa fa-file-text
+      prefix: /registration
+      uri: javascript:;
+      menus:
+        - name: 挂号查询
+          icon: fa fa-th-large
+          uri: /register/search
+          controller: RegisterController
+          template: /register/register_list.html
+
+    - name: 仓库管理
+      icon: fa fa-university
+      prefix: /stock
+      uri: javascript:;
+      menus:
+        - name: 库存查询
+          icon: fa fa-th-large
+          controller: StockController
+          uri: /stock/list
+          template: /stock/stock_list.html
+
+        - name: 入库管理
+          controller: InstorageController
+          uri: /instorage/list
+          icon: fa fa-th-large
+          template: /instorage/instorage_list.html
+
+        - name: 出库管理
+          controller: OutstorageController
+          uri: /outstorage/list
+          icon: fa fa-th-large
+          template: /outstorage/outstorage_list.html
+
+        - name: 移库管理
+          controller: MovestorageController
+          uri: /movestorage/list
+          icon: fa fa-th-large
+          template: /movestorage/movestorage_list.html
+
+        - name: 退货管理
+          controller: BackstorageController
+          uri: /backstorage/list
+          icon: fa fa-th-large
+          template: /backstorage/backstorage_list.html
+
+# 基础数据
+    - name: 基础数据
+      prefix: /basic
+      icon: glyphicon glyphicon-hdd
+      uri: javascript:;
+      menus:
+
+        - name: 宠物品种管理
+          icon: fa fa-paw
+          uri: /varietie/list
+          controller: VarietieController
+          template: /varietie/varietie_list.html
+
+        - name: 经销商与生产商
+          icon: glyphicon glyphicon-compressed
+          uri: /dealer/list
+          controller: DealerController
+          template: /dealer/dealer_list.html
+
+        - name: 仓库信息管理
+          icon: fa fa-university
+          uri: /storage/list
+          controller: StorageController
+          template: /storage/storage_list.html
+
+        - name: 商品与服务管理
+          icon: fa fa-shopping-bag
+          uri: /product/list
+          controller: ProductController
+          template: /product/product_list.html
+
+        - name: 会员等级管理
+          icon: fa fa-signal
+          uri: /grade/list
+          controller: GradeController
+          template: /grade/grade_list.html
+
+        - name: 业务类型
+          icon: fa fa-signal
+          uri: /businestype/list
+          controller: BusinestypeController
+          template: /businestype/businestype_list.html
+
+        - name: 员工管理
+          icon: fa fa-user-md
+          uri: /personnel/list
+          controller: PersonnelController
+          template: /personnel/personnel_list.html
+
+        - name: 化验项目管理
+          icon: fa fa-flask
+          uri: /labwork/list
+          controller: LabworkController
+          template: /labwork/labwork_list.html
+
+        - name: 医院信息
+          icon: fa fa-hospital-o
+          uri: /hospital/list
+          controller: HospitalController
+          template: /hospital/list.html
+
+        - name: 角色管理
+          icon: icon-eyeglasses
+          uri: /role/list
+          controller: RoleController
+          template: /role/list.html
+#
+#        - name: 应用参数配置
+#          icon: fa fa-cofs
+#          uri: /setting/list
+#          controller: SettingController
+#          template: /setting/list_cols2.html
+
+        - name: 数据字典管理
+          icon: fa fa-book
+          uri: /dictionary/list
+          controller: DictionaryController
+          template: /dictionary/dictionary_list.html
+
+        - name: 用户数据字典
+          icon: fa fa-book
+          uri: /userdict/list
+          controller: UserdictController
+          template: /userdict/userdict_list.html
+
+#
+#    - name: 护士工作站
+#      uri: javascript:;
+#      menus:
+#        - name: 护士工作站
+#          uri: /
+
+#
+#    - name: 宠物寄养
+#      uri: javascript:;
+#      menus:
+#        - name: 宠物寄养
+#          uri: /
+#
+#
+#    - name: 宠物住院
+#      uri: javascript:;
+#      menus:
+#        - name: 宠物住院
+#          uri: /
+#
+#
+#    - name: 销售服务
+#      uri: javascript:;
+#      menus:
+#        - name: 直接销售
+#          uri: //pet/list.html
+#
+#        - name: 销售查询
+#          uri: //vip/list.html
+#
+#
+#
+#    - name: 美容服务管理
+#      uri: javascript:;
+#      menus:
+#
+#        - name: 美容服务管理
+#          uri: /
+#
+#
+

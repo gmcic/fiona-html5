@@ -1,0 +1,51 @@
+.form-body
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '会员编号', :maxlength => '32', :required => 'true' }
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '会员姓名', :maxlength => '32', :required => 'true' }
+
+    .col-md-3
+      = partial :'layouts/inputs/select', :locals => {:keyword => "vip", :fieldName => '会员性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in vipportal.dropdowns.gestSexSet"}
+
+    .col-md-3
+      = partial :'layouts/inputs/date', :locals => {:keyword => "vip", :fieldName => '出生日期', :maxlength => '32'}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:keyword => "vip", :fieldName => '会员年龄', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '会员电话', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '固定电话', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '联系邮箱', :maxlength => '32'}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:keyword => "vip", :fieldName => '账户金额', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '积分', :maxlength => '32'}
+
+    .col-md-3
+      .form-group
+        = partial :'layouts/inputs/select', :locals => {:keyword => "vip", :fieldName => '会员等级', :maxlength => '32', :required => "true", :options => "type as type.levelName for type in vipportal.dropdowns.gestStyleSet"}
+
+    .col-md-3
+      = partial :'layouts/inputs/select', :locals => {:keyword => "vip", :fieldName => '会员状态', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in vipportal.dropdowns.statusSet"}
+
+  .row
+    .col-md-9
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '联系地址', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/date', :locals => {:keyword => "vip", :fieldName => '登记日期', :maxlength => '32'}
+
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/textarea', :locals => {:keyword => "vip", :fieldName => '备注', :maxlength => '32'}

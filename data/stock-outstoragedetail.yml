@@ -1,0 +1,68 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 单据状态
+
+  - fieldName: 出库单号
+
+  - fieldName: 出库仓库
+
+  - fieldName: 总项
+
+  - fieldName: 总金额
+
+  - fieldName: 操作员
+
+  - fieldName: 制单时间
+
+  - fieldName: 审核时间
+
+  - fieldName: 审核人
+
+searchFields:
+  - fieldName: 商品名称
+
+  - fieldName: ---
+
+  - fieldName: 单号
+  - fieldName: 制单时间
+  - fieldName: 审核时间
+  - fieldName: 审核人
+  - fieldName: 单据状态
+
+
+fields: #可定义多个中文名称指向同一个字段
+  出库编号: outWarehouseCode
+  类型编号: itemCode
+  条码: barCode
+  类型名称: itemName
+  单位: packageUnit
+  规格: itemStandard
+  零散比: itemBulk
+  出厂价格: inputPrice
+  药品形状: drugForm
+  商品服务种类: itemStyle
+  卖价售价: sellPrice
+  个数: inputCount
+  进价: inputCost
+  生产日期: produceDate
+  进货日期: inputDate
+  过期时间: outDateTime
+  保质期天数: safeDay
+  仓库上限: wareUpLimit
+  仓库下限: wareDownLimit
+  备注: remark
+  生产者编号: manufacturerCode
+  生产者名称: manufacturerName
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
+

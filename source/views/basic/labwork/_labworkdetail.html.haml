@@ -1,0 +1,24 @@
+.form-body
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/select', :locals => {:keyword => "labworkdetail", :fieldName => '医疗类型', :maxlength => '32', :required => "true", :options => "type.dictDetailCode as type.valueNameCn for type in dropdowns.petRaceNameSet"}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "labworkdetail", :fieldName => '年龄段', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:keyword => "labworkdetail", :fieldName => '化验项目ID', :maxlength => '32'}
+
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => "labworkdetail", :fieldName => '年龄从', :maxlength => '32'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => "labworkdetail", :fieldName => '年龄到', :maxlength => '32'}
+
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => "labworkdetail", :fieldName => '参考值上限', :maxlength => '32'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => "labworkdetail", :fieldName => '参考值下限', :maxlength => '32'}

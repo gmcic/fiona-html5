@@ -1,0 +1,47 @@
+/ BEGIN LOGO
+.logo
+  %a{:href => "index.html"}
+    %img{:alt => "", :src => "assets/images/logo-big.png"}/
+
+/ BEGIN LOGIN
+.content
+  / BEGIN LOGIN FORM
+  %form.login-form{:name => "signup_form", :novalidate => "", "ng-submit" => "signupForm()", "ng-controller" => "SignupController"}
+
+    %h3.form-title.font-green 登录
+    .alert.alert-danger{"ng-show" => "(signup_form.username.$invalid || signup_form.password.$invalid) && signup_form.submitted"}
+      %button.close{"data-close" => "alert"}
+      %span {{ message }}
+
+    .form-group
+      / ie8, ie9 does not support html5 placeholder, so we just show field title for that
+      %label.control-label.visible-ie8.visible-ie9 用户名
+      %input.form-control.form-control-solid.placeholder-no-fix{:autocomplete => "off", :name => "username", :placeholder => "输入用户名", :type => "text", :required => "required", "ng-model" => "signup.username"}/
+
+    .form-group
+      %label.control-label.visible-ie8.visible-ie9 密码
+      %input.form-control.form-control-solid.placeholder-no-fix{:autocomplete => "off", :name => "password", :placeholder => "输入密码", :type => "password", :required => "required", "ng-model" => "signup.password"}/
+
+    .form-actions
+      %button.btn.green.uppercase{:type => "submit"} 登录
+      %label.rememberme.check.mt-checkbox.mt-checkbox-outline
+        %input{:name => "remember", :type => "checkbox", :value => "1"}>/
+        Remember
+        %span
+      %a#forget-password.forget-password{:href => "javascript:;"} 忘记密码?
+
+    .create-account
+      %p
+
+  / BEGIN FORGOT PASSWORD FORM
+  %form.forget-form{:action => "index.html", :method => "post"}
+    %h3.font-green 忘记密码 ?
+    %p 输入您的 e-mail 地址用于重置登录密码.
+    .form-group
+      %input.form-control.placeholder-no-fix{:autocomplete => "off", :name => "email", :placeholder => "Email", :type => "text"}/
+    .form-actions
+      %button#back-btn.btn.green.btn-outline{:type => "button"} 返回
+      %button.btn.btn-success.uppercase.pull-right{:type => "submit"} 提交
+
+.copyright 2014 © Metronic. Admin Dashboard Template.
+

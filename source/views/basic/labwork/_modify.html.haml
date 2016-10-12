@@ -1,0 +1,24 @@
+
+.form-body
+  -#.row
+  -#  .col-md-12
+  -#    = partial :'layouts/inputs/text', :locals => {:fieldName => '化验项目ID', :maxlength => '64', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '参数', :maxlength => '32', :required => 'true'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '化验单位', :maxlength => '32', :required => "true", :options => "type.id as type.valueNameCn for type in dropdowns.cheTestUnitSet"}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '指标类型', :maxlength => '32', :required => "true", :options => "type.id as type.valueNameCn for type in dropdowns.indexTypeSet"}
+
+/ Portal
+- portal "参考值设置", "labworkdetail"
+
+= partial :'layouts/table/portal' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'labworkdetailportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'labworkdetailportal.removes()', 'disabled': 'labworkdetailportal.isRemoves'}

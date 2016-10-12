@@ -1,0 +1,677 @@
+
+/ BEGIN THEME PANEL
+.theme-panel.hidden-xs.hidden-sm
+  .toggler
+  .toggler-close
+  .theme-options
+    .theme-option.theme-colors.clearfix
+      %span THEME COLOR
+      %ul
+        %li.color-default.current.tooltips{"data-container" => "body", "data-original-title" => "Default", "data-style" => "default"}
+        %li.color-darkblue.tooltips{"data-container" => "body", "data-original-title" => "Dark Blue", "data-style" => "darkblue"}
+        %li.color-blue.tooltips{"data-container" => "body", "data-original-title" => "Blue", "data-style" => "blue"}
+        %li.color-grey.tooltips{"data-container" => "body", "data-original-title" => "Grey", "data-style" => "grey"}
+        %li.color-light.tooltips{"data-container" => "body", "data-original-title" => "Light", "data-style" => "light"}
+        %li.color-light2.tooltips{"data-container" => "body", "data-html" => "true", "data-original-title" => "Light 2", "data-style" => "light2"}
+    .theme-option
+      %span Theme Style
+      %select.layout-style-option.form-control.input-sm
+        %option{:selected => "selected", :value => "square"} Square corners
+        %option{:value => "rounded"} Rounded corners
+    .theme-option
+      %span Layout
+      %select.layout-option.form-control.input-sm
+        %option{:selected => "selected", :value => "fluid"} Fluid
+        %option{:value => "boxed"} Boxed
+    .theme-option
+      %span Header
+      %select.page-header-option.form-control.input-sm
+        %option{:selected => "selected", :value => "fixed"} Fixed
+        %option{:value => "default"} Default
+    .theme-option
+      %span Top Menu Dropdown
+      %select.page-header-top-dropdown-style-option.form-control.input-sm
+        %option{:selected => "selected", :value => "light"} Light
+        %option{:value => "dark"} Dark
+    .theme-option
+      %span Sidebar Mode
+      %select.sidebar-option.form-control.input-sm
+        %option{:value => "fixed"} Fixed
+        %option{:selected => "selected", :value => "default"} Default
+    .theme-option
+      %span Sidebar Menu
+      %select.sidebar-menu-option.form-control.input-sm
+        %option{:selected => "selected", :value => "accordion"} Accordion
+        %option{:value => "hover"} Hover
+    .theme-option
+      %span Sidebar Style
+      %select.sidebar-style-option.form-control.input-sm
+        %option{:selected => "selected", :value => "default"} Default
+        %option{:value => "light"} Light
+    .theme-option
+      %span Sidebar Position
+      %select.sidebar-pos-option.form-control.input-sm
+        %option{:selected => "selected", :value => "left"} Left
+        %option{:value => "right"} Right
+    .theme-option
+      %span Footer
+      %select.page-footer-option.form-control.input-sm
+        %option{:value => "fixed"} Fixed
+        %option{:selected => "selected", :value => "default"} Default
+/ END THEME PANEL
+/ BEGIN PAGE BAR
+.page-bar
+  %ul.page-breadcrumb
+    %li
+      %a{:href => "index.html"} Home
+      %i.fa.fa-circle
+    %li
+      %span Tables
+  .page-toolbar
+    .btn-group.pull-right
+      %button.btn.green.btn-sm.btn-outline.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+        Actions
+        %i.fa.fa-angle-down
+      %ul.dropdown-menu.pull-right{:role => "menu"}
+        %li
+          %a{:href => "#"}
+            %i.icon-bell
+            Action
+        %li
+          %a{:href => "#"}
+            %i.icon-shield
+            Another action
+        %li
+          %a{:href => "#"}
+            %i.icon-user
+            Something else here
+        %li.divider
+        %li
+          %a{:href => "#"}
+            %i.icon-bag
+            Separated link
+/ END PAGE BAR
+/ BEGIN PAGE TITLE
+%h3.page-title
+  Basic Datatables
+  %small basic datatable samples
+/ END PAGE TITLE
+/ END PAGE HEADER
+.row
+  .col-md-6
+    / BEGIN SAMPLE TABLE PORTLET
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-social-dribbble.font-green
+          %span.caption-subject.font-green.bold.uppercase Simple Table
+        .actions
+          %a.btn.btn-circle.btn-icon-only.btn-default{:href => "javascript:;"}
+            %i.icon-cloud-upload
+          %a.btn.btn-circle.btn-icon-only.btn-default{:href => "javascript:;"}
+            %i.icon-wrench
+          %a.btn.btn-circle.btn-icon-only.btn-default{:href => "javascript:;"}
+            %i.icon-trash
+      .portlet-body
+        .table-scrollable
+          %table.table.table-hover
+            %thead
+              %tr
+                %th #
+                %th First Name
+                %th Last Name
+                %th Username
+                %th Status
+            %tbody
+              %tr
+                %td 1
+                %td Mark
+                %td Otto
+                %td makr124
+                %td
+                  %span.label.label-sm.label-success Approved
+              %tr
+                %td 2
+                %td Jacob
+                %td Nilson
+                %td jac123
+                %td
+                  %span.label.label-sm.label-info Pending
+              %tr
+                %td 3
+                %td Larry
+                %td Cooper
+                %td lar
+                %td
+                  %span.label.label-sm.label-warning Suspended
+              %tr
+                %td 4
+                %td Sandy
+                %td Lim
+                %td sanlim
+                %td
+                  %span.label.label-sm.label-danger Blocked
+  / END SAMPLE TABLE PORTLET
+  .col-md-6
+    / BEGIN BORDERED TABLE PORTLET
+    .portlet.light.portlet-fit.bordered
+      .portlet-title
+        .caption
+          %i.icon-bubble.font-dark
+          %span.caption-subject.font-dark.bold.uppercase Bordered Table
+        .actions
+          .btn-group
+            %a.btn.dark.btn-outline.btn-circle.btn-sm{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+              Actions
+              %i.fa.fa-angle-down
+            %ul.dropdown-menu.pull-right
+              %li
+                %a{:href => "javascript:;"} Option 1
+              %li.divider
+              %li
+                %a{:href => "javascript:;"} Option 2
+              %li
+                %a{:href => "javascript:;"} Option 3
+              %li
+                %a{:href => "javascript:;"} Option 4
+      .portlet-body
+        .table-scrollable
+          %table.table.table-bordered.table-hover
+            %thead
+              %tr
+                %th #
+                %th First Name
+                %th Last Name
+                %th Username
+                %th Status
+            %tbody
+              %tr
+                %td{:rowspan => "2"} 1
+                %td Mark
+                %td Otto
+                %td makr124
+                %td
+                  %span.label.label-sm.label-success Approved
+              %tr
+                %td Jacob
+                %td Nilson
+                %td jac123
+                %td
+                  %span.label.label-sm.label-info Pending
+              %tr
+                %td 2
+                %td Larry
+                %td Cooper
+                %td lar
+                %td
+                  %span.label.label-sm.label-warning Suspended
+              %tr
+                %td 3
+                %td Sandy
+                %td Lim
+                %td sanlim
+                %td
+                  %span.label.label-sm.label-danger Blocked
+/ END BORDERED TABLE PORTLET
+.row
+  .col-md-6
+    / BEGIN SAMPLE TABLE PORTLET
+    .portlet.box.green
+      .portlet-title
+        .caption
+          %i.fa.fa-comments>
+          Striped Table
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#portlet-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .portlet-body
+        .table-scrollable
+          %table.table.table-striped.table-hover
+            %thead
+              %tr
+                %th #
+                %th First Name
+                %th Last Name
+                %th Username
+                %th Status
+            %tbody
+              %tr
+                %td 1
+                %td Mark
+                %td Otto
+                %td makr124
+                %td
+                  %span.label.label-sm.label-success Approved
+              %tr
+                %td 2
+                %td Jacob
+                %td Nilson
+                %td jac123
+                %td
+                  %span.label.label-sm.label-info Pending
+              %tr
+                %td 3
+                %td Larry
+                %td Cooper
+                %td lar
+                %td
+                  %span.label.label-sm.label-warning Suspended
+              %tr
+                %td 4
+                %td Sandy
+                %td Lim
+                %td sanlim
+                %td
+                  %span.label.label-sm.label-danger Blocked
+  / END SAMPLE TABLE PORTLET
+  .col-md-6
+    / BEGIN CONDENSED TABLE PORTLET
+    .portlet.box.red
+      .portlet-title
+        .caption
+          %i.fa.fa-picture>
+          Condensed Table
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#portlet-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .portlet-body
+        .table-scrollable
+          %table.table.table-condensed.table-hover
+            %thead
+              %tr
+                %th #
+                %th First Name
+                %th Last Name
+                %th Username
+                %th Status
+            %tbody
+              %tr
+                %td 1
+                %td Mark
+                %td Otto
+                %td makr124
+                %td
+                  %span.label.label-sm.label-success Approved
+              %tr
+                %td 2
+                %td Jacob
+                %td Nilson
+                %td jac123
+                %td
+                  %span.label.label-sm.label-info Pending
+              %tr
+                %td 3
+                %td Larry
+                %td Cooper
+                %td lar
+                %td
+                  %span.label.label-sm.label-warning Suspended
+              %tr
+                %td 4
+                %td Sandy
+                %td Lim
+                %td sanlim
+                %td
+                  %span.label.label-sm.label-danger Blocked
+              %tr
+                %td 5
+                %td Sandy
+                %td Lim
+                %td sanlim
+                %td
+                  %span.label.label-sm.label-danger Blocked
+/ END CONDENSED TABLE PORTLET
+.row
+  .col-md-6
+    / BEGIN SAMPLE TABLE PORTLET
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-settings.font-red
+          %span.caption-subject.font-red.sbold.uppercase Light Table 1
+        .actions
+          .btn-group.btn-group-devided{"data-toggle" => "buttons"}
+            %label.btn.btn-transparent.red.btn-outline.btn-circle.btn-sm.active
+              %input#option1.toggle{:name => "options", :type => "radio"}>/
+              Actions
+            %label.btn.btn-transparent.red.btn-outline.btn-circle.btn-sm
+              %input#option2.toggle{:name => "options", :type => "radio"}>/
+              Settings
+      .portlet-body
+        .table-scrollable
+          %table.table.table-hover.table-light
+            %thead
+              %tr
+                %th #
+                %th First Name
+                %th Last Name
+                %th Username
+                %th Status
+            %tbody
+              %tr
+                %td 1
+                %td Mark
+                %td Otto
+                %td makr124
+                %td
+                  %span.label.label-sm.label-success Approved
+              %tr
+                %td 2
+                %td Jacob
+                %td Nilson
+                %td jac123
+                %td
+                  %span.label.label-sm.label-info Pending
+              %tr
+                %td 3
+                %td Larry
+                %td Cooper
+                %td lar
+                %td
+                  %span.label.label-sm.label-warning Suspended
+              %tr
+                %td 4
+                %td Sandy
+                %td Lim
+                %td sanlim
+                %td
+                  %span.label.label-sm.label-danger Blocked
+  / END SAMPLE TABLE PORTLET
+  .col-md-6
+    / BEGIN BORDERED TABLE PORTLET
+    .portlet.light.portlet-fit.bordered
+      .portlet-title
+        .caption
+          %i.icon-settings.font-red
+          %span.caption-subject.font-red.sbold.uppercase Light Table 2
+        .actions
+          .btn-group.btn-group-devided{"data-toggle" => "buttons"}
+            %label.btn.grey-salsa.btn-sm.active
+              %input#option1.toggle{:name => "options", :type => "radio"}>/
+              Actions
+            %label.btn.grey-salsa.btn-sm
+              %input#option2.toggle{:name => "options", :type => "radio"}>/
+              Settings
+      .portlet-body
+        .table-scrollable.table-scrollable-borderless
+          %table.table.table-hover.table-light
+            %thead
+              %tr.uppercase
+                %th #
+                %th First Name
+                %th Last Name
+                %th Username
+                %th Status
+            %tbody
+              %tr
+                %td 1
+                %td Mark
+                %td Otto
+                %td makr124
+                %td
+                  %span.label.label-sm.label-success Approved
+              %tr
+                %td 2
+                %td Jacob
+                %td Nilson
+                %td jac123
+                %td
+                  %span.label.label-sm.label-info Pending
+              %tr
+                %td 3
+                %td Larry
+                %td Cooper
+                %td lar
+                %td
+                  %span.label.label-sm.label-warning Suspended
+              %tr
+                %td 4
+                %td Sandy
+                %td Lim
+                %td sanlim
+                %td
+                  %span.label.label-sm.label-danger Blocked
+/ END BORDERED TABLE PORTLET
+.row
+  .col-md-6
+    / BEGIN SAMPLE TABLE PORTLET
+    .portlet.box.blue
+      .portlet-title
+        .caption
+          %i.fa.fa-comments>
+          Contextual Rows
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#portlet-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .portlet-body
+        .table-scrollable
+          %table.table.table-bordered.table-hover
+            %thead
+              %tr
+                %th #
+                %th Class Name
+                %th Column
+                %th Column
+                %th Column
+            %tbody
+              %tr.active
+                %td 1
+                %td active
+                %td Column heading
+                %td Column heading
+                %td Column heading
+              %tr.success
+                %td 2
+                %td success
+                %td Column heading
+                %td Column heading
+                %td Column heading
+              %tr.warning
+                %td 3
+                %td warning
+                %td Column heading
+                %td Column heading
+                %td Column heading
+              %tr.danger
+                %td 4
+                %td danger
+                %td Column heading
+                %td Column heading
+                %td Column heading
+  / END SAMPLE TABLE PORTLET
+  .col-md-6
+    / BEGIN SAMPLE TABLE PORTLET
+    .portlet.box.yellow
+      .portlet-title
+        .caption
+          %i.fa.fa-comments>
+          Contextual Columns
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#portlet-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .portlet-body
+        .table-scrollable
+          %table.table.table-bordered.table-hover
+            %thead
+              %tr
+                %th #
+                %th Column
+                %th Column
+                %th Column
+                %th Column
+            %tbody
+              %tr
+                %td 1
+                %td.active active
+                %td.success success
+                %td.warning warning
+                %td.danger danger
+              %tr
+                %td 2
+                %td.active active
+                %td.success success
+                %td.warning warning
+                %td.danger danger
+              %tr
+                %td 3
+                %td.active active
+                %td.success success
+                %td.warning warning
+                %td.danger danger
+              %tr
+                %td 4
+                %td.active active
+                %td.success success
+                %td.warning warning
+                %td.danger danger
+/ END SAMPLE TABLE PORTLET
+.row
+  .col-md-6
+    / BEGIN SAMPLE TABLE PORTLET
+    .portlet
+      .portlet-title
+        .caption
+          %i.fa.fa-bell-o>
+          Advance Table
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#portlet-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .portlet-body
+        .table-scrollable
+          %table.table.table-striped.table-bordered.table-advance.table-hover
+            %thead
+              %tr
+                %th
+                  %i.fa.fa-briefcase
+                  Company
+                %th.hidden-xs
+                  %i.fa.fa-user
+                  Contact
+                %th
+                  %i.fa.fa-shopping-cart
+                  Total
+                %th
+            %tbody
+              %tr
+                %td.highlight
+                  .success
+                  %a{:href => "javascript:;"} RedBull
+                %td.hidden-xs Mike Nilson
+                %td 2560.60$
+                %td
+                  %a.btn.btn-outline.btn-circle.btn-sm.purple{:href => "javascript:;"}
+                    %i.fa.fa-edit
+                    Edit
+              %tr
+                %td.highlight
+                  .info
+                  %a{:href => "javascript:;"} Google
+                %td.hidden-xs Adam Larson
+                %td 560.60$
+                %td
+                  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;"}
+                    %i.fa.fa-trash-o
+                    Delete
+              %tr
+                %td.highlight
+                  .success
+                  %a{:href => "javascript:;"} Apple
+                %td.hidden-xs Daniel Kim
+                %td 3460.60$
+                %td
+                  %a.btn.btn-outline.btn-circle.green.btn-sm.purple{:href => "javascript:;"}
+                    %i.fa.fa-edit
+                    Edit
+              %tr
+                %td.highlight
+                  .warning
+                  %a{:href => "javascript:;"} Microsoft
+                %td.hidden-xs Nick
+                %td 2560.60$
+                %td
+                  %a.btn.btn-outline.btn-circle.red.btn-sm.blue{:href => "javascript:;"}
+                    %i.fa.fa-share
+                    Share
+  / END SAMPLE TABLE PORTLET
+  .col-md-6
+    / BEGIN SAMPLE TABLE PORTLET
+    .portlet
+      .portlet-title
+        .caption
+          %i.fa.fa-shopping-cart>
+          Advance Table
+        .tools
+          %a.collapse{:href => "javascript:;"}
+          %a.config{"data-toggle" => "modal", :href => "#portlet-config"}
+          %a.reload{:href => "javascript:;"}
+          %a.remove{:href => "javascript:;"}
+      .portlet-body
+        .table-scrollable
+          %table.table.table-striped.table-bordered.table-advance.table-hover
+            %thead
+              %tr
+                %th
+                  %i.fa.fa-briefcase
+                  From
+                %th.hidden-xs
+                  %i.fa.fa-question
+                  Descrition
+                %th
+                  %i.fa.fa-bookmark
+                  Total
+                %th
+            %tbody
+              %tr
+                %td
+                  %a{:href => "javascript:;"} Pixel Ltd
+                %td.hidden-xs Server hardware purchase
+                %td
+                  52560.10$
+                  %span.label.label-sm.label-success.label-mini Paid
+                %td
+                  %a.btn.dark.btn-sm.btn-outline.sbold.uppercase{:href => "javascript:;"}
+                    %i.fa.fa-share
+                    View
+              %tr
+                %td
+                  %a{:href => "javascript:;"} Smart House
+                %td.hidden-xs Office furniture purchase
+                %td
+                  5760.00$
+                  %span.label.label-sm.label-warning.label-mini Pending
+                %td
+                  %a.btn.dark.btn-sm.btn-outline.sbold.uppercase{:href => "javascript:;"}
+                    %i.fa.fa-share
+                    View
+              %tr
+                %td
+                  %a{:href => "javascript:;"} FoodMaster Ltd
+                %td.hidden-xs Company Anual Dinner Catering
+                %td
+                  12400.00$
+                  %span.label.label-sm.label-success.label-mini Paid
+                %td
+                  %a.btn.dark.btn-sm.btn-outline.sbold.uppercase{:href => "javascript:;"}
+                    %i.fa.fa-share
+                    View
+              %tr
+                %td
+                  %a{:href => "javascript:;"} WaterPure Ltd
+                %td.hidden-xs Payment for Jan 2013
+                %td
+                  610.50$
+                  %span.label.label-sm.label-danger.label-mini Overdue
+                %td
+                  %a.btn.dark.btn-sm.btn-outline.sbold.uppercase{:href => "javascript:;"}
+                    %i.fa.fa-share
+                    View

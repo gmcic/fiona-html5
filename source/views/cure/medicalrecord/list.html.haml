@@ -1,0 +1,18 @@
+- page '病案管理', 'medicalrecord'
+
+- content_for :toolbar do
+  %button.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", 'ng': {'click':'update()'}}
+    %i.fa.fa-print
+    打印
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+= partial :'layouts/partials/modal-lg' do
+  = partial 'modify'

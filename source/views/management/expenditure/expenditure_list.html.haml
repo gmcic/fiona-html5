@@ -1,0 +1,39 @@
+---
+layout: "cols2_listgroup"
+---
+- page '支出管理', 'expenditure'
+
+-# Side
+
+- content_for :outline_toolbar do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'expendituretypeportal.insert()'}
+  = partial :'layouts/buttons/remove', :locals => {:click => 'expendituretypeportal.remove()'}
+
+
+= partial 'views/commons/tree/panel_side', :locals => {:name => "支出类型", :id=> 'expendituretype', :fieldName => "cateName"}
+
+-# Table
+
+- content_for :toolbar do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'expenditureportal.insert()'}
+  = partial :'layouts/buttons/remove', :locals => {:click => 'expenditureportal.remove()'}
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+/ 编辑
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'
+
+/ 服务商品分类
+- modal "支出分类", "expendituretype"
+
+= partial :'layouts/partials/_modal-portal-lg' do
+  = partial 'expendituretype'
+

@@ -1,0 +1,50 @@
+---
+layout: "formset"
+---
+
+- page '医院信息', 'hospital'
+
+- @prefix = "basic/"
+
+- @dataset = data["" << (@prefix.delete "/") << "-" << @page_id];
+
+- fields = @dataset.fields
+
+- listFields = @dataset.listFields
+
+- @modal_id = @modal_id || @page_id
+
+- @modal_name = @modal_name || @page_title
+
+.form-body
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '编号', :maxlength => '32', :required => 'true'}
+
+    .col-md-8
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '医院名称', :maxlength => '32'}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '联系人', :maxlength => '32', :required => 'true'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '电话', :maxlength => '32'}
+
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '传真', :maxlength => '32'}
+
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '手机', :maxlength => '32', :required => 'true'}
+
+    .col-md-8
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '电子信箱', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '地址', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textarea', :locals => {:fieldName => '备注', :maxlength => '32'}

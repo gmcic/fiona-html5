@@ -1,0 +1,31 @@
+# 数据字典管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+fields: #可定义多个中文名称指向同一个字段
+  数据分类ID: dictTypeId
+
+  数据分类: $dictionarytypeportal.selected.dictName
+
+#  详情CODE: dictDetailCode
+  名称: valueNameCn
+
+  英文: valueNameEn
+
+  编码: dictDetailCode
+
+  排序: sort
+
+  注释: comments
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate

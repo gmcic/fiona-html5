@@ -1,0 +1,39 @@
+- page "销售退货", "itback"
+
+- content_for :toolbar do
+  = partial :'layouts/buttons/insert'
+  = partial :'layouts/buttons/removes'
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+-#- content_for :ttoolbar do
+-#  %a.btn.btn-outline.btn-circle.btn-sm.purple{'ng-click' => 'update(pet.id)'}
+-#    %i.fa.fa-edit
+-#    更新
+-#  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'remove(pet.id)'}}
+-#    %i.fa.fa-trash-o
+-#    Delete
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+/ 编辑
+= partial :'layouts/partials/modal-lg' do
+  = partial 'modify'
+
+/ 选择会员
+- portal "选择会员", "vip"
+
+= partial :'views/commons/vip/portal_vip' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+
+/ 添加服务项目
+- modal "添加服务项目", "product"
+
+= partial :'layouts/partials/modal-portal-full' do
+  = partial 'views/commons/product/popup_select'

@@ -1,0 +1,13 @@
+- $click = ((defined? click) ? click: "insert()")
+
+- $label = ((defined? label) ? label: "增加")
+
+- if !(defined? disabled)
+  %button.btn.btn-circle.btn-primary.btn-sm{:type => "button", 'ng': {'click':"#{$click}"}}
+    %i.fa.fa-plus
+    #{$label}
+
+- if defined? disabled
+  %button.btn.btn-circle.btn-primary.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}"}}
+    %i.fa.fa-plus
+    #{$label}

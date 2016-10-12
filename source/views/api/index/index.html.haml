@@ -1,0 +1,70 @@
+- page '索引', 'index'
+!!!5
+%html
+  %body
+    .alert
+      根据模块ID取目录: #{data.module.setting}
+
+    .portlet
+      .portlet-title
+        .caption
+        .actions
+          .portlet-input.input-inline
+            .input-icon.right
+              %i.icon-magnifier
+              %input.form-control.input-circle{:id => "filterdata", :name => "filterdata", :type=>"text", :size =>'60' ,:placeholder=>"search...", "ng-model" => "filterdata"}
+
+      .portlet-body.portlet-empty
+        .tabbable-line
+          %ul.nav.nav-tabs
+            %li
+              %a{"data-toggle" => "tab", :href => "//#api_links"} 链接
+            %li.active
+              %a{"data-toggle" => "tab", :href => "//#api_filter"} 过滤器
+
+          .tab-content
+            #api_links.tab-pane
+              %table.table.table-striped.table-hover.table-bordered
+                %thead
+                  %tr
+                    %th Name
+                    %th URI
+                %tbody
+                  %tr.odd.gradeX{"ng-repeat" => "side in sidebar | filter:filterdata"}
+                    %th {{side.name}}
+                    %th {{side.uri}}
+
+            #api_filter.tab-pane.active
+              %table.table.table-striped.table-hover.table-bordered
+                %thead
+                  %tr
+                    %th Name
+                    %th URI
+                %tbody
+                  %tr.odd.gradeX{"ng-repeat" => "filter in filters | filter:filterdata"}
+                    %th{:width => "80px"} {{filter.key}}
+                    %th{:width => "80px"} {{filter.prefix}}
+                    %td
+                      %p.bg-danger
+                        %span{"ng-repeat" => "field in filter.fields | filter:'isfield'"}
+                          %span{"ng-if" => "$index > 0"} /
+                          %span{"ng-if" => "field.name == 'Error'"}
+                            %span.label.label-danger
+                              {{field.label}}
+
+                          %span{"ng-if" => "field.name != 'Error'"}
+                            {{field.label}}
+
+
+                      %p.bg-info
+                        %span{"ng-repeat" => "field in filter.fields | filter:'isfield'"}
+                          %span{"ng-if" => "$index > 0"},
+                          %span{"ng-if" => "field.name == 'Error'"}
+                            {"
+                            %span.label.label-danger
+                              {{field.name}}
+                            ": "name","operator": "EQ", "value":""}
+
+                          %span{"ng-if" => "field.name != 'Error'"}
+                            {"{{field.name}}": "name","operator": "EQ", "value":""}
+

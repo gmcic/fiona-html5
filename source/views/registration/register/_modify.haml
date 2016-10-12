@@ -1,0 +1,38 @@
+-#会员挂号
+.row
+  .col-md-6
+    = partial :'views/commons/pet/portal_pet_view'
+
+  .col-md-6
+    .portlet.light.bordered
+      .portlet-title
+        .caption
+          %i.icon-settings.font-dark
+          %span.caption-subject.font-dark.sbold.uppercase 挂号信息
+
+      .portlet-body.form
+        .form-body
+          .row
+            .col-md-12
+              = partial :'layouts/inputs/select', :locals => {:fieldName => '挂号类型', :options => "type.itemName for type in dropdowns.registerStyleSet"}
+
+          .row
+            .col-md-12
+              = partial :'layouts/inputs/text', :locals => {:fieldName => '金额', :maxlength => '16'}
+
+          .row
+            .col-md-12
+              = partial :'layouts/inputs/text', :locals => {:fieldName => '业务员', :maxlength => '16'}
+
+          .row
+            .col-md-12
+              = partial :'layouts/inputs/select', :locals => {:fieldName => '医生', :options => "type.personName for type in dropdowns.doctorIdSet"}
+
+          .row
+            .col-md-12
+              = partial :'layouts/inputs/select', :locals => {:fieldName => '助理医生', :options => "type.personName for type in dropdowns.assistantDoctorIdSet"}
+
+      .form-actions.text-center
+        %button.btn.blue{:type => "submit"} 保存挂号
+        %button.btn.blue{:type => "submit"} 挂号并付款
+        %button.btn.default{:type => "button"} 取消挂号

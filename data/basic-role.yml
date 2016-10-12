@@ -1,0 +1,12 @@
+# 角色管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 角色名称
+
+  - fieldName: 角色描述
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  角色名称: id
+
+  角色描述: id

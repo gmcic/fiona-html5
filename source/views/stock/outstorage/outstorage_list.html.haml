@@ -1,0 +1,16 @@
+---
+layout: "page"
+---
+
+- page '出库管理', 'outstorage'
+
+= partial 'layouts/widget/portal'
+
+/  编辑页面
+= partial :'layouts/partials/modal-portal-full' do
+  = partial 'modify'
+
+/ 选择商品
+- modal "选择商品", "product"
+= partial :'layouts/partials/modal-portal-full' do
+  = partial 'layouts/widget/service_product_select'

@@ -1,0 +1,72 @@
+- page '预约管理', 'bespeak'
+
+- content_for :toolbar do
+  %button.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", 'ng': {'click':'update(bespeak.id)'}}
+    %i.fa.fa-plus
+    增加
+  %button.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;", 'ng': {'click':'removes()', 'disabled': 'isRemoves'} }
+    %i.fa.fa-remove
+    删除
+
+- content_for :ttoolbar do
+  %a.btn.btn-outline.btn-circle.btn-sm.purple{:href => "javascript:;", 'ng': {'click' => 'confirm(bespeak.id)'}}
+    %i.fa.fa-edit
+    确认
+  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'cancel(bespeak.id)'}}
+    %i.fa.fa-trash-o
+    取消
+  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'resend(bespeak.id)'}}
+    %i.fa.fa-trash-o
+    重发短信
+  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'registervipmodal(bespeak.id)'}}
+    %i.fa.fa-trash-o
+    挂号
+  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'fosteragemodal(bespeak.id)'}}
+    %i.fa.fa-trash-o
+    寄养
+  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'inhospitalmodal(bespeak.id)'}}
+    %i.fa.fa-trash-o
+    住院
+  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'update(bespeak.id)'}}
+    %i.fa.fa-trash-o
+    查看
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+= partial :'layouts/partials/modal' do
+  = partial 'modify'
+
+/ Modal
+- modal "重发短信", "resend"
+
+= partial :'layouts/partials/modal' do
+  = partial 'resend'
+
+- modal "预约明细", "detail"
+
+= partial :'layouts/partials/modal' do
+  = partial 'detail'
+
+
+- modal "住院登记", "inhospital"
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'inhospital'
+
+
+- modal "寄养登记", "fosterage"
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'fosterage'
+
+- modal "会员挂号", "registervip"
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'registervip'

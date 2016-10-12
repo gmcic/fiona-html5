@@ -1,0 +1,27 @@
+-#侧边栏选择仓库
+- content_for :outline_title do
+  费用类别
+
+- content_for :outline_toolbar do
+  %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng":{ "click" => "costtype()"}}
+    %i.fa.fa-plus
+    增加
+
+  %a.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;"}
+    %i.fa.fa-remove
+    删除
+
+- content_for :outline_body do
+  %div.list-group
+    %a.list-group-item{:href => 'javascript:;'}
+      办公
+      %span.badge.badge-default 3
+    %a.list-group-item{:href => 'javascript:;'}
+      工资及保险
+      %span.badge.badge-success 11
+    %a.list-group-item{:href => 'javascript:;'}
+      固定资产
+      %span.badge.badge-danger new
+    %a.list-group-item{:href => 'javascript:;'}
+      广告
+      %span.badge.badge-warning 4

@@ -1,0 +1,66 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 规格
+
+  - fieldName: 生产商
+
+  - fieldName: 批号
+
+  - fieldName: 整装数
+
+
+searchFields:
+  - fieldName: 名称/拼音码
+
+  - fieldName: ---
+
+  - fieldName: 条码
+
+  - fieldName: 规格
+
+  - fieldName: 销售单位
+
+
+fields: #可定义多个中文名称指向同一个字段
+  物品名称: XX
+
+  原整装数量: XX
+
+  新整装数量: XX
+
+  零散比: XX
+
+  原整装数量: XX
+
+  新整装数量: XX
+
+  批号: XX
+
+  有效期: XX
+
+  修改原因: XX
+
+  类型编号: itemCode
+  类型名称: itemName
+  仓库编号: warehouseCode
+  仓库名称: warehouseName
+  资源数量: sourceCount
+  新数量: newCount
+  原洒落数量: sourceScatteredCount
+  新洒落数量: newScatteredCount
+  更新原因: changeReason
+  原批数量: sourceBatchNumber
+  新批数量: newBatchNumber
+  原移除时间: sourceOutDateTime
+  新移除时间: newOutDateTime
+  类型数量I: itemCountId
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate
+

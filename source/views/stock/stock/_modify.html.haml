@@ -1,0 +1,52 @@
+/ BEGIN SAMPLE FORM PORTLET
+.portlet.light.bordered
+  .portlet-title
+    .caption
+      %i.icon-settings.font-dark
+      %span.caption-subject.font-dark.sbold.uppercase 修改库存数量
+    .actions
+      %a.btn.btn-circle.grey-salsa.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-plus
+        新增主人
+
+      %a.btn.btn-circle.grey-salsa.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-remove
+        选择主人
+
+  .portlet-body.form
+    .form-body
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '物品编号', :maxlength => '32', :required => 'true'}
+
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '物品名称', :maxlength => '32'}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '原整装数量', :maxlength => '32', :required => 'true'}
+
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '新整装数量', :maxlength => '32'}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '零散比', :maxlength => '32', :required => 'true'}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '原整装数量', :maxlength => '32', :required => 'true'}
+
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '新整装数量', :maxlength => '32'}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '批号', :maxlength => '32', :required => 'true'}
+
+        .col-md-6
+          = partial :'layouts/inputs/text', :locals => {:keyword => 'vip', :fieldName => '有效期', :maxlength => '32'}
+
+      .row
+        .col-md-12
+          = partial :'layouts/inputs/textarea', :locals => {:keyword => 'vip', :fieldName => '修改原因', :maxlength => '32', :required => 'true'}

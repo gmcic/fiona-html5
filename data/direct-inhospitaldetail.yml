@@ -1,0 +1,62 @@
+module:
+  id: inhospitaldetail
+  name: 住院期间消费
+  server: inhospitalrecorddetails
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 收费名称
+
+  - fieldName: 规格
+
+  - fieldName: 生产商
+
+  - fieldName: 数量
+
+  - fieldName: 单位
+
+  - fieldName: 价格
+
+  - fieldName: 小计
+
+searchFields:
+  - fieldName: 住院号
+
+
+fields: #可定义多个中文名称指向同一个字段
+  医院ID: inHospitalId
+  医院编号: inHospitalNo
+
+  经销商编号: manufacturerCode
+  经销商: manufacturerName
+
+  类型编号: itemCode
+  类型名称: itemName
+  数量: itemNum
+
+  商品服务种类: itemStyle
+
+  小计: totalCost
+  价格: sellPrice
+
+  单位: recipeUnit
+  规格: itemStandard
+
+  使用方式: useWay
+
+  仓库ID: warehouseId
+
+  备注: remark
+
+  状态: itemCountStatus
+  影像状态: paidStatus
+  影像时间: paidTime
+  记录时间: recordTime
+  批次号: batchNumber
+  过期时间: outDateTime
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

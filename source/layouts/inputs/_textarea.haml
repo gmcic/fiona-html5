@@ -1,0 +1,23 @@
+- $keyword = ((defined? keyword) ? keyword : @page_id)
+
+- fields = data["" << @module[$keyword] << "-" << $keyword].fields
+
+- $required = ((defined? required) ? required : 'false')
+
+- $columnName = inputName($keyword, (fields[fieldName] || 'error'))
+
+- $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
+
+- $maxlength = ((defined? maxlength) ? maxlength : '32')
+
+.form-group
+  %label.control-label
+    #{fieldName}
+    - if $required == 'true'
+      %span.required *
+
+  - if $required == 'true'
+    %textarea.form-control{:type => "text", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}",  "ng-model"=>"#{$ngModel}" }
+
+  - if $required == 'false'
+    %textarea.form-control{:type => "text", :maxlength => "#{$maxlength}", :name => "#{$columnName}",  "ng-model"=>"#{$ngModel}" }

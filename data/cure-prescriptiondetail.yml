@@ -1,0 +1,50 @@
+
+module:
+  name: 处方模版明细
+  id: prescriptiondetail
+  data: prescriptiontemplatedetails
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 处方单位
+
+  - fieldName: 数量
+
+  - fieldName: 价格
+
+  - fieldName: 用药频次
+
+  - fieldName: 单次用量
+
+  - fieldName: 投药单位
+
+  - fieldName: 用法
+
+  - fieldName: 分组
+
+
+searchFields:
+  - fieldName: 名称
+
+  - fieldName: ---
+
+fields: #可定义多个中文名称指向同一个字段
+
+  templateId: templateId
+  templateNo: templateNo
+  itemCode: itemCode
+  itemName: itemName
+  itemNum: itemNum
+  sellPrice: sellPrice
+  recipeUnit: recipeUnit
+  useWay: useWay
+  gestId: gestId
+  itemStyle: itemStyle
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

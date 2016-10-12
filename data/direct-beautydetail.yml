@@ -1,0 +1,48 @@
+# 美容服务-明细
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 美容服务ID
+
+  - fieldName: 编码
+
+  - fieldName: 名称
+
+  - fieldName: 规格
+
+  - fieldName: 单价
+
+  - fieldName: 数量
+    input: number
+
+  - fieldName: 销售单位
+
+  - fieldName: 金额
+
+  - fieldName: 条码
+
+searchFields:
+  - fieldName: 单号
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate
+
+  美容服务ID: serviceId
+
+  编码: itemCode
+  名称: itemName
+  规格: itemStandard
+  条码: barCode
+  数量: inputCount
+  单价: sellPrice
+  销售单位: packageUnit
+  金额: totalCost
+
+  影像状态状态: paidStatus
+  影像时间: paidTime
+  备注: remark
+
+

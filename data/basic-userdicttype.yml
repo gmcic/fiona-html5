@@ -1,0 +1,35 @@
+
+module:
+  name: 用户数据字典
+  id: userdicttype
+  data: userdicts
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 编码
+
+  - fieldName: 名称
+
+  - fieldName: 详情CODE
+
+fields: #可定义多个中文名称指向同一个字段
+  名称: dictName
+
+  可编辑: canEdit
+
+  可浏览: canView
+
+  排序: sort
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
+
+  编码: dictDetailCode

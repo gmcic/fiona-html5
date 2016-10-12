@@ -1,0 +1,21 @@
+!!!5
+%html
+  %body
+    #operate_msg_box
+    / BEGIN EXAMPLE TABLE PORTLET
+    .portlet.light.bordered
+      .portlet-title
+        .caption.font-dark
+          %i.fa.fa-beer.font-dark
+          %span.caption-subject.bold.uppercase=yield_content :title
+        .actions
+          =yield_content :toolbar
+
+      .portlet-body
+        -#表格(搜索+分页)
+        - modal @page_title, @page_id
+        = partial :'layouts/table/table_full'
+
+        =yield
+
+- puts ("-- Page[list]: " + @page_title + " (" + @page_prefix  + "/" + @page_id + ")")

@@ -1,0 +1,31 @@
+/ BEGIN EXAMPLE TABLE PORTLET
+.portlet.light.bordered
+  .portlet-title
+    .caption.font-dark
+      %i.icon-settings.font-dark
+      %span.caption-subject.bold.uppercase 种类1
+    .actions
+      =yield_content :portlet_toolbar
+      -#%a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng":{ "click" => "updatetype()"}}
+      -#  %i.fa.fa-plus
+      -#  增加
+      -#
+      -#%a.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;"}
+      -#  %i.fa.fa-remove
+      -#  删除
+
+  .portlet-body
+    =yield_content :portlet_body
+    -#%ul.list-group
+    -#  %li.list-group-item
+    -#    小型犬(犬科)
+    -#    %span.badge.badge-default 3
+    -#  %li.list-group-item
+    -#    中型犬(犬科)
+    -#    %span.badge.badge-success 11
+    -#  %li.list-group-item
+    -#    大型犬(犬科)
+    -#    %span.badge.badge-danger new
+    -#  %li.list-group-item
+    -#    猫(猫科)
+    -#    %span.badge.badge-warning 4

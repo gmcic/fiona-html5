@@ -1,0 +1,22 @@
+- @modal_id = @modal_id || @page_id
+
+- @modal_name = @modal_name || @page_title
+
+.modal.fade.bs-modal-lg{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1", :id => "#{@modal_id}"}
+  .modal-dialog.modal-lg
+    .modal-content
+      %form{:id => "#{@modal_id}form", :name => "#{@modal_id}form", :novalidate => "", "ng-submit" => "#{@modal_id}portal.submit()", :role => "form"}
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
+          %h4.modal-title #{@modal_name}
+
+        .modal-body
+          %div{:id => "#{@modal_id}_alert"}
+          = yield
+
+        .modal-footer
+          %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
+
+          %button.btn.btn-primary{"ng-disabled"=>"#{@modal_id}form.$pristine", :type => "submit"}
+            %i.fa.fa-plus
+            保存表单

@@ -1,0 +1,9 @@
+.form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'varietietype', :fieldName => '种类名称', :maxlength => '32', :required => "true"}
+  -#
+  -#.row
+  -#  .col-md-12
+  -#    .form-group
+  -#      = partial :'layouts/inputs/select', :locals => {:keyword => 'varietietype', :fieldName => '种类属性', :maxlength => '32', :required => "true", :options => "type.code as type.name for type in combox.types"}

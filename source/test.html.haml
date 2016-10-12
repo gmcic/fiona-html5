@@ -1,0 +1,19 @@
+%h1.text-center
+  Hello {{'World'}}!
+
+.text-center{"ng-controller"=>"InvoiceCntl"}
+  %p
+    Your name:
+
+  %input{:type => "text", :placeholder => "World", "ng-model"=>"yourname"}
+
+  %hr
+  %p Hello {{yourname || 'World'}}!
+  %p
+    %a{:href=>"/"} HOME
+
+  %p
+    %a{:href=>"#inbox/ari"} INBOX
+  %hr
+  .content
+    %div{"ng-view"=>""}

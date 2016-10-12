@@ -1,0 +1,107 @@
+module:
+  name: 员工管理
+  id: personnel
+  data: personss
+
+listFields:
+  - fieldName: 员工编号
+
+  - fieldName: 员工名称
+
+  - fieldName: 身份证号码
+
+  - fieldName: 是否可预约
+    filter: dropdown
+
+  - fieldName: 员工手机
+
+  - fieldName: 紧急电话
+
+  - fieldName: 登记日期
+    filter: date:"yyyy年MM月dd日"
+
+  - fieldName: 员工状态
+    filter: dropdown
+
+searchFields:
+  - fieldName: 员工编号
+
+  - fieldName: 员工名称
+
+  - fieldName: 员工手机
+
+  - fieldName: ---
+
+  - fieldName: 登记日期
+
+fields:
+  员工名称: personName
+
+  员工编号: personCode
+
+  员工生日: birthday
+
+  员工性别: sex
+
+  密码: password
+
+  登录应用程序类型: loginAppType
+
+  登录帐户类型: loginAccountType
+
+  登录失败数: pwdFailedCount
+
+  改变启动原因: changeStartReason
+
+  来源ID: orgId
+
+  员工手机: mobilePhone
+
+  紧急电话: emergencyPhone
+
+  证件类型: idCardType
+
+  身份证号码: idCardNumber
+
+  联系地址: address
+
+  联系邮箱: officeEmail
+
+  办公地址: officeAddress
+
+  员工状态: personStatus
+
+  是否医生: isDoctor
+
+  是否护士: isNurse
+
+  是否销售: isSeller
+
+  是否系统管理员: isnoAppoInt
+
+  是否可预约: isSyncEas
+
+  所属角色: roleId
+
+  登录凭证: authorizationCode
+
+  Right: personRight
+
+  个人简介: descibe
+
+  员工头ID: emploeeHeadId
+
+  图片: images
+
+  主键: id
+
+  状态: status
+
+  创建用户ID: createUserId
+
+  登记日期: createDate
+
+  更新用户ID: updateUserId
+
+  更新日期: updateDate
+

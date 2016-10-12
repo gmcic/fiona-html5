@@ -1,0 +1,114 @@
+
+-#卡片样式
+.tabbable-line
+  %ul.nav.nav-tabs
+    %li.active
+      %a{"data-toggle" => "tab", :href => "//#product_basic"} 基本信息
+    %li
+      %a{"data-toggle" => "tab", :href => "//#product_pictures"} 图片信息
+
+  .tab-content
+    #product_basic.tab-pane.active
+      .form-body
+        .row
+          .col-md-2
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '所属分类ID', :maxlength => '64'}
+
+          .col-md-2
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '业务类型ID', :maxlength => '32'}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/textview', :locals => {:fieldName => '所属分类', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '编号', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '名称', :maxlength => '32'}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '条码', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '销售单位', :options => "type.id as type.valueNameCn for type in dropdowns.packageUnitSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '规格', :maxlength => '32'}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '默认进价', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '销售价格', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '是否打折', :options => "type.id as type.valueNameCn for type in dropdowns.isVipDiscountSet"}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '是否销售', :options => "type.id as type.valueNameCn for type in dropdowns.isSellSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '库存下限', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '库存上限', :maxlength => '32'}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '剂型', :options => "type.id as type.valueNameCn for type in dropdowns.drugFormSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '零散比', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '处方单位', :options => "type.id as type.valueNameCn for type in dropdowns.recipeUnitSet"}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '处方价格', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '是否记库', :options => "type.id as type.valueNameCn for type in dropdowns.isCountSet"}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '拼音码', :maxlength => '32'}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '货位信息', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '分组', :maxlength => '32'}
+
+          .col-md-4
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '是否可兑换', :options => "type.id as type.valueNameCn for type in dropdowns.isCanExchangeSet"}
+
+        .row
+          .col-md-4
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '兑换积分', :maxlength => '32'}
+
+          .col-md-8
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '生产厂商', :maxlength => '32'}
+        -#
+        -#.row
+        -#
+        -#  .col-md-2
+        -#    = partial :'layouts/inputs/text', :locals => {:fieldName => '保质期', :maxlength => '32'}
+
+        .row
+          .col-md-12
+            = partial :'layouts/inputs/textarea', :locals => {:fieldName => '用法', :maxlength => '32'}
+
+        .row
+          .col-md-12
+            = partial :'layouts/inputs/textarea', :locals => {:fieldName => '备注', :maxlength => '32'}
+
+
+    #product_pictures.tab-pane
+      -#文件上传
+      = partial :'layouts/inputs/fileupload', :locals => {:keyword => '', :fieldName => '商品照片', :maxlength => '32', :required => "true"}
+

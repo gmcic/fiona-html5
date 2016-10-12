@@ -1,0 +1,397 @@
+
+/ BEGIN QUICK SIDEBAR
+%a.page-quick-sidebar-toggler{:href => "javascript:;"}
+  %i.icon-login
+.page-quick-sidebar-wrapper{"data-close-on-body-click" => "false"}
+  .page-quick-sidebar
+    %ul.nav.nav-tabs
+      %li.active
+        %a{"data-target" => "#quick_sidebar_tab_1", "data-toggle" => "tab", :href => "javascript:;"}
+          Users
+          %span.badge.badge-danger 2
+      %li
+        %a{"data-target" => "#quick_sidebar_tab_2", "data-toggle" => "tab", :href => "javascript:;"}
+          Alerts
+          %span.badge.badge-success 7
+      %li.dropdown
+        %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:;"}
+          More
+          %i.fa.fa-angle-down
+        %ul.dropdown-menu.pull-right
+          %li
+            %a{"data-target" => "#quick_sidebar_tab_3", "data-toggle" => "tab", :href => "javascript:;"}
+              %i.icon-bell
+              Alerts
+          %li
+            %a{"data-target" => "#quick_sidebar_tab_3", "data-toggle" => "tab", :href => "javascript:;"}
+              %i.icon-info
+              Notifications
+          %li
+            %a{"data-target" => "#quick_sidebar_tab_3", "data-toggle" => "tab", :href => "javascript:;"}
+              %i.icon-speech
+              Activities
+          %li.divider
+          %li
+            %a{"data-target" => "#quick_sidebar_tab_3", "data-toggle" => "tab", :href => "javascript:;"}
+              %i.icon-settings
+              Settings
+    .tab-content
+      #quick_sidebar_tab_1.tab-pane.active.page-quick-sidebar-chat
+        .page-quick-sidebar-chat-users{"data-rail-color" => "#ddd", "data-wrapper-class" => "page-quick-sidebar-list"}
+          %h3.list-heading Staff
+          %ul.media-list.list-items
+            %li.media
+              .media-status
+                %span.badge.badge-success 8
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+              .media-body
+                %h4.media-heading Bob Nilson
+                .media-heading-sub Project Manager
+            %li.media
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar1.jpg"}/
+              .media-body
+                %h4.media-heading Nick Larson
+                .media-heading-sub Art Director
+            %li.media
+              .media-status
+                %span.badge.badge-danger 3
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar4.jpg"}/
+              .media-body
+                %h4.media-heading Deon Hubert
+                .media-heading-sub CTO
+            %li.media
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar2.jpg"}/
+              .media-body
+                %h4.media-heading Ella Wong
+                .media-heading-sub CEO
+          %h3.list-heading Customers
+          %ul.media-list.list-items
+            %li.media
+              .media-status
+                %span.badge.badge-warning 2
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar6.jpg"}/
+              .media-body
+                %h4.media-heading Lara Kunis
+                .media-heading-sub CEO, Loop Inc
+                .media-heading-small Last seen 03:10 AM
+            %li.media
+              .media-status
+                %span.label.label-sm.label-success new
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar7.jpg"}/
+              .media-body
+                %h4.media-heading Ernie Kyllonen
+                .media-heading-sub
+                  Project Manager,
+                  %br/
+                  SmartBizz PTL
+            %li.media
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar8.jpg"}/
+              .media-body
+                %h4.media-heading Lisa Stone
+                .media-heading-sub CTO, Keort Inc
+                .media-heading-small Last seen 13:10 PM
+            %li.media
+              .media-status
+                %span.badge.badge-success 7
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar9.jpg"}/
+              .media-body
+                %h4.media-heading Deon Portalatin
+                .media-heading-sub CFO, H&amp;D LTD
+            %li.media
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar10.jpg"}/
+              .media-body
+                %h4.media-heading Irina Savikova
+                .media-heading-sub CEO, Tizda Motors Inc
+            %li.media
+              .media-status
+                %span.badge.badge-danger 4
+              %img.media-object{:alt => "...", :src => "../assets/layouts/layout/img/avatar11.jpg"}/
+              .media-body
+                %h4.media-heading Maria Gomez
+                .media-heading-sub Manager, Infomatic Inc
+                .media-heading-small Last seen 03:10 AM
+        .page-quick-sidebar-item
+          .page-quick-sidebar-chat-user
+            .page-quick-sidebar-nav
+              %a.page-quick-sidebar-back-to-list{:href => "javascript:;"}
+                %i.icon-arrow-left>
+                Back
+            .page-quick-sidebar-chat-user-messages
+              .post.out
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Bob Nilson
+                  %span.datetime 20:15
+                  %span.body When could you send me the report ?
+              .post.in
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar2.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Ella Wong
+                  %span.datetime 20:15
+                  %span.body Its almost done. I will be sending it shortly
+              .post.out
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Bob Nilson
+                  %span.datetime 20:15
+                  %span.body Alright. Thanks! :)
+              .post.in
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar2.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Ella Wong
+                  %span.datetime 20:16
+                  %span.body You are most welcome. Sorry for the delay.
+              .post.out
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Bob Nilson
+                  %span.datetime 20:17
+                  %span.body No probs. Just take your time :)
+              .post.in
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar2.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Ella Wong
+                  %span.datetime 20:40
+                  %span.body Alright. I just emailed it to you.
+              .post.out
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Bob Nilson
+                  %span.datetime 20:17
+                  %span.body Great! Thanks. Will check it right away.
+              .post.in
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar2.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Ella Wong
+                  %span.datetime 20:40
+                  %span.body Please let me know if you have any comment.
+              .post.out
+                %img.avatar{:alt => "", :src => "../assets/layouts/layout/img/avatar3.jpg"}/
+                .message
+                  %span.arrow
+                  %a.name{:href => "javascript:;"} Bob Nilson
+                  %span.datetime 20:17
+                  %span.body Sure. I will check and buzz you if anything needs to be corrected.
+            .page-quick-sidebar-chat-user-form
+              .input-group
+                %input.form-control{:placeholder => "Type a message here...", :type => "text"}/
+                .input-group-btn
+                  %button.btn.green{:type => "button"}
+                    %i.icon-paper-clip
+      #quick_sidebar_tab_2.tab-pane.page-quick-sidebar-alerts
+        .page-quick-sidebar-alerts-list
+          %h3.list-heading General
+          %ul.feeds.list-items
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-check
+                  .cont-col2
+                    .desc
+                      You have 4 pending tasks.
+                      %span.label.label-sm.label-warning
+                        Take action
+                        %i.fa.fa-share
+              .col2
+                .date Just now
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-success
+                        %i.fa.fa-bar-chart-o
+                    .cont-col2
+                      .desc Finance Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-danger
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-shopping-cart
+                  .cont-col2
+                    .desc
+                      New order received with
+                      %span.label.label-sm.label-success Reference Number: DR23923
+              .col2
+                .date 30 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-success
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-bell-o
+                  .cont-col2
+                    .desc
+                      Web server hardware needs to be upgraded.
+                      %span.label.label-sm.label-warning Overdue
+              .col2
+                .date 2 hours
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-default
+                        %i.fa.fa-briefcase
+                    .cont-col2
+                      .desc IPO Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+          %h3.list-heading System
+          %ul.feeds.list-items
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-check
+                  .cont-col2
+                    .desc
+                      You have 4 pending tasks.
+                      %span.label.label-sm.label-warning
+                        Take action
+                        %i.fa.fa-share
+              .col2
+                .date Just now
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-danger
+                        %i.fa.fa-bar-chart-o
+                    .cont-col2
+                      .desc Finance Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-default
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-info
+                      %i.fa.fa-shopping-cart
+                  .cont-col2
+                    .desc
+                      New order received with
+                      %span.label.label-sm.label-success Reference Number: DR23923
+              .col2
+                .date 30 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-success
+                      %i.fa.fa-user
+                  .cont-col2
+                    .desc You have 5 pending membership that requires a quick review.
+              .col2
+                .date 24 mins
+            %li
+              .col1
+                .cont
+                  .cont-col1
+                    .label.label-sm.label-warning
+                      %i.fa.fa-bell-o
+                  .cont-col2
+                    .desc
+                      Web server hardware needs to be upgraded.
+                      %span.label.label-sm.label-default Overdue
+              .col2
+                .date 2 hours
+            %li
+              %a{:href => "javascript:;"}
+                .col1
+                  .cont
+                    .cont-col1
+                      .label.label-sm.label-info
+                        %i.fa.fa-briefcase
+                    .cont-col2
+                      .desc IPO Report for year 2013 has been released.
+                .col2
+                  .date 20 mins
+      #quick_sidebar_tab_3.tab-pane.page-quick-sidebar-settings
+        .page-quick-sidebar-settings-list
+          %h3.list-heading General Settings
+          %ul.list-items.borderless
+            %li
+              Enable Notifications
+              %input.make-switch{:checked => "checked", "data-off-color" => "default", "data-off-text" => "OFF", "data-on-color" => "success", "data-on-text" => "ON", "data-size" => "small", :type => "checkbox"}/
+            %li
+              Allow Tracking
+              %input.make-switch{"data-off-color" => "default", "data-off-text" => "OFF", "data-on-color" => "info", "data-on-text" => "ON", "data-size" => "small", :type => "checkbox"}/
+            %li
+              Log Errors
+              %input.make-switch{:checked => "checked", "data-off-color" => "default", "data-off-text" => "OFF", "data-on-color" => "danger", "data-on-text" => "ON", "data-size" => "small", :type => "checkbox"}/
+            %li
+              Auto Sumbit Issues
+              %input.make-switch{"data-off-color" => "default", "data-off-text" => "OFF", "data-on-color" => "warning", "data-on-text" => "ON", "data-size" => "small", :type => "checkbox"}/
+            %li
+              Enable SMS Alerts
+              %input.make-switch{:checked => "checked", "data-off-color" => "default", "data-off-text" => "OFF", "data-on-color" => "success", "data-on-text" => "ON", "data-size" => "small", :type => "checkbox"}/
+          %h3.list-heading System Settings
+          %ul.list-items.borderless
+            %li
+              Security Level
+              %select.form-control.input-inline.input-sm.input-small
+                %option{:value => "1"} Normal
+                %option{:selected => "selected", :value => "2"} Medium
+                %option{:value => "e"} High
+            %li
+              Failed Email Attempts
+              %input.form-control.input-inline.input-sm.input-small{:value => "5"}/
+            %li
+              Secondary SMTP Port
+              %input.form-control.input-inline.input-sm.input-small{:value => "3560"}/
+            %li
+              Notify On System Error
+              %input.make-switch{:checked => "checked", "data-off-color" => "default", "data-off-text" => "OFF", "data-on-color" => "danger", "data-on-text" => "ON", "data-size" => "small", :type => "checkbox"}/
+            %li
+              Notify On SMTP Error
+              %input.make-switch{:checked => "checked", "data-off-color" => "default", "data-off-text" => "OFF", "data-on-color" => "warning", "data-on-text" => "ON", "data-size" => "small", :type => "checkbox"}/
+          .inner-content
+            %button.btn.btn-success
+              %i.icon-settings
+              Save Changes

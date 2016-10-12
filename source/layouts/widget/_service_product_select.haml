@@ -1,0 +1,8 @@
+.row
+  .col-md-3
+    - portal "商品&服务", "producttype"
+    = partial 'layouts/widget/tree', :locals => {:sidename => "商品&服务", :sidefieldname=> 'name'}
+
+  .col-md-9
+    - portal '商品与服务管理', 'product'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none"}

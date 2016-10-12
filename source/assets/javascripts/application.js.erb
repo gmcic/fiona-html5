@@ -1,0 +1,78 @@
+angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJsTree'])
+    .config(['$routeProvider','$httpProvider', 'fileUploadProvider', function($routeProvider,$httpProvider, fileUploadProvider) {
+       delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        fileUploadProvider.defaults.redirect = window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        );
+        $routeProvider
+            .when('/', {
+                controller: "DashboardController",
+                templateUrl: "views/dashboard.html"
+            })
+
+<% data.sidebar.each do |header| %>
+// <%=header.name%> - BEGIN
+    <% header.menus.each do |fun| %>
+    // <%=fun.name%>
+        <% fun.menus.each do |menu| %>
+            // <%=menu.name%>
+            .when('<%=menu.uri%>', {
+                controller: '<%=menu.controller%>',
+                templateUrl: 'views<%=fun.prefix%><%=menu.template%>'
+            })
+        <% end %>
+    <% end %>
+// <%=header.name%> - END
+<% end %>
+
+            .otherwise({redirectTo: '/'});
+    }])
+    // 首页面
+    .controller('DashboardController', function($scope) {
+        // define controller to prevent console error
+
+        $scope.userName = 'tim';
+    })
+
+    .controller('InboxController', function($scope, $routeParams, $location) {
+        $scope.name = $routeParams.name;
+    })
+
+    // 侧边栏
+    .controller('SidebarController', function($scope, $http) {
+
+        $http.get("server/sidebar.json").success(function (data, status, headers, config ) {
+
+            $scope.name = "Time";
+            $scope.sidebar = data;
+
+            // alert('GET Success');
+        }).error(function (data, status, headers, config) {
+            alert('GET Error');
+        });
+    });
+
+// Role 控制器
+function TempController ( $scope, $http ) {
+
+    jQuery().datepicker && $(".date-picker-btn").datepicker({
+        format: 'yyyy-mm-dd',
+        orientation: "left",
+        autoclose: !0
+    }).on("changeDate", function() {
+        $(this).parent().prev().val($(this).datepicker('getFormattedDate'));
+    });
+
+    // alert("Invoke: SidebarController");
+    // $http.get("server/role.json").success(function (data, status, headers, config ) {
+    //     // alert('GET Success');
+    // }).error(function (data, status, headers, config) {
+    //     alert('GET Error');
+    // });
+}
+
+function InvoiceCntl($scope)
+{
+    $scope.yourname= "Tim";
+}

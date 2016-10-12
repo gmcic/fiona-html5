@@ -1,0 +1,52 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 退货单号
+
+  - fieldName: 总项
+
+  - fieldName: 总金额
+
+  - fieldName: 操作员
+
+  - fieldName: 制单时间
+
+  - fieldName: 单据状态
+
+  - fieldName: 审核时间
+
+  - fieldName: 审核人
+
+searchFields:
+  - fieldName: 商品名称
+  - fieldName: 经销商
+
+  - fieldName: ---
+
+  - fieldName: 单号
+  - fieldName: 制单时间
+  - fieldName: 审核时间
+  - fieldName: 审核人
+  - fieldName: 单据状态
+
+fields: #可定义多个中文名称指向同一个字段
+
+  主键: id
+
+  退货单号: XX
+
+  总项: XX
+
+  总金额: XX
+
+  审核日期: XX
+
+  审核人: XX
+
+  备注: XX
+
+  经销商: XX
+
+  仓库: XX
+
+  退货原因: XX
+

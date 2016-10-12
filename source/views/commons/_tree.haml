@@ -1,0 +1,35 @@
+-#侧边栏选择仓库
+- content_for :outline_title do
+  处方模板
+
+- content_for :outline_toolbar do
+  %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng":{ "click" => "productassort()"}}
+    %i.fa.fa-plus
+    增加
+
+  %a.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;"}
+    %i.fa.fa-remove
+    删除
+
+  %a.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;"}
+    %i.fa.fa-remove
+    修改
+
+- content_for :outline_body do
+  #tree_1.tree-demo
+    %ul
+      %li
+        Root node 1
+        %ul
+          %li{"data-jstree" => "{ \"selected\" : true }"}
+            %a{:href => "javascript:;"} Initially selected
+          %li{"data-jstree" => "{ \"icon\" : \"fa fa-briefcase icon-state-success \" }"} custom icon URL
+          %li{"data-jstree" => "{ \"opened\" : true }"}
+            initially open
+            %ul
+              %li{"data-jstree" => "{ \"disabled\" : true }"} Disabled Node
+              %li{"data-jstree" => "{ \"type\" : \"file\" }"} Another node
+          %li{"data-jstree" => "{ \"icon\" : \"fa fa-warning icon-state-danger\" }"} Custom icon class (bootstrap)
+      %li{"data-jstree" => "{ \"type\" : \"file\" }"}
+        %a{:href => "http://www.jstree.com"} Clickanle link node
+

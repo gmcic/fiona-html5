@@ -1,0 +1,58 @@
+/ The file upload form used as target for the file upload widget
+%div#fileupload{:action => "//jquery-file-upload.appspot.com/", "data-file-upload" => "options", "data-ng-class" => "{'fileupload-processing': processing() || loadingFiles}", :enctype => "multipart/form-data", :method => "POST"}
+  / Redirect browsers with JavaScript disabled to the origin page
+  %noscript
+    %input{:name => "redirect", :type => "hidden", :value => "https://blueimp.github.io/jQuery-File-Upload/"}/
+  / The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload
+  .row.fileupload-buttonbar
+    .col-lg-7
+      / The fileinput-button span is used to style the file input field as button
+      %span.btn.btn-success.fileinput-button{"ng-class" => "{disabled: disabled}"}
+        %i.glyphicon.glyphicon-plus
+        %span Add files...
+        %input{:multiple => "multiple", :name => "files[]", "ng-disabled" => "disabled", :type => "file"}/
+      %button.btn.btn-primary.start{"data-ng-click" => "submit()", :type => "button"}
+        %i.glyphicon.glyphicon-upload
+        %span Start upload
+      %button.btn.btn-warning.cancel{"data-ng-click" => "cancel()", :type => "button"}
+        %i.glyphicon.glyphicon-ban-circle
+        %span Cancel upload
+      / The global file processing state
+      %span.fileupload-process
+    / The global progress state
+    .col-lg-5.fade{"data-ng-class" => "{in: active()}"}
+      / The global progress bar
+      .progress.progress-striped.active{"data-file-upload-progress" => "progress()"}
+        .progress-bar.progress-bar-success{"data-ng-style" => "{width: num + '%'}"}
+      / The extended global progress state
+      .progress-extended  
+  / The table listing the files available for upload/download
+  %table.table.table-striped.files.ng-cloak
+    %tr{"data-ng-class" => "{'processing': file.$processing()}", "data-ng-repeat" => "file in queue"}
+      %td{"data-ng-switch" => "", "data-on" => "!!file.thumbnailUrl"}
+        .preview{"data-ng-switch-when" => "true"}
+          %a{"data-gallery" => "", "data-ng-href" => "{{file.url}}", :download => "{{file.name}}", :title => "{{file.name}}"}
+            %img{:alt => "", "data-ng-src" => "{{file.thumbnailUrl}}"}/
+        .preview{"data-file-upload-preview" => "file", "data-ng-switch-default" => ""}
+      %td
+        %p.name{"data-ng-switch" => "", "data-on" => "!!file.url"}
+          %span{"data-ng-switch" => "", "data-ng-switch-when" => "true", "data-on" => "!!file.thumbnailUrl"}
+            %a{"data-gallery" => "", "data-ng-href" => "{{file.url}}", "data-ng-switch-when" => "true", :download => "{{file.name}}", :title => "{{file.name}}"} {{file.name}}
+            %a{"data-ng-href" => "{{file.url}}", "data-ng-switch-default" => "", :download => "{{file.name}}", :title => "{{file.name}}"} {{file.name}}
+          %span{"data-ng-switch-default" => ""} {{file.name}}
+        %strong.error.text-danger{"data-ng-show" => "file.error"} {{file.error}}
+      %td
+        %p.size {{file.size | formatFileSize}}
+        .progress.progress-striped.active.fade{"data-file-upload-progress" => "file.$progress()", "data-ng-class" => "{pending: 'in'}[file.$state()]"}
+          .progress-bar.progress-bar-success{"data-ng-style" => "{width: num + '%'}"}
+      %td
+        %button.btn.btn-primary.start{"data-ng-click" => "file.$submit()", "data-ng-disabled" => "file.$state() == 'pending' || file.$state() == 'rejected'", "data-ng-hide" => "!file.$submit || options.autoUpload", :type => "button"}
+          %i.glyphicon.glyphicon-upload
+          %span Start
+        %button.btn.btn-warning.cancel{"data-ng-click" => "file.$cancel()", "data-ng-hide" => "!file.$cancel", :type => "button"}
+          %i.glyphicon.glyphicon-ban-circle
+          %span Cancel
+        %button.btn.btn-danger.destroy{"data-ng-click" => "file.$destroy()", "data-ng-hide" => "!file.$destroy", :type => "button"}
+          %i.glyphicon.glyphicon-trash
+          %span Delete
+

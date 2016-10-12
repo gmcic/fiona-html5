@@ -1,0 +1,439 @@
+!!!5
+%html{"ng-app" => "fiona", lang: 'en'}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %title Fiona 福莱动物医院 API
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+
+    / = stylesheet_link_tag 'site'
+
+    / BEGIN GLOBAL MANDATORY STYLES
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all", :rel => "stylesheet", :type => "text/css"}/
+
+    %link{:href => "/assets/plugins/font-awesome/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/plugins/simple-line-icons/simple-line-icons.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/plugins/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}/
+    / END GLOBAL MANDATORY STYLES
+
+    / BEGIN PAGE LEVEL PLUGINS
+    / 日期选择插件
+    %link{:href => "/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/plugins/morris/morris.css", :rel => "stylesheet", :type => "text/css"}/
+    / END PAGE LEVEL PLUGINS
+
+    / BEGIN 文件上传 PLUGINS
+    %link{:href => "/assets/plugins/fancybox/source/jquery.fancybox.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/plugins/jquery-file-upload/css/jquery.fileupload.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css", :rel => "stylesheet", :type => "text/css"}/
+    / END 文件上传 PLUGINS
+
+    / BEGIN THEME GLOBAL STYLES
+    %link{:href => "/assets/stylesheets/components.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/stylesheets/plugins.min.css", :rel => "stylesheet", :type => "text/css"}/
+    / END THEME GLOBAL STYLES
+
+    / BEGIN Plugin STYLES
+    %link{:href => "/assets/plugins/jstree/dist/themes/default/style.min.css", :rel => "stylesheet", :type => "text/css"}/
+
+    / BEGIN THEME LAYOUT STYLES
+    %link{:href => "/assets/stylesheets/layout.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/stylesheets/darkblue.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/stylesheets/custom.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/assets/stylesheets/fiona.css", :rel => "stylesheet", :type => "text/css"}/
+    / END THEME LAYOUT STYLES
+
+    = favicon_tag 'favicon.ico'
+
+    = yield_content :head
+
+  %body.page-header-fixed.page-sidebar-closed-hide-logo.page-content-white.page-sidebar-fixed
+    / BEGIN HEADER
+    .page-header.navbar.navbar-fixed-top
+      / BEGIN HEADER INNER
+      .page-header-inner
+        / BEGIN LOGO
+        .page-logo
+          %a{:href => "index.html"}
+            %img.logo-default{:alt => "logo", :src => "/assets/images/logo.png"}/
+          .menu-toggler.sidebar-toggler
+            %span
+
+        / BEGIN RESPONSIVE MENU TOGGLER
+        %a.menu-toggler.responsive-toggler{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :href => "javascript:;"}
+          %span
+
+        / BEGIN TOP NAVIGATION MENU
+        .top-menu
+          %ul.nav.navbar-nav.pull-right
+            / BEGIN NOTIFICATION DROPDOWN
+            %li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
+              %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                %i.icon-bell
+                %span.badge.badge-default 7
+              %ul.dropdown-menu
+                %li.external
+                  %h3
+                    %span.bold 12 pending
+                    notifications
+                  %a{:href => "page_user_profile_1.html"} view all
+                %li
+                  %ul.dropdown-menu-list.scroller{"data-handle-color" => "#637283", :style => "height: 250px;"}
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time just now
+                        %span.details
+                          %span.label.label-sm.label-icon.label-success
+                            %i.fa.fa-plus
+                          New user registered.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 3 mins
+                        %span.details
+                          %span.label.label-sm.label-icon.label-danger
+                            %i.fa.fa-bolt
+                          Server #12 overloaded.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 10 mins
+                        %span.details
+                          %span.label.label-sm.label-icon.label-warning
+                            %i.fa.fa-bell-o
+                          Server #2 not responding.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 14 hrs
+                        %span.details
+                          %span.label.label-sm.label-icon.label-info
+                            %i.fa.fa-bullhorn
+                          Application error.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 2 days
+                        %span.details
+                          %span.label.label-sm.label-icon.label-danger
+                            %i.fa.fa-bolt
+                          Database overloaded 68%.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 3 days
+                        %span.details
+                          %span.label.label-sm.label-icon.label-danger
+                            %i.fa.fa-bolt
+                          A user IP blocked.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 4 days
+                        %span.details
+                          %span.label.label-sm.label-icon.label-warning
+                            %i.fa.fa-bell-o
+                          Storage Server #4 not responding dfdfdfd.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 5 days
+                        %span.details
+                          %span.label.label-sm.label-icon.label-info
+                            %i.fa.fa-bullhorn
+                          System Error.
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.time 9 days
+                        %span.details
+                          %span.label.label-sm.label-icon.label-danger
+                            %i.fa.fa-bolt
+                          Storage server failed.
+
+            / BEGIN INBOX DROPDOWN
+            %li#header_inbox_bar.dropdown.dropdown-extended.dropdown-inbox
+              %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                %i.icon-envelope-open
+                %span.badge.badge-default 4
+              %ul.dropdown-menu
+                %li.external
+                  %h3
+                    You have
+                    %span.bold 7 New
+                    Messages
+                  %a{:href => "app_inbox.html"} view all
+                %li
+                  %ul.dropdown-menu-list.scroller{"data-handle-color" => "#637283", :style => "height: 275px;"}
+                    %li
+                      %a{:href => "#"}
+                        %span.photo
+                          %img.img-circle{:alt => "", :src => "/assets/images/avatar2.jpg"}/
+                        %span.subject
+                          %span.from Lisa Wong
+                          %span.time Just Now
+                        %span.message Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh...
+                    %li
+                      %a{:href => "#"}
+                        %span.photo
+                          %img.img-circle{:alt => "", :src => "/assets/images/avatar3.jpg"}/
+                        %span.subject
+                          %span.from Richard Doe
+                          %span.time 16 mins
+                        %span.message Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh...
+                    %li
+                      %a{:href => "#"}
+                        %span.photo
+                          %img.img-circle{:alt => "", :src => "/assets/images/avatar1.jpg"}/
+                        %span.subject
+                          %span.from Bob Nilson
+                          %span.time 2 hrs
+                        %span.message Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh...
+                    %li
+                      %a{:href => "#"}
+                        %span.photo
+                          %img.img-circle{:alt => "", :src => "/assets/images/avatar2.jpg"}/
+                        %span.subject
+                          %span.from Lisa Wong
+                          %span.time 40 mins
+                        %span.message Vivamus sed auctor 40% nibh congue nibh...
+                    %li
+                      %a{:href => "#"}
+                        %span.photo
+                          %img.img-circle{:alt => "", :src => "/assets/images/avatar3.jpg"}/
+                        %span.subject
+                          %span.from Richard Doe
+                          %span.time 46 mins
+                        %span.message Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh...
+
+            / BEGIN TODO DROPDOWN
+            %li#header_task_bar.dropdown.dropdown-extended.dropdown-tasks
+              %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                %i.icon-calendar
+                %span.badge.badge-default 3
+              %ul.dropdown-menu.extended.tasks
+                %li.external
+                  %h3
+                    You have
+                    %span.bold 12 pending
+                    tasks
+                  %a{:href => "app_todo.html"} view all
+                %li
+                  %ul.dropdown-menu-list.scroller{"data-handle-color" => "#637283", :style => "height: 275px;"}
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.task
+                          %span.desc New release v1.2
+                          %span.percent 30%
+                        %span.progress
+                          %span.progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "40", :style => "width: 40%;"}
+                            %span.sr-only 40% Complete
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.task
+                          %span.desc Application deployment
+                          %span.percent 65%
+                        %span.progress
+                          %span.progress-bar.progress-bar-danger{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "65", :style => "width: 65%;"}
+                            %span.sr-only 65% Complete
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.task
+                          %span.desc Mobile app release
+                          %span.percent 98%
+                        %span.progress
+                          %span.progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "98", :style => "width: 98%;"}
+                            %span.sr-only 98% Complete
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.task
+                          %span.desc Database migration
+                          %span.percent 10%
+                        %span.progress
+                          %span.progress-bar.progress-bar-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "10", :style => "width: 10%;"}
+                            %span.sr-only 10% Complete
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.task
+                          %span.desc Web server upgrade
+                          %span.percent 58%
+                        %span.progress
+                          %span.progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "58", :style => "width: 58%;"}
+                            %span.sr-only 58% Complete
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.task
+                          %span.desc Mobile development
+                          %span.percent 85%
+                        %span.progress
+                          %span.progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "85", :style => "width: 85%;"}
+                            %span.sr-only 85% Complete
+                    %li
+                      %a{:href => "javascript:;"}
+                        %span.task
+                          %span.desc New UI release
+                          %span.percent 38%
+                        %span.progress.progress-striped
+                          %span.progress-bar.progress-bar-important{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "18", :style => "width: 38%;"}
+                            %span.sr-only 38% Complete
+
+            / BEGIN USER LOGIN DROPDOWN
+            %li.dropdown.dropdown-user
+              %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+                %img.img-circle{:alt => "", :src => "/assets/images/avatar3_small.jpg"}/
+                %span.username.username-hide-on-mobile Nick
+                %i.fa.fa-angle-down
+              %ul.dropdown-menu.dropdown-menu-default
+                %li
+                  %a{:href => "page_user_profile_1.html"}
+                    %i.icon-user
+                    My Profile
+                %li
+                  %a{:href => "app_calendar.html"}
+                    %i.icon-calendar
+                    My Calendar
+                %li
+                  %a{:href => "app_inbox.html"}
+                    %i.icon-envelope-open
+                    My Inbox
+                    %span.badge.badge-danger 3
+                %li
+                  %a{:href => "app_todo.html"}
+                    %i.icon-rocket
+                    My Tasks
+                    %span.badge.badge-success 7
+                %li.divider
+                %li
+                  %a{:href => "page_user_lock_1.html"}
+                    %i.icon-lock
+                    Lock Screen
+                %li
+                  %a{:href => "page_user_login_1.html"}
+                    %i.icon-key
+                    Log Out
+
+            / BEGIN QUICK SIDEBAR TOGGLER
+            %li.dropdown.dropdown-quick-sidebar-toggler
+              %a.dropdown-toggle{:href => "javascript:;"}
+                %i.icon-logout
+
+    .clearfix
+
+    / BEGIN CONTAINER
+    .page-container{:style => "padding: 0px 120px 0 120px"}
+      -#.page-sidebar-wrapper
+      -#  .page-sidebar.navbar-collapse.collapse
+      -#    %ul.page-sidebar-menu.page-header-fixed{"data-auto-scroll" => "true", "data-keep-expanded" => "false", "data-slide-speed" => "200", :style => "padding-top: 20px"}
+      -#      %li.sidebar-toggler-wrapper.hide
+      -#        .sidebar-toggler
+      -#          %span
+      -#        %li.heading
+      -#          %h3.uppercase API
+      -#          %li.nav-item.start
+      -#            %a.nav-link.nav-toggle{:href => "javascript:;"}
+      -#              %i.fa.fa-search
+      -#              %span.title API
+      -#              %span.arrow
+      -#            %ul.sub-menu
+      -#              %li.nav-item.start
+      -#                %a.nav-link{:href => "#none"}
+      -#                  %i.fa.fa-behance-square
+      -#                  %span.title 目录
+      -#                  %span.selected
+
+      -#.page-content-wrapper
+      .page-content
+        = yield
+
+      .scroll-to-top
+        %i.icon-arrow-up
+
+    / Footer
+    = partial 'layouts/partials/footer'
+
+    / Google Analytics
+    = partial 'layouts/partials/trackers'
+
+/ BEGIN CORE PLUGINS
+%script{:src => "/assets/plugins/jquery.min.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/bootstrap/js/bootstrap.min.js", :type => "text/javascript"}
+
+/ bootstrap-hover-dropdown 引入hover监听，鼠标经过自动展示下拉框。
+%script{:src => "/assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js", :type => "text/javascript"}
+
+/ Query slimScroll插件是一个支持把内容放在一个盒子里面，固定一个高度，超出的则使用滚动。
+%script{:src => "/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js", :type => "text/javascript"}
+
+/ jQuery BlockUI插件可以在不锁定浏览器的同时，模拟同步模式下发起Ajax请求的行为。
+/ 该插件激活时，会阻止用户在页面进行的操作，直到插件被关闭。BlockUI通过向DOM中添加元素实现其外观和组织用户交互的行为。
+%script{:src => "/assets/plugins/jquery.blockui.min.js", :type => "text/javascript"}
+
+/ jquery.cookie.js 提供了jquery中非常简单的操作cookie的方法。
+%script{:src => "/assets/plugins/js.cookie.min.js", :type => "text/javascript"}
+
+/ 日期选择
+%script{:src => "/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js", :type => "text/javascript"}
+
+/ 树组件
+%script{:src => "/assets/plugins/jstree/dist/jstree.min.js", :type => "text/javascript"}
+
+/ BEGIN PAGE LEVEL PLUGINS
+
+/ 日期控件
+/ %script{:src => "/assets/plugins/bootstrap-daterangepicker/daterangepicker.min.js", :type => "text/javascript"}
+
+/ Morris.js 是一个轻量级的 JS 库，使用 jQuery 和 Rapha&euml;l 来生成各种时序图。
+%script{:src => "/assets/plugins/morris/morris.min.js", :type => "text/javascript"}
+
+/ 用于捕获各种滚动事件的插件, 同时Waypoints还支持固定元素和无限滚动的功能，功力十分强大。
+%script{:src => "/assets/plugins/counterup/jquery.waypoints.min.js", :type => "text/javascript"}
+
+/ BEGIN THEME LAYOUT SCRIPTS
+%script{:src => "/assets/javascripts/layout.min.js", :type => "text/javascript"}
+
+%script{:src => "/assets/plugins/angular/angular.js", :type => "text/javascript"}
+
+%script{:src => "/assets/plugins/angular-route/angular-route.js", :type => "text/javascript"}
+
+
+%script{:src => "/assets/plugins/jstree/ngJsTree.min.js", :type => "text/javascript"}
+
+/ BEGIN 文件上传 PLUGINS
+%script{:src => "/assets/plugins/fancybox/source/jquery.fancybox.pack.js", :type => "text/javascript"}
+
+%script{:src => "/assets/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/vendor/tmpl.min.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/vendor/load-image.min.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js", :type => "text/javascript"}
+
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.iframe-transport.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload-process.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload-image.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload-audio.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload-video.js", :type => "text/javascript"}
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload-validate.js", :type => "text/javascript"}
+
+%script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload-angular.js", :type => "text/javascript"}
+
+// %script{:src => "/assets/plugins/jquery-file-upload/js/jquery.fileupload-ui.js", :type => "text/javascript"}
+/ END 文件上传 PLUGINS
+
+// Fiona Core
+%script{:src => "/assets/javascripts/services.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/application.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/directive.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/BaseSideController.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/BasePaginationController.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/BasePageFilterController.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/BaseTreeController.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/BasePortalController.js", :type => "text/javascript"}
+
+%script{:src => "/assets/javascripts/CommonPortaController.js", :type => "text/javascript"}
+
+%script{:src => "/assets/pages/api/CasesController.js", :type => "text/javascript"}
+

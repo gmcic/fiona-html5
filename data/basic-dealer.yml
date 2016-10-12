@@ -1,0 +1,84 @@
+module:
+  name: 经销商与生产商
+  id: dealer
+  data: dealers
+
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 编号
+    fieldKey: code
+
+  - fieldName: 经销商名称
+
+  - fieldName: 联系人
+
+  - fieldName: 电话
+
+  - fieldName: 传真
+
+  - fieldName: 手机
+
+  - fieldName: 地址
+
+  - fieldName: 备注
+
+  - fieldName: 电子信箱
+
+searchFields:
+  - fieldName: 自动编号
+
+  - fieldName: 经销商名称
+
+  - fieldName: ---
+
+  - fieldName: 联系人
+
+  - fieldName: 手机
+
+  - fieldName: 地址
+
+
+
+fields: #可定义多个中文名称指向同一个字段
+  自动编号: code
+
+  经销商名称: name
+
+  联系人: contractMan
+
+  手机: mobilePhone
+
+  电话: telPhone
+
+  电子信箱: email
+
+  地址: dealerAddress
+
+  传真: fax
+
+  网站: website
+
+  税号: taxNo
+
+  开户银行: bankName
+
+  用户名: dealerBankName
+
+  银行账号: accountNo
+
+  备注: remark
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
+
+  #经销商/生产商/经销商和代理商
+  类型: companyType

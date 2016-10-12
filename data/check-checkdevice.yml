@@ -1,0 +1,63 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 设备号
+
+  - fieldName: 胆红素
+
+  - fieldName: 酮体
+
+  - fieldName: 潜血
+
+  - fieldName: 蛋白质
+
+  - fieldName: 亚硝酸盐
+
+  - fieldName: 白细胞
+
+  - fieldName: 葡萄糖
+
+  - fieldName: 比重
+
+  - fieldName: PH
+
+  - fieldName: 抗坏血酸
+
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: ---
+
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  医院名称: XX
+
+  医院地址: XX
+
+  负责人: XX
+
+  医院电话: XX
+
+  设备号: XX
+
+  胆红素: XX
+
+  酮体: XX
+
+  潜血: XX
+
+  蛋白质: XX
+
+  亚硝酸盐: XX
+
+  白细胞: XX
+
+  葡萄糖: XX
+
+  比重: XX
+
+  PH: XX
+
+  抗坏血酸: XX

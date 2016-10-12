@@ -1,0 +1,9 @@
+-#数据字典, 侧边导航
+- content_for :outline_title do
+  #{name||"类型"}
+
+- content_for :outline_body do
+  %div.list-group
+    %a.list-group-item{:href => 'javascript:;', "ng" => {"class":"{active: record.id == #{id}portal.selectedId}", "repeat": "record in #{id}s", "click": "#{id}portal.switched(record.id)"}}
+      {{ record.#{fieldName||"name"} }}
+

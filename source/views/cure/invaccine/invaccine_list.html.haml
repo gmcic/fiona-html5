@@ -1,0 +1,26 @@
+- page '疫苗登记', "invaccine"
+
+- content_for :toolbar do
+  %button.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", 'ng': {'click':'update()'}}
+    %i.fa.fa-plus
+    增加
+  %button.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;", 'ng': {'click':'removes()', 'disabled': 'isRemoves'} }
+    %i.fa.fa-remove
+    删除
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'modify'
+
+- modal "添加疫苗", "vaccines"
+
+= partial :'layouts/partials/modal-lg' do
+  = partial 'vaccines'

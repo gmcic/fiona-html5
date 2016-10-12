@@ -1,0 +1,50 @@
+
+module:
+  name: 就诊管理
+  id: curemanager
+  data: medicmedictreatrecords
+
+# 就诊管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 员工姓名
+
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: ---
+
+
+fields: #可定义多个中文名称指向同一个字段
+
+  宠物id: petId
+  宠物名称: petName
+  宠物主人名字: gestName
+
+  医生: doctor
+
+  助理名称: assistantDoctorName
+  助理ID: assistantDoctorId
+
+  就诊编号: mediTreatmentCode
+
+  注册编号: registerNo
+
+  体温: temperature
+  心跳: heartbeat
+  呼吸: breath
+  血压: bloodPressure
+
+  主述: rheme
+  临床检查: examination
+  医生诊断: diagnosed
+  医嘱: doctorAdvice
+
+  影像地位: paidStatus
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

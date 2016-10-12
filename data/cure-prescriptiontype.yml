@@ -1,0 +1,28 @@
+
+module:
+  name: 模板类型
+  id: prescriptiontype
+  data: prescriptiontemplatetypes
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 名称
+
+
+searchFields:
+  - fieldName: 名称
+
+  - fieldName: ---
+
+fields: #可定义多个中文名称指向同一个字段
+  子类编号: typeNo
+  子类名称: typeName
+  父节点: parentId
+  gestId: gestId
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

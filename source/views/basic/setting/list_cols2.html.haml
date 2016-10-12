@@ -1,0 +1,44 @@
+---
+layout: "cols2_noborder"
+---
+- page '应用参数配置', 'setting'
+
+-# 大纲部分
+
+-#应用参数类型
+= partial 'views/commons/nav_setting_type'
+
+-# 主体部分
+
+- content_for :toolbar do
+  %button.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", 'ng': {'click':'update()'}}
+    %i.fa.fa-plus
+    增加
+  %button.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;", 'ng': {'click':'removes()', 'disabled': 'isRemoves'} }
+    %i.fa.fa-remove
+    删除
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    -#挂号状态
+    %th #{field.aliasName || field.fieldName}
+
+-#- content_for :ttoolbar do
+-#  %a.btn.btn-outline.btn-circle.btn-sm.purple{'ng-click' => 'update(pet.id)'}
+-#    %i.fa.fa-edit
+-#    更新
+-#  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'remove(pet.id)'}}
+-#    %i.fa.fa-trash-o
+-#    Delete
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    -# #{column.fieldName}
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+/ Modal
+
+/ Modal
+= partial :'layouts/partials/modal' do
+  = partial 'modify'

@@ -1,0 +1,33 @@
+-# portal_name, portal_id
+- @portal = data["" << @module[@portal_id] << "-" << @portal_id]
+
+.modal.fade.bs-modal-lg{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1", :id => "#{@portal_id}select"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title #{@portal_name}
+
+      .modal-body
+        %div{:id => "#{@portal_id}select_alert"}
+
+        -#嵌套模块
+        %table.table.table-striped.table-hover.table-bordered
+          %thead
+            %tr
+              %th 操作
+              - @portal.portalFields.each do |field|
+                %th #{field.aliasName || field.fieldName}
+
+          %tbody
+            %tr.odd.gradeX{ "ng-repeat" => @portal_id + " in " + @portal_id + "s"}
+              %td.text-center
+                = partial :'layouts/buttons/btn_info', :locals => {:click => @portal_id + 'portal.checked(' + @portal_id + '.id)' , :label => '选择', :icon => "fa-check"}
+
+              - @portal.portalFields.each do |column|
+                %td
+                  = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+
+      .modal-footer
+        %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
+

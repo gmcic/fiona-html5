@@ -1,0 +1,12 @@
+-#侧边栏选择仓库
+- content_for :outline_title do
+  仓库名称
+
+- content_for :outline_body do
+  %div.list-group
+    %a.list-group-item{:href => 'javascript:;'}
+      医院药房
+      %span.badge.badge-default 3
+    %a.list-group-item{:href => 'javascript:;'}
+      后备仓库
+      %span.badge.badge-success 11

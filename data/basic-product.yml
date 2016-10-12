@@ -1,0 +1,106 @@
+module:
+  name: 商品与服务管理
+  id: product
+  data: itemtypes
+
+listFields:
+
+  - fieldName: 名称
+
+  - fieldName: 规格
+
+  - fieldName: 销售单位
+    filter: dropdown
+
+
+  - fieldName: 默认进价
+    filter: currency:"￥"
+
+  - fieldName: 销售价格
+    filter: currency:"￥"
+
+searchFields:
+  - fieldName: 名称
+
+  - fieldName: 编号
+
+fields:
+
+  所属分类ID: cateNo
+
+  # 分类名称
+  所属分类: itemStyle
+
+  #商品信息
+
+  编号: itemCode
+
+  名称: itemName
+
+  规格: itemStandard
+
+  零散比: itemBulk
+
+  条码: barCode
+
+  销售单位: packageUnit
+
+  默认进价: inputPrice
+
+  销售价格: sellPrice
+
+  处方单位: recipeUnit
+
+  处方价格: recipePrice
+
+  是否打折: isVipDiscount
+
+  是否销售: isSell
+
+  是否记库: isCount
+
+  库存上限: wareUpLimit
+
+  库存下限: wareDownLimit
+
+  剂型: drugForm
+
+  货位信息: location
+
+  拼音码: inputCode
+
+  分组: groupName
+
+  是否可兑换: isCanExchange
+
+  兑换积分: exchangeRewardPoint
+
+  生产厂商CODE: dealerCode
+
+  生产厂商: dealerName
+
+  用法: useWay
+
+  备注: remark
+
+  业务类型ID: busiTypeId
+
+  #---- 还未使用
+
+  # : isScattered
+
+  会员价格: vipSellPrice
+
+  保质期: safeDay
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate

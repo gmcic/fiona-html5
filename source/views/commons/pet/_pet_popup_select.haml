@@ -1,0 +1,14 @@
+
+/ 选择宠物
+- modal "选择宠物", "pet"
+= partial :'layouts/partials/modal-portal-select-lg' do
+  - portal "选择宠物", "pet"
+  = partial 'layouts/widget/portal', :locals => {:listdataKey=> "portalFields"}
+
+  -#= partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  -#= partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+
+/ 添加宠物
+- modal "添加宠物", "pet"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'views/commons/pet/portal_pet_form'

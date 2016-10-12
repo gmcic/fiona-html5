@@ -1,0 +1,17 @@
+-#查看文本框
+- $keyword = ((defined? keyword) ? keyword : @page_id)
+
+- fields = data["" << @module[$keyword] << "-" << $keyword].fields
+
+- if defined? labelName
+  - $ngModel = inputModel($keyword, (fields[fieldName] || 'error') + "." + labelName)
+
+- if !(defined? labelName)
+  - $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
+
+
+.form-group.form-md-line-input
+  %label.control-label
+    #{fieldName} #{@formIdName}
+
+  %input.form-control{:type => "text", "ng-model"=>"#{$ngModel}" , "readonly" => "true"}/

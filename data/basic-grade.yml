@@ -1,0 +1,30 @@
+# 会员等级管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 等级名称
+
+  - fieldName: 备注
+
+  - fieldName: 创建人
+
+  - fieldName: 创建日期
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  等级编号: levelCode
+
+  等级名称: levelName
+
+  备注: remark
+
+  修改日期: updateUserId
+
+  修改人: updateDate
+
+  创建人: createUserId
+
+  创建日期: createDate
+
+  是否信用卡: isCredit
+
+  是否优惠: isDiscount

@@ -1,0 +1,32 @@
+.dataTablesInfo
+{
+    padding-top: 10px;
+}
+
+.input-noborder-vertical
+{
+    border-left: none;
+    border-right: none;
+}
+
+.input-noborder-left
+{
+    border-left: none;
+}
+
+.input-noborder-right
+{
+    border-right: none;
+}
+
+
+.radio-list
+{
+    padding-top: 5px;
+    margin-left: 23px;
+}
+
+.page-content
+{
+    padding-top: 10px;
+}

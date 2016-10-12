@@ -1,0 +1,10 @@
+---
+layout: "page"
+---
+- page '会员等级管理', 'grade'
+
+= partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none"}
+
+/ Modal
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'

@@ -1,0 +1,141 @@
+# 宠物
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 挂号状态
+    fieldKey: status.valueNameCn
+
+  - fieldName: 宠物状态
+    fieldKey: status.valueNameCn
+
+  - fieldName: 会员编号
+
+  - fieldName: 会员姓名
+
+  - fieldName: 宠物卡号
+
+  - fieldName: 宠物牌号
+
+  - fieldName: 宠物病例号
+
+  - fieldName: 宠物昵称
+
+  - fieldName: 宠物性别
+    fieldKey: petSex.valueNameCn
+
+  - aliasName: 宠物生日
+    fieldName: 出生日期
+
+
+  - fieldName: 身高
+
+  - fieldName: 体重(kg)
+    fieldKey: petWeight
+
+  - fieldName: 颜色
+    fieldKey: petSkinColor.valueNameCn
+
+  - fieldName: 宠物种类
+    fieldKey: petRace.petRace.name
+
+  - fieldName: 宠物品种
+    fieldKey: petRace.type
+
+  - fieldName: 宠物卡号
+# 宠物
+portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 会员编号
+
+  - fieldName: 会员姓名
+
+  - fieldName: 宠物卡号
+
+  - fieldName: 宠物昵称
+
+  - fieldName: 宠物性别
+    fieldKey: petSex.valueNameCn
+
+  - fieldName: 体重(kg)
+    fieldKey: petWeight
+
+  - fieldName: 颜色
+    fieldKey: petSkinColor.valueNameCn
+
+  - fieldName: 宠物种类
+    fieldKey: petRace.petRace.name
+
+  - fieldName: 宠物品种
+    fieldKey: petRace.type
+
+searchFields:
+  - fieldName: 宠物病例号
+
+  - fieldName: 宠物昵称
+
+  - fieldName: ---
+
+  - fieldName: 会员编号
+
+  - fieldName: 会员名称
+
+  - fieldName: 会员电话
+
+  - fieldName: ---
+
+  - fieldName: 登记日期
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  #宠物字典类型明细
+  宠物类型: status
+
+  编号(自动): petCode
+
+  会员ID: gestId
+
+  会员编号: gestCode
+
+  会员姓名: gestName
+
+  宠物昵称: petName
+
+  #数据字典 字典明细项
+  宠物性别: petSex
+
+  出生日期: petBirthday
+
+  宠物年龄: age
+
+  # 数据字典 字典明细项
+  宠物颜色: petSkinColor
+
+  #宠物类型: 娃娃,博美犬.:
+  宠物品种: petRace
+
+  绝育状态: petBreed
+
+  体重: petWeight
+  体重(kg): petWeight
+
+  身高: petHeight
+  身高(cm): petHeight
+
+  肩宽: petSwidth
+  肩宽(cm): petSwidth
+
+  体长: petBodyLong
+  体长(cm): petBodyLong
+
+  #宠物字典类型明细
+  宠物状态: sickFileCode
+
+  宠物生日状态: birthStatus
+
+  宠物头像: petHead
+
+  宠物头像id: petHeadId
+
+  宠物牌号: dogBandId
+
+  医生类型名称: mdicTypeName
+
+  备注: remark

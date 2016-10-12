@@ -1,0 +1,81 @@
+- @portal_id = @portal_id || @page_id
+
+- @portal_name = @portal_name || @page_title
+
+- @portal_object = "" << @portal_id << "portal"
+
+- $pagefilter = (defined? pagefilter)? " | filter: " << pagefilter : (defined? filterbar) && filterbar == "page"? " | filter: pageFilterText": ""
+
+- @portal_prefix = @module[@portal_id]
+
+- @portal = data["" << @module[@portal_id] << "-" << @portal_id]
+
+-#- puts $pagefilter
+
+- $listdataKey = (defined? listdataKey)? listdataKey : "listFields";
+
+
+/ PORTLET {"ng": {"show": "!!#{@page_id}.id"}}
+.portlet.light.bordered
+  .portlet-title
+    .caption.font-dark
+      %i.fa.fa-beer.font-dark
+      %span.caption-subject.bold.uppercase= @portal_name
+    .actions
+      - if defined? yield
+        =yield
+
+      - else
+        = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
+        = partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
+
+  .portlet-body
+
+    - if (!defined? filterbar) || filterbar == 'normal'
+      .table-toolbar
+        %form{:name=>"searchform", :role => "form"}
+          .row
+            .col-md-8
+              = partial :'layouts/widget/filter'
+
+    - elsif filterbar == 'page'
+      .table-toolbar
+        %form{:name=>"searchform", :role => "form"}
+          .row
+            .col-md-8
+              = partial :'layouts/widget/filter_withpage'
+
+    -#嵌套模块
+    %table.table.table-striped.table-hover.table-bordered
+      %thead
+        %tr
+          %th
+            %input.group-checkable{:type => "checkbox", 'ng': {'model':"#{@portal_id}portal.selectedall", 'change': "#{@portal_id}portal.selectAll()"}}/
+          %th 操作
+          - @portal[$listdataKey].each do |field|
+            %th #{field.aliasName || field.fieldName}
+
+      %tbody
+        %tr.odd.gradeX{ "ng-repeat" => @portal_id + " in " + @portal_id + "s" + $pagefilter}
+          %td
+            %input.checkboxes{:type => "checkbox", 'ng': {'model': "#{@portal_id}portal.selection[#{@portal_id}.id]", 'change': "#{@portal_id}portal.selectChange()"} }/
+          %td
+            = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)'}
+            = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + '.id)'}
+
+          - @portal[$listdataKey].each do |column|
+            %td
+              - if column.filter?
+                = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
+
+              - if column.input?
+                = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+
+              - if !column.input? && !column.filter?
+                = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+
+    - if !(defined? pagingbar)
+      .row
+        .col-md-12.col-sm-12
+          = partial :'layouts/widget/pagination'
+

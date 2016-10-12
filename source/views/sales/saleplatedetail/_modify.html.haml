@@ -1,0 +1,14 @@
+.portlet
+  .portlet-title
+    .caption
+      总项数:
+      %label.label.label-success{:style => "padding-right: 10px;padding-left: 10px"}
+        {{ saleplate.totalNum }}
+      , 总金额:
+      %label.label.label-danger{:style => "padding-right: 10px;padding-left: 10px"}
+        {{ saleplate.totalCost }} 元
+
+  .portlet-body.portlet-empty
+    -#表格
+    - modal "销售清单明细", "saleplatedetail"
+    = partial :'layouts/table/table'

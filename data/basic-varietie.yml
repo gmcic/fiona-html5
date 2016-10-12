@@ -1,0 +1,26 @@
+# 宠物品种
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 品种
+    fieldKey: type
+
+  - fieldName: 种类
+    fieldKey: petRaceObject.name
+
+searchFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 品种
+
+  - fieldName: 种类
+
+fields: #可定义多个中文名称指向同一个字段
+  ID: id
+
+  品种: type
+
+  #犬科,猫科...,
+  种类: $varietietype.name
+
+  #宠物字典类型明细
+  status: status
+
+
+

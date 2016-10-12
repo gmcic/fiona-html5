@@ -1,0 +1,37 @@
+# 病案管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 会员姓名
+
+  - fieldName: 宠物病历号
+
+  - fieldName: 宠物昵称
+
+  - fieldName: 医生诊断
+
+searchFields:
+  - fieldName: 会员编号
+  - fieldName: 会员姓名
+  - fieldName: 主人手机
+
+  - fieldName: ---
+
+  - fieldName: 宠物病历号
+  - fieldName: 宠物昵称
+
+  - fieldName: ---
+
+  - fieldName: 诊疗日期
+
+
+fields: #可定义多个中文名称指向同一个字段
+  主键: id
+
+  会员姓名: XX
+
+  宠物病历号: XX
+
+  宠物昵称: XX
+
+  会员姓名医生诊断: XX
+

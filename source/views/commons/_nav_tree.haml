@@ -1,0 +1,6 @@
+-#数据字典, 侧边导航
+- content_for :outline_title do
+  #{sidename||"类型"}
+
+- content_for :outline_body do
+  %div{"js-tree" => "treeConfig", "ng-model"=>"treeData", "tree-events-obj" => "treeEventsObj", "tree" => "treeInstance" }

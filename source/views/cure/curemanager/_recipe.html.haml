@@ -1,0 +1,27 @@
+/ BEGIN SAMPLE FORM PORTLET
+.portlet
+  .portlet-title
+    .caption
+      %i.fa.fa-user
+      会员信息
+    .actions
+      %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-plus
+        选择药物笥服务
+
+      %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-remove
+        保存为模版
+
+      %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-remove
+        同步建议处方
+
+  .portlet-body.portlet-empty
+    .row
+      .col-md-3
+        #tree_2.tree-demo
+
+      .col-md-9
+        = partial 'views/commons/recipe_list'
+

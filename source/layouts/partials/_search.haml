@@ -1,0 +1,27 @@
+.input-group
+  .input-group-btn
+    %button.form-control.input-noborder-right.input-circle-left.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+      {{searchbar.fieldName}}
+      %i.fa.fa-angle-down
+
+    =yield_content :searchfields
+
+  %input.form-control{ :type => "text", :placeholder => "{{pagination.bar.firstTextPlaceholder}}", "ng":{ 'model':"searchbar.firstValue", "readonly"=>"searchbar.dataType == 'date'" }}/
+
+  .input-group-btn{"ng": {"show"=>"searchbar.dataType == 'date'"}}
+    %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+      %i.fa.fa-calendar
+
+  %input.form-control{:type => "text",:placeholder => "{{pagination.bar.lastTextPlaceholder}}", "style"=>"display: table-cell;",  "ng": {"show"=>"searchbar.type == 'between'", "model"=> "searchbar.lastValue", "readonly"=>"searchbar.dataType == 'date'"} }/
+
+  .input-group-btn{"ng": {"show"=>"searchbar.type == 'between' && searchbar.dataType == 'date'"}}
+    %button.form-control.date-picker-btn.input-noborder-vertical{:tabindex => "-1", :type => "button"}
+      %i.fa.fa-calendar
+
+  .input-group-btn
+    %button.btn.green.input-circle-right{"ng-click"=>"search()"}
+      %i.fa.fa-search
+
+
+-#%li{ "ng-repeat"=>"comboxdata in searchCombox" , "ng-class" => "{'active': comboxdata.active}" }
+-#  %a{:href => "javascript:;"} {{comboxdata.name}}

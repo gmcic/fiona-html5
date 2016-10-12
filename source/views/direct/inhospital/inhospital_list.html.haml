@@ -1,0 +1,53 @@
+- page "住院管理", "inhospital"
+
+- content_for :toolbar do
+  = partial :'layouts/buttons/insert'
+  = partial :'layouts/buttons/removes'
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+-#- content_for :ttoolbar do
+-#  %a.btn.btn-outline.btn-circle.btn-sm.purple{'ng-click' => 'update(pet.id)'}
+-#    %i.fa.fa-edit
+-#    更新
+-#  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'remove(pet.id)'}}
+-#    %i.fa.fa-trash-o
+-#    Delete
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'modify'
+
+/ 健康记录
+- modal "健康记录", "inhospitalhealth"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'inhospitalhealth'
+
+/ 充值预付金
+- modal "增加&减少金额", "vipprepay"
+
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'views/guest/vip/vipprepay'
+
+/ 选择宠物
+- portal "选择宠物", "pet"
+
+= partial :'views/commons/pet/portal_pet' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+
+/ 添加宠物
+- modal "添加宠物", "pet"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'views/commons/pet/portal_pet_form'
+
+/ 添加服务项目
+- modal "添加服务项目", "product"
+= partial :'layouts/partials/modal-portal-full' do
+  = partial 'views/commons/product/popup_select'

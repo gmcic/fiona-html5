@@ -1,0 +1,33 @@
+- page "美容服务", "beauty"
+
+- content_for :toolbar do
+  = partial :'layouts/buttons/insert'
+  = partial :'layouts/buttons/removes'
+
+- content_for :theader do
+  - @page.listFields.each do |field|
+    %th #{field.aliasName || field.fieldName}
+
+- content_for :tbody do
+  - @page.listFields.each do |column|
+    %td
+      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+
+= partial :'layouts/partials/modal-full' do
+  = partial 'modify'
+
+
+/ Portal
+- portal "选择宠物", "pet"
+
+= partial :'views/commons/pet/portal_pet' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+
+- modal "添加宠物", "pet"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'views/commons/pet/portal_pet_form'
+
+- modal "添加服务项目", "product"
+= partial :'layouts/partials/modal-portal-full' do
+  = partial 'views/commons/product/popup_select'
