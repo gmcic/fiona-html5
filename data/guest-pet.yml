@@ -94,7 +94,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   会员编号: gestCode
 
-  会员姓名: gestName
+  会员名称: gestName
 
   宠物昵称: petName
 
