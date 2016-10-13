@@ -19,7 +19,7 @@
         / BEGIN NOTIFICATION DROPDOWN
         %li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
           %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
-            %i.icon-bell
+            %i.fa.fa-bell
             %span.badge.badge-default 7
           %ul.dropdown-menu
             %li.external
@@ -93,168 +93,26 @@
                         %i.fa.fa-bolt
                       Storage server failed.
 
-        / BEGIN INBOX DROPDOWN
-        %li#header_inbox_bar.dropdown.dropdown-extended.dropdown-inbox
-          %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
-            %i.icon-envelope-open
-            %span.badge.badge-default 4
-          %ul.dropdown-menu
-            %li.external
-              %h3
-                You have
-                %span.bold 7 New
-                Messages
-              %a{:href => "app_inbox.html"} view all
-            %li
-              %ul.dropdown-menu-list.scroller{"data-handle-color" => "#637283", :style => "height: 275px;"}
-                %li
-                  %a{:href => "#"}
-                    %span.photo
-                      %img.img-circle{:alt => "", :src => "./assets/images/avatar2.jpg"}/
-                    %span.subject
-                      %span.from Lisa Wong
-                      %span.time Just Now
-                    %span.message Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh...
-                %li
-                  %a{:href => "#"}
-                    %span.photo
-                      %img.img-circle{:alt => "", :src => "./assets/images/avatar3.jpg"}/
-                    %span.subject
-                      %span.from Richard Doe
-                      %span.time 16 mins
-                    %span.message Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh...
-                %li
-                  %a{:href => "#"}
-                    %span.photo
-                      %img.img-circle{:alt => "", :src => "./assets/images/avatar1.jpg"}/
-                    %span.subject
-                      %span.from Bob Nilson
-                      %span.time 2 hrs
-                    %span.message Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh...
-                %li
-                  %a{:href => "#"}
-                    %span.photo
-                      %img.img-circle{:alt => "", :src => "./assets/images/avatar2.jpg"}/
-                    %span.subject
-                      %span.from Lisa Wong
-                      %span.time 40 mins
-                    %span.message Vivamus sed auctor 40% nibh congue nibh...
-                %li
-                  %a{:href => "#"}
-                    %span.photo
-                      %img.img-circle{:alt => "", :src => "./assets/images/avatar3.jpg"}/
-                    %span.subject
-                      %span.from Richard Doe
-                      %span.time 46 mins
-                    %span.message Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh...
-
-        / BEGIN TODO DROPDOWN
-        %li#header_task_bar.dropdown.dropdown-extended.dropdown-tasks
-          %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
-            %i.icon-calendar
-            %span.badge.badge-default 3
-          %ul.dropdown-menu.extended.tasks
-            %li.external
-              %h3
-                You have
-                %span.bold 12 pending
-                tasks
-              %a{:href => "app_todo.html"} view all
-            %li
-              %ul.dropdown-menu-list.scroller{"data-handle-color" => "#637283", :style => "height: 275px;"}
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.task
-                      %span.desc New release v1.2
-                      %span.percent 30%
-                    %span.progress
-                      %span.progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "40", :style => "width: 40%;"}
-                        %span.sr-only 40% Complete
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.task
-                      %span.desc Application deployment
-                      %span.percent 65%
-                    %span.progress
-                      %span.progress-bar.progress-bar-danger{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "65", :style => "width: 65%;"}
-                        %span.sr-only 65% Complete
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.task
-                      %span.desc Mobile app release
-                      %span.percent 98%
-                    %span.progress
-                      %span.progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "98", :style => "width: 98%;"}
-                        %span.sr-only 98% Complete
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.task
-                      %span.desc Database migration
-                      %span.percent 10%
-                    %span.progress
-                      %span.progress-bar.progress-bar-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "10", :style => "width: 10%;"}
-                        %span.sr-only 10% Complete
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.task
-                      %span.desc Web server upgrade
-                      %span.percent 58%
-                    %span.progress
-                      %span.progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "58", :style => "width: 58%;"}
-                        %span.sr-only 58% Complete
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.task
-                      %span.desc Mobile development
-                      %span.percent 85%
-                    %span.progress
-                      %span.progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "85", :style => "width: 85%;"}
-                        %span.sr-only 85% Complete
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.task
-                      %span.desc New UI release
-                      %span.percent 38%
-                    %span.progress.progress-striped
-                      %span.progress-bar.progress-bar-important{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "18", :style => "width: 38%;"}
-                        %span.sr-only 38% Complete
-
         / BEGIN USER LOGIN DROPDOWN
         %li.dropdown.dropdown-user
+          %ul.dropdown-menu.dropdown-menu-default
+            %li
+              %a{:href => "app_todo.html"}
+                %i.fa.fa-rocket
+                待诊
+                %span.badge.badge-success 7
+            %li.divider
+            %li
+              %a{:href => "login.html"}
+                %i.fa.fa-sign-out
+                退出
+
           %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
             %img.img-circle{:alt => "", :src => "./assets/images/avatar3_small.jpg"}/
             %span.username.username-hide-on-mobile Nick
             %i.fa.fa-angle-down
-          %ul.dropdown-menu.dropdown-menu-default
-            %li
-              %a{:href => "page_user_profile_1.html"}
-                %i.icon-user
-                My Profile
-            %li
-              %a{:href => "app_calendar.html"}
-                %i.icon-calendar
-                My Calendar
-            %li
-              %a{:href => "app_inbox.html"}
-                %i.icon-envelope-open
-                My Inbox
-                %span.badge.badge-danger 3
-            %li
-              %a{:href => "app_todo.html"}
-                %i.icon-rocket
-                My Tasks
-                %span.badge.badge-success 7
-            %li.divider
-            %li
-              %a{:href => "page_user_lock_1.html"}
-                %i.icon-lock
-                Lock Screen
-            %li
-              %a{:href => "page_user_login_1.html"}
-                %i.icon-key
-                Log Out
 
         / BEGIN QUICK SIDEBAR TOGGLER
         %li.dropdown.dropdown-quick-sidebar-toggler
           %a.dropdown-toggle{:href => "javascript:;"}
-            %i.icon-logout
+            %i.fa.fa-sign-out

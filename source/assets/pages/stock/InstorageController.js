@@ -28,6 +28,16 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         callback: {
             insert: function () {
                 $scope.instoragedetailportal.search();
+
+                // 生成入库单号
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=入库单编号").success(function (data, status, headers, config) {
+
+                    $scope.instorage.inWarehouseCode = data.code;
+
+                }).error(function (data, status, headers, config) { //     错误
+
+                    commons.danger("生成序列号失败");
+                });
             }
         }
     };

@@ -9,14 +9,14 @@
   %form.login-form{:name => "signup_form", :novalidate => "", "ng-submit" => "signupForm()", "ng-controller" => "SignupController"}
 
     %h3.form-title.font-green 登录
-    .alert.alert-danger{"ng-show" => "(signup_form.username.$invalid || signup_form.password.$invalid) && signup_form.submitted"}
+    .alert.alert-danger{"ng-show" => "signup_form.submitted && error"}
       %button.close{"data-close" => "alert"}
       %span {{ message }}
 
     .form-group
       / ie8, ie9 does not support html5 placeholder, so we just show field title for that
       %label.control-label.visible-ie8.visible-ie9 用户名
-      %input.form-control.form-control-solid.placeholder-no-fix{:autocomplete => "off", :name => "username", :placeholder => "输入用户名", :type => "text", :required => "required", "ng-model" => "signup.username"}/
+      %input.form-control.form-control-solid.placeholder-no-fix{:autocomplete => "off", :name => "name", :placeholder => "输入用户名", :type => "text", :required => "required", "ng-model" => "signup.name"}/
 
     .form-group
       %label.control-label.visible-ie8.visible-ie9 密码
