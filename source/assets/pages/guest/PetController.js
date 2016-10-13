@@ -14,7 +14,7 @@ angular.module('fiona').controller('PetController', function($scope, $controller
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
-        dicts: {petBreedSet: "绝育状态",sickFileCodeSet: "宠物状态"},
+        dicts: {petBreedSet: "绝育状态",statusSet: "宠物状态"},
         userdicts: {petSexSet: "动物性别",petSkinColorSet: "动物颜色"}
     };
 

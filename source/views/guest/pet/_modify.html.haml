@@ -56,11 +56,11 @@
 
             .row
               .col-md-4
-                = partial :'layouts/inputs/select', :locals => {:fieldName => '宠物状态', :maxlength => '32', :options => "type as type.valueNameCn for type in dropdowns.sickFileCodeSet"}
+                = partial :'layouts/inputs/select', :locals => {:fieldName => '宠物状态', :maxlength => '32', :options => "type as type.valueNameCn for type in dropdowns.statusSet"}
 
 
-              -#.col-md-7
-              -#  = partial :'layouts/inputs/text', :locals => { :fieldName => '病例号', :maxlength => '16', :required => "true"}
+              -#.col-md-4
+              -#  = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物病例号', :maxlength => '16', :required => "true"}
 
             .row
               .col-md-3
