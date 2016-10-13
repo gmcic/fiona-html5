@@ -47,6 +47,13 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             // 商品与服务
             $scope.selectDicts('itemcates', invoke.products, args.products);
         }
+
+        // if(!!args.gestLevels)
+        // {
+        //     //会员等级
+        //     $scope.selectDicts('gestlevels', invoke.gestLevels, args.gestLevels);
+        // }
+        
     };
 
     $scope.selectDicts = function (uri, invoke, data) {
@@ -85,7 +92,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             var dropdown = [];
 
             angular.forEach(data.data, function (record) {
-                dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
+                dropdown.push(record);
             });
             
             $scope.dropdowns[component.id + "Set"] = dropdown;

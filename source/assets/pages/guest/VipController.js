@@ -1,18 +1,11 @@
 // 会员管理
 angular.module('fiona').controller('VipController', function ($scope, $controller) {
 
-    $scope.dropboxargs = [
-        {name: "gestStyleSet", server: "gestlevels"},
-        {name: "statusSet", server: "dicts", filterName: "会员状态"},
-        {name: "gestSexSet", server: "userdicts", filterName: "性别"},
-
-        {name: "raceTypeSet", server: "petraces"}, // 种类
-        {name: "petRaceSet", server: "varieties"}, // 品种
-        {name: "petBreedSet", server: "dicts", filterName: "绝育状态"},
-        {name: "sickFileCodeSet", server: "dicts", filterName: "宠物状态"},
-        {name: "petSexSet", server: "userdicts", filterName: "动物性别"},
-        {name: "petSkinColorSet", server: "userdicts", filterName: "动物颜色"}
-    ];
+// 声明要使用的下拉选项
+    $scope.dropboxargs = {
+        dicts: {statusSet: "会员状态"},
+        userdicts: {gestSexSet: "性别"}
+    };
 
     $scope.dropdowns = {};
 
@@ -21,6 +14,8 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
 
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);
+
+    $scope.dropdownWithTable({id: "gestStyle", server: "/api/v2/gestlevels", code: "id", text: "levelName"});
 
     /**
      * 挂号查询
@@ -83,5 +78,9 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
+
+    $scope.vipportal.filter();
 });
+
+
 
