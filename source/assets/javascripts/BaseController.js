@@ -112,7 +112,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
     if(!!component.defilters)
     {
         angular.forEach(component.defilters, function (value, key) {
-            component.filters.push({"fieldName": key, "operator": "EQ", "value":""});
+            component.filters.push({"fieldName": key, "operator": "LIKE", "value":""});
             _placeholder += "/" + value;
         });
     }
@@ -159,7 +159,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             else {
                 component.filters = [{
                     "fieldName": component.searchbar.field,
-                    "operator": "EQ",
+                    "operator": "LIKE",
                     "value": component.searchbar.firstValue
                 }];
             }

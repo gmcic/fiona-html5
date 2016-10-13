@@ -29,7 +29,7 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
 
         server: "/api/v2/gests",
 
-        defilters: {"petCode": "宠物病例号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员名称",  "gestPhone": "会员电话"},
+        defilters: {"gestCode": "会员编号",  "gestName": "会员名称",  "mobilePhone": "会员电话"},
 
         callback: {
             insert: function () {
