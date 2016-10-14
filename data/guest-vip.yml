@@ -50,8 +50,6 @@ searchFields:
 
   - fieldName: 会员电话
 
-  - fieldName: 固定电话
-
 # 宠物
 fields:
   ID: id

@@ -78,7 +78,7 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
 
         server: "/api/v2/medicchemicalexamtypes",
 
-        defilters: {"itemCode": "商品编号", "itemName": "商品名称"},
+        defilters: {"cheTestName": "参数名称", "cateNo": "编号"},
 
         callback : {
             insert: function () {
