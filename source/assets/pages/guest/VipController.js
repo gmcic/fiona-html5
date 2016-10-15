@@ -7,6 +7,8 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
         userdicts: {gestSexSet: "性别"}
     };
 
+    $scope.dropdownWithTable({id: "gestStyleSet", server: "/api/v2/warehouses", code: "code", text: "name"});
+
     $scope.dropdowns = {};
 
     // 继承能用代码

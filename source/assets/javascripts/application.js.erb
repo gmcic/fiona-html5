@@ -5,6 +5,9 @@ angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJs
             /\/[^\/]*$/,
             '/cors/result.html?%s'
         );
+
+        $httpProvider.interceptors.push('UserInterceptor');
+
         $routeProvider
             .when('/', {
                 controller: "DashboardController",
@@ -27,6 +30,28 @@ angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJs
 <% end %>
 
             .otherwise({redirectTo: '/'});
+    }])
+    // 拦截器(验证用户是否登录)
+    .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons) {
+    	return {
+            request:function(config){
+
+                // alert('Authorization: ' + commons.getAuthorization());
+
+                if(commons.getAuthorization())
+                {
+                    config.headers["authorization"] = commons.getAuthorization();
+                }
+                else
+                {
+                    $window.location.href = "login.html";
+                }
+
+                // alert('OK' + SessionService.isAnonymous);
+
+                return config;
+            }
+        };
     }])
     // 首页面
     .controller('DashboardController', function($scope) {

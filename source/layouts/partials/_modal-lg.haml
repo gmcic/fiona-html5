@@ -15,8 +15,12 @@
           = yield
 
         .modal-footer
-          %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
+          - if !content_for?(:modalbutton)
+            %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
 
-          %button.btn.btn-primary{"ng-disabled"=>"#{@modal_id}form.$pristine", :type => "submit"}
-            %i.fa.fa-plus
-            保存表单
+            %button.btn.btn-primary{"ng-disabled"=>"#{@modal_id}form.$pristine", :type => "submit"}
+              %i.fa.fa-plus
+              保存表单
+
+          - if content_for?(:modalbutton)
+            =yield_content :modalbutton

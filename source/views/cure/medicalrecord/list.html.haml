@@ -14,5 +14,9 @@
     %td
       = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
 
-= partial :'layouts/partials/modal-lg' do
-  = partial 'modify'
+= partial :'layouts/widget/modal_print' do
+
+  - content_for :modalbutton do
+    %button.btn.btn-primary{:type => "button", "onclick" => "window.print()"}
+      %i.fa.fa-print
+      打印

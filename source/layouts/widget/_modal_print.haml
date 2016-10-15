@@ -1,0 +1,18 @@
+- @modal_id = @modal_id || @page_id
+
+- @modal_name = @modal_name || @page_title
+
+.modal.fade.bs-modal-lg{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1", :id => "#{@modal_id}"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title #{@modal_name}
+
+      .modal-body
+        %iframe#printiframe{:frameborder => '1', :src => "/views/cure/medicalrecord/print.html", :style => "width:100%;height:400px"}
+
+      .modal-footer
+        %button.btn.btn-primary{:type => "button", "onclick" => "document.getElementById('printiframe').contentWindow.print()"}
+          %i.fa.fa-print
+          打印
