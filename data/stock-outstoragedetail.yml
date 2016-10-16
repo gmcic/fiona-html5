@@ -31,27 +31,48 @@ searchFields:
 
 
 fields: #可定义多个中文名称指向同一个字段
-  出库编号: outWarehouseCode
+  出库单号: outWarehouseCode
+
   类型编号: itemCode
+
   条码: barCode
+
   类型名称: itemName
+
   单位: packageUnit
+
   规格: itemStandard
+
   零散比: itemBulk
+
   出厂价格: inputPrice
+
   药品形状: drugForm
+
   商品服务种类: itemStyle
+
   卖价售价: sellPrice
+
   个数: inputCount
+
   进价: inputCost
+
   生产日期: produceDate
+
   进货日期: inputDate
+
   过期时间: outDateTime
+
   保质期天数: safeDay
+
   仓库上限: wareUpLimit
+
   仓库下限: wareDownLimit
+
   备注: remark
+
   生产者编号: manufacturerCode
+
   生产者名称: manufacturerName
 
   主键: id

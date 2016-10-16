@@ -29,24 +29,31 @@ searchFields:
   - fieldName: 审核人
   - fieldName: 单据状态
 
-
 fields: #可定义多个中文名称指向同一个字段
 
-  出库单号: XX
+  出库单号: outWarehouseCode
 
-  总项: XX
+  出库人: outWarehouseMan
 
-  总金额: XX
+  总金额: outWarehouseTotalCost
 
-  审核日期: XX
+  出库仓库ID: warehouseId
 
-  审核人: XX
+  出库仓库: outWarehouse
 
-  出库仓库: XX
+  出库原因: outReason
 
-  出库原因: XX
+  出库内容: outContent
 
-  备注: XX
+  总项: totalCount
+
+  审核人: checkMan
+
+  审核日期: checkDate
+
+  出库时间: outWarehouseDate
+
+  备注: remark
 
   主键: id
 

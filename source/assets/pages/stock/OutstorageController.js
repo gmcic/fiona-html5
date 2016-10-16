@@ -1,5 +1,5 @@
 // 出库管理
-angular.module('fiona').controller('OutstorageController', function($scope, $controller) {
+angular.module('fiona').controller('OutstorageController', function($scope, $http, $controller, commons) {
 
     // 声明要使用的下拉选项
     $scope.dropboxlist = [];
@@ -9,7 +9,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $con
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
 
-    $scope.dropdownWithTable({id: "warehousesSet", server: "/api/v2/warehouses", code: "code", text: "name"});
+    $scope.dropdownWithTable({id: "warehouses", server: "/api/v2/warehouses", code: "id", text: "name"});
 
     /**
      * 出库管理
@@ -28,6 +28,22 @@ angular.module('fiona').controller('OutstorageController', function($scope, $con
         callback: {
             insert: function () {
                 $scope.outstoragedetailportal.search();
+
+                // 总数据
+                $scope.outstorage.totalCount = 0;
+
+                // 总金额
+                $scope.outstorage.outWarehouseTotalCost= 0;
+
+                // 生成入库单号
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=出库单号").success(function (data, status, headers, config) {
+
+                    $scope.outstorage.outWarehouseCode= data.data;
+
+                }).error(function (data, status, headers, config) { //     错误
+
+                    commons.danger("生成出库单号失败");
+                });
             }
         }
     };
@@ -48,7 +64,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $con
 
         name: "出库明细",
 
-        server: "/api/v2/warehouseinrecorddetails"
+        server: "/api/v2/warehouseoutrecorddetails"
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.outstoragedetailportal}); //继承

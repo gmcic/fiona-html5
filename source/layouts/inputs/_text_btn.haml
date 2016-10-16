@@ -28,7 +28,7 @@
       %input.form-control{:type => "text", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
 
     %span.input-group-btn
-      %button.btn.red{:type => "button", "ng" => {'click' => "#{$btnClick}"}} #{$btnName}
+      %button.btn.btn-primary{:type => "button", "ng" => {'click' => "#{$btnClick}"}} #{$btnName}
 
   - if $required == 'true'
     %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.

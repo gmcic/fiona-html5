@@ -9,7 +9,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
 
-    $scope.dropdownWithTable({id: "warehousesSet", server: "/api/v2/warehouses", code: "id", text: "name"});
+    $scope.dropdownWithTable({id: "warehouses", server: "/api/v2/warehouses", code: "id", text: "name"});
 
     /**
      * 入库管理
@@ -29,14 +29,20 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             insert: function () {
                 $scope.instoragedetailportal.search();
 
-                // 生成入库单号
-                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=入库单编号").success(function (data, status, headers, config) {
+                // 总数据
+                $scope.instorage.totalCount = 0;
 
-                    $scope.instorage.inWarehouseCode = data.code;
+                // 总金额
+                $scope.instorage.inWarehouseTotalCost= 0;
+
+                // 生成入库单号
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=入库单号").success(function (data, status, headers, config) {
+
+                    $scope.instorage.inWarehouseCode = data.data;
 
                 }).error(function (data, status, headers, config) { //     错误
 
-                    commons.danger("生成序列号失败");
+                    commons.danger("生成入库单号失败");
                 });
             }
         }
@@ -74,7 +80,15 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         name: "供应商",
 
-        server: "/api/v2/dealers"
+        server: "/api/v2/dealers",
+
+        callback: {
+            update: function () {
+                $scope.instorage.dealerCode = $scope.dealer.code;
+                $scope.instorage.dealerName = $scope.dealer.name;
+
+            }
+        }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.dealerportal}); //继承
@@ -85,6 +99,9 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
      * 商品&服务弹出选择
      * ---------------------------
      * */
+
+    $scope.productchecked = {};
+
     $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
     $scope.producttypeportal.init();
@@ -99,21 +116,54 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
             if($scope.productportal.selection[product.id])
             {
-                var instoragedetail= {createUserId: 1, updateUserId: 1};
+                if($scope.productchecked[product.itemCode]) {
 
-                angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "packageUnit", "itemBulk", "inputPrice", "drugForm", "itemStyle", "sellPrice", "inputCount", "inputCost", "produceDate", "inputDate", "outDateTime", "safeDay", "wareUpLimit", "wareDownLimit", "remark", "batchNumber", "manufacturerCode", "manufacturerName"], function (name) {
-                    instoragedetail[name] = product[name];
-                });
+                    var instoragedetail = $scope.productchecked[product.itemCode];
 
-                // 个数
-                instoragedetail.inputCount = 1;
-                // 总价
-                instoragedetail.totalCost = 1;
+                    // 是否已选择
 
-                $scope.instoragedetails.push(instoragedetail);
+                    // 个数
+                    instoragedetail.inputCount = instoragedetail.inputCount + 1;
+                    // 总价
+                    instoragedetail.totalCost = instoragedetail.totalCost * instoragedetail.inputCount;
+
+                    // 总数据
+                    $scope.instorage.totalCount = $scope.instorage.totalCount + 1;
+                    // 总金额
+                    $scope.instorage.inWarehouseTotalCost= $scope.instorage.inWarehouseTotalCost + product.sellPrice;
+
+                }
+                else {
+                    // 未选择新添加
+
+                    var instoragedetail= {createUserId: 1, updateUserId: 1};
+
+                    //  "inputCount",
+
+                    angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "packageUnit", "itemBulk", "inputPrice", "drugForm", "itemStyle", "sellPrice", "inputCost", "produceDate", "inputDate", "outDateTime", "safeDay", "wareUpLimit", "wareDownLimit", "remark", "batchNumber", "manufacturerCode", "manufacturerName"], function (name) {
+                        instoragedetail[name] = product[name];
+                    });
+
+                    // 个数
+                    instoragedetail.inputCount = 1;
+
+                    // 总价
+                    instoragedetail.inputCost = instoragedetail.sellPrice;
+
+                    // 总数据
+                    $scope.instorage.totalCount = $scope.instorage.totalCount + 1;
+
+                    // 总金额
+                    $scope.instorage.inWarehouseTotalCost= $scope.instorage.inWarehouseTotalCost + instoragedetail.sellPrice;
+
+                    $scope.productchecked[instoragedetail.itemCode] = instoragedetail;
+
+                    $scope.instoragedetails.push(instoragedetail);
+                }
             }
         });
 
         $('#' + $scope.productportal.id).modal('toggle');
     };
+
 });

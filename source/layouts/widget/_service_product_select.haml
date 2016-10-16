@@ -1,8 +1,13 @@
 .row
   .col-md-3
     - portal "商品&服务", "producttype"
-    = partial 'layouts/widget/tree', :locals => {:sidename => "商品&服务", :sidefieldname=> 'name'}
+    = partial 'layouts/widget/tree', :locals => {:sidename => "商品&服务", :sidefieldname=> 'name'} do
+      / 不输出 outline 按钮
 
   .col-md-9
     - portal '商品与服务管理', 'product'
-    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none"}
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none' } do
+      %button.btn.btn-primary{"ng-disabled"=>"#{@modal_id}form.$pristine", :type => "submit"}
+        %i.fa.fa-plus
+        保存表单
+

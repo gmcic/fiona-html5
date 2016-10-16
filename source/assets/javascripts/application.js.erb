@@ -36,12 +36,11 @@ angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJs
     	return {
             request:function(config){
 
-                console.log('Auth: ' + Auth);
-
-                alert('Auth: ' + Auth.authorization);
+                // alert(commons.getAuthorization());
 
                 if(commons.getAuthorization())
                 {
+                    config.headers.post = config.headers.post || {};
                     config.headers.post['Content-Type']= 'application/json';
                     config.headers["authorization"] = commons.getAuthorization();
                 }

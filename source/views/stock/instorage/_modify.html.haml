@@ -2,7 +2,7 @@
 .form-body
   .row
     .col-md-3
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '入库单号', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '入库单号', :maxlength => '32', :required => 'true'}
 
     .col-md-3
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :maxlength => '32', :required => 'true'}
@@ -11,7 +11,7 @@
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '入库仓库', :options => "type.code as type.text for type in dropdowns.warehousesSet"}
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '入库仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehousesSet"}
 
   .row
     .col-md-3
@@ -24,10 +24,7 @@
       = partial :'layouts/inputs/text', :locals => {:fieldName => '备注', :maxlength => '32', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '经销商', :maxlength => '32', :required => 'true'}
-
-    .col-md-3
-      %button{:type => "button", "ng-click" => "dealerportal.insert()"} 弹出选择
+      = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '经销商', :maxlength => '32', :btnname => '选择', :btnclick => 'dealerportal.insert()'}
 
 / Portal
 - portal "入库商品清单", "instoragedetail"

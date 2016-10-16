@@ -46,8 +46,6 @@ fields: #可定义多个中文名称指向同一个字段
 
   入库人: inWarehouseMan
 
-  总金额: inWarehouseTotalCost
-
   仓库: inWarehouse
 
   原因: inReason
@@ -55,6 +53,8 @@ fields: #可定义多个中文名称指向同一个字段
   入库内容: inContent
 
   总项: totalCount
+
+  总金额: inWarehouseTotalCost
 
   入库时间: inWarehouseDate
 

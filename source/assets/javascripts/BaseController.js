@@ -92,12 +92,13 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             var dropdown = [];
 
             angular.forEach(data.data, function (record) {
-                dropdown.push(record);
+                dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
             });
             
             $scope.dropdowns[component.id + "Set"] = dropdown;
         });
     };
+
 }).controller('FilterController', function ($scope, component, $http, commons) {
 
     if(!component.filters)

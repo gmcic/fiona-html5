@@ -1,16 +1,16 @@
 .form-body
   .row
     .col-md-3
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '出库单号', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '出库单号', :maxlength => '32', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '总项', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :maxlength => '32', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '出库仓库', :options => "type.code as type.text for type in dropdowns.warehousesSet"}
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '出库仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehousesSet"}
 
   .row
     .col-md-3

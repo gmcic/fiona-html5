@@ -14,7 +14,6 @@
 
 - $listdataKey = (defined? listdataKey)? listdataKey : "listFields";
 
-
 / PORTLET {"ng": {"show": "!!#{@page_id}.id"}}
 .portlet.light.bordered
   .portlet-title
@@ -51,7 +50,8 @@
         %tr
           %th
             %input.group-checkable{:type => "checkbox", 'ng': {'model':"#{@portal_id}portal.selectedall", 'change': "#{@portal_id}portal.selectAll()"}}/
-          %th 操作
+          - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
+            %th 操作
           - @portal[$listdataKey].each do |field|
             %th #{field.aliasName || field.fieldName}
 
@@ -59,9 +59,17 @@
         %tr.odd.gradeX{ "ng-repeat" => @portal_id + " in " + @portal_id + "s" + $pagefilter}
           %td
             %input.checkboxes{:type => "checkbox", 'ng': {'model': "#{@portal_id}portal.selection[#{@portal_id}.id]", 'change': "#{@portal_id}portal.selectChange()"} }/
-          %td
-            = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)'}
-            = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + '.id)'}
+
+          - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
+            %td
+              - if (!defined? inline_toolbar) || ( inline_toolbar.include? "update" )
+                = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)'}
+
+              - if (!defined? inline_toolbar) || ( inline_toolbar.include? "remove" )
+                = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + '.id)'}
+
+              - if (defined? inline_toolbar) && ( inline_toolbar.include? "checked" )
+                = partial :'layouts/buttons/btn', :locals => {:label => "选择", :icon => "fa-circle-o", :click => @portal_id + 'portal.update(' + @portal_id + '.id)'}
 
           - @portal[$listdataKey].each do |column|
             %td
