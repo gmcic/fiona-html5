@@ -3,21 +3,39 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 编号
 
 fields: #可定义多个中文名称指向同一个字段
-  编号: name
+  序列号: serialNumber
 
-  医院名称: name
+  编号: entNo
 
-  联系人: name
+  医院名称: fullName
 
-  电话: name
+  简称: shortName
 
-  传真: name
+  联系人: responseMan
+
+  电话: telPhone
+
+  传真: fax
 
   手机: name
 
-  电子信箱: name
+  电子信箱: email
 
-  地址: name
+  邮编: areaCode
 
-  备注: name
+  地址: areaCode
+
+  备注: remark
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
 
