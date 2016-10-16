@@ -1,13 +1,11 @@
 // 会员管理
 angular.module('fiona').controller('VipController', function ($scope, $controller) {
 
-    // 声明要使用的下拉选项
+// 声明要使用的下拉选项
     $scope.dropboxargs = {
         dicts: {statusSet: "会员状态"},
         userdicts: {gestSexSet: "性别"}
     };
-
-    $scope.dropdownWithTable({id: "gestStyleSet", server: "/api/v2/warehouses", code: "code", text: "name"});
 
     $scope.dropdowns = {};
 
