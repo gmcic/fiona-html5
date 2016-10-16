@@ -1,4 +1,13 @@
 angular.module('fiona.services', [])
+.constant('Auth', {
+    authorization: '',
+    loginSuccess: 'auth-login-success',
+    loginFailed: 'auth-login-failed',
+    logoutSuccess: 'auth-logout-success',
+    sessionTimeout: 'auth-session-timeout',
+    notAuthenticated: 'auth-not-authenticated',
+    notAuthorized: 'auth-not-authorized'
+})
 .filter("dropdown", function () {
     return function (name, comboxs) {
 
@@ -16,7 +25,7 @@ angular.module('fiona.services', [])
         return value;
     };
 }).factory('commons', function() {
-    var authorization='fc5db3b3-4063-4a12-a511-880ba19e4b58';
+    var authorization='';
     function formatnumber(num) {
         if(num <= 9)
         {

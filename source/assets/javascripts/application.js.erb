@@ -32,14 +32,17 @@ angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJs
             .otherwise({redirectTo: '/'});
     }])
     // 拦截器(验证用户是否登录)
-    .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons) {
+    .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons, Auth) {
     	return {
             request:function(config){
 
-                // alert('Authorization: ' + commons.getAuthorization());
+                console.log('Auth: ' + Auth);
+
+                alert('Auth: ' + Auth.authorization);
 
                 if(commons.getAuthorization())
                 {
+                    config.headers.post['Content-Type']= 'application/json';
                     config.headers["authorization"] = commons.getAuthorization();
                 }
                 else
