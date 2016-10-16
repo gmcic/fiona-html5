@@ -299,7 +299,7 @@
           icon: fa fa-hospital-o
           uri: /hospital/list
           controller: HospitalController
-          template: /hospital/list.html
+          template: /hospital/hospital_list.html
 
         - name: 角色管理
           icon: icon-eyeglasses
