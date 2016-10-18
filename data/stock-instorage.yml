@@ -1,22 +1,30 @@
+module:
+  name: 入库管理
+  id: instorage
+  data: warehouseinrecords
+
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 单号
+  - fieldName: 入库单号
 
   - fieldName: 入库仓库
+    fieldKey: toWarehouseName
 
   - fieldName: 总项
 
   - fieldName: 总金额
-
-  - fieldName: 操作员
+    filter: currency:"￥"
 
   - fieldName: 制单时间
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 单据状态
 
-  - fieldName: 审核时间
+  - fieldName: 审核日期
+    filter: date:"yyyy年MM月dd日"
 
-  - fieldName: 审核人
+  - fieldName: 审核日期
+    fieldKey: checkDate
 
 searchFields:
   - fieldName: 商品名称
@@ -34,9 +42,9 @@ fields: #可定义多个中文名称指向同一个字段
 
   仓库ID: warehouseId
 
-  入库仓库Code: toWarehouseCode
+  入库仓库: toWarehouseCode
 
-  入库仓库: toWarehouseName
+  入库仓库名称: toWarehouseName
 
   经销商: dealerName
 
@@ -60,13 +68,19 @@ fields: #可定义多个中文名称指向同一个字段
 
   备注: remark
 
-  审核日期: checkDate
-
   审核人: checkMan
+
+  审核日期: checkDate
 
   主键: id
 
   状态: status
+
+  单据状态: status
+
+  操作员: createUserId
+
+  制单时间: createDate
 
   创建人: createUserId
 

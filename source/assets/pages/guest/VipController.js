@@ -1,7 +1,7 @@
 // 会员管理
-angular.module('fiona').controller('VipController', function ($scope, $controller) {
+angular.module('fiona').controller('VipController', function ($scope, $controller, $http, commons) {
 
-// 声明要使用的下拉选项
+    // 声明要使用的下拉选项
     $scope.dropboxargs = {
         dicts: {statusSet: "会员状态"},
         userdicts: {gestSexSet: "性别"}
@@ -15,7 +15,7 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);
 
-    $scope.dropdownWithTable({id: "gestStyle", server: "/api/v2/gestlevels", code: "id", text: "levelName"});
+    $scope.dropdownWithTable({id: "gestStyle", server: "/api/v2/gestlevels"});
 
     /**
      * 挂号查询
@@ -33,17 +33,28 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
 
         callback: {
             insert: function () {
+
+                // 生成-会员编号
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=会员编号").success(function (data, status, headers, config) {
+
+                    $scope.vip.gestCode = data.data;
+
+                }).error(function (data, status, headers, config) { //     错误
+                    commons.modaldanger("vip", "生成会员编号失败");
+                });
+
                 angular.forEach($scope.dropdowns, function (value, key) {
                     $scope.vip[key.substr(0, key.length - 3)] = value[0];
                 });
             },
+
             update: function () {
+
             }
         }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipportal}); //继承
-
 
     /**
      * 宠物管理

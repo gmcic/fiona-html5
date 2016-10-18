@@ -62,14 +62,21 @@
 
           - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
             %td
+              // 修改按钮
               - if (!defined? inline_toolbar) || ( inline_toolbar.include? "update" )
                 = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)'}
 
+              // 删除按钮
               - if (!defined? inline_toolbar) || ( inline_toolbar.include? "remove" )
                 = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + '.id)'}
 
+              // 选择按钮
               - if (defined? inline_toolbar) && ( inline_toolbar.include? "checked" )
                 = partial :'layouts/buttons/btn', :locals => {:label => "选择", :icon => "fa-circle-o", :click => @portal_id + 'portal.update(' + @portal_id + '.id)'}
+
+              // 审核按钮
+              - if (defined? inline_toolbar) && ( inline_toolbar.include? "auditing" )
+                = partial :'layouts/buttons/btn', :locals => {:label => "审核", :icon => "fa-gavel", :click => @portal_id + 'portal.auditing(' + @portal_id + '.id)'}
 
           - @portal[$listdataKey].each do |column|
             %td
@@ -77,7 +84,11 @@
                 = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
 
               - if column.input?
-                = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+                - if column.event?
+                  = bindTextEvent column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.event
+
+                - if !column.event?
+                  = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
 
               - if !column.input? && !column.filter?
                 = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')

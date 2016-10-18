@@ -11,6 +11,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 生产商
 
   - fieldName: 数量
+    input: text
 
   - fieldName: 单位
 

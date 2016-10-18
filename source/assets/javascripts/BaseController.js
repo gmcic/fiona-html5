@@ -91,10 +91,12 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
 
             var dropdown = [];
 
-            angular.forEach(data.data, function (record) {
-                dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
-            });
-            
+            if(component.id) {
+                angular.forEach(data.data, function (record) {
+                    dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
+                });
+            }
+
             $scope.dropdowns[component.id + "Set"] = dropdown;
         });
     };
@@ -312,7 +314,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
 
 }).controller('BaseCUDController', function ($scope, component, $http, commons) {
 
-    // console.log("Foreign | " + component.foreign + ": ");
+    // 添加 \ 个性 \ 删除
 
     /**
      * 添加
@@ -339,7 +341,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             // console.log(component.foreign+ ": ");
             // console.log($scope[component.foreign]);
 
-            $scope[component.id][component.foreignkey] = $scope[component.foreign].id;
+            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
         if (!!component.callback && !!component.callback.insert) {
@@ -363,6 +365,8 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             }
         });
 
+        console.log($scope[component.id]);
+
         if (!!component.callback && !!component.callback.update) {
             component.callback.update();
         }
@@ -371,7 +375,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
     };
 
     /**
-     * 保存
+     * 提交保存
      * ---------------------------
      * */
     component.submit = function () {
@@ -404,6 +408,23 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
                 commons.modaldanger(component.id, "保存失败")
             });
         }
+    };
+
+    /**
+     * 直接保存
+     * ---------------------------
+     * */
+    component.save = function () {
+
+        $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
+
+            if (!!component.callback && !!component.callback.save) {
+                component.callback.save();
+            }
+        }).error(function (data, status, headers, config) { //     错误
+
+            commons.modaldanger(component.id, "保存失败")
+        });
     };
 
     /**
@@ -561,18 +582,19 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
         var _filter;
 
         angular.forEach(component.filters, function (filter) {
-                    if (filter.fieldName == component.foreignkey) {
+            if (filter.fieldName == component.foreignkey) {
                 _filter = filter;
             }
         });
 
         if (!_filter) {
-            _filter = {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign].id};
+
+            _filter = {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id']};
 
             component.filters.push(_filter);
         }
         else {
-            _filter.value = $scope[component.foreign].id;
+            _filter.value = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
         return _filter;
@@ -584,7 +606,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
      * */
     component.search = function () {
 
-        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign].id) {
+        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id']) {
             component.doForeignFilter();
         }
 
@@ -794,7 +816,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             // console.log(component.foreign+ ": ");
             // console.log($scope[component.foreign]);
 
-            $scope[component.id][component.foreignkey] = $scope[component.foreign].id;
+            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
         if (!!component.callback && !!component.callback.insert) {
@@ -831,6 +853,8 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
      * */
     component.submit = function () {
         $scope[component.id + "form"].submitted = true;
+
+        console.log($scope[component.id]);
 
         if ($scope[component.id + "form"].$valid) {
 

@@ -332,7 +332,7 @@ stock:
   
   - id: backstoragedetail
     name: 移库明细
-    server: warehouseinrecorddetails
+    server: warehousebackrecorddetails
   
   - id: movestorage
     name: 移库记录
@@ -340,7 +340,7 @@ stock:
   
   - id: movestoragedetail
     name: 移库明细
-    server: warehouseinrecorddetails
+    server: warehousemoverecorddetails
   
   - id: outstorage
     name: 出库管理
@@ -348,7 +348,7 @@ stock:
   
   - id: outstoragedetail
     name: 出库明细
-    server: warehouseinrecorddetails
+    server: warehouseoutrecorddetails
   
   - id: stock
     name: 库存查询

@@ -1,3 +1,8 @@
+module:
+  name: 移库管理
+  id: movestorage
+  data: warehousemoverecords
+
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 调拨单号
@@ -7,18 +12,18 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 调拨金额
 
   - fieldName: 拨出仓库
+    fieldKey: fromWarehouse
 
   - fieldName: 拨入仓库
-
-  - fieldName: 操作员
-
-  - fieldName: 制单时间
+    fieldKey: toWarehouse
 
   - fieldName: 单据状态
 
-  - fieldName: 审核时间
+  - fieldName: 制单时间
+    filter: date:"yyyy年MM月dd日"
 
-  - fieldName: 审核人
+  - fieldName: 审核时间
+    filter: date:"yyyy年MM月dd日"
 
 searchFields:
   - fieldName: 商品名称
@@ -38,21 +43,43 @@ searchFields:
 
 fields: #可定义多个中文名称指向同一个字段
 
+  调拨单号: outWarehouseCode
+
+  移库人: outWarehouseMan
+
+  拨出仓库: fromWarehouseId
+
+  拨出仓库名称: fromWarehouse
+
+
+  拨入仓库: toWarehouseId
+
+  拨入仓库名称: toWarehouse
+
+  审核人: checkMan
+
+  审核日期: checkDate
+
+  审核时间: checkDate
+
+  移库内容: moveContent
+
+  总项: totalCount
+
+  调拨金额: inWarehouseTotalCost
+
+  备注: remark
+
+  移库日期: moveWarehouseDate
+
   主键: id
 
-  调拨库单号: XX
+  单据状态: status
 
-  总项: XX
+  创建人: createUserId
 
-  总金额: XX
+  制单时间: createDate
 
-  拨出仓库: XX
+  修改人: updateUserId
 
-  拨入仓库: XX
-
-  审核日期: XX
-
-  审核人: XX
-
-  备注: XX
-
+  修改时间: updateDate

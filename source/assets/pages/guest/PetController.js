@@ -24,9 +24,8 @@ angular.module('fiona').controller('PetController', function($scope, $controller
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);
 
-
-    $scope.dropdownWithTable({id: "raceType", server: "/api/v2/petraces", code: "id", text: "name"});
-    $scope.dropdownWithTable({id: "petRace", server: "/api/v2/varieties", code: "id", text: "name"});
+    $scope.dropdownWithTable({id: "raceType", server: "/api/v2/petraces", value: "id", text: "name"});
+    $scope.dropdownWithTable({id: "petRace", server: "/api/v2/varieties", value: "id", text: "name"});
 
 
     $scope.dropdowns= {};
