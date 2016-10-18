@@ -60,6 +60,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             update: function () {
                 $scope.instoragedetailportal.search();
             },
+
             insert: function () {
                 // 总数据
                 $scope.instorage.totalCount = 0;
@@ -73,12 +74,11 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                     $scope.instorage.inWarehouseCode = data.data;
 
                 }).error(function (data, status, headers, config) { //     错误
-                    commons.modaldanger("instorage", "生成入库单号失败");
+
                 });
             },
 
             submit : function () {
-
                 // 遍历保存所有子项
                 angular.forEach($scope.instoragedetails, function (data, index, array) {
                     console.log(data);
