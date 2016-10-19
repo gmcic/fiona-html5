@@ -1,22 +1,24 @@
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 单据状态
+  - fieldName: 条码
 
-  - fieldName: 出库单号
+  - fieldName: 名称
 
-  - fieldName: 出库仓库
+  - fieldName: 规格
 
-  - fieldName: 总项
+  - fieldName: 生产商
 
-  - fieldName: 总金额
+  - fieldName: 销售单位
 
-  - fieldName: 操作员
+  - fieldName: 售价
+    filter: currency:"￥"
 
-  - fieldName: 制单时间
+  - fieldName: 数量
+    input: number
+    event: ng-change='outstorageportal.resize()'
 
-  - fieldName: 审核时间
-
-  - fieldName: 审核人
+  - fieldName: 金额
+    filter: currency:"￥"
 
 searchFields:
   - fieldName: 商品名称
@@ -33,13 +35,13 @@ searchFields:
 fields: #可定义多个中文名称指向同一个字段
   出库单号: outWarehouseCode
 
-  类型编号: itemCode
+  编号: itemCode
+
+  名称: itemName
 
   条码: barCode
 
-  类型名称: itemName
-
-  单位: packageUnit
+  销售单位: packageUnit
 
   规格: itemStandard
 
@@ -51,11 +53,11 @@ fields: #可定义多个中文名称指向同一个字段
 
   商品服务种类: itemStyle
 
-  卖价售价: sellPrice
+  售价: sellPrice
 
-  个数: inputCount
+  数量: inputCount
 
-  进价: inputCost
+  金额: inputCost
 
   生产日期: produceDate
 
@@ -71,13 +73,13 @@ fields: #可定义多个中文名称指向同一个字段
 
   备注: remark
 
-  生产者编号: manufacturerCode
+  生产商Code: manufacturerCode
 
-  生产者名称: manufacturerName
+  生产商: manufacturerName
 
   主键: id
 
-  状态: status
+  单据状态: status
 
   创建人: createUserId
 

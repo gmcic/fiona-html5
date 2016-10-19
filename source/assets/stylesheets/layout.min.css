@@ -2449,14 +2449,14 @@
     top: 0
 }
 
-.page-header .top-menu .dropdown-quick-sidebar-toggler > .dropdown-toggle i:before {
-    content: ""
-}
+/*.page-header .top-menu .dropdown-quick-sidebar-toggler > .dropdown-toggle i:before {*/
+    /*content: ""*/
+/*}*/
 
-.page-quick-sidebar-open .page-header .top-menu .dropdown-quick-sidebar-toggler > .dropdown-toggle i:before,
-.page-quick-sidebar-open .page-quick-sidebar-toggler > i:before {
-    content: ""
-}
+/*.page-quick-sidebar-open .page-header .top-menu .dropdown-quick-sidebar-toggler > .dropdown-toggle i:before,*/
+/*.page-quick-sidebar-open .page-quick-sidebar-toggler > i:before {*/
+    /*content: ""*/
+/*}*/
 
 .page-portlet-fullscreen .page-quick-sidebar-toggler, .page-portlet-fullscreen .page-quick-sidebar-wrapper {
     z-index: -1

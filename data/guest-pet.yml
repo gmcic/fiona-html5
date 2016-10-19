@@ -39,7 +39,6 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 宠物品种
     fieldKey: petRace.type
 
-  - fieldName: 宠物卡号
 # 宠物
 portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 会员编号
@@ -94,7 +93,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   会员编号: gestCode
 
-  会员名称: gestName
+  会员姓名: gestName
 
   宠物昵称: petName
 

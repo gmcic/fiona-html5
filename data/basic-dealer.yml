@@ -38,7 +38,6 @@ searchFields:
   - fieldName: 地址
 
 
-
 fields: #可定义多个中文名称指向同一个字段
   自动编号: code
 

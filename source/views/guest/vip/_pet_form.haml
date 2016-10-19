@@ -1,42 +1,41 @@
 .form-body
   .row
     .col-md-4
-      = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '编号(自动)', :required => "true", :maxlength => '16'}
+      = partial :'layouts/inputs/textview', :locals => { :keyword => "pet", :fieldName => '编号(自动)', :required => "true", :maxlength => '16'}
 
     .col-md-4
       = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '宠物昵称', :required => "true", :maxlength => '16'}
 
-
     .col-md-4
       .form-group
-        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in petportal.dropdowns.petSexSet"}
+        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.petSexSet"}
 
   .row
     .col-md-4
-      = partial :'layouts/inputs/date', :locals => { :keyword => "pet", :fieldName => '出生日期', :maxlength => '16', :required => "true" }
+      = partial :'layouts/inputs/date', :locals => { :keyword => "pet", :fieldName => '出生日期', :maxlength => '16' }
 
     .col-md-4
       = partial :'layouts/inputs/textview', :locals => { :keyword => "pet", :fieldName => '宠物年龄', :maxlength => '16'}
 
     .col-md-4
       .form-group
-        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '绝育状态', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in petportal.dropdowns.petBreedSet"}
+        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '绝育状态', :maxlength => '32', :required => "true", :options => "type.id as type.valueNameCn for type in dropdowns.petBreedSet"}
 
   .row
     .col-md-4
-      = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物颜色', :maxlength => '32', :options => "type as type.valueNameCn for type in petportal.dropdowns.petSkinColorSet"}
+      = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物颜色', :maxlength => '32', :options => "type as type.valueNameCn for type in dropdowns.petSkinColorSet"}
 
     .col-md-4
       .form-group
-        = partial :'layouts/inputs/selectview', :locals => {:keyword => "pet", :fieldName => '宠物种类', :options => "type.name for type in petportal.dropdowns.raceTypeSet"}
+        = partial :'layouts/inputs/selectview', :locals => {:keyword => "pet", :fieldName => '宠物种类', :options => "type.name for type in dropdowns.raceTypeSet"}
 
     .col-md-4
       .form-group
-        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物品种', :maxlength => '32', :required => "true", :options => "type as type.type for type in petportal.dropdowns.petRaceSet"}
+        = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物品种', :maxlength => '32', :required => "true", :options => "type as type.type for type in dropdowns.petRaceSet"}
 
   .row
     .col-md-4
-      = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物状态', :maxlength => '32', :options => "type as type.valueNameCn for type in petportal.dropdowns.sickFileCodeSet"}
+      = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物状态', :maxlength => '32', :options => "type as type.valueNameCn for type in dropdowns.sickFileCodeSet"}
 
 
   -#.col-md-7

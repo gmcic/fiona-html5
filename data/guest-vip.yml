@@ -17,12 +17,16 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 固定电话
 
   - fieldName: 出生日期
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 账户金额
+    filter: currency:"￥"
 
   - fieldName: 登记日期
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 最后消费时间
+    filter: date:"yyyy年MM月dd日"
 
 portalFields: # 选择会员弹出图层字段
   - fieldName: 会员编号
@@ -66,6 +70,8 @@ fields:
 
   出生日期: gestBirthday
 
+  会员年龄: $local.age
+
   # 手机
   会员电话: mobilePhone
 
@@ -94,7 +100,7 @@ fields:
   loseRightDate: loseRightDate
 
 #  支付状态
-  paidStatus: paidStatus
+  支付状态: paidStatus
 
   备注: remark
 

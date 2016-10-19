@@ -1,9 +1,11 @@
-= partial :'views/commons/vip/portal_vip_view'
+
+= partial 'layouts/widget/service_vip' do
+  / 不输出 outline 按钮
 
 .portlet.light.bordered
   .portlet-title
     .caption
-      %i.icon-settings.font-dark
+      %i.fa.fa-paw
       %span.caption-subject.font-dark.sbold.uppercase 宠物信息
 
   .portlet-body.form
@@ -21,11 +23,10 @@
           .form-body
             .row
               .col-md-4
-                = partial :'layouts/inputs/text', :locals => { :fieldName => '编号(自动)', :required => "true", :maxlength => '16'}
+                = partial :'layouts/inputs/textview', :locals => { :fieldName => '编号(自动)', :required => "true", :maxlength => '16'}
 
               .col-md-4
                 = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物昵称', :required => "true", :maxlength => '16'}
-
 
               .col-md-4
                 .form-group
@@ -33,7 +34,7 @@
 
             .row
               .col-md-4
-                = partial :'layouts/inputs/date', :locals => { :fieldName => '出生日期', :maxlength => '16', :required => "true" }
+                = partial :'layouts/inputs/date', :locals => { :fieldName => '出生日期', :maxlength => '16'}
 
               .col-md-4
                 = partial :'layouts/inputs/textview', :locals => { :fieldName => '宠物年龄', :maxlength => '16'}
@@ -58,6 +59,8 @@
               .col-md-4
                 = partial :'layouts/inputs/select', :locals => {:fieldName => '宠物状态', :maxlength => '32', :options => "type as type.valueNameCn for type in dropdowns.statusSet"}
 
+              .col-md-8
+                = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物牌号', :maxlength => '16'}
 
               -#.col-md-4
               -#  = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物病例号', :maxlength => '16', :required => "true"}
@@ -74,10 +77,6 @@
 
               .col-md-3
                 = partial :'layouts/inputs/double', :locals => { :fieldName => '体长(cm)', :maxlength => '16'}
-
-            .row
-              .col-md-12
-                = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物牌号', :maxlength => '16'}
 
             .row
               .col-md-12

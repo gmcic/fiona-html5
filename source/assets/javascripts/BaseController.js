@@ -91,10 +91,17 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
 
             var dropdown = [];
 
-            angular.forEach(data.data, function (record) {
-                dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
-            });
-            
+            if(component.value) {
+                angular.forEach(data.data, function (record) {
+                    dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
+                });
+            }
+            else {
+                dropdown = data.data;
+            }
+
+            // console.log(dropdown);
+
             $scope.dropdowns[component.id + "Set"] = dropdown;
         });
     };
@@ -312,7 +319,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
 
 }).controller('BaseCUDController', function ($scope, component, $http, commons) {
 
-    // console.log("Foreign | " + component.foreign + ": ");
+    // 添加 \ 个性 \ 删除
 
     /**
      * 添加
@@ -339,7 +346,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             // console.log(component.foreign+ ": ");
             // console.log($scope[component.foreign]);
 
-            $scope[component.id][component.foreignkey] = $scope[component.foreign].id;
+            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
         if (!!component.callback && !!component.callback.insert) {
@@ -363,6 +370,8 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             }
         });
 
+        // console.log($scope[component.id]);
+
         if (!!component.callback && !!component.callback.update) {
             component.callback.update();
         }
@@ -371,10 +380,29 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
     };
 
     /**
-     * 保存
+     * 获取惟一的记录
+     * ---------------------------
+     * */
+    component.unique = function (id) {
+
+        $http.get(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, status, headers, config) {
+
+            if (!!component.callback && !!component.callback.unique) {
+                component.callback.unique();
+            }
+
+            $scope[component.id] = data.data;
+        }).error(function (data, status, headers, config) {
+            commons.modaldanger(component.id, "加载惟一的记录失败")
+        });
+    };
+
+    /**
+     * 提交保存
      * ---------------------------
      * */
     component.submit = function () {
+
         $scope[component.id + "form"].submitted = true;
 
         if ($scope[component.id + "form"].$valid) {
@@ -389,12 +417,8 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
                     component.callback.submit();
                 }
 
-                console.log("is append: " + isappend);
-
                 if(isappend)
                 {
-                    console.log(data.data);
-
                     $scope[component.id + "s"].unshift(data.data);
                 }
 
@@ -404,6 +428,23 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
                 commons.modaldanger(component.id, "保存失败")
             });
         }
+    };
+
+    /**
+     * 直接保存
+     * ---------------------------
+     * */
+    component.save = function () {
+
+        $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
+
+            if (!!component.callback && !!component.callback.save) {
+                component.callback.save();
+            }
+        }).error(function (data, status, headers, config) { //     错误
+
+            commons.modaldanger(component.id, "保存失败")
+        });
     };
 
     /**
@@ -561,18 +602,19 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
         var _filter;
 
         angular.forEach(component.filters, function (filter) {
-                    if (filter.fieldName == component.foreignkey) {
+            if (filter.fieldName == component.foreignkey) {
                 _filter = filter;
             }
         });
 
         if (!_filter) {
-            _filter = {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign].id};
+
+            _filter = {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id']};
 
             component.filters.push(_filter);
         }
         else {
-            _filter.value = $scope[component.foreign].id;
+            _filter.value = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
         return _filter;
@@ -584,7 +626,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
      * */
     component.search = function () {
 
-        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign].id) {
+        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id']) {
             component.doForeignFilter();
         }
 
@@ -794,7 +836,7 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
             // console.log(component.foreign+ ": ");
             // console.log($scope[component.foreign]);
 
-            $scope[component.id][component.foreignkey] = $scope[component.foreign].id;
+            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
         if (!!component.callback && !!component.callback.insert) {
@@ -831,6 +873,8 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
      * */
     component.submit = function () {
         $scope[component.id + "form"].submitted = true;
+
+        console.log($scope[component.id]);
 
         if ($scope[component.id + "form"].$valid) {
 
@@ -1036,4 +1080,81 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
     $scope.init = function () {
         $scope.petportal.search();
     };
+}).controller('VipPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
+
+    /**
+     * 弹出选择会员
+     * ---------------------------
+     * */
+    $scope.vipportal= {
+
+        id: "vip",
+
+        name: "选择会员",
+
+        server: "/api/v2/gests",
+
+        defilters: {"gestCode": "会员编号",  "gestName": "会员名称",  "mobilePhone": "会员电话"},
+
+        callback: {
+            submit: function () {
+                // 主人ID
+                $scope.pet.gestId = $scope.vip.id;
+
+                // 主人编号
+                $scope.pet.gestCode = $scope.vip.gestCode;
+
+                // 主人名称
+                $scope.pet.gestName = $scope.vip.gestName;
+            },
+
+            insert: function () {
+                // 生成-会员编号
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=会员编号").success(function (data, status, headers, config) {
+                    $scope.vip.gestCode = data.data;
+                }).error(function (data, status, headers, config) { //     错误
+                    commons.modaldanger("vip", "生成会员编号失败");
+                });
+
+                angular.forEach(['gestSex', 'gestStyle', 'status'], function (key) {
+                    $scope.vip[key] = $scope.dropdowns[key + 'Set'][0];
+                });
+            }
+        }
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipportal}); //继承
+
+    $scope.vipportal.pupupselect = function () {
+
+        $scope.vipportal.search();
+
+        $("#vipselect").modal('toggle');
+    };
+
+    $scope.vipportal.checked = function (id) {
+
+        angular.forEach($scope["vips"], function (data) {
+            if(data.id == id)
+            {
+                $scope.vip = data;
+
+                // 主人ID
+                $scope.pet.gestId = $scope.vip.id;
+
+                // 主人编号
+                $scope.pet.gestCode = $scope.vip.gestCode;
+
+                // 主人名称
+                $scope.pet.gestName = $scope.vip.gestName;
+
+            }
+        });
+
+        $("#vipselect").modal('toggle');
+    };
+
+    // $scope.init = function () {
+    //     $scope.vipportal.search();
+    // };
 });

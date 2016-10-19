@@ -10,6 +10,8 @@
 
 - $maxlength = ((defined? maxlength) ? maxlength : '32')
 
+// - $change = ((defined? change) ? click: "warning()")
+
 .form-group
   %label.control-label
     #{fieldName} #{@formIdName}
@@ -17,10 +19,18 @@
       %span.required *
 
   - if $required == 'true'
-    %select.form-control{ :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}" }
+    - if (defined? change)
+      %select.form-control{ :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}", "ng-change" => "#{change}"}
+
+    - if !(defined? change)
+      %select.form-control{ :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}" }
 
   - if $required == 'false'
-    %select.form-control{ :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}" }
+    - if (defined? change)
+      %select.form-control{ :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}", "ng-change" => "#{change}" }
+
+    - if !(defined? change)
+      %select.form-control{ :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}" }
 
   - if $required == 'true'
     %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.

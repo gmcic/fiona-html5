@@ -1,3 +1,9 @@
+
+module:
+  name: 健康状态记录
+  id: backstorage
+  data: warehousebackrecords
+
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 退货单号
@@ -5,16 +11,15 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 总项
 
   - fieldName: 总金额
-
-  - fieldName: 操作员
-
-  - fieldName: 制单时间
+    filter: currency:"￥"
 
   - fieldName: 单据状态
 
-  - fieldName: 审核时间
+  - fieldName: 制单时间
+    filter: date:"yyyy年MM月dd日"
 
-  - fieldName: 审核人
+  - fieldName: 审核时间
+    filter: date:"yyyy年MM月dd日"
 
 searchFields:
   - fieldName: 商品名称
@@ -30,23 +35,49 @@ searchFields:
 
 fields: #可定义多个中文名称指向同一个字段
 
+  退货单号: backWarehouseCode
+
+  退回仓库人: backWarehouseMan
+
+  退回仓库: backWarehouse
+
+  退回时间: backWarehouseDate
+
+  仓库: toWarehouseCode
+
+  仓库名称: toWarehouseName
+
+  退货原因: backReason
+
+  退货内容: backContent
+
+  总项: totalCount
+
+  总金额: backWarehouseTotalCost
+
+  仓库ID: warehouseId
+
+  审核人: checkMan
+
+  审核日期: checkDate
+
+  审核时间: checkDate
+
+  经销商编号: dealerCode
+
+  经销商: dealerName
+
+  备注: remark
+
+
   主键: id
 
-  退货单号: XX
+  单据状态: status
 
-  总项: XX
+  创建人: createUserId
 
-  总金额: XX
+  制单时间: createDate
 
-  审核日期: XX
+  修改人: updateUserId
 
-  审核人: XX
-
-  备注: XX
-
-  经销商: XX
-
-  仓库: XX
-
-  退货原因: XX
-
+  修改时间: updateDate

@@ -5,18 +5,18 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 出库单号
 
   - fieldName: 出库仓库
+    fieldKey: outWarehouse
 
   - fieldName: 总项
 
   - fieldName: 总金额
-
-  - fieldName: 操作员
+    filter: currency:"￥"
 
   - fieldName: 制单时间
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 审核时间
-
-  - fieldName: 审核人
+    filter: date:"yyyy年MM月dd日"
 
 searchFields:
   - fieldName: 商品名称
@@ -37,9 +37,11 @@ fields: #可定义多个中文名称指向同一个字段
 
   总金额: outWarehouseTotalCost
 
-  出库仓库ID: warehouseId
+  出库仓库: warehouseId
 
-  出库仓库: outWarehouse
+  出库仓库名称: outWarehouse
+
+  出库时间: outWarehouseDate
 
   出库原因: outReason
 
@@ -49,19 +51,17 @@ fields: #可定义多个中文名称指向同一个字段
 
   审核人: checkMan
 
-  审核日期: checkDate
-
-  出库时间: outWarehouseDate
+  审核时间: checkDate
 
   备注: remark
 
   主键: id
 
-  状态: status
+  单据状态: status
 
-  创建人: createUserId
+  操作员: createUserId
 
-  创建时间: createDate
+  制单时间: createDate
 
   修改人: updateUserId
 

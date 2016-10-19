@@ -4,10 +4,10 @@ layout: "page"
 
 - page '移库管理', 'movestorage'
 
-= partial 'layouts/widget/portal'
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'update|remove|auditing' }
 
 /  编辑页面
-= partial :'layouts/partials/modal-portal-full' do
+= partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|submit|auditing' } do
   = partial 'modify'
 
 / 选择商品

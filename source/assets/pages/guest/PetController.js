@@ -1,22 +1,13 @@
 // 宠物管理
-angular.module('fiona').controller('PetController', function($scope, $controller) {
-
-    // 声明要使用的下拉选项
-    // $scope.dropboxargs = [
-    //     {name: "raceTypeSet", server: "petraces"}, // 种类
-    //     {name: "petRaceSet", server: "varieties"}, // 品种
-
-    //     {name: "petBreedSet", server: "dicts", filterName: "绝育状态"},
-    //     {name: "sickFileCodeSet", server: "dicts", filterName: "宠物状态"},
-    //     {name: "petSexSet", server: "userdicts", filterName: "动物性别"},
-    //     {name: "petSkinColorSet", server: "userdicts", filterName: "动物颜色"}
-    // ];
+angular.module('fiona').controller('PetController', function($scope, $controller, $http, commons) {
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
-        dicts: {petBreedSet: "绝育状态",statusSet: "宠物状态"},
-        userdicts: {petSexSet: "动物性别",petSkinColorSet: "动物颜色"}
+        dicts: {petBreedSet: "绝育状态",statusSet: "宠物状态", statusSet: "会员状态"},
+        userdicts: {petSexSet: "动物性别",petSkinColorSet: "动物颜色", gestSexSet: "性别"}
     };
+
+    $scope.dropdowns= {};
 
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
@@ -24,107 +15,58 @@ angular.module('fiona').controller('PetController', function($scope, $controller
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);
 
+    $scope.dropdownWithTable({id: "gestStyle", server: "/api/v2/gestlevels"});
 
-    $scope.dropdownWithTable({id: "raceType", server: "/api/v2/petraces", code: "id", text: "name"});
-    $scope.dropdownWithTable({id: "petRace", server: "/api/v2/varieties", code: "id", text: "name"});
+    $scope.dropdownWithTable({id: "raceType", server: "/api/v2/petraces"});
 
+    $scope.dropdownWithTable({id: "petRace", server: "/api/v2/varieties"});
 
-    $scope.dropdowns= {};
+    /**
+     * 宠物管理
+     * ---------------------------
+     * */
+    $scope.petportal= {
 
-    // 主数据加载地址
-    $scope.master = {
         id: "pet",
 
         name: "宠物管理",
 
         server: "/api/v2/pets",
 
-        insert: function () {
-            angular.forEach($scope.dropdowns, function (value, key) {
-                if(key != 'raceTypeSet')
-                {
-                    $scope.pet[key.substr(0, key.length - 3)] = value[0];
-                }
-            });
-        },
+        defilters: {"petCode": "宠物病例号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员名称",  "gestPhone": "会员电话"},
 
-        update: function () {
-            $scope.vipportal.get($scope.pet.gestId);
-            // $scope.vipportal.search();
+        callback: {
+            insert: function () {
+                angular.forEach($scope.dropdowns, function (value, key) {
+                    if(key != 'raceTypeSet')
+                    {
+                        $scope.pet[key.substr(0, key.length - 3)] = value[0];
+                    }
+                });
+
+                // 生成-会员编号
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=宠物编号").success(function (data, status, headers, config) {
+
+                    $scope.pet.petCode = data.data;
+
+                }).error(function (data, status, headers, config) { //     错误
+                    commons.modaldanger("vip", "生成宠物编号失败");
+                });
+            },
+
+            update: function () {
+                $scope.vipportal.unique($scope.pet.gestId);
+            }
         }
     };
 
-    // 综合搜索项
-    $scope.filters = [
-        // 宠物昵称
-        {"fieldName": "petCode","operator": "LIKE", "value":""},
-
-        // 宠物昵称
-        {"fieldName": "petName","operator": "LIKE", "value":""},
-
-        // 会员编号
-        {"fieldName": "gestCode","operator": "LIKE", "value":""},
-
-        // 会员名称
-        {"fieldName": "gestName","operator": "LIKE", "value":""}
-    ];
-
-    $scope.placeholder = "请输入宠物病例号/宠物昵称/会员编号/会员名称/会员电话";
-
-    $controller('BasePaginationController', {$scope: $scope}); //继承
-
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
 
     /**
      * 选择会员
      * ---------------------------
      * */
-    $scope.vipportal = {
-        dropdowns: {},
+    $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
 
-        dropboxargs : [
-            {name: "gestStyleSet", server: "gestlevels"},
-            {name: "statusSet", server: "dicts", filterName: "会员状态"},
-            {name: "gestSexSet", server: "userdicts", filterName: "性别"}
-        ],
-
-        master: {
-            id: "vip",
-
-            name: "会员",
-
-            server: "/api/v2/gests",
-
-            checked: function () {
-                // 主人ID
-                $scope.pet.gestId = $scope.vip.id;
-
-                // 主人编号
-                $scope.pet.gestCode = $scope.vip.gestCode;
-
-                // 主人名称
-                $scope.pet.gestName = $scope.vip.gestName;
-            },
-            submit: function () {
-                // 主人ID
-                $scope.pet.gestId = $scope.vip.id;
-
-                // 主人编号
-                $scope.pet.gestCode = $scope.vip.gestCode;
-
-                // 主人名称
-                $scope.pet.gestName = $scope.vip.gestName;
-            },
-            insert: function () {
-                angular.forEach($scope.vipportal.dropdowns, function (value, key) {
-                    $scope.vip[key.substr(0, key.length - 3)] = value[0];
-                });
-            }
-        },
-
-        parent: {
-            id: "labwork"
-        }
-    };
-
-    $controller('CommonVipController', {$scope: $scope, component: $scope.vipportal}); //继承
+    $scope.petportal.filter();
 });
