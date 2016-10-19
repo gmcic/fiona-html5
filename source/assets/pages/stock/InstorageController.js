@@ -26,7 +26,17 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         server: "/api/v2/warehouseinrecords",
 
         defilters: {"petCode": "宠物昵称", "petName": "宠物昵称", "gestCode": "会员编号", "gestName": "会员名称"},
-        
+
+        // 审核
+        auditing: function () {
+            $http.get(commons.getBusinessHostname() + instorage.server + "/audit/" + $scope.instorage.id).success(function (data, status, headers, config) {
+                commons.modalsuccess(instorage.id, "审核成功");
+            }).error(function (data, status, headers, config) { //     错误
+
+                commons.modaldanger(instorage.id, "保存失败");
+            });
+        },
+
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (data) {
 
@@ -39,16 +49,12 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         resize: function () {
 
-            $scope.instorage.totalCount = 0;
             $scope.instorage.inWarehouseTotalCost = 0;
 
             angular.forEach($scope.instoragedetails, function (data) {
 
                 // 小计
                 data.inputCost = data.sellPrice * data.inputCount;
-
-                // 总数据
-                $scope.instorage.totalCount += data.inputCount;
 
                 // 总金额
                 $scope.instorage.inWarehouseTotalCost += data.inputCost;
@@ -62,6 +68,8 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             },
 
             insert: function () {
+                $scope.instoragedetails = [];
+
                 // 总数据
                 $scope.instorage.totalCount = 0;
 
@@ -191,7 +199,8 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                     // 个数
                     instoragedetail.inputCount = 1;
 
-                    // instoragedetail.totalCount = 0;
+                    // 总数据
+                    $scope.instorage.totalCount++;
 
                     $scope.productchecked[instoragedetail.itemCode] = instoragedetail;
 
