@@ -191,7 +191,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                     // 个数
                     instoragedetail.inputCount = 1;
 
-                    instoragedetail.totalCount = 0;
+                    // instoragedetail.totalCount = 0;
 
                     $scope.productchecked[instoragedetail.itemCode] = instoragedetail;
 
