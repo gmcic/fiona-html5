@@ -460,9 +460,9 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
         });
 
         if (confirm("您确定要删除选中[" + size + "]条记录吗?")) {
-            angular.forEach(component.selection, function (value, key) {
+            angular.forEach(component.selection, function (obj, key) {
                 if (value == true) {
-                    component.delete(key);
+                    component.delete(obj);
                 }
             });
         }
@@ -472,41 +472,41 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
     /**
      * 删除单条数据
      */
-    component.remove = function (id) {
+    component.remove = function (obj) {
         if (confirm("您确定要删除该记录吗?")) {
-            if (!id) {
-                component.delete(component.selectedId);
-            }
-            else {
-                component.delete(id);
-            }
+            component.delete(obj);
         }
     };
 
     /**
      * 具体的删除逻辑
      */
-    component.delete = function (id) {
-        $http.delete(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, index, array) {
+    component.delete = function (obj) {
 
-            var i = 0;
-            
-            angular.forEach($scope[component.id + "s"], function (elem) {
-                if(elem.id == id)
-                {
-                    $scope[component.id + "s"].splice(i, 1);
+        if(obj.id)
+        {
+            $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id).success(function (data, index, array) {
+
+                $scope[component.id + "s"].shift(obj);
+
+                if (!!component.callback && !!component.callback.delete) {
+                    component.callback.delete();
                 }
-                i++;
+
+                commons.success("删除成功")
+
+            }).error(function (data) {
+                commons.danger("删除失败");
             });
+        }
+        else
+        {
+            $scope[component.id + "s"].shift(obj);
 
             if (!!component.callback && !!component.callback.delete) {
                 component.callback.delete();
             }
-            commons.success("删除成功")
-
-        }).error(function (data) {
-            commons.danger("删除失败");
-        });
+        }
     };
 
     /**
@@ -911,9 +911,9 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
         });
 
         if (confirm("您确定要删除选中[" + size + "]条记录吗?")) {
-            angular.forEach(component.selection, function (value, key) {
+            angular.forEach(component.selection, function (obj, key) {
                 if (value == true) {
-                    component.delete(key);
+                    component.delete(obj);
                 }
             });
         }
@@ -923,41 +923,43 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
     /**
      * 删除单条数据
      */
-    component.remove = function (id) {
+    component.remove = function (obj) {
         if (confirm("您确定要删除该记录吗?")) {
-            if (!id) {
-                component.delete(component.selectedId);
-            }
-            else {
-                component.delete(id);
-            }
+            component.delete(obj);
         }
     };
 
     /**
      * 具体的删除逻辑
      */
-    component.delete = function (id) {
-        $http.delete(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, index, array) {
+    component.delete = function (obj) {
 
-            angular.forEach($scope[component.id + "s"], function (elem) {
-                if(elem.id == id)
-                {
-                    $scope[component.id + "s"].shift(elem);
+        if(obj.id)
+        {
+            $http.delete(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, index, array) {
+
+                $scope[component.id + "s"].shift(obj);
+
+                if (!!component.callback && !!component.callback.delete) {
+                    component.callback.delete();
                 }
+
+                component.refresh();
+
+                commons.success("删除成功")
+
+            }).error(function (data) {
+                commons.danger("删除失败");
             });
+        }
+        else
+        {
+            $scope[component.id + "s"].shift(obj);
 
             if (!!component.callback && !!component.callback.delete) {
                 component.callback.delete();
             }
-
-            component.refresh();
-
-            commons.success("删除成功")
-
-        }).error(function (data) {
-            commons.danger("删除失败");
-        });
+        }
     };
 
     /**
