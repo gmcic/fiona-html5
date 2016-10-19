@@ -27,6 +27,6 @@
 
           // 审核按钮
           - if (defined? modal_toolbar) && ( modal_toolbar.include? "auditing" )
-            %button.btn.btn-primary{"ng-show"=>"#{@modal_id}portal.auditingoperate == true", :type => "submit"}
+            %button.btn.btn-primary{"ng-show"=>"#{@modal_id}portal.auditingoperate == true", "ng-click"=> "#{@modal_id}.auditing()"}
               %i.fa.fa-plus
-              审核入库单
+              审核
