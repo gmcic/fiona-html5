@@ -68,7 +68,7 @@
 
               // 删除按钮
               - if (!defined? inline_toolbar) || ( inline_toolbar.include? "remove" )
-                = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + '.id)'}
+                = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + ')'}
 
               // 选择按钮
               - if (defined? inline_toolbar) && ( inline_toolbar.include? "selected" )
