@@ -42,7 +42,7 @@ angular.module('fiona').controller('StockController', function($scope, $controll
 
         callback: {
             switched: function () {
-                $scope.stockportal.list();
+                $scope.stockportal.search();
             }
         }
     };

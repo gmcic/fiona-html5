@@ -22,7 +22,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
     $scope.dropdowns= {};
 
     // 继承能用代码
-    $controller('BaseController', {$scope: $scope}); //继承
+    $controller('BaseController', {$scope: $scope}); //继承`
 
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);

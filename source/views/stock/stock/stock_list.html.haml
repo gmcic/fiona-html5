@@ -12,7 +12,7 @@ layout: "page"
 
   .col-md-9
     - portal '库存查询', 'stock'
-    = partial 'layouts/widget/portal', :locals => {:pagefilter => "storageportal.selectedId", :filterbar => "none", :pagingbar => "none"}
+    = partial 'layouts/widget/portal'
 
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'modify'

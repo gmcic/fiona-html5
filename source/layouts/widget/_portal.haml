@@ -64,7 +64,7 @@
             %td
               // 修改按钮
               - if (!defined? inline_toolbar) || ( inline_toolbar.include? "update" )
-                = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)'}
+                = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)', :disabled => "#{@portal_id}.status"}
 
               // 删除按钮
               - if (!defined? inline_toolbar) || ( inline_toolbar.include? "remove" )
