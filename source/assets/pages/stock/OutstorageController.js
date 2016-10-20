@@ -39,16 +39,11 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
 
         resize: function () {
 
-            $scope.outstorage.totalCount = 0;
             $scope.outstorage.outWarehouseTotalCost = 0;
 
             angular.forEach($scope.outstoragedetails, function (data) {
-
                 // 小计
                 data.inputCost = data.sellPrice * data.inputCount;
-
-                // 总数据
-                $scope.outstorage.totalCount += data.inputCount;
 
                 // 总金额
                 $scope.outstorage.outWarehouseTotalCost += data.inputCost;
@@ -61,6 +56,9 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
                 $scope.outstoragedetailportal.search();
             },
             insert: function () {
+
+                $scope.outstoragedetails = [];
+
                 // 总数据
                 $scope.outstorage.totalCount = 0;
 
@@ -161,7 +159,8 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
                     // 个数
                     outstoragedetail.inputCount = 1;
 
-                    outstoragedetail.totalCount = 0;
+                    // 总数据
+                    $scope.instorage.totalCount++;
 
                     $scope.productchecked[outstoragedetail.itemCode] = outstoragedetail;
 

@@ -51,19 +51,4 @@ angular.module('fiona').controller('StockController', function($scope, $controll
 
     $scope.storageportal.init();
 
-
-    // // 主数据加载地址
-    // $scope.master = {
-    //     id: "stock",
-    //
-    //     name: "库存查询",
-    //
-    //     foreignkey: "warehouseCode",
-    //
-    //     server: "/api/v2/itemcounts",
-    // };
-    //
-    // $controller('BaseSideController', {$scope: $scope}); //继承
-    //
-    // $scope.init();
 });

@@ -39,7 +39,6 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
 
         resize: function () {
 
-            $scope.backstorage.totalCount = 0;
             $scope.backstorage.backWarehouseTotalCost = 0;
 
             angular.forEach($scope.backstoragedetails, function (data) {
@@ -47,12 +46,8 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
                 // 小计
                 data.inputCost = data.sellPrice * data.inputCount;
 
-                // 总数据
-                $scope.backstorage.totalCount += data.inputCount;
-
                 // 总金额
                 $scope.backstorage.backWarehouseTotalCost += data.inputCost;
-
             });
         },
 
@@ -61,6 +56,9 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
                 $scope.backstoragedetailportal.search();
             },
             insert: function () {
+
+                $scope.backstoragedetails = [];
+
                 // 总数据
                 $scope.backstorage.totalCount = 0;
 
@@ -162,7 +160,8 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
                     // 个数
                     backstoragedetail.inputCount = 1;
 
-                    backstoragedetail.totalCount = 0;
+                    // 总数据
+                    $scope.instorage.totalCount++;
 
                     $scope.productchecked[backstoragedetail.itemCode] = backstoragedetail;
 

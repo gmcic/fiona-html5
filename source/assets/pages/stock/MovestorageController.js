@@ -45,16 +45,12 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
 
         resize: function () {
 
-            $scope.movestorage.totalCount = 0;
             $scope.movestorage.inWarehouseTotalCost = 0;
 
             angular.forEach($scope.movestoragedetails, function (data) {
 
                 // 小计
                 data.inputCost = data.sellPrice * data.inputCount;
-
-                // 总数据
-                $scope.movestorage.totalCount += data.inputCount;
 
                 // 总金额
                 $scope.movestorage.inWarehouseTotalCost += data.inputCost;
@@ -68,6 +64,9 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
             },
 
             insert: function () {
+
+                $scope.movestoragedetails = [];
+
                 // 总数据
                 $scope.movestorage.totalCount = 0;
 
@@ -172,7 +171,8 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
                     // 个数
                     movestoragedetail.inputCount = 1;
 
-                    movestoragedetail.totalCount = 0;
+                    // 总数据
+                    $scope.instorage.totalCount++;
 
                     $scope.productchecked[movestoragedetail.itemCode] = movestoragedetail;
 

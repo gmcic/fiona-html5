@@ -11,6 +11,14 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
     $scope.dropdownWithTable({id: "warehouses", server: "/api/v2/warehouses", value: "id", text: "name"});
 
+    $scope.auditing  = function () {
+        $http.get(commons.getBusinessHostname() + $scope.instorageportal.server + "/audit/" + $scope.instorage.id).success(function (data, status, headers, config) {
+            commons.modalsuccess(instorage.id, "审核成功");
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger(instorage.id, "保存失败");
+        });
+    };
+
     /**
      * 入库管理
      * ---------------------------
@@ -26,16 +34,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         server: "/api/v2/warehouseinrecords",
 
         defilters: {"petCode": "宠物昵称", "petName": "宠物昵称", "gestCode": "会员编号", "gestName": "会员名称"},
-
-        // 审核
-        auditing: function () {
-            $http.get(commons.getBusinessHostname() + instorage.server + "/audit/" + $scope.instorage.id).success(function (data, status, headers, config) {
-                commons.modalsuccess(instorage.id, "审核成功");
-            }).error(function (data, status, headers, config) { //     错误
-
-                commons.modaldanger(instorage.id, "保存失败");
-            });
-        },
 
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (data) {
