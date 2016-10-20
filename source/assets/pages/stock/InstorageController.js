@@ -25,7 +25,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
      * */
     $scope.instorageportal= {
 
-        foreignKey : 'backWarehouseCode',
+        foreignKey : 'inWarehouseCode',
 
         id: "instorage",
 
