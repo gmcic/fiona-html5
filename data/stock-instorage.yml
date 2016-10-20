@@ -8,7 +8,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 入库单号
 
   - fieldName: 入库仓库
-    fieldKey: toWarehouseName
+    fieldKey: inWarehouse
 
   - fieldName: 总项
 
@@ -42,9 +42,9 @@ fields: #可定义多个中文名称指向同一个字段
 
   仓库ID: warehouseId
 
-  入库仓库: inWarehouseCode
+  入库仓库: warehouseId
 
-  入库仓库名称: inWarehouseName
+  入库仓库名称: inWarehouse
 
   经销商: dealerName
 
