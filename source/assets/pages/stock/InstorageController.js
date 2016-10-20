@@ -38,9 +38,9 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (data) {
 
-                if($scope.instorage.warehouseCode == data.id)
+                if($scope.instorage.warehouseId == data.id)
                 {
-                    $scope.instorage.warehouseName = data.valueNameCn;
+                    $scope.instorage.inWarehouse = data.valueNameCn;
                 }
             });
         },
