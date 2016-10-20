@@ -4,12 +4,22 @@
 
 - $icon = ((defined? icon) ? icon: "fa-warning")
 
-- if !(defined? disabled)
-  %button.btn.btn-circle.btn-warning.btn-sm{:type => "button", 'ng': {'click':"#{$click}"}}
+- if (defined? disabled) && (defined? show)
+  %button.btn.btn-circle.btn-warning.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}", 'show': "#{show}"}}
     %i.fa{:class => "#{$icon}"}
     #{$label}
 
-- if defined? disabled
+- elsif defined? disabled
   %button.btn.btn-circle.btn-warning.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}"}}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- elsif defined? show
+  %button.btn.btn-circle.btn-warning.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'show': "#{show}"}}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- else
+  %button.btn.btn-circle.btn-warning.btn-sm{:type => "button", 'ng': {'click':"#{$click}"}}
     %i.fa{:class => "#{$icon}"}
     #{$label}

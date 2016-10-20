@@ -1,0 +1,22 @@
+- $label = ((defined? label) ? label: "保存表单")
+- $icon = ((defined? icon) ? icon: "fa-plus")
+
+- if (defined? disabled) && (defined? show)
+  %button.btn.btn-primary{:type => "submit", "ng": {"disabled": "#{disabled}", "show": "#{show}" }}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- elsif defined? disabled
+  %button.btn.btn-primary{:type => "submit", "ng": {"disabled": "#{disabled}"}}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- elsif defined? show
+  %button.btn.btn-primary{:type => "submit", "ng": {"show": "#{show}" }}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- else
+  %button.btn.btn-primary{:type => "submit"}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}

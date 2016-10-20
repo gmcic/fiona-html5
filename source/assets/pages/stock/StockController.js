@@ -17,7 +17,7 @@ angular.module('fiona').controller('StockController', function($scope, $controll
 
         foreign: "storage", // 外键
 
-        foreignkey: "warehouseCode",
+        foreignkey: "warehouseId",
 
         id: "stock",
 

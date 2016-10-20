@@ -65,6 +65,10 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                 $scope.instoragedetailportal.search();
             },
 
+            view: function () {
+                $scope.instoragedetailportal.search();
+            },
+
             insert: function () {
                 $scope.instoragedetails = [];
 

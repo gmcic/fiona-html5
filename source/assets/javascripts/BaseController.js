@@ -380,6 +380,25 @@ angular.module('fiona').controller('BaseController', function ($scope, $http, co
     };
 
     /**
+     * 查看
+     * ---------------------------
+     * */
+    component.view = function (id) {
+
+        angular.forEach($scope[component.id + 's'], function (data, index, array) {
+            if (data.id == id) {
+                $scope[component.id] = data;
+            }
+        });
+
+        if (!!component.callback && !!component.callback.view) {
+            component.callback.view();
+        }
+
+        $("#" + component.id + "view").modal('toggle');
+    };
+
+    /**
      * 获取惟一的记录
      * ---------------------------
      * */

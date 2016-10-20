@@ -1,3 +1,4 @@
+
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
@@ -24,9 +25,6 @@ searchFields:
 
 
 fields: #可定义多个中文名称指向同一个字段
-  物品名称: XX
-
-  原整装数量: XX
 
   新整装数量: XX
 
@@ -42,10 +40,9 @@ fields: #可定义多个中文名称指向同一个字段
 
   修改原因: XX
 
-  类型编号: itemCode
-  类型名称: itemName
   仓库编号: warehouseCode
   仓库名称: warehouseName
+
   资源数量: sourceCount
   新数量: newCount
   原洒落数量: sourceScatteredCount
@@ -56,6 +53,31 @@ fields: #可定义多个中文名称指向同一个字段
   原移除时间: sourceOutDateTime
   新移除时间: newOutDateTime
   类型数量I: itemCountId
+
+  物品编号: itemCode
+  物品名称: itemName
+
+  条码: barCode
+  单元: packageUnit
+  规格: itemStandard
+  药品形状: drugForm
+  商品服务种类: itemStyle
+  零散比: itemBulk
+  售价: sellPrice
+  vip折扣: isVipDiscount
+  VIP价格: vipSellPrice
+  类型数量: itemCountNum
+  散装数量: scatteredCountNum
+  进价: inputPrice
+  仓库上限: wareUpLimit
+  仓库下限: wareDownLimit
+  仓库名称: warehouseName
+  仓库ID: warehouseId
+  备注: remark
+  经销商编号: manufacturerCode
+  经销商名称: manufacturerName
+  批次号: batchNumber
+  过期时间: outDateTime
 
   主键: id
   状态: status
