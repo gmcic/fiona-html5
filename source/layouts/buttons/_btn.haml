@@ -4,7 +4,7 @@
 
 - $icon = ((defined? icon) ? icon: "fa-warning")
 
-- if (defined? disabled) && (defined? show)
+- if (defined? disabled) && ((defined? show) && (show != ""))
   %button.btn.btn-circle.btn-default.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}", 'show': "#{show}"}}
     %i.fa{:class => "#{$icon}"}
     #{$label}
@@ -14,7 +14,7 @@
     %i.fa{:class => "#{$icon}"}
     #{$label}
 
-- elsif defined? show
+- elsif ((defined? show) && (show != ""))
   %button.btn.btn-circle.btn-default.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'show': "#{show}"}}
     %i.fa{:class => "#{$icon}"}
     #{$label}

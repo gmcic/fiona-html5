@@ -2,7 +2,7 @@
 
 - $label = ((defined? label) ? label: "删除")
 
-- if (defined? disabled) && (defined? show)
+- if (defined? disabled) && ((defined? show) && (show != ""))
   %button.btn.btn-circle.red-sunglo.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}", 'show': "#{show}"}}
     %i.fa.fa-plus
     #{$label}
@@ -12,7 +12,7 @@
     %i.fa.fa-plus
     #{$label}
 
-- elsif defined? show
+- elsif ((defined? show) && (show != ""))
   %button.btn.btn-circle.red-sunglo.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'show': "#{show}"}}
     %i.fa.fa-plus
     #{$label}

@@ -65,7 +65,7 @@
               - inline_attr_show = (defined? inline_toolbar) && (inline_toolbar.include? "auditing") ? (@portal_id + ".status.dictDetailCode != 'SM00043'") : ""
 
               // 查看按钮
-              - if (!defined? inline_toolbar) || ( inline_toolbar.include? "view" )
+              - if (defined? inline_toolbar) && ( inline_toolbar.include? "view" )
                 = partial :'layouts/buttons/btn', :locals => {:label => "查看", :icon => "fa-file-o", :click => @portal_id + 'portal.view(' + @portal_id + '.id)'}
 
               // 修改按钮
