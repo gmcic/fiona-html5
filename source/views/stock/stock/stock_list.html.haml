@@ -8,11 +8,15 @@ layout: "page"
 .row
   .col-md-3
     - portal "仓库", "storage"
-    = partial 'layouts/widget/side', :locals => {:name => "仓库", :id=> 'storage', :fieldName => "name"}
+    = partial 'layouts/widget/side', :locals => {:name => "仓库", :id=> 'storage', :fieldName => "name"} do
+      / 不输出按钮
 
   .col-md-9
     - portal '库存查询', 'stock'
-    = partial 'layouts/widget/portal'
+    = partial 'layouts/widget/portal' do
+      = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
+      = partial :'layouts/buttons/btn', :locals => {:label => "导入数据", :icon => "fa-file-excel-o", :click => "void()"}
+      = partial :'layouts/buttons/btn', :locals => {:label => "导出数据", :icon => "fa-cloud-download", :click => "void()"}
 
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'modify'

@@ -45,6 +45,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             });
         },
 
+
         resize: function () {
 
             $scope.instorage.inWarehouseTotalCost = 0;
@@ -123,7 +124,15 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         name: "入库明细",
 
-        server: "/api/v2/warehouseinrecorddetails"
+        server: "/api/v2/warehouseinrecorddetails",
+
+        callback: {
+            delete: function () {
+                // 总数据
+                $scope.instorage.totalCount++;
+                $scope.instorage.resize();
+            }
+        }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.instoragedetailportal}); //继承
@@ -145,7 +154,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             update: function () {
                 $scope.instorage.dealerCode = $scope.dealer.code;
                 $scope.instorage.dealerName = $scope.dealer.name;
-
             }
         }
     };
@@ -189,7 +197,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                 else {
                     // 未选择新添加
 
-                    var instoragedetail= {createUserId: 1, updateUserId: 1};
+                    var instoragedetail= {};
 
                     //  "inputCount",
 

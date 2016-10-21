@@ -1,5 +1,9 @@
+module:
+  name: 库存查询
+  id: stock
+  data: itemcounts
 
-# 经销商与生产商
+# 库存查询
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
 
@@ -10,6 +14,24 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 批号
 
   - fieldName: 整装数
+
+  - fieldName: 整装单位
+
+  - fieldName: 散装数
+
+  - fieldName: 散装单位
+
+  - fieldName: 零散比
+
+  - fieldName: 有效期
+
+  - fieldName: 平均进价
+
+  - fieldName: 售价
+
+  - fieldName: 所在库
+
+  - fieldName: 业务类型
 
 
 searchFields:
@@ -23,61 +45,43 @@ searchFields:
 
   - fieldName: 销售单位
 
-
 fields: #可定义多个中文名称指向同一个字段
-
-  新整装数量: XX
-
-  零散比: XX
-
-  原整装数量: XX
-
-  新整装数量: XX
-
-  批号: XX
-
-  有效期: XX
-
-  修改原因: XX
-
-  仓库编号: warehouseCode
-  仓库名称: warehouseName
-
-  资源数量: sourceCount
-  新数量: newCount
-  原洒落数量: sourceScatteredCount
-  新洒落数量: newScatteredCount
-  更新原因: changeReason
-  原批数量: sourceBatchNumber
-  新批数量: newBatchNumber
-  原移除时间: sourceOutDateTime
-  新移除时间: newOutDateTime
-  类型数量I: itemCountId
 
   物品编号: itemCode
   物品名称: itemName
+  业务类型: itemStyle
 
   条码: barCode
-  单元: packageUnit
   规格: itemStandard
-  药品形状: drugForm
-  商品服务种类: itemStyle
+
+  散装单位: drugForm
+
+  整装单位: packageUnit
+
+  整装数: itemCountNum
+  散装数: scatteredCountNum
+
   零散比: itemBulk
   售价: sellPrice
+
   vip折扣: isVipDiscount
   VIP价格: vipSellPrice
-  类型数量: itemCountNum
-  散装数量: scatteredCountNum
-  进价: inputPrice
+
+  平均进价: inputPrice
+
   仓库上限: wareUpLimit
   仓库下限: wareDownLimit
-  仓库名称: warehouseName
+
+  所在库: warehouseName
   仓库ID: warehouseId
-  备注: remark
+
+  修改原因: remark
+
   经销商编号: manufacturerCode
   经销商名称: manufacturerName
-  批次号: batchNumber
-  过期时间: outDateTime
+
+  批号: batchNumber
+  有效期: outDateTime
 
   主键: id
   状态: status
