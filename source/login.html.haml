@@ -11,7 +11,7 @@
     %h3.form-title.font-green 登录
     .alert.alert-danger{"ng-show" => "signup_form.submitted && error"}
       %button.close{"data-close" => "alert"}
-      %span {{ message }}
+      %span{"ng-bind": "message"}
 
     .form-group
       / ie8, ie9 does not support html5 placeholder, so we just show field title for that
@@ -24,10 +24,6 @@
 
     .form-actions
       %button.btn.green.uppercase{:type => "submit"} 登录
-      %label.rememberme.check.mt-checkbox.mt-checkbox-outline
-        %input{:name => "remember", :type => "checkbox", :value => "1"}>/
-        Remember
-        %span
       %a#forget-password.forget-password{:href => "javascript:;"} 忘记密码?
 
     .create-account

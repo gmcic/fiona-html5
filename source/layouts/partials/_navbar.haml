@@ -16,101 +16,11 @@
     / BEGIN TOP NAVIGATION MENU
     .top-menu
       %ul.nav.navbar-nav.pull-right
-        / BEGIN NOTIFICATION DROPDOWN
-        %li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
-          %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
-            %i.fa.fa-bell
-            %span.badge.badge-default 7
-
-          %ul.dropdown-menu
-            %li.external
-              %h3
-                %span.bold 12 pending
-                notifications
-              %a{:href => "page_user_profile_1.html"} view all
-            %li
-              %ul.dropdown-menu-list.scroller{"data-handle-color" => "#637283", :style => "height: 250px;"}
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time just now
-                    %span.details
-                      %span.label.label-sm.label-icon.label-success
-                        %i.fa.fa-plus
-                      New user registered.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 3 mins
-                    %span.details
-                      %span.label.label-sm.label-icon.label-danger
-                        %i.fa.fa-bolt
-                      Server #12 overloaded.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 10 mins
-                    %span.details
-                      %span.label.label-sm.label-icon.label-warning
-                        %i.fa.fa-bell-o
-                      Server #2 not responding.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 14 hrs
-                    %span.details
-                      %span.label.label-sm.label-icon.label-info
-                        %i.fa.fa-bullhorn
-                      Application error.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 2 days
-                    %span.details
-                      %span.label.label-sm.label-icon.label-danger
-                        %i.fa.fa-bolt
-                      Database overloaded 68%.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 3 days
-                    %span.details
-                      %span.label.label-sm.label-icon.label-danger
-                        %i.fa.fa-bolt
-                      A user IP blocked.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 4 days
-                    %span.details
-                      %span.label.label-sm.label-icon.label-warning
-                        %i.fa.fa-bell-o
-                      Storage Server #4 not responding dfdfdfd.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 5 days
-                    %span.details
-                      %span.label.label-sm.label-icon.label-info
-                        %i.fa.fa-bullhorn
-                      System Error.
-                %li
-                  %a{:href => "javascript:;"}
-                    %span.time 9 days
-                    %span.details
-                      %span.label.label-sm.label-icon.label-danger
-                        %i.fa.fa-bolt
-                      Storage server failed.
-
         / BEGIN USER LOGIN DROPDOWN
         %li.dropdown.dropdown-user
-          %ul.dropdown-menu.dropdown-menu-default
-            %li
-              %a{:href => "app_todo.html"}
-                %i.fa.fa-rocket
-                待诊
-                %span.badge.badge-success 7
-            %li.divider
-            %li
-              %a{:href => "login.html"}
-                %i.fa.fa-sign-out
-                退出
-
           %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
             %img.img-circle{:alt => "", :src => "./assets/images/doctor.png"}/
-            %span.username.username-hide-on-mobile Nick
+            %span.username.username-hide-on-mobile{"ng"=>{"bind":"userName"}}
             %i.fa.fa-angle-down
 
         / BEGIN QUICK SIDEBAR TOGGLER

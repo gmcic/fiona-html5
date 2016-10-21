@@ -31,32 +31,6 @@ angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJs
 
             .otherwise({redirectTo: '/'});
     }])
-    // 拦截器(验证用户是否登录)
-    .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons, Auth) {
-    	return {
-            request:function(config){
-
-                // alert(commons.getAuthorization());
-
-                // alert(("SessionStorage Auth : " + sessionStorage.getItem("authorization")));
-
-                if(sessionStorage.getItem("authorization"))
-                {
-                    config.headers.post = config.headers.post || {};
-                    config.headers.post['Content-Type']= 'application/json';
-                    config.headers["authorization"] = sessionStorage.getItem("authorization");
-                }
-                else
-                {
-                    $window.location.href = "login.html";
-                }
-
-                // alert('OK' + SessionService.isAnonymous);
-
-                return config;
-            }
-        };
-    }])
     // 首页面
     .controller('DashboardController', function($scope) {
         // define controller to prevent console error
@@ -66,20 +40,6 @@ angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJs
 
     .controller('InboxController', function($scope, $routeParams, $location) {
         $scope.name = $routeParams.name;
-    })
-
-    // 侧边栏
-    .controller('SidebarController', function($scope, $http) {
-
-        $http.get("server/sidebar.json").success(function (data, status, headers, config ) {
-
-            $scope.name = "Time";
-            $scope.sidebar = data;
-
-            // alert('GET Success');
-        }).error(function (data, status, headers, config) {
-            alert('GET Error');
-        });
     });
 
 // Role 控制器

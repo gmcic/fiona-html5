@@ -49,6 +49,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   物品编号: itemCode
   物品名称: itemName
+  名称: itemName
   业务类型: itemStyle
 
   条码: barCode

@@ -1,4 +1,50 @@
-angular.module('fiona').controller('BaseController', function ($scope, $http, commons) {
+angular.module('fiona')
+    // 拦截器(验证用户是否登录)
+    .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons, Auth) {
+        return {
+            request:function(config){
+
+                // config.headers["authorization"] = "fc5db3b3-4063-4a12-a511-880ba19e4b58";
+
+                // alert(("SessionStorage Auth : " + sessionStorage.getItem("authorization")));
+
+                if(sessionStorage.getItem("authorization"))
+                {
+                    config.headers.post = config.headers.post || {};
+                    config.headers.post['Content-Type']= 'application/json';
+                    config.headers["authorization"] = sessionStorage.getItem("authorization");
+                }
+                else
+                {
+                    $window.location.href = "login.html";
+                }
+
+                // alert('OK' + SessionService.isAnonymous);
+
+                return config;
+            }
+        };
+    }])
+    // 侧边栏
+    .controller('IndexController', function($scope, $http, commons) {
+
+        // alert(sessionStorage.getItem("authorization"));
+
+        if(sessionStorage.getItem("authorization")) {
+            $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
+
+                $scope.menus = data.data;
+
+                $scope.userName = sessionStorage.getItem("userName");
+
+                console.log($scope.menus);
+
+            }).error(function (data, status, headers, config) {
+                alert('加载目录树失败');
+            });
+        }
+    })
+    .controller('BaseController', function ($scope, $http, commons) {
 
     $scope.error = "未找到定义";
 
