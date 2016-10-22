@@ -37,7 +37,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (data) {
-
                 if($scope.instorage.warehouseId == data.id)
                 {
                     $scope.instorage.inWarehouse = data.valueNameCn;

@@ -34,7 +34,7 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
     }};
 
     /**
-     * 挂号查询
+     * 会员管理
      * ---------------------------
      * */
     $scope.vipportal= {

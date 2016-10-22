@@ -5,24 +5,27 @@ module:
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 挂号类型
+    fieldKey: itemName
+
+  - fieldName: 金额
 
   - fieldName: 会员姓名
 
-  - fieldName: 手机
+  - fieldName: 宠物病历号
 
-  - fieldName: 宠物昵称
+  - fieldName: 宠物名称
 
-  - fieldName: 性别
+  - fieldName: 医生
+    fieldKey: doctor
 
-  - fieldName: 年龄
+  - fieldName: 助理医生
+    fieldKey: assistantDoctorName
 
-  - fieldName: 体重
-
-  - fieldName: 种类
-
-  - fieldName: 品种
+  - fieldName: 挂号日期
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 挂号状态
+    fieldKey: status.valueNameCn
 
   - fieldName: 付费状态
 
@@ -39,30 +42,35 @@ fields: #可定义多个中文名称指向同一个字段
   宠物ID: petId
   会员姓名: gestName
 
+  挂号类型: itemCode
+  挂号类型名称: itemName
+
+  业务员: operatorMan
+
   医生姓名: doctor
   医生: doctorId
 
   助理医生: assistantDoctorId
-  助理姓名: assistantDoctorName
+  助理医生姓名: assistantDoctorName
 
-  挂号类型编码: registerNo
-  挂号类型: registerStyle
-
-  类型名称: itemName
-  类型编号: itemCode
+  登记编号: registerNo
+  登记类型: registerStyle
 
   金额: registerPrice
 
-  皮肤文件编号: sickFileCode
 
-  操作人: operatorMan
-  影像状态: paidStatus
-  影像时间: paidTime
-  原因: pauseReason
+  付费状态: paidStatus
+  付费时间: paidTime
+
+  暂停原因: pauseReason
+
+  宠物病历号: sickFileCode
 
   主键: id
-  状态: status
+
+  挂号状态: status
+
   创建人: createUserId
-  创建时间: createDate
+  挂号日期: createDate
   修改人: updateUserId
   修改时间: updateDate

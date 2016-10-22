@@ -1,31 +1,36 @@
 // 挂号查询
 angular.module('fiona').controller('RegisterController', function($scope, $controller, $http, commons) {
-     
+
+
     // 声明要使用的下拉选项
-    $scope.dropboxargs = [
-        {name: "gestStyleSet", server: "gestlevels"},
-        {name: "statusSet", server: "dicts", filterName: "会员状态"},
-        {name: "gestSexSet", server: "userdicts", filterName: "性别"},
+    $scope.dropboxargs = {
+        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态"},
+        userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色"}
+    };
 
-        {name: "raceTypeSet", server: "petraces"}, // 种类
-        {name: "petRaceSet", server: "varieties"}, // 品种
-        {name: "petBreedSet", server: "dicts", filterName: "绝育状态"},
-        {name: "sickFileCodeSet", server: "dicts", filterName: "宠物状态"},
-        {name: "petSexSet", server: "userdicts", filterName: "动物性别"},
-        {name: "petSkinColorSet", server: "userdicts", filterName: "动物颜色"},
-
-        {name: "registerStyleSet", server: "products", filterName: "挂号项目"},
-        {name: "doctorIdSet", server: "personss"}, // 医生
-        {name: "assistantDoctorIdSet", server: "personss"}  // 服务助理ID
-    ];
-    
     $scope.dropdowns= {};
 
     // 继承能用代码
-    $controller('BaseController', {$scope: $scope}); //继承`
+    $controller('BaseController', {$scope: $scope}); //继承
 
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);
+
+    $scope.dropdownWithTable({id: "gestStyle", server: "/api/v2/gestlevels"}); // 会员级别
+    $scope.dropdownWithTable({id: "raceType", server: "/api/v2/petraces"}); // 种类
+    $scope.dropdownWithTable({id: "petRace", server: "/api/v2/varieties"});// 品种
+
+    $scope.dropdownWithTable({id: "doctorId", server: "/api/v2/personss"}); // 医生
+    $scope.dropdownWithTable({id: "operatorMan", server: "/api/v2/personss"}); // 业务员
+    $scope.dropdownWithTable({id: "assistantDoctorId", server: "/api/v2/personss"}); // 服务助理
+
+    $http.post(commons.getBusinessHostname() + "/api/v2/itemtypes/page", {
+        'pageSize': 10000,
+        'pageNumber': 1,
+        'filters': [{"fieldName": 'cateNo', "operator": "EQ", "value": '2d8d75d7-c7af-4ceb-901b-22a7141c87bc'}]
+    }).success(function (data, status, headers, config) {
+        $scope.dropdowns["itemCodeSet"] = data.data.content;
+    });
 
     /**
      * 挂号查询
@@ -42,10 +47,28 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
         defilters: {"code": "自动编号", "name": "经销商名称", "contractMan": "联系人", "mobilePhone": "手机", "dealerAddress": "地址"},
 
         callback: {
+            selectsync: function (inputName, selectObj) {
+
+                if(inputName == 'itemCode')
+                {
+                    $scope.register.itemName = selectObj.itemName;
+                }
+                else if(inputName == 'doctorId')
+                {
+                    $scope.register.doctor = selectObj.personName;
+                }
+                else if(inputName == 'assistantDoctorId')
+                {
+                    $scope.register.assistantDoctorName = selectObj.personName;
+                }
+            },
+            submitbefore: function () {
+                $scope.register.gestName = $scope.pet.gestName;
+                $scope.register.petName = $scope.pet.petName;
+                $scope.register.petId = $scope.pet.id;
+            },
             insert: function () {
-                angular.forEach($scope.dropdowns, function (value, key) {
-                    $scope.register[key.substr(0, key.length - 3)] = value[0];
-                });
+                // $scope.setSelectDefault("register", ["doctorId", "operatorMan", "assistantDoctorId", "itemCode"]);
             },
             update: function () {
                 // $scope.petportal.get($scope.beauty.gestId);
@@ -56,43 +79,145 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.registerportal}); //继承
 
-    $scope.registerfastmodal = function () {
-        $("#registerfast").modal('toggle');
+    $scope.registerfastportal = {
+
+        selectchange : function (inputName, fieldName) {
+
+            // 本对象字段名, 选择对象的字段名
+            angular.forEach($scope.dropdowns[inputName  + 'Set'], function (data) {
+                if($scope.register[inputName] == data[fieldName])
+                {
+                    if($scope.registerfastportal.selectsync)
+                    {
+                        $scope.registerfastportal.selectsync(inputName, data);
+                    }
+                }
+            });
+
+        },
+
+        selectsync: function (inputName, selectObj) {
+
+            if(inputName == 'itemCode')
+            {
+                $scope.register.itemName = selectObj.itemName;
+            }
+            else if(inputName == 'doctorId')
+            {
+                $scope.register.doctor = selectObj.personName;
+            }
+            else if(inputName == 'assistantDoctorId')
+            {
+                $scope.register.assistantDoctorName = selectObj.personName;
+            }
+        },
+
+        insert: function () {
+            $scope.vip = {};
+            $scope.pet = {};
+            $scope.register = {};
+
+            // 生成-会员编号
+            $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=会员编号").success(function (data, status, headers, config) {
+                $scope.vip.gestCode = data.data;
+            }).error(function (data, status, headers, config) { //     错误
+                commons.modaldanger("registerfast", "生成会员编号失败");
+            });
+
+            // 生成-会员编号
+            $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=宠物编号").success(function (data, status, headers, config) {
+
+                $scope.pet.petCode = data.data;
+
+            }).error(function (data, status, headers, config) { //     错误
+                commons.modaldanger("vip", "生成宠物编号失败");
+            });
+
+            // 设置默认选项
+
+            $scope.setSelectDefaultObject("vip", ["gestSex", "gestStyle", "status"]);
+
+            $scope.setSelectDefaultObject("pet", ["personStatus", "petSex"]);
+
+            $scope.setSelectDefault("pet", ["petBreed"]);
+
+            $("#registerfast").modal('toggle');
+            //
+            // alert($("#registerfast").find('#gestSex').find('option[value="0"]').length);
+            // // $("#registerfast").find('#gestSex').val(0);
+            // $("#registerfast").find('#gestSex').find('option[value="0"]').prop("selected",true);
+        },
+        submit: function () {
+
+            $scope["registerfastform"].submitted = true;
+
+            if ($scope["registerfastform"].$valid) {
+
+                $scope.vipportal.save();
+
+                commons.success("保存成功")
+
+                $("#registerfast").modal('toggle');
+            }
+        }
     };
 
+    /**
+     * 会员管理
+     * ---------------------------
+     * */
+    $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
+
+    $scope.vipportal.callback.save = function () {
+
+        // 会员ID: gestId 会员编号: gestCode 会员姓名: gestName
+        $scope.pet.gestId = $scope.vip.id;
+
+        $scope.pet.gestCode = $scope.vip.gestCode;
+
+        $scope.pet.gestName = $scope.vip.gestName;
+
+        $scope.petportal.save();
+    };
+
+    /**
+     * 宠物管理
+     * ---------------------------
+     * */
     $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
+
+    $scope.petportal.callback.save = function () {
+
+        $scope.register.gestName = $scope.pet.gestName;
+        $scope.register.petName = $scope.pet.petName;
+        $scope.register.petId = $scope.pet.id;
+
+        $scope.registerportal.save();
+    };
+
+    /**
+     * 直接保存
+     * ---------------------------
+     * */
+    $scope.registerportal.save = function () {
+
+        $scope.register.gestName = $scope.pet.gestName;
+        $scope.register.petName = $scope.pet.petName;
+        $scope.register.petId = $scope.pet.id;
+
+        $http.post(commons.getBusinessHostname() + $scope.registerportal.server, $scope.register).success(function (data, status, headers, config) {
+
+            $scope.register = data.data;
+
+            $scope["registers"].unshift(data.data);
+
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger("register", "保存失败")
+        });
+    };
 
     $scope.petportal.init();
 
-    //
-    // $controller('PetPopupSelectController', {$scope: $scope}); //继承
-    //
-    // $scope.petportal.master.checked = function () {
-    //     // 主人ID
-    //     $scope.register.gestId = $scope.pet.id;
-    //
-    //     // 主人编号
-    //     $scope.register.gestCode = $scope.pet.gestCode;
-    //
-    //     // 主人名称
-    //     $scope.register.gestName = $scope.pet.gestName;
-    // };
-    //
-    // $scope.petportal.master.submit = function () {
-    //     // 主人ID
-    //     $scope.register.gestId = $scope.pet.id;
-    //
-    //     // 主人编号
-    //     $scope.register.gestCode = $scope.pet.gestCode;
-    //
-    //     // 主人名称
-    //     $scope.register.gestName = $scope.pet.gestName;
-    // };
-    //
-    // $scope.petportal.master.insert = function () {
-    //     angular.forEach($scope.petportal.dropdowns, function (value, key) {
-    //         $scope.pet[key.substr(0, key.length - 3)] = value[0];
-    //     });
-    // };
+    $scope.registerportal.filter();
 
 });

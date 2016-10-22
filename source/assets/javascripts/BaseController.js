@@ -37,7 +37,7 @@ angular.module('fiona')
 
                 $scope.userName = sessionStorage.getItem("userName");
 
-                console.log($scope.menus);
+                // console.log($scope.menus);
 
             }).error(function (data, status, headers, config) {
                 alert('加载目录树失败');
@@ -119,7 +119,11 @@ angular.module('fiona')
 
                 var type = $scope.dropdowns[fieldName + "Set"][0];
 
-                if (!!type.itemCode) {
+                if(type.personName)
+                {
+                    $scope[name][fieldName] = type.id;
+                }
+                else if (!!type.itemCode) {
                     // product
                     $scope[name][fieldName] = type.itemCode;
                 }
@@ -127,6 +131,14 @@ angular.module('fiona')
                     // dicttypes | dicts | custom
                     $scope[name][fieldName] = type.id;
                 }
+            }
+        });
+    };
+
+    $scope.setSelectDefaultObject = function (name, fieldNames) {
+        angular.forEach(fieldNames, function (fieldName) {
+            if (!!$scope.dropdowns[fieldName + "Set"]) {
+                $scope[name][fieldName] = $scope.dropdowns[fieldName + "Set"][0];
             }
         });
     };
@@ -402,6 +414,21 @@ angular.module('fiona')
         $('#' + component.id).modal('toggle');
     };
 
+    component.selectchange = function (inputName, fieldName) {
+
+        // 本对象字段名, 选择对象的字段名
+        angular.forEach($scope.dropdowns[inputName  + 'Set'], function (data) {
+            if($scope[component.id][inputName] == data[fieldName])
+            {
+                if(component.callback && component.callback.selectsync)
+                {
+                    component.callback.selectsync(inputName, data);
+                }
+            }
+        });
+
+    };
+
     /**
      * 变更
      * ---------------------------
@@ -470,6 +497,10 @@ angular.module('fiona')
 
         $scope[component.id + "form"].submitted = true;
 
+        if (!!component.callback && !!component.callback.submitbefore) {
+            component.callback.submitbefore();
+        }
+
         if ($scope[component.id + "form"].$valid) {
 
             var isappend = !$scope[component.id].id;
@@ -502,6 +533,8 @@ angular.module('fiona')
     component.save = function () {
 
         $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
+
+            $scope[component.id] = data.data;
 
             if (!!component.callback && !!component.callback.save) {
                 component.callback.save();
@@ -941,6 +974,10 @@ angular.module('fiona')
 
         console.log($scope[component.id]);
 
+        if (!!component.callback && !!component.callback.submitbefore) {
+            component.callback.submitbefore();
+        }
+
         if ($scope[component.id + "form"].$valid) {
 
             $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
@@ -1141,12 +1178,29 @@ angular.module('fiona')
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
 
     $scope.petportal.pupupselect = function () {
+
+        $scope.petportal.search();
+
         $("#petselect").modal('toggle');
     };
-    
+
+    $scope.petportal.checked = function (id) {
+
+        angular.forEach($scope["pets"], function (data) {
+            if(data.id == id)
+            {
+                $scope.pet = data;
+            }
+        });
+
+        $("#petselect").modal('toggle');
+    };
+
+
     $scope.init = function () {
         $scope.petportal.search();
     };
+
 }).controller('VipPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
 
     /**

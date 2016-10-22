@@ -5,19 +5,19 @@ layout: "page"
 - page "挂号查询", "register"
 
 = partial 'layouts/widget/portal' do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'registerfastmodal()', :label => '快捷挂号'}
+  = partial :'layouts/buttons/insert', :locals => {:click => 'registerfastportal.insert()', :label => '快捷挂号'}
   = partial :'layouts/buttons/insert', :locals => {:label => '会员挂号', :click => "registerportal.insert()"}
   = partial :'layouts/buttons/removes'
 
 / 会员挂号
-= partial :'layouts/partials/modal-portal-lg' do
+= partial :'layouts/partials/modal-portal-lg', :locals => {:modal_toolbar => 'register' }  do
   = partial 'modify'
 
 / 快捷挂号
-- modal "快捷挂号", "registerfast" b
+- modal "快捷挂号", "registerfast"
 
-= partial :'layouts/partials/modal-portal-lg' do
+= partial :'layouts/partials/modal-portal-lg', :locals => {:modal_toolbar => 'register' } do
   = partial 'registerfast'
 
 / 弹出选择宠物
-= partial 'views/commons/pet/pet_popup_select'
+= partial 'layouts/widget/service_pet_select'

@@ -20,17 +20,17 @@
 
   - if $required == 'true'
     - if (defined? change)
-      %select.form-control{ :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}", "ng-change" => "#{change}"}
+      %select.form-control{ :required => "#{$required}" ,:name => "#{$columnName}", :id => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}", "ng-change" => "#{change}"}
 
     - if !(defined? change)
-      %select.form-control{ :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}" }
+      %select.form-control{ :required => "#{$required}" ,:name => "#{$columnName}", :id => "#{$columnName}","ng-model"=>"#{$ngModel}", "ng-options" => "#{options}" }
 
   - if $required == 'false'
     - if (defined? change)
-      %select.form-control{ :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}", "ng-change" => "#{change}" }
+      %select.form-control{ :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", :id => "#{$columnName}","ng-options" => "#{options}", "ng-change" => "#{change}" }
 
     - if !(defined? change)
-      %select.form-control{ :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-options" => "#{options}" }
+      %select.form-control{ :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", :id => "#{$columnName}", "ng-options" => "#{options}" }
 
   - if $required == 'true'
     %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.

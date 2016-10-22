@@ -1,5 +1,5 @@
 // 员工管理
-angular.module('fiona').controller('PersonnelController', function ($scope, $controller) {
+angular.module('fiona').controller('PersonnelController', function ($scope, $http, commons, $controller) {
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
@@ -37,6 +37,14 @@ angular.module('fiona').controller('PersonnelController', function ($scope, $con
         callback: {
             insert: function () {
                 $scope.setSelectDefault("personnel", ["isSyncEas", "personStatus", "sex", "roleId"]);
+
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=会员编号").success(function (data, status, headers, config) {
+
+                    $scope.personnel.personCode = data.data;
+
+                }).error(function (data, status, headers, config) { //     错误
+                    commons.modaldanger("vip", "生成会员编号失败");
+                });
             }
         }
     };

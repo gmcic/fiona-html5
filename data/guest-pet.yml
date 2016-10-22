@@ -97,6 +97,8 @@ fields: #可定义多个中文名称指向同一个字段
 
   宠物昵称: petName
 
+  宠物名称: petName
+
   #数据字典 字典明细项
   宠物性别: petSex
 
@@ -125,7 +127,9 @@ fields: #可定义多个中文名称指向同一个字段
   体长(cm): petBodyLong
 
   #宠物字典类型明细
-  宠物病例号: sickFileCode
+  宠物病历号: sickFileCode
+
+  病历编号: sickFileCode
 
   宠物生日状态: birthStatus
 
