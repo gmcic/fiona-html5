@@ -13,7 +13,8 @@
         .div{:id => "#{@modal_id}printbody"}
           =yield
 
-        %iframe#printiframe.hide{:frameborder => '0', :src => "/views/commons/print_template.html", :style => "width:0px;0px"}
+        -#%iframe#printiframe{:frameborder => '1', :src => "/views/commons/print_template.html", :style => "width:870px;height: 800px"}
+        %iframe#printiframe.hide{:frameborder => '0', :src => "/views/commons/print_template.html", :style => "width:0px;height:0px"}
 
       .modal-footer
         %button.btn.btn-primary{:type => "button", "ng-click" => "print()"}

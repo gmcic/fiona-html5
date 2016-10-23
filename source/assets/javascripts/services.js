@@ -6,7 +6,7 @@ angular.module('fiona.services', [])
 
         if (name == true || name == value || !!name) {
             angular.forEach(comboxs, function (combox) {
-                if(combox.id == name)
+                if(combox.id == name || combox.dictDetailCode == name)
                 {
                     value = combox.valueNameCn;
                 }

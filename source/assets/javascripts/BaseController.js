@@ -104,6 +104,9 @@ angular.module('fiona')
 
     $scope.selectDicts = function (uri, invoke, data) {
         $http.post(commons.getBusinessHostname() + "/api/v2/" + uri + "/selects", data).success(function (data, status, headers, config) {
+
+            console.log(data.data);
+
             $.extend($scope.dropdowns, data.data);
 
             if(invoke)

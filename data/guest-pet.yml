@@ -14,7 +14,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 宠物牌号
 
-  - fieldName: 宠物病例号
+  - fieldName: 宠物病历号
 
   - fieldName: 宠物昵称
 
@@ -64,7 +64,7 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
     fieldKey: petRace.type
 
 searchFields:
-  - fieldName: 宠物病例号
+  - fieldName: 宠物病历号
 
   - fieldName: 宠物昵称
 
@@ -87,6 +87,8 @@ fields: #可定义多个中文名称指向同一个字段
   宠物类型: status
 
   编号(自动): petCode
+
+  宠物卡号: petCode
 
   会员ID: gestId
 

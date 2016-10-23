@@ -1,38 +1,34 @@
 %table.table-noborder
   %tbody
     %tr
-      %th{:style => "width: 100px"} 医院名称
-      %td {{hospital.fullName}}
-
-      %th{:style => "width: 100px"} 医院地址
-      %td{:colspan => "3"} {{hospital.areaCode}}
-
-    %tr
-      %th 负责人
-      %td {{hospital.responseMan}}
-
-      %th 医院电话
-      %td{:colspan => "3"} {{hospital.telPhone}}
-
-    %tr
-      %th 会员姓名
+      %th{:style => "width: 100px"} 会员姓名
       %td {{vip.gestName}}
 
-      %th 会员电话
-      %td{:colspan => "3"} {{vip.mobilePhone}}
+      %th{:style => "width: 100px"} 会员电话
+      %td {{vip.mobilePhone}}
+
+      %th{:style => "width: 100px"} 病历号
+      %td{:colspan => "7"} {{pet.sickFileCode}}
 
     %tr
-      %th 宠物昵称
+      %th{:style => "width: 100px"} 住址
+      %td{:colspan => "9"} {{vip.gestAddress}}
+
+    %tr
+      %th{:style => "width: 100px"} 宠物昵称
       %td {{pet.petName}}
 
-      %th 宠物性别
+      %th{:style => "width: 100px"} 年龄
+      %td {{pet.age}} 岁
+
+      %th{:style => "width: 100px"} 宠物性别
       %td {{pet.petSex.valueNameCn}}
 
-      %th{:style => "width: 100px"} 体重(kg)
-      %td {{pet.petWeight}}
+      %th{:style => "width: 100px"} 体重
+      %td {{pet.petWeight}} kg
 
-.text-right.h5
-  {{nowtime | date:"yyyy年MM月dd日"}}
+      %th{:style => "width: 100px"} 体温
+      %td {{curemanager.temperature}}
 
 - portal '商品与服务管理', 'doctorprescriptdetail'
 = partial :'layouts/widget/print_table', :locals => {:listdataKey => "printFields"}
@@ -40,9 +36,17 @@
   %tbody
     %tr
       %th{:style => "width: 100px"} 诊疗医生
-      %td{:style => "width: 150px"}  {{doctorprescript.doctor}}
+      %td{:style => "width: 150px"}  {{curemanager.doctor}}
 
       %th{:style => "width: 100px"}  助理医生
-      %td{:style => "width: 150px"}  {{doctorprescript.assistantDoctorName}}
+      %td{:style => "width: 150px"}  {{curemanager.assistantDoctorName}}
 
       %td.text-right.h4 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}
+
+.text-right
+  医院电话: {{hospital.telPhone}}
+
+  %p 医院地址: {{hospital.areaCode}}
+
+.text-right.h5
+  {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}

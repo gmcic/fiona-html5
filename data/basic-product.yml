@@ -12,10 +12,6 @@ listFields:
   - fieldName: 销售单位
     filter: dropdown
 
-
-  - fieldName: 默认进价
-    filter: currency:"￥"
-
   - fieldName: 销售价格
     filter: currency:"￥"
 

@@ -5,7 +5,15 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
         dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态"},
-        userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"}
+        userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"},
+        callback : {
+            dicts: function()
+            {
+                $scope.dropdowns.recipeUnitSet = $scope.dropdowns.useUnitSet;
+                console.log($scope.dropdowns.recipeUnitSet);
+
+            }
+        }
     };
 
     $scope.dropdowns= {};
@@ -29,7 +37,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         $http.post(commons.getBusinessHostname() + $scope.curemanagerportal.server, {registerNo: $scope.register.registerNo}).success(function (data, status, headers, config) {
             $scope.curemanager = data.data;
 
-            console.log(data.data);
+            // console.log(data.data);
 
             $scope.doctorprescriptportal.search();
         });
@@ -249,9 +257,26 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     $controller('SidePanelController', {$scope: $scope, component: $scope.doctorprescriptportal}); //继承
 
+    $scope.getAgeByBirthday = function (birthday) {
+
+        if(birthday) {
+            var date = new Date(birthday);
+
+            var age = parseInt(new Date().getFullYear()) - date.getFullYear();
+
+            age++;
+
+            return age;
+        }
+
+        return 0;
+    };
+
     $scope.doctorprescriptportal.print = function () {
 
         $scope.nowtime = new Date();
+
+        $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
 
         $('#doctorprescriptprint').modal('toggle');
     };
@@ -341,6 +366,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
     $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
     $scope.productportal.submit = function () {
+
         if (!$scope.doctorprescriptdetails) {
             $scope.doctorprescriptdetails = [];
         }
@@ -378,7 +404,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             }
         });
 
-        $('#' + $scope.productportal.id).modal('toggle');
+        $('#' + $scope.productportal.id + "select").modal('toggle');
     };
 
     $scope.producttypeportal.init();

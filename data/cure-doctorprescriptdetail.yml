@@ -7,10 +7,12 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 名称
 
   - fieldName: 处方单位
+    filter: dropdown
 
   - fieldName: 数量
 
   - fieldName: 售价
+    filter: currency:"￥"
 
   - fieldName: 用药频次
 
@@ -31,6 +33,7 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
   - fieldName: 名称
 
   - fieldName: 处方单位
+    filter: dropdown
 
   - fieldName: 数量
     input: number
@@ -64,6 +67,7 @@ printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
   - fieldName: 名称
 
   - fieldName: 处方单位
+    filter: dropdown
 
   - fieldName: 数量
 
@@ -77,6 +81,8 @@ printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
   - fieldName: 投药单位
 
   - fieldName: 用法
+
+  - fieldName: 备注
 
 searchFields:
   - fieldName: 类别名称
@@ -118,6 +124,9 @@ fields: #可定义多个中文名称指向同一个字段
   执行人: executorId
 
   执行时间: executorDate
+
+  #  该字段不存在, 只用于占列
+  备注: ramark
 
   主键: id
   状态: status
