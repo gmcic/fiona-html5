@@ -38,8 +38,8 @@ searchFields:
 
 
 fields: #可定义多个中文名称指向同一个字段
-  宠物名称: petName
   宠物ID: petId
+  宠物名称: petName
   会员姓名: gestName
 
   挂号类型: itemCode
@@ -57,7 +57,6 @@ fields: #可定义多个中文名称指向同一个字段
   登记类型: registerStyle
 
   金额: registerPrice
-
 
   付费状态: paidStatus
   付费时间: paidTime

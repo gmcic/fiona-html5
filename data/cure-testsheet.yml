@@ -1,0 +1,52 @@
+module:
+  name: 化验单
+  id: testsheet
+  data: medicchemicalexams
+
+# 就诊管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 员工姓名
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: ---
+
+fields: #可定义多个中文名称指向同一个字段
+
+  宠物名称: petName
+
+  会员姓名: gestName
+
+  企业编号: enterpriseNo
+
+  医生: doctor
+
+  商品编号: itemCode
+
+  就诊编号: medicRecordCode
+
+  就诊ID: medicRecordId
+
+  chemicalExamCode: chemicalExamCode
+
+  chemicalExamCost: chemicalExamCost
+
+  检测结果: chemicalResult
+
+  化验名称: cheTestName
+
+  化验单位: cheTestUnit
+
+  化验时间: examTime
+
+  支付状态: paidStatus
+
+  支付时间: paidTime
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

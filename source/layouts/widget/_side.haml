@@ -5,19 +5,21 @@
 - @portal = data["" << @module[@portal_id] << "-" << @portal_id]
 
 .portlet.light.bordered
-  .portlet-title
-    .caption.font-dark
-      %i.fa.fa-sitemap.font-dark
-      %span.caption-subject.bold.uppercase= @portal_name
-    .actions
-      - if defined? yield
-        =yield
+  - if (!defined? modal_header) || modal_header != "none"
+    .portlet-title
+      - if (!defined? modal_caption) || modal_caption != "none"
+        .caption.font-dark
+          %i.fa.fa-sitemap.font-dark
+          %span.caption-subject.bold.uppercase= @portal_name
 
-      - else
-        = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
-        = partial :'layouts/buttons/remove', :locals => {:click => "#{@portal_id}portal.remove()", :disabled => "!#{@portal_id}portal.selectedId"}
-        = partial :'layouts/buttons/update', :locals => {:click => "#{@portal_id}portal.update()", :disabled => "!#{@portal_id}portal.selectedId"}
+      .actions
+        - if defined? yield
+          =yield
 
+        - else
+          = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
+          = partial :'layouts/buttons/remove', :locals => {:click => "#{@portal_id}portal.remove()", :disabled => "!#{@portal_id}portal.selectedId"}
+          = partial :'layouts/buttons/update', :locals => {:click => "#{@portal_id}portal.update()", :disabled => "!#{@portal_id}portal.selectedId"}
 
   .portlet-body
     %div.list-group

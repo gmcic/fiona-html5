@@ -1,0 +1,128 @@
+module:
+  name: 医生处方明细
+  id: doctorprescriptdetail
+  data: medicprescriptiondetails
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 处方单位
+
+  - fieldName: 数量
+
+  - fieldName: 售价
+
+  - fieldName: 用药频次
+
+  - fieldName: 单次用量
+
+  - fieldName: 投药单位
+
+  - fieldName: 用法
+
+  - fieldName: 分组
+
+  - fieldName: 执行人
+
+  - fieldName: 状态
+    fieldKey: status.valueNameCn
+
+portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 处方单位
+
+  - fieldName: 数量
+    input: number
+
+  - fieldName: 售价
+    input: number
+
+  - fieldName: 用药频次
+    input: select
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.frequencySet
+
+  - fieldName: 单次用量
+    input: text
+
+  - fieldName: 投药单位
+    input: select
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useUnitSet
+
+  - fieldName: 用法
+    input: select
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useWaySet
+
+  - fieldName: 分组
+
+  - fieldName: 执行人
+
+  - fieldName: 状态
+    fieldKey: status.valueNameCn
+
+printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 处方单位
+
+  - fieldName: 数量
+
+  - fieldName: 售价
+    filter: currency:"￥"
+
+  - fieldName: 用药频次
+
+  - fieldName: 单次用量
+
+  - fieldName: 投药单位
+
+  - fieldName: 用法
+
+searchFields:
+  - fieldName: 类别名称
+
+  - fieldName: ---
+
+fields: #可定义多个中文名称指向同一个字段
+
+  企业编号: enterpriseNo
+
+  处方ID: prescriptionId
+
+  名称: itemName
+
+  类别编号: itemCode
+
+  售价: itemCost
+
+  数量: itemNum
+
+  处方单位: recipeUnit
+
+  用药频次: frequency
+
+  单次用量: dose
+
+  投药单位: useUnit
+
+  用法: useWay
+
+  分组: groupName
+
+  支付状态: paidStatus
+
+  支付时间: paidTime
+
+  状态: itemCountStatus
+
+  执行人: executorId
+
+  执行时间: executorDate
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate
+

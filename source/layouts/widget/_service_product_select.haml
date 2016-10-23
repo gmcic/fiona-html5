@@ -6,8 +6,7 @@
 
   .col-md-9
     - portal '商品与服务管理', 'product'
-    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none' } do
-      %button.btn.btn-primary{"ng-disabled"=>"#{@modal_id}form.$pristine", :type => "submit"}
-        %i.fa.fa-plus
-        保存表单
+    = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'none'} do
+      = partial :'layouts/buttons/submit', :locals => {:label => "保存表单", :icon => "fa-save", :disabled => "#{@modal_id}form.$pristine"}
+
 

@@ -1,0 +1,48 @@
+%table.table-noborder
+  %tbody
+    %tr
+      %th{:style => "width: 100px"} 医院名称
+      %td {{hospital.fullName}}
+
+      %th{:style => "width: 100px"} 医院地址
+      %td{:colspan => "3"} {{hospital.areaCode}}
+
+    %tr
+      %th 负责人
+      %td {{hospital.responseMan}}
+
+      %th 医院电话
+      %td{:colspan => "3"} {{hospital.telPhone}}
+
+    %tr
+      %th 会员姓名
+      %td {{vip.gestName}}
+
+      %th 会员电话
+      %td{:colspan => "3"} {{vip.mobilePhone}}
+
+    %tr
+      %th 宠物昵称
+      %td {{pet.petName}}
+
+      %th 宠物性别
+      %td {{pet.petSex.valueNameCn}}
+
+      %th{:style => "width: 100px"} 体重(kg)
+      %td {{pet.petWeight}}
+
+.text-right.h5
+  {{nowtime | date:"yyyy年MM月dd日"}}
+
+- portal '商品与服务管理', 'doctorprescriptdetail'
+= partial :'layouts/widget/print_table', :locals => {:listdataKey => "printFields"}
+%table.table-noborder
+  %tbody
+    %tr
+      %th{:style => "width: 100px"} 诊疗医生
+      %td{:style => "width: 150px"}  {{doctorprescript.doctor}}
+
+      %th{:style => "width: 100px"}  助理医生
+      %td{:style => "width: 150px"}  {{doctorprescript.assistantDoctorName}}
+
+      %td.text-right.h4 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}

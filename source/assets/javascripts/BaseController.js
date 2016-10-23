@@ -388,22 +388,10 @@ angular.module('fiona')
         $scope[component.id + 'form'].submitted = false;
 
         // 添加
-        $scope[component.id] = {
-            // "itemStyle": component.selected.text,
-            "createUserId": "1",
-            "updateUserId": "1"
-        };
-
-        // 若有外键
-        // console.log("Foreign | " + component.foreign + ": ");
-        // console.log("foreignKey | " + component.foreignkey + ": ");
+        $scope[component.id] = {};
 
         if(!!component.foreignkey && !!$scope[component.foreign])
         {
-
-            // console.log(component.foreign+ ": ");
-            // console.log($scope[component.foreign]);
-
             $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
@@ -479,11 +467,11 @@ angular.module('fiona')
 
         $http.get(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, status, headers, config) {
 
+            $scope[component.id] = data.data;
+
             if (!!component.callback && !!component.callback.unique) {
                 component.callback.unique();
             }
-
-            $scope[component.id] = data.data;
         }).error(function (data, status, headers, config) {
             commons.modaldanger(component.id, "加载惟一的记录失败")
         });
@@ -509,11 +497,13 @@ angular.module('fiona')
 
                 $('#' + component.id).modal('toggle');
 
+                $scope[component.id] = data.data;
+
                 if (!!component.callback && !!component.callback.submit) {
                     component.callback.submit();
                 }
 
-                if(isappend)
+                if(isappend && $scope[component.id + "s"])
                 {
                     $scope[component.id + "s"].unshift(data.data);
                 }
@@ -683,7 +673,7 @@ angular.module('fiona')
     };
 
     /**
-     * 搜索
+     * 搜索不分页
      * ---------------------------
      * */
     component.list = function () {
@@ -755,14 +745,6 @@ angular.module('fiona')
     $http.defaults.headers.post['Content-Type'] = 'application/json';
 
     $controller('BaseCUDController', {$scope: $scope, component: component}); //继承
-
-    // Component 组件必填属性声明
-    component.vars = {
-        id: true,
-        name: true,
-        server: true,
-        callback: {search: false, insert: false, update: false, switched: false}
-    };
 
     /**
      * 查询
@@ -918,22 +900,10 @@ angular.module('fiona')
         $scope[component.id + 'form'].submitted = false;
 
         // 添加
-        $scope[component.id] = {
-            // "itemStyle": component.selected.text,
-            "createUserId": "1",
-            "updateUserId": "1"
-        };
-
-        // 若有外键
-        // console.log("Foreign | " + component.foreign + ": ");
-        // console.log("foreignKey | " + component.foreignkey + ": ");
+        $scope[component.id] = {};
 
         if(!!component.foreignkey && !!$scope[component.foreign])
         {
-
-            // console.log(component.foreign+ ": ");
-            // console.log($scope[component.foreign]);
-
             $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
@@ -983,6 +953,8 @@ angular.module('fiona')
             $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
 
                 $('#' + component.id).modal('toggle');
+
+                $scope[component.id] = data.data;
 
                 if (!!component.callback && !!component.callback.submit) {
                     component.callback.submit();
@@ -1147,6 +1119,10 @@ angular.module('fiona')
         server: "/api/v2/itemtypes",
 
         defilters: {"itemCode": "商品编号", "itemName": "商品名称"}
+    };
+
+    $scope.productportal.pupupselect = function () {
+        $("#productselect").modal('toggle');
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承

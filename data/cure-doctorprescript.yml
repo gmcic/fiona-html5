@@ -1,0 +1,42 @@
+module:
+  name: 医生处方
+  id: doctorprescript
+  data: medicprescriptions
+
+# 就诊管理
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 员工姓名
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: ---
+
+fields: #可定义多个中文名称指向同一个字段
+
+  就诊编号: medicRecordCode
+
+  就诊ID: medicRecordId
+
+  处方编号: prescriptionCode
+
+  处方价格: prescriptionCost
+
+  会员姓名: gestName
+
+  宠物昵称: petName
+
+  病历编号: sickFileCode
+
+  医生: doctor
+
+  支付状态: paidStatus
+
+  支付时间: paidTime
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

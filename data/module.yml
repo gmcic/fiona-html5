@@ -41,6 +41,15 @@ checkdevice: check
 curemanager: cure
 medicalrecord: cure
 invaccine: cure
+testsheet: cure
+testsheetdetail: cure
+doctorprescript: cure
+doctorprescriptdetail: cure
+prescripttemplate: cure
+prescripttemplatedetail: cure
+prescripttemplatetype: cure
+
+# 预删除
 prescription: cure
 prescriptiontype: cure
 prescriptiondetail: cure

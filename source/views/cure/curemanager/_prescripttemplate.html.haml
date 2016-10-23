@@ -1,0 +1,16 @@
+-# 处方模板
+.row
+  -#.col-md-3
+  -#  - portal "处方模版类型", "prescripttemplatetype"
+  -#  = partial 'layouts/widget/tree', :locals => {:sidename => "处方模版类型", :sidefieldname=> 'typeName'}
+
+  .col-md-12
+    - portal '处方明细', 'doctorprescriptdetail'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :listdataKey => "portalFields", :inline_toolbar => 'remove' } do
+      = partial :'layouts/buttons/insert', :locals => {:label => "选择药物与服务", :click => "productportal.pupupselect()"}
+      -#= partial :'layouts/buttons/btn', :locals => {:label => "保存为模板"}
+      -#= partial :'layouts/buttons/btn', :locals => {:label => "同步建议处方"}
+
+    -#- portal '处方模版明细', 'prescripttemplatedetail'
+    -#= partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'selected'} do
+    -#  / 不输出按钮

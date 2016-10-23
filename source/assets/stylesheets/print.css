@@ -1,0 +1,12 @@
+.table-noborder {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.table-noborder td, .table-noborder th {
+    padding: 8px;
+    background-color: #fff !important;
+}

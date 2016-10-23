@@ -1,0 +1,90 @@
+-# 化验单
+.row
+  .col-md-3
+    - portal "化验单", "testsheet"
+    = partial 'layouts/widget/side', :locals => {:name => "分类", :id=> 'id',:modal_caption => "none",  :fieldName => "cheTestName"} do
+      %a.btn.btn-circle.btn-danger.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-remove
+          删除
+
+      %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", "ng" => {"click": "recipemodal()"}}
+        %i.fa.fa-plus
+          增加
+
+      %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+        %i.fa.fa-print
+          打印
+
+  .col-md-9
+    .row
+      .col-md-12
+        = partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '诊断结果', :maxlength => '32'}
+      .row
+        .col-md-12
+          -#附件列表
+          = partial 'views/commons/file_list'
+      .row
+        .col-md-12
+          %table.table.table-striped.table-hover.table-bordered
+            %thead
+              %tr
+                - ['名称', '物种', '年龄段', '检验值', '正常值', '结论'].each do |fieldName|
+                  %th #{fieldName}
+
+            %tbody
+              %tr.odd.gradeX{ "ng-repeat" => @page_id + " in " +@page_id+ "s" }
+                - ['名称', '物种', '年龄段', '检验值', '正常值', '结论'].each do |fieldName|
+                  %td
+                    = bind @page_id, (@fields[fieldName] || 'error')
+
+  -#
+  -#.portlet
+  -#  .portlet-title
+  -#    .actions
+  -#      %a.btn.btn-circle.btn-danger.btn-sm{:href => "javascript:;"}
+  -#        %i.fa.fa-remove
+  -#          删除
+  -#
+  -#      %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+  -#        %i.fa.fa-plus
+  -#          增加
+  -#
+  -#      %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
+  -#        %i.fa.fa-print
+  -#          打印
+  -#
+  -#  .portlet-body.portlet-empty
+  -#    %div.list-group
+  -#      %a.list-group-item{:href => 'javascript:;'}
+  -#        血常规
+  -#        %span.badge.badge-danger 3
+  -#
+  -#      %a.list-group-item{:href => 'javascript:;'}
+  -#        血生化
+  -#        %span.badge.badge-primary 3
+  -#
+  -#      %a.list-group-item{:href => 'javascript:;'}
+  -#        尿常规
+  -#        %span.badge.badge-success 3
+  -#
+  -#.col-md-9
+  -#.row
+  -#.col-md-12
+  -#= partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '诊断结果', :maxlength => '32'}
+  -#.row
+  -#.col-md-12
+  -#  -#附件列表
+  -#= partial 'views/commons/file_list'
+  -#.row
+  -#.col-md-12
+  -#%table#sample_editable_1.table.table-striped.table-hover.table-bordered
+  -#%thead
+  -#%tr
+  -#- ['名称', '物种', '年龄段', '检验值', '正常值', '结论'].each do |fieldName|
+  -#%th #{fieldName}
+  -#
+  -#%tbody
+  -#%tr.odd.gradeX{ "ng-repeat" => @page_id + " in " +@page_id+ "s" }
+  -#- ['名称', '物种', '年龄段', '检验值', '正常值', '结论'].each do |fieldName|
+  -#%td
+  -#= bind @page_id, (@fields[fieldName] || 'error')

@@ -1,0 +1,30 @@
+module:
+  name: 处方模版类型
+  id: prescripttemplatetype
+  data: prescriptiontemplatetypes
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 名称
+
+searchFields:
+  - fieldName: 名称
+
+  - fieldName: ---
+
+fields: #可定义多个中文名称指向同一个字段
+
+  用户ID: gestId
+
+  类型编号: typeNo
+
+  类型名称: typeName
+
+  父节点ID: parentId
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

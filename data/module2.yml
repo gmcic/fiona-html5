@@ -144,6 +144,25 @@ cure:
     name: 疫苗登记
     server: MM
 
+  # 医生处方
+  - id: testsheetdetail
+    name: 化验单明细
+    server: medicchemicalexamdetails
+
+  - id: testsheet
+    name: 化验单
+    server: medicchemicalexams
+  
+  # 医生处方
+  - id: doctorprescript
+    name: 医生处方
+    server: medicprescriptions
+
+  - id: doctorprescriptdetail
+    name: 医生处方明细
+    server: medicprescriptiondetails
+
+  # 处方模板
   - id: prescriptiontype
     name: 模板类型
     server: prescriptiontemplatetypes
@@ -155,6 +174,19 @@ cure:
   - id: prescriptiondetail
     name: 处方模版明细
     server: prescriptiontemplates
+
+  # 处方模板
+  - id: prescripttemplate
+    name: 处方模版
+    server: prescriptiontemplates
+
+  - id: prescripttemplatetype
+    name: 处方模版类型
+    server: prescriptiontemplatetypes
+
+  - id: prescripttemplatedetail
+    name: 处方模版明细
+    server: prescriptiontemplatedetails
 
 # 直连目录
 direct:

@@ -95,6 +95,14 @@ helpers do
         end
     end
 
+    def bindSelect(inputType, key, fieldName, options)
+        if fieldName == 'error'
+            return "<span class='label label-danger'>Danger</span>"
+        else
+            return "<select class='form-control ng-pristine ng-valid ng-touched' id='warehouseId' name='warehouseId' ng-model='" << key << "." << fieldName << "' ng-options='" << options << "' ></select>";
+        end
+    end
+
     def inputName(key, fieldName)
         if (fieldName.index("$") == 0)
             return fieldName.delete "$"

@@ -7,10 +7,10 @@ layout: "page"
 = partial 'layouts/widget/portal' do
   = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
   = partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
-
-  = partial :'layouts/buttons/btn', :locals => {:label => "导入预约设置"}
-  = partial :'layouts/buttons/btn', :locals => {:label => "导出预约设置"}
-  = partial :'layouts/buttons/btn', :locals => {:label => "停用"}
+  -#
+  -#= partial :'layouts/buttons/btn', :locals => {:label => "导入预约设置"}
+  -#= partial :'layouts/buttons/btn', :locals => {:label => "导出预约设置"}
+  -#= partial :'layouts/buttons/btn', :locals => {:label => "停用"}
 
 / Modal
 = partial :'layouts/partials/modal-portal-lg' do

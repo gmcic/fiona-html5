@@ -24,6 +24,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
     $scope.dropdownWithTable({id: "operatorMan", server: "/api/v2/personss"}); // 业务员
     $scope.dropdownWithTable({id: "assistantDoctorId", server: "/api/v2/personss"}); // 服务助理
 
+    // 挂号服务类型
     $http.post(commons.getBusinessHostname() + "/api/v2/itemtypes/page", {
         'pageSize': 10000,
         'pageNumber': 1,
@@ -68,6 +69,14 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
                 $scope.register.petId = $scope.pet.id;
             },
             insert: function () {
+
+                // 生成-登记编号
+                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=登记编号").success(function (data, status, headers, config) {
+                    $scope.register.registerNo = data.data;
+                }).error(function (data, status, headers, config) { //     错误
+                    commons.modaldanger("register", "生成登记编号失败");
+                });
+
                 // $scope.setSelectDefault("register", ["doctorId", "operatorMan", "assistantDoctorId", "itemCode"]);
             },
             update: function () {
@@ -93,7 +102,6 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
                     }
                 }
             });
-
         },
 
         selectsync: function (inputName, selectObj) {
@@ -131,6 +139,13 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
             }).error(function (data, status, headers, config) { //     错误
                 commons.modaldanger("vip", "生成宠物编号失败");
+            });
+
+            // 生成-登记编号
+            $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=登记编号").success(function (data, status, headers, config) {
+                $scope.register.registerNo = data.data;
+            }).error(function (data, status, headers, config) { //     错误
+                commons.modaldanger("register", "生成登记编号失败");
             });
 
             // 设置默认选项

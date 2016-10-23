@@ -61,11 +61,14 @@
           - if column.filter?
             = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
 
+          - elsif column.input? && column.input == "select"
+            = bindSelect column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.options
+
           - elsif column.input?
             - if column.event?
               = bindTextEvent column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.event
 
-            - if !column.event?
+            - else
               = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
 
           - else

@@ -1,0 +1,8 @@
+- @modal_id = @modal_id || @page_id
+
+- @modal_name = @modal_name || @page_title
+
+.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1", :id => "#{@modal_id}select"}
+  .modal-dialog.modal-full
+    = partial 'layouts/partials/modal-portal-select', :locals => locals do
+      = yield
