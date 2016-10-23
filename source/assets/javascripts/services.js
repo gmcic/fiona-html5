@@ -1,13 +1,4 @@
 angular.module('fiona.services', [])
-.constant('Auth', {
-    authorization: '',
-    loginSuccess: 'auth-login-success',
-    loginFailed: 'auth-login-failed',
-    logoutSuccess: 'auth-logout-success',
-    sessionTimeout: 'auth-session-timeout',
-    notAuthenticated: 'auth-not-authenticated',
-    notAuthorized: 'auth-not-authorized'
-})
 .filter("dropdown", function () {
     return function (name, comboxs) {
 
@@ -25,7 +16,7 @@ angular.module('fiona.services', [])
         return value;
     };
 }).factory('commons', function() {
-    var authorization='fc5db3b3-4063-4a12-a511-880ba19e4b58';
+
     function formatnumber(num) {
         if(num <= 9)
         {
@@ -49,8 +40,8 @@ angular.module('fiona.services', [])
         },
         getAuthorization : function () {
             // console.log( "当前用户凭证: " + authorization );
-
-            return authorization;
+//            return  'fc5db3b3-4063-4a12-a511-880ba19e4b58';
+            return sessionStorage.getItem("authorization");
         },
         getBusinessHostname : function () {
             return "http://localhost:8080/business";

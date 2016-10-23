@@ -18,6 +18,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
     fieldKey: toWarehouse
 
   - fieldName: 单据状态
+    fieldKey: status.valueNameCn
 
   - fieldName: 制单时间
     filter: date:"yyyy年MM月dd日"

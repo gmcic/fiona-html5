@@ -10,8 +10,9 @@ angular.module('fiona').controller('PersonnelController', function ($scope, $htt
 
     $scope.dropdowns = {
         isSyncEasSet: [{id: "true", valueNameCn: "是"}, {id: "false", valueNameCn: "否"}],
-        roleSet: [{id: "1", valueNameCn: "医生"}, {id: "2", valueNameCn: "护士"}, {id: "3", valueNameCn: "销售员"}, {id: "4", valueNameCn: "系统管理员"}]
+        roleSet: [{id: "docto", valueNameCn: "医生"}, {id: "nurse", valueNameCn: "护士"}]
     };
+
 
     $controller('BaseController', {$scope: $scope}); //继承
 
