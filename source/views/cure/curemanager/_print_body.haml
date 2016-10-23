@@ -1,33 +1,33 @@
 %table.table-noborder
   %tbody
     %tr
-      %th{:style => "width: 100px"} 会员姓名
+      %th{:style => "width: 70px"} 会员姓名
       %td {{vip.gestName}}
 
-      %th{:style => "width: 100px"} 会员电话
+      %th{:style => "width: 70px"} 会员电话
       %td {{vip.mobilePhone}}
 
-      %th{:style => "width: 100px"} 病历号
+      %th{:style => "width: 70px"} 病历号
       %td{:colspan => "7"} {{pet.sickFileCode}}
 
     %tr
-      %th{:style => "width: 100px"} 住址
+      %th{:style => "width: 70px"} 住址
       %td{:colspan => "9"} {{vip.gestAddress}}
 
     %tr
-      %th{:style => "width: 100px"} 宠物昵称
+      %th{:style => "width: 70px"} 宠物昵称
       %td {{pet.petName}}
 
-      %th{:style => "width: 100px"} 年龄
+      %th{:style => "width: 70px"} 年龄
       %td {{pet.age}} 岁
 
-      %th{:style => "width: 100px"} 宠物性别
+      %th{:style => "width: 70px"} 宠物性别
       %td {{pet.petSex.valueNameCn}}
 
-      %th{:style => "width: 100px"} 体重
+      %th{:style => "width: 50px"} 体重
       %td {{pet.petWeight}} kg
 
-      %th{:style => "width: 100px"} 体温
+      %th{:style => "width: 50px"} 体温
       %td {{curemanager.temperature}}
 
 - portal '商品与服务管理', 'doctorprescriptdetail'
