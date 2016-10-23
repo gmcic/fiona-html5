@@ -6,12 +6,10 @@
 
 测试提示
 
+# TODO
 
-# ERROR
+1. 生成 挂号信息 - 登记编号
 
-**http://192.168.0.106:8818/api/v2/enterprises**
+2. 生成 诊断  - 就诊编号
 
-```
-Internal server error: org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-```
+3. medicchemicalexamdetails 接口数据不正确,  与 medicchemicalexams 接口相同
