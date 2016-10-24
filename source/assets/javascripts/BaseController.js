@@ -4,6 +4,8 @@ angular.module('fiona')
         return {
             request:function(config){
 
+//                sessionStorage.setItem("authorization", "fc5db3b3-4063-4a12-a511-880ba19e4b58");
+
                 // config.headers["authorization"] = "fc5db3b3-4063-4a12-a511-880ba19e4b58";
 
                 // alert(("SessionStorage Auth : " + sessionStorage.getItem("authorization")));
@@ -31,14 +33,15 @@ angular.module('fiona')
         // alert(sessionStorage.getItem("authorization"));
 
         if(sessionStorage.getItem("authorization")) {
-            $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
-
-                $scope.menus = data.data;
-
+            $http.get(commons.getAccountHostname() + "/api/v2/auth", {headers: {'authorization': sessionStorage.getItem("authorization")}}).success(function (data, status, headers, config ) {
+                sessionStorage.setItem("userName", data.data.name);
                 $scope.userName = sessionStorage.getItem("userName");
+            }).error(function (data, status, headers, config) {
+                console.log('加载用户信息失败');
+            });
 
-                // console.log($scope.menus);
-
+            $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
+                $scope.menus = data.data;
             }).error(function (data, status, headers, config) {
                 alert('加载目录树失败');
             });

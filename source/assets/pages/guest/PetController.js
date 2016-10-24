@@ -55,6 +55,15 @@ angular.module('fiona').controller('PetController', function($scope, $controller
             },
 
             update: function () {
+                angular.forEach(["petSkinColor", "petSexSet", "petRace", "status"], function(key){
+                    angular.forEach($scope.dropdowns[key + "Set"], function (data) {
+                        if(data.id == $scope.pet[key].id)
+                        {
+                            $scope.pet[key] = data;
+                        }
+                    });
+                });
+
                 $scope.vipportal.unique($scope.pet.gestId);
             }
         }
