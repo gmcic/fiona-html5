@@ -1124,7 +1124,7 @@ angular.module('fiona')
 
         server: "/api/v2/itemtypes",
 
-        defilters: {"itemCode": "商品编号", "itemName": "商品名称"}
+        defilters: {"itemCode": "商品编号", "itemName": "商品名称", "inputCode": "拼音码"}
     };
 
     $scope.productportal.pupupselect = function () {

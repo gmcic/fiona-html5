@@ -20,6 +20,8 @@ searchFields:
 
   - fieldName: 编号
 
+  - fieldName: 拼音码
+
 fields:
 
   所属分类ID: cateNo
