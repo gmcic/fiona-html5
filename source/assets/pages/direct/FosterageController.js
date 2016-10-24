@@ -5,211 +5,159 @@
 angular.module('fiona').controller('FosterageController', function($scope, $controller) {
 
     // 声明要使用的下拉选项
-    $scope.dropboxargs = [
-        {name: "managerIdSet", server: "personss"},  // 主管人员ID
-        {name: "manufacturerIdSet", server: "personss"}, // 业务员id
-        {name: "itemCodeSet", server: "personss"} // 寄养类型Code
-    ];
+    $scope.dropboxargs = { };
 
-    $scope.dropdowns= {};
+    $scope.dropdowns = {
+//        typesSet: [{id: "1", va'': "经销商"}, {id: "2", va'': "生产商"}, {id: "3", va'': "经销商和生产商"}]
+    };
 
-    // 综合搜索项
-    $scope.filters = [{"code": "name","operator": "EQ", "value":""} , {"name": "name","operator": "EQ", "value":""} , {"contractMan": "name","operator": "EQ", "value":""} , {"mobilePhone": "name","operator": "EQ", "value":""} , {"dealerAddress": "name","operator": "EQ", "value":""}];
+    $controller('BaseController', {$scope: $scope}); //继承
 
-    $scope.placeholder = "请输入自动编号 / 经销商名称 / 联系人 / 手机 / 地址";
+//    $scope.dropboxinit($scope.dropboxargs);
 
-    // 主数据加载地址
-    $scope.master = {
+    /**
+     * 寄养管理
+     * ---------------------------
+     * */
+    $scope.fosterageportal = {
+
         id: "fosterage",
 
-        name: "住院管理",
+        name: "寄养管理",
 
-        server: "/api/v2/fosterrecords",
+        server: "/api/v2/fosterrecorddetails",
 
-        insert: function () {
+        defilters: { },
 
+        callback: {
         }
     };
 
-    $controller('BasePaginationController', {$scope: $scope}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosterageportal}); //继承
 
-    // 寄养期间消费
+    /**
+     * 寄养期间消费
+     * ---------------------------
+     * */
     $scope.fosteragedetailportal = {
-        master: {
-            id: "fosteragedetail",
 
-            name: "寄养期间消费",
+        foreign: "fosterage",
 
-            foreignkey: "serviceId", // 外键
+        foreignkey: "serviceId", // 外键
 
-            server: "/api/v2/fosterrecorddetails"
-        },
+        id: "fosteragedetail",
 
-        parent: {
-            id: "fosterage"
+        name: "寄养期间消费",
+
+        server: "/api/v2/fosterrecorddetails",
+
+        defilters: { },
+
+        callback: {
         }
     };
 
-    $controller('BasePortalController', {$scope: $scope, component: $scope.fosteragedetailportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosteragedetailportal}); //继承
 
-    // 预付金额
+    /**
+     * 预付金额
+     * ---------------------------
+     * */
     $scope.vipprepayportal = {
-        master: {
-            id: "vipprepay",
 
-            name: "预付金额",
+        foreign: "fosterage",
 
-            foreignkey: "relationId", // 外键
+        foreignkey: "relationId", // 外键
 
-            server: "/api/v2/prepaymoneys"
-        },
+        id: "vipprepay",
 
-        parent: {
-            id: "fosterage"
+        name: "预付金额",
+
+        server: "/api/v2/prepaymoneys",
+
+        defilters: { },
+
+        callback: {
         }
     };
 
-    $controller('BasePortalController', {$scope: $scope, component: $scope.vipprepayportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipprepayportal}); //继承
 
-    // 健康状态记录
+
+    /**
+     * 健康状态记录
+     * ---------------------------
+     * */
     $scope.fosteragehealthportal = {
-        master: {
-            id: "fosteragehealth",
 
-            name: "健康状态记录",
+        id: "fosteragehealth",
 
-            foreignkey: "relationId", // 外键
+        name: "健康状态记录",
 
-            server: "/api/v2/fosterhealths"
-        },
+        server: "/api/v2/fosterhealths",
 
-        parent: {
-            id: "fosterage"
+        defilters: { },
+
+        callback: {
         }
     };
 
-    $controller('BasePortalController', {$scope: $scope, component: $scope.fosteragehealthportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosteragehealthportal}); //继承
 
-    // 选择宠物
-    $scope.petportal = {
-        dropdowns: {},
+    /**
+     * 弹出选择商品
+     * ---------------------------
+     * */
+    $scope.productchecked = {}; // 已选择的商品
 
-        dropboxargs : [
-            {name: "gestStyleSet", server: "gestlevels"},
-            {name: "statusSet", server: "dicts", filterName: "会员状态"},
-            {name: "gestSexSet", server: "userdicts", filterName: "性别"}
-        ],
+    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
-        master: {
-            id: "pet",
+    $scope.productportal.submit = function () {
 
-            name: "宠物",
-
-            server: "/api/v2/pets",
-
-            checked: function () {
-                // 主人ID
-                $scope.fosterage.gestId = $scope.pet.id;
-
-                // 主人编号
-                $scope.fosterage.gestCode = $scope.pet.gestCode;
-
-                // 主人名称
-                $scope.fosterage.gestName = $scope.pet.gestName;
-            },
-            submit: function () {
-                // 主人ID
-                $scope.fosterage.gestId = $scope.pet.id;
-
-                // 主人编号
-                $scope.fosterage.gestCode = $scope.pet.gestCode;
-
-                // 主人名称
-                $scope.fosterage.gestName = $scope.pet.gestName;
-            },
-            insert: function () {
-                angular.forEach($scope.petportal.dropdowns, function (value, key) {
-                    $scope.pet[key.substr(0, key.length - 3)] = value[0];
-                });
-            }
-        },
-
-        parent: {
-            id: "fosterage"
+        if (!$scope.doctorprescriptdetails) {
+            $scope.doctorprescriptdetails = [];
         }
-    };
 
-    $controller('CommonVipController', {$scope: $scope, component: $scope.petportal}); //继承
+        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
+            if($scope.productportal.selection[product.id])
+            {
+                if($scope.productchecked[product.itemCode]) {    // 是否已选择
 
-    // 选择商品
-    $scope.productportal = {
-        slave: {
-            text: "cateName",
-
-            parent: "parentId",
-
-            foreignkey: "cateNo",         // id = {master.foreignkey}
-
-            id: "producttype",
-
-            name: "化验项目",
-
-            server: "/api/v2/itemcates"
-        },
-
-        // 主数据加载地址
-        master: {
-            id: "product",
-
-            name: "商品&服务",
-
-            server: "/api/v2/itemtypes",
-
-            submit: function (selected) {
-                if(!$scope.fosteragedetails)
-                {
-                    $scope.fosteragedetails = [];
                 }
+                else {
+                    // 未选择新添加
 
-                angular.forEach(selected, function (_fosteragedetail) {
-                    var fosteragedetail = {createUserId:1, updateUserId: 1};
+                    var doctorprescriptdetail= {};
 
-                    // 服务ID
-                    // fosteragedetail.serviceId = $scope.fosterage.id;
+                    //  "inputCount",
 
-                    angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "sellPrice", "packageUnit", "", "", ""], function (name) {
-                        fosteragedetail[name] = _fosteragedetail[name];
+                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
+                        doctorprescriptdetail[name] = product[name];
                     });
 
+                    doctorprescriptdetail.itemCost = product.recipePrice;
+
                     // 个数
-                    fosteragedetail.inputCount = 1;
-                    // 总价
-                    fosteragedetail.totalCost = 1;
+                    doctorprescriptdetail.itemNum = 1;
 
-                    $scope.fosteragedetails.push(fosteragedetail);
-                    //
-                    // // 备
-                    // fosteragedetail.remark = _fosteragedetail.remark;
-                });
+                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
 
-                // 总项
-                // $scope.fosterage.totalNum = $scope.fosteragedetails.length;
-
-                // 总金额
-                //
-                // $scope.fosterage.totalCost = $scope.fosteragedetails.length;
+                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+                }
             }
-        },
+        });
 
-        // 综合搜索项
-        filters : [{"fieldName": "itemCode","operator": "EQ", "value":""} , {"fieldName": "itemName","operator": "EQ", "value":""}],
-
-        placeholder : "请输入宠物病例号/宠物昵称/会员编号/会员名称/会员电话"
-
+        $('#' + $scope.productportal.id + "select").modal('toggle');
     };
 
-    $controller('TreeSidePortalController', {$scope: $scope, component: $scope.productportal}); //继承
+    $scope.producttypeportal.init();
 
-    $scope.productportal.treeload();
-    $scope.productportal.search();
+    $scope.productportal.filter();
+
+
+    /**
+     * 宠物管理
+     * ---------------------------
+     * */
+    $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 });

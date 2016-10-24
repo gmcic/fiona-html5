@@ -2,107 +2,107 @@
 angular.module('fiona').controller('InhospitalController', function ($scope, $controller) {
 
     // 声明要使用的下拉选项
-    $scope.dropboxargs = [
-        {name: "managerIdSet", server: "personss"},  // 主管人员ID
-        {name: "manufacturerIdSet", server: "personss"}, // 业务员id
-        {name: "itemCodeSet", server: "personss"} // 寄养类型Code
-    ];
+    $scope.dropboxargs = { };
 
-    $scope.dropdowns = {};
+    $scope.dropdowns = {
+//        typesSet: [{id: "1", va'': "经销商"}, {id: "2", va'': "生产商"}, {id: "3", va'': "经销商和生产商"}]
+    };
 
-    // 综合搜索项
-    $scope.filters = [{"code": "name", "operator": "EQ", "value": ""}, {
-        "name": "name",
-        "operator": "EQ",
-        "value": ""
-    }, {"contractMan": "name", "operator": "EQ", "value": ""}, {
-        "mobilePhone": "name",
-        "operator": "EQ",
-        "value": ""
-    }, {"dealerAddress": "name", "operator": "EQ", "value": ""}];
+    $controller('BaseController', {$scope: $scope}); //继承
 
-    $scope.placeholder = "请输入自动编号 / 经销商名称 / 联系人 / 手机 / 地址";
+//    $scope.dropboxinit($scope.dropboxargs);
 
-    // 主数据加载地址
-    $scope.master = {
+    /**
+     * 住院管理
+     * ---------------------------
+     * */
+    $scope.inhospitalportal = {
+
         id: "inhospital",
 
         name: "住院管理",
 
         server: "/api/v2/inhospitalrecords",
 
-        insert: function () {
+        defilters: { },
 
+        callback: {
         }
     };
 
-    $controller('BasePaginationController', {$scope: $scope}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalportal}); //继承
 
     /**
      * 寄养期间消费
      * ---------------------------
      * */
     $scope.inhospitaldetailportal = {
-        master: {
-            id: "inhospitaldetail",
 
-            name: "寄养期间消费",
+        foreign: "inhospital", // 外键
 
-            foreignkey: "serviceId", // 外键
+        foreignkey: "serviceId", // 外键
 
-            server: "/api/v2/inhospitalrecorddetails"
-        },
+        id: "inhospitaldetail",
 
-        parent: {
-            id: "inhospital"
+        name: "寄养期间消费",
+
+        server: "/api/v2/inhospitalrecorddetails",
+
+        defilters: { },
+
+        callback: {
         }
     };
 
-    $controller('BasePortalController', {$scope: $scope, component: $scope.inhospitaldetailportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitaldetailportal}); //继承
 
     /**
      * 预付金额
      * ---------------------------
      * */
     $scope.vipprepayportal = {
-        master: {
-            id: "vipprepay",
 
-            name: "预付金额",
+        foreign: "inhospital", // 外键
 
-            foreignkey: "relationId", // 外键
+        foreignkey: "relationId", // 外键
 
-            server: "/api/v2/prepaymoneys"
-        },
+        id: "vipprepay",
 
-        parent: {
-            id: "inhospital"
+        name: "预付金额",
+
+        server: "/api/v2/prepaymoneys",
+
+        defilters: { },
+
+        callback: {
         }
     };
 
-    $controller('BasePortalController', {$scope: $scope, component: $scope.vipprepayportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipprepayportal}); //继承
 
     /**
      * 健康状态记录
      * ---------------------------
      * */
     $scope.inhospitalhealthportal = {
-        master: {
-            id: "inhospitalhealth",
 
-            name: "健康状态记录",
+        foreign: "inhospital", // 外键
 
-            foreignkey: "relationId", // 外键
+        foreignkey: "relationId", // 外键
 
-            server: "/api/v2/inhospitalhealths"
-        },
+        id: "inhospitalhealth",
 
-        parent: {
-            id: "inhospital"
+        name: "健康状态记录",
+
+        server: "/api/v2/inhospitalhealths",
+
+        defilters: { },
+
+        callback: {
         }
     };
 
-    $controller('BasePortalController', {$scope: $scope, component: $scope.inhospitalhealthportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalhealthportal}); //继承
 
     /**
      * 住院处方
@@ -128,78 +128,59 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     $scope.inhospitalprescriptiondetailportal.init();
 
     /**
-     * 弹出选择宠物
+     * 宠物管理
      * ---------------------------
      * */
-    $controller('PetPopupSelectController', {$scope: $scope}); //继承
-
-    $scope.petportal.master.checked = function () {
-        // 主人ID
-        $scope.inhospital.gestId = $scope.pet.id;
-
-        // 主人编号
-        $scope.inhospital.gestCode = $scope.pet.gestCode;
-
-        // 主人名称
-        $scope.inhospital.gestName = $scope.pet.gestName;
-    };
-
-    $scope.petportal.master.submit = function () {
-        // 主人ID
-        $scope.inhospital.gestId = $scope.pet.id;
-
-        // 主人编号
-        $scope.inhospital.gestCode = $scope.pet.gestCode;
-
-        // 主人名称
-        $scope.inhospital.gestName = $scope.pet.gestName;
-    };
-
-    $scope.petportal.master.insert = function () {
-        angular.forEach($scope.petportal.dropdowns, function (value, key) {
-            $scope.pet[key.substr(0, key.length - 3)] = value[0];
-        });
-    };
+    $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
     /**
      * 弹出选择商品
      * ---------------------------
      * */
-    $controller('ProductPopupSelectController', {$scope: $scope}); //继承
+    $scope.productchecked = {}; // 已选择的商品
 
-    $scope.productportal.master.submit = function (selected) {
-        if (!$scope.inhospitaldetails) {
-            $scope.inhospitaldetails = [];
+    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
+
+    $scope.productportal.submit = function () {
+
+        if (!$scope.doctorprescriptdetails) {
+            $scope.doctorprescriptdetails = [];
         }
 
-        angular.forEach(selected, function (_inhospitaldetail) {
-            var inhospitaldetail = {createUserId: 1, updateUserId: 1};
+        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
+            if($scope.productportal.selection[product.id])
+            {
+                if($scope.productchecked[product.itemCode]) {    // 是否已选择
 
-            // 服务ID
-            // inhospitaldetail.serviceId = $scope.inhospital.id;
+                }
+                else {
+                    // 未选择新添加
 
-            angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "sellPrice", "packageUnit", "", "", ""], function (name) {
-                inhospitaldetail[name] = _inhospitaldetail[name];
-            });
+                    var doctorprescriptdetail= {};
 
-            // 个数
-            inhospitaldetail.inputCount = 1;
-            // 总价
-            inhospitaldetail.totalCost = 1;
+                    //  "inputCount",
 
-            $scope.inhospitaldetails.push(inhospitaldetail);
-            //
-            // // 备
-            // inhospitaldetail.remark = _inhospitaldetail.remark;
+                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
+                        doctorprescriptdetail[name] = product[name];
+                    });
+
+                    doctorprescriptdetail.itemCost = product.recipePrice;
+
+                    // 个数
+                    doctorprescriptdetail.itemNum = 1;
+
+                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
+
+                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+                }
+            }
         });
 
-        // 总项
-        // $scope.inhospital.totalNum = $scope.inhospitaldetails.length;
-
-        // 总金额
-        //
-        // $scope.inhospital.totalCost = $scope.inhospitaldetail.length;
+        $('#' + $scope.productportal.id + "select").modal('toggle');
     };
 
-    $scope.productportal.init();
+    $scope.producttypeportal.init();
+
+    $scope.productportal.filter();
+
 });

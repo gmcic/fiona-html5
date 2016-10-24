@@ -1,25 +1,10 @@
+---
+layout: "page"
+---
+
 - page "住院管理", "inhospital"
 
-- content_for :toolbar do
-  = partial :'layouts/buttons/insert'
-  = partial :'layouts/buttons/removes'
-
-- content_for :theader do
-  - @page.listFields.each do |field|
-    %th #{field.aliasName || field.fieldName}
-
--#- content_for :ttoolbar do
--#  %a.btn.btn-outline.btn-circle.btn-sm.purple{'ng-click' => 'update(pet.id)'}
--#    %i.fa.fa-edit
--#    更新
--#  %a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'remove(pet.id)'}}
--#    %i.fa.fa-trash-o
--#    Delete
-
-- content_for :tbody do
-  - @page.listFields.each do |column|
-    %td
-      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+= partial 'layouts/widget/portal'
 
 = partial :'layouts/partials/modal-full' do
   = partial 'modify'

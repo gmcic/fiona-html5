@@ -9,14 +9,17 @@ layout: "page"
       %ul#curelist.nav.nav-tabs
         %li.active
           %a{"data-toggle" => "tab", :href => "//#play_pets"}
+            %i.fa.fa-play
             就诊
-            %span.badge.badge-success 3
+            -#%span.badge.badge-success 3
         %li
           %a{"data-toggle" => "tab", :href => "//#pause_pets"}
+            %i.fa.fa-pause
             暂停
-            %span.badge.badge-danger 3
+            -#%span.badge.badge-danger 3
         %li
           %a{"data-toggle" => "tab", :href => "//#cure_pet"}
+            %i.fa.fa-paw
             宠物
 
       .tab-content

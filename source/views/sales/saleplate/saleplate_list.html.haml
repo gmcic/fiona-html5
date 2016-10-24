@@ -1,17 +1,15 @@
+---
+layout: "page"
+---
+
 - page "销售查询", "saleplate"
 
-- content_for :toolbar do
-  = partial :'layouts/buttons/insert'
-  = partial :'layouts/buttons/removes'
+= partial 'layouts/widget/portal'
 
-- content_for :theader do
-  - @page.listFields.each do |field|
-    %th #{field.aliasName || field.fieldName}
-
-- content_for :tbody do
-  - @page.listFields.each do |column|
-    %td
-      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
-
-= partial :'layouts/partials/modal-lg' do
+= partial :'layouts/partials/modal-portal-lg' do
   = partial 'modify'
+
+/ 选择商品
+- modal "选择商品", "product"
+= partial :'layouts/partials/modal-portal-select-full' do
+  = partial 'layouts/widget/service_product_select'

@@ -19,7 +19,7 @@ angular.module('fiona').controller('PersonnelController', function ($scope, $htt
     $scope.dropboxinit($scope.dropboxargs);
 
     /**
-     * 经销商与生产商
+     * 员工管理
      * ---------------------------
      * */
     $scope.personnelportal = {

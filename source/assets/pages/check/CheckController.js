@@ -3,32 +3,37 @@
 angular.module('fiona').controller('CheckController', function($scope, $controller, $http, commons) {
 
     // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
+    $scope.dropboxargs = {
+        dicts: {personStatusSet: "会员状态"},
 
-    $scope.dropdowns= {
-        sampleSet: [{code:'', name: '全血' },{code:'', name: '粪便' },{code:'', name: '结石' },{code:'', name: '血清' },{code:'', name: '皮肤刮擦物/皮屑/毛发' },{code:'', name: '活检组织' },{code:'', name: '血浆' },{code:'', name: '采样拭子' },{code:'', name: '尿液' },{code:'', name: '穿剌抽吸液' },{code:'', name: '组织器官' },{code:'', name: '全血' },{code:'', name: '腹水' },{code:'', name: '肿块组织' }]
+        userdicts: {sexSet: "性别"}
     };
 
-    // 主数据加载地址
-    $scope.master = {
+    $scope.dropdowns = {
+        sampleSet: [{id:'', valueNameCn: '全血' },{id:'', valueNameCn: '粪便' },{id:'', valueNameCn: '结石' },{id:'', valueNameCn: '血清' },{id:'', valueNameCn: '皮肤刮擦物/皮屑/毛发' },{id:'', valueNameCn: '活检组织' },{id:'', valueNameCn: '血浆' },{id:'', valueNameCn: '采样拭子' },{id:'', valueNameCn: '尿液' },{id:'', valueNameCn: '穿剌抽吸液' },{id:'', valueNameCn: '组织器官' },{id:'', valueNameCn: '全血' },{id:'', valueNameCn: '腹水' },{id:'', valueNameCn: '肿块组织' }]
+    };
+
+    $controller('BaseController', {$scope: $scope}); //继承
+
+    $scope.dropboxinit($scope.dropboxargs);
+
+
+    /**
+     * 检验检测
+     * ---------------------------
+     * */
+    $scope.checkportal = {
+
         id: "check",
 
         name: "检验检测",
 
         server: "/api/v2/checkprocesssheets",
 
-        insert: function () {
-
-        }
+        defilters: {"personCode": "员工编号", "personName": "员工名称 "}
     };
 
-    // 综合搜索项
-    $scope.filters = [{"code": "name","operator": "EQ", "value":""} , {"name": "name","operator": "EQ", "value":""} , {"contractMan": "name","operator": "EQ", "value":""} , {"mobilePhone": "name","operator": "EQ", "value":""} , {"dealerAddress": "name","operator": "EQ", "value":""}];
-
-    $scope.placeholder = "请输入自动编号 / 经销商名称 / 联系人 / 手机 / 地址";
-
-    $controller('BasePaginationController', {$scope: $scope}); //继承
-
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.checkportal}); //继承
 
     /**
      * 送检部位
@@ -40,7 +45,6 @@ angular.module('fiona').controller('CheckController', function($scope, $controll
         name: "送检部位",
 
         insert: function () {
-
             $("#checkpart").modal('toggle');
         }
     }

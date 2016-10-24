@@ -2,57 +2,86 @@
 // 销售查询
 angular.module('fiona').controller('SaleplateController', function($scope, $controller) {
 
+
     // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
+    $scope.dropboxargs = { };
 
-    $scope.dropdowns= {types: [{code: "1", name: "经销商"}, {code: "2", name: "生产商"}, {code: "3", name: "经销商和生产商"}]};
-
-    // 主数据加载地址
-    $scope.master = {
-        id: "saleplate",
-
-        name: "直接销售",
-
-        server: "/api/v2/storedirectsells"
+    $scope.dropdowns = {
+//        typesSet: [{id: "1", va'': "经销商"}, {id: "2", va'': "生产商"}, {id: "3", va'': "经销商和生产商"}]
     };
 
-    // 综合搜索项
-    $scope.filters = [
-        // 宠物昵称
-        {"fieldName": "petCode","operator": "EQ", "value":""},
+    $controller('BaseController', {$scope: $scope}); //继承
 
-        // 宠物昵称
-        {"fieldName": "petName","operator": "EQ", "value":""},
+//    $scope.dropboxinit($scope.dropboxargs);
 
-        // 会员编号
-        {"fieldName": "gestCode","operator": "EQ", "value":""},
+    /**
+     * 销售查询
+     * ---------------------------
+     * */
+    $scope.saleplateportal = {
 
-        // 会员名称
-        {"fieldName": "gestName","operator": "EQ", "value":""}
-    ];
+        id: "saleplate",
 
-    $scope.placeholder = "请输入宠物病例号/宠物昵称/会员编号/会员名称/会员电话";
+        name: "销售查询",
 
-    $controller('BasePaginationController', {$scope: $scope}); //继承
+        server: "/api/v2/storedirectsells",
+
+        defilters: { "personCode": "员工编号", "personName": "员工名称 "},
+
+        callback: {}
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.saleplateportal}); //继承
 
 
     /**
-     * 加载商品
+     * 弹出选择商品
      * ---------------------------
      * */
+    $scope.productchecked = {}; // 已选择的商品
 
-    $scope.saleplatepanel = {
+    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
-        foreign: "saleplate", // 外键
+    $scope.productportal.submit = function () {
 
-        foreignkey: "directSellId",
+        if (!$scope.doctorprescriptdetails) {
+            $scope.doctorprescriptdetails = [];
+        }
 
-        id: "saleplatedetail",
+        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
+            if($scope.productportal.selection[product.id])
+            {
+                if($scope.productchecked[product.itemCode]) {    // 是否已选择
 
-        name: "销售商品明细",
+                }
+                else {
+                    // 未选择新添加
 
-        server: "/api/v2/storedirectselldetails"
+                    var doctorprescriptdetail= {};
+
+                    //  "inputCount",
+
+                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
+                        doctorprescriptdetail[name] = product[name];
+                    });
+
+                    doctorprescriptdetail.itemCost = product.recipePrice;
+
+                    // 个数
+                    doctorprescriptdetail.itemNum = 1;
+
+                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
+
+                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+                }
+            }
+        });
+
+        $('#' + $scope.productportal.id + "select").modal('toggle');
     };
 
-    $controller('TablePaginationPanelController', {$scope: $scope, component: $scope.saleplatepanel}); //继承
+    $scope.producttypeportal.init();
+
+    $scope.productportal.filter();
+
 });

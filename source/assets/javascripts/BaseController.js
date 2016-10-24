@@ -108,8 +108,6 @@ angular.module('fiona')
     $scope.selectDicts = function (uri, invoke, data) {
         $http.post(commons.getBusinessHostname() + "/api/v2/" + uri + "/selects", data).success(function (data, status, headers, config) {
 
-            console.log(data.data);
-
             $.extend($scope.dropdowns, data.data);
 
             if(invoke)
@@ -567,6 +565,9 @@ angular.module('fiona')
      * 删除单条数据
      */
     component.remove = function (obj) {
+
+        obj = obj || $scope[component.id];
+
         if (confirm("您确定要删除该记录吗?")) {
             component.delete(obj);
         }
@@ -1004,6 +1005,9 @@ angular.module('fiona')
      * 删除单条数据
      */
     component.remove = function (obj) {
+
+        obj = obj || $scope[component.id];
+
         if (confirm("您确定要删除该记录吗?")) {
             component.delete(obj);
         }
@@ -1016,7 +1020,7 @@ angular.module('fiona')
 
         if(obj.id)
         {
-            $http.delete(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, index, array) {
+            $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id).success(function (data, index, array) {
 
                 $scope[component.id + "s"].shift(obj);
 
@@ -1128,6 +1132,15 @@ angular.module('fiona')
     };
 
     $scope.productportal.pupupselect = function () {
+
+        $scope.productportal.selectedall = false;
+
+        $scope.productportal.isRemoves = true;
+
+        $scope.productportal.selection = {};
+
+
+
         $("#productselect").modal('toggle');
     };
 

@@ -376,10 +376,6 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             {
                 if($scope.productchecked[product.itemCode]) {    // 是否已选择
 
-                    var doctorprescriptdetail = $scope.productchecked[product.itemCode];
-
-                    // 个数
-                    doctorprescriptdetail.itemNum++;
                 }
                 else {
                     // 未选择新添加
