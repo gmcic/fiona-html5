@@ -36,12 +36,21 @@
   %tbody
     %tr
       %th{:style => "width: 100px"} 诊疗医生
-      %td{:style => "width: 150px"}  {{curemanager.doctor}}
+      %td{:style => "width: 200px"}
 
       %th{:style => "width: 100px"}  助理医生
-      %td{:style => "width: 150px"}  {{curemanager.assistantDoctorName}}
+      %td{:style => "width: 200px"}
 
       %td.text-right.h4 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}
+
+    %tr
+      %th{:colspan => "5"}
+
+    %tr
+      %th{:colspan => "5"}
+
+    %tr
+      %th{:colspan => "5"}
 
 .text-right
   医院电话: {{hospital.telPhone}}
