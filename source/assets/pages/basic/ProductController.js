@@ -90,7 +90,7 @@ angular.module('fiona').controller('ProductController', function ($scope, $contr
 
         server: "/api/v2/itemtypes",
 
-        defilters: {"itemCode": "商品编号", "itemName": "商品名称"},
+        defilters: {"itemCode": "商品编号", "itemName": "商品名称", "inputCode": "拼音码"},
 
         callback: {
             insert: function () {
