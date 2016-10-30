@@ -188,6 +188,23 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
         server: "/api/v2/medicmedictreatrecords",
 
+        history: function(){
+           $scope.curemanagerportal.searchByWhere({"petId" : $scope.pet.id});
+
+           $scope.historyview = "view";
+        },
+
+        underway: function(){
+            $scope.curemanager= {};
+           $scope.play($scope.register);
+           $scope.historyview = "pet";
+        },
+
+        switched: function(_curemanager){
+            $scope.curemanager = _curemanager;
+            $scope.doctorprescriptportal.search();
+        },
+
         callback: {
             submitbefore: function () {
                 angular.forEach(["petId", "petName", "gestName", "doctor", "registerNo", "assistantDoctorName", "assistantDoctorId"], function (name) {
@@ -316,6 +333,10 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
                 });
 
                 $scope.doctorprescriptdetail = {};
+            },
+
+            delete: function () {
+                $scope.doctorprescriptdetails = [];
             },
 
             switched: function () {

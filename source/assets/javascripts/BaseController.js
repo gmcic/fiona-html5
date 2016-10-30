@@ -185,23 +185,35 @@ angular.module('fiona')
         });
     };
 
+
+    /**
+     * 设置下拉选项默认值
+     * ---------------------------
+     * */
     $scope.setSelectDefault = function (name, fieldNames) {
         angular.forEach(fieldNames, function (fieldName) {
-            if (!!$scope.dropdowns[fieldName + "Set"]) {
 
-                var type = $scope.dropdowns[fieldName + "Set"][0];
+            var keys = fieldName.split(".");
 
-                if(type.personName)
+            if ($scope.dropdowns[keys[0] + "Set"]) {
+
+                var type = $scope.dropdowns[keys[0] + "Set"][0];
+
+                if(keys.length == 2 && keys[1])
                 {
-                    $scope[name][fieldName] = type.id;
+                    $scope[name][keys[0]] = type[keys[1]];
+                }
+                else if(type.personName)
+                {
+                    $scope[name][keys[0]] = type.id;
                 }
                 else if (!!type.itemCode) {
                     // product
-                    $scope[name][fieldName] = type.itemCode;
+                    $scope[name][keys[0]] = type.itemCode;
                 }
                 else if (!!type.valueNameCn) {
                     // dicttypes | dicts | custom
-                    $scope[name][fieldName] = type.id;
+                    $scope[name][keys[0]] = type.id;
                 }
             }
         });
@@ -223,7 +235,7 @@ angular.module('fiona')
         angular.forEach(fieldNames, function(fieldName){
             if($scope[keyword][fieldName])
             {
-                $scope[keyword][fieldName] = $scope.dropdowns[fieldName + "Set"].getObjectWithId([keyword][fieldName]);
+                $scope[keyword][fieldName] = $scope.dropdowns[fieldName + "Set"].getObjectWithId($scope[keyword][fieldName]);
             }
         });
     };
@@ -561,13 +573,15 @@ angular.module('fiona')
 
         $scope[component.id + 'form'].submitted = false;
 
-        angular.forEach($scope[component.id + 's'], function (data, index, array) {
-            if (data.id == id) {
-                $scope[component.id] = data;
-            }
-        });
+        $scope[component.id] = $scope[component.id + 's'].getObjectWithIdValue(id);
 
-        // console.log($scope[component.id]);
+//        angular.forEach($scope[component.id + 's'], function (data, index, array) {
+//            if (data.id == id) {
+//                $scope[component.id] = data;
+//            }
+//        });
+
+         console.log($scope[component.id]);
 
         if (!!component.callback && !!component.callback.update) {
             component.callback.update();
@@ -866,6 +880,7 @@ angular.module('fiona')
         });
 
         $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': filters})
+
         .success(function (data, status, headers, config) {
             $scope[component.id + 's'] = data.data.content;
         });
@@ -1354,10 +1369,17 @@ angular.module('fiona')
 
         callback: {
             insert: function () {
+                $scope.setSelectDefault("pet", ["petBreed.valueNameCn"]);
 
+                $scope.setSelectDefaultObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+                $scope.serialNumber({id: "pet", fieldName : "petCode", numberName : "宠物编号"});
             },
             update: function () {
 
+                $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+                $scope.vipportal.unique($scope.pet.gestId);
             }
         }
     };
@@ -1374,6 +1396,8 @@ angular.module('fiona')
     $scope.petportal.checked = function (pet) {
 
         $scope.pet = pet;
+
+        $scope.vipportal.unique($scope.pet.gestId);
 
         $("#petselect").modal('toggle');
     };

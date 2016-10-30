@@ -1,9 +1,9 @@
 
 / 选择宠物
 - modal "选择宠物", "pet"
-= partial :'layouts/partials/modal-portal-select-lg' do
+= partial :'layouts/partials/modal-portal-select-lg', :locals => {:modal_toolbar => 'close' }  do
   - portal "选择宠物", "pet"
-  = partial 'layouts/widget/portal', :locals => {:listdataKey=> "portalFields", :inline_toolbar => 'selected', :bordered => "false" } do
+  = partial 'layouts/widget/portal', :locals => {:listdataKey=> "portalFields", :inline_toolbar => 'selected', :bordered => "false", :selection => "none"} do
     / 不输出按钮
 
 / 添加宠物

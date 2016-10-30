@@ -16,17 +16,21 @@
 %table.table.table-striped.table-hover.table-bordered
   %thead
     %tr
-      %th
-        %input.group-checkable{:type => "checkbox", 'ng': {'model':"#{@portal_id}portal.selectedall", 'change': "#{@portal_id}portal.selectAll()"}}/
+      - if (!defined? selection) || selection != 'none'
+        %th
+          %input.group-checkable{:type => "checkbox", 'ng': {'model':"#{@portal_id}portal.selectedall", 'change': "#{@portal_id}portal.selectAll()"}}/
+
       - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
         %th 操作
+
       - @portal[$listdataKey].each do |field|
         %th #{field.aliasName || field.fieldName}
 
   %tbody
     %tr.odd.gradeX{ "ng-repeat" => @portal_id + " in " + @portal_id + "s" + $pagefilter}
-      %td
-        %input.checkboxes{:type => "checkbox", 'ng': {'model': "#{@portal_id}portal.selection[#{@portal_id}.id]", 'change': "#{@portal_id}portal.selectChange()"} }/
+      - if (!defined? selection) || selection != 'none'
+        %td
+          %input.checkboxes{:type => "checkbox", 'ng': {'model': "#{@portal_id}portal.selection[#{@portal_id}.id]", 'change': "#{@portal_id}portal.selectChange()"} }/
 
       - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
         %td

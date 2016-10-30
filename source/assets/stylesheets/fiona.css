@@ -127,3 +127,9 @@
     background-color: #0362fd;
     transition: all .3s
 }
+
+
+.cursor-pointer
+{
+    cursor:pointer
+}

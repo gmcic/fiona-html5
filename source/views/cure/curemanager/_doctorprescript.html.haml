@@ -9,7 +9,7 @@
     -# 处置处方
     - portal '医生处方明细', 'doctorprescriptdetail'
     = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none' }  do
-      = partial :'layouts/buttons/remove', :locals => {:click => 'doctorprescriptprotal.remove()', :disabled => "!doctorprescriptportal.selectedId"}
+      = partial :'layouts/buttons/remove', :locals => {:click => 'doctorprescriptportal.remove()', :disabled => "!doctorprescriptportal.selectedId"}
       = partial :'layouts/buttons/insert', :locals => {:click => 'doctorprescriptportal.insert()'}
       = partial :'layouts/buttons/update', :locals => {:click => 'doctorprescriptportal.update(doctorprescriptportal.selectedId)', :disabled => "!doctorprescriptportal.selectedId"}
       = partial :'layouts/buttons/print', :locals => {:click => 'doctorprescriptportal.print()', :disabled => "!doctorprescriptportal.selectedId"}
