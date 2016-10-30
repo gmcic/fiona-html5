@@ -454,38 +454,47 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
-    $scope.productportal.submit = function () {
+    $scope.productportal.checked = function (_product) {
+
+        console.log(this);
 
         if (!$scope.doctorprescriptdetails) {
             $scope.doctorprescriptdetails = [];
         }
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
+        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
+
+        }
+        else {
+            // 未选择新添加
+
+            var doctorprescriptdetail= {};
+
+            //  "inputCount",
+
+            angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
+                doctorprescriptdetail[name] = _product[name];
+            });
+
+            doctorprescriptdetail.itemCost = _product.recipePrice;
+
+            // 个数
+            doctorprescriptdetail.itemNum = 1;
+
+            $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
+
+            $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+        }
+
+        commons.modalsuccess("product", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
+    };
+
+    $scope.productportal.submit = function () {
+
+        angular.forEach($scope[$scope.productportal.id + "s"], function (_product) {
+            if($scope.productportal.selection[_product.id])
             {
-                if($scope.productchecked[product.itemCode]) {    // 是否已选择
-
-                }
-                else {
-                    // 未选择新添加
-
-                    var doctorprescriptdetail= {};
-
-                    //  "inputCount",
-
-                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                        doctorprescriptdetail[name] = product[name];
-                    });
-
-                    doctorprescriptdetail.itemCost = product.recipePrice;
-
-                    // 个数
-                    doctorprescriptdetail.itemNum = 1;
-
-                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
-
-                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
-                }
+                $scope.productportal.checked(_product)
             }
         });
 
@@ -506,11 +515,6 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
      * 弹出选择商品
      * ---------------------------
      * */
-
-    // 查询等诊列表
-//    $scope.registerportal.searchByWhere({"status": "SM00034"});
-//    $scope.registerportal.list();
-
     $scope.themap = {};
 
     $http.get(commons.getBusinessHostname() + $scope.registerportal.server).success(function (data, status, headers, config) {
@@ -529,8 +533,6 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
             if(!$scope.themap[reg.id])
             {
-//                alert(reg.id + ", " + reg.status.dictDetailCode );
-
                 $scope.themap[reg.id] = true;
 
                 if(reg.status.dictDetailCode == 'SM00034')
@@ -551,9 +553,6 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             }
         });
 
-//        angular.forEach($scope.plays, function(data){
-//            alert(data.status.dictDetailCode + ", " + data.status.valueNameCn);
-//        });
     });
 
 
@@ -563,31 +562,5 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             $scope.hospital = item;
         });
     });
-
-
-//            list: function () {
-//                $scope.plays = [];
-//
-//                $scope.pauses = [];
-//
-//                angular.forEach($scope.registers, function(data){
-//
-//                    if(data.status.dictDetailCode == 'SM00034')
-//                    {
-//                        //  待诊
-//                        $scope.plays.push(data);
-//                    }
-//                    else if(data.status.dictDetailCode == 'SM00035')
-//                    {
-//                        //  就诊中
-//                        $scope.plays.push(data);
-//                    }
-//                    else if(data.status.dictDetailCode == 'SM00036')
-//                    {
-//                        //已暂停
-//                        $scope.pauses.push(data);
-//                    }
-//                });
-//            },
 
 });
