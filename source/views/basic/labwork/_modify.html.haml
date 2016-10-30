@@ -19,6 +19,6 @@
 / Portal
 - portal "参考值设置", "labworkdetail"
 
-= partial :'layouts/table/portal' do
+= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none"}  do
   = partial :'layouts/buttons/insert', :locals => {:click => 'labworkdetailportal.insert()'}
   = partial :'layouts/buttons/removes', :locals => {:click => 'labworkdetailportal.removes()', 'disabled': 'labworkdetailportal.isRemoves'}

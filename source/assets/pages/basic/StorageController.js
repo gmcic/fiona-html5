@@ -27,9 +27,7 @@ angular.module('fiona').controller('StorageController', function($scope, $contro
             insert: function () {
                 $scope.setSelectDefault("storage", ["drugStore", "sellStore"]);
 
-                // $scope.dealer.code = commons.serialNumber(); // 自动编号
-
-                // $scope.dealer.companyType = "1"; // 类型
+                $scope.serialNumber({id: "storage", fieldName : "code", numberName : "仓库编号"});
             }
         }
     };

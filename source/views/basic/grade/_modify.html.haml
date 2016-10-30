@@ -7,18 +7,3 @@
     .col-md-12
       = partial :'layouts/inputs/text', :locals => {:fieldName => '备注', :maxlength => '32'}
 
-  .row
-    .col-md-12
-      %h1 折扣定义
-      %table#sample_editable_1.table.table-striped.table-hover.table-bordered
-        %thead
-          %tr
-            %th 商品服务
-            %th{:width => '100px'} 折扣
-
-        %tbody
-          %tr
-            %td 宠物药品(宠物药品)
-            %td
-              %input.form-control{:type => "text", :maxlength => "10", :name => "price" }/
-

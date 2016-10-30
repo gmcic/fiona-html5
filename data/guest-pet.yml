@@ -23,6 +23,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - aliasName: 宠物生日
     fieldName: 出生日期
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 身高
 

@@ -15,11 +15,11 @@
 - modal "会员", "vip"
 
 - portal "会员", "vip"
-= partial :'layouts/partials/modal-portal-select-lg' do
-  = partial 'layouts/widget/portal_noframe', :locals => {:filterbar => "none", :pagingbar => "none", :listdataKey => "portalFields", :inline_toolbar => 'selected'} do
+= partial :'layouts/partials/modal-portal-select-lg', :locals => {:modal_toolbar => 'close' }  do
+  = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :listdataKey => "portalFields", :inline_toolbar => 'selected', :bordered => "false"} do
     / 无 outline 按钮
 
-  / 添加会员
-  - modal "添加会员", "vip"
+/ 添加会员
+- modal "添加会员", "vip"
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'views/commons/vip/portal_vip_form'

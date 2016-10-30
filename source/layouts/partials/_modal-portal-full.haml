@@ -28,3 +28,20 @@
             %button.btn.btn-primary{"ng-show"=>"#{@modal_id}portal.auditingoperate == true", :type => "button",  "ng-click"=> "auditing()"}
               %i.fa.fa-plus
               审核
+
+          // 审核按钮
+          - if (defined? modal_toolbar) && ( modal_toolbar.include? "balance" )
+            %button.btn.btn-warning{:type => "button",  "ng-click"=> "rebalance()"}
+              %i.fa.fa-plus
+              重算
+
+            %button.btn.btn-primary{:type => "button",  "ng-click"=> "balance()"}
+              %i.fa.fa-plus
+              结算
+
+          // 审核按钮
+          - if (defined? modal_toolbar) && ( modal_toolbar.include? "reprint" )
+            %button.btn.btn-success{:type => "button",  "ng-click"=> "reprint()"}
+              %i.fa.fa-plus
+              重打小票
+

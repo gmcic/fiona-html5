@@ -136,7 +136,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.instoragedetailportal}); //继承
 
-
     /**
      * 供应商
      * ---------------------------
@@ -149,11 +148,18 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         server: "/api/v2/dealers",
 
-        callback: {
-            update: function () {
-                $scope.instorage.dealerCode = $scope.dealer.code;
-                $scope.instorage.dealerName = $scope.dealer.name;
-            }
+        pupupselect: function () {
+
+            $scope.dealerportal.list();
+
+            $("#dealerselect").modal('toggle');
+        },
+
+        checked: function (dealer) {
+            $scope.instorage.dealerCode = dealer.code;
+            $scope.instorage.dealerName = dealer.name;
+
+            $("#dealerselect").modal('toggle');
         }
     };
 
@@ -165,7 +171,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
      * 商品&服务弹出选择
      * ---------------------------
      * */
-
     $scope.productchecked = {};
 
     $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
@@ -175,6 +180,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     $scope.productportal.filter();
 
     $scope.productportal.submit = function () {
+
         if (!$scope.instoragedetails) {
             $scope.instoragedetails = [];
         }
@@ -220,7 +226,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             }
         });
 
-        $('#' + $scope.productportal.id).modal('toggle');
+        $("#productselect").modal('toggle');
     };
 
     // 初始化列表

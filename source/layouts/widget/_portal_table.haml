@@ -46,7 +46,7 @@
 
           // 选择按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "selected" )
-            = partial :'layouts/buttons/btn_info', :locals => {:click => @portal_id + 'portal.checked(' + @portal_id + '.id)' , :label => '选择', :icon => "fa-check"}
+            = partial :'layouts/buttons/btn_info', :locals => {:click => @portal_id + 'portal.checked(' + @portal_id + ')' , :label => '选择', :icon => "fa-check"}
 
           // 选择按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "checked" )

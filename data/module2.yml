@@ -16,12 +16,20 @@ analysed:
 # 结算服务
 balance:
   - id: payment
-    name: MM
-    server: MM
+    name: 收费管理
+    server: gestpaidrecords/bullList
+
+  - id: paymentdetail
+    name: 收费明细
+    server: /gestpaidrecords/billDetail/{gestId}
 
   - id: statement
-    name: MM
-    server: MM
+    name: 结算单管理
+    server: financesettleaccountss
+
+  - id: statementdetail
+    name: 结算单明细 
+    server: financesettleaccountsdetails
 
 #基础数据
 basic:

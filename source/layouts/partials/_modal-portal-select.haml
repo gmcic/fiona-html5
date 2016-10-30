@@ -8,8 +8,10 @@
     = yield
 
   .modal-footer
-    %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
+    // 关闭
+    - if (!defined? modal_toolbar) || ( modal_toolbar.include? "close" )
+      %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
 
-    %button.btn.btn-primary{"ng-disabled"=>"#{@modal_id}form.$pristine", :type => "submit"}
-      %i.fa.fa-plus
-      保存表单
+    // 保存表单
+    - if (!defined? modal_toolbar) || ( modal_toolbar.include? "submit" )
+      = partial :'layouts/buttons/submit', :locals => {:show => "instorage.status.dictDetailCode != 'SM00043'"}

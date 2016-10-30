@@ -15,19 +15,7 @@ layout: "page"
   = partial 'view'
 
 / 选择商品
-- modal "选择商品", "product"
-= partial :'layouts/partials/modal-portal-full' do
-  = partial 'layouts/widget/service_product_select'
+= partial 'layouts/widget/service_product_select'
 
 / 选择供应商
-- modal "选择供应商", "dealer"
-= partial :'layouts/partials/modal-portal-full' do
-  - portal "供应商", "dealer"
-  = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'checked' } do
-    / 不输出 outline 按钮
-
-
-- inline_attr_show = nil
-
-- puts "Test: " << ((defined? inline_attr_show) && (inline_attr_show || false) ? "true" : "false" )
-
+= partial :'layouts/widget/service_dealer_select'

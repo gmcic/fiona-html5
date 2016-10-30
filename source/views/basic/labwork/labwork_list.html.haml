@@ -11,7 +11,9 @@ layout: "page"
 
   .col-md-9
     - portal '化验项目管理', 'labwork'
-    = partial 'layouts/widget/portal'
+    = partial 'layouts/widget/portal'do
+      = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()", :disabled => "!labworktypeportal.selected"}
+      = partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
 
 / Modal
 - modal  '化验项目管理', 'labwork'
@@ -24,7 +26,7 @@ layout: "page"
   = partial 'labworkdetail'
 
 / 化验分类
-- modal "服务商品分类", "labworktype"
+- modal "化验分类", "labworktype"
 
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'labworktype'

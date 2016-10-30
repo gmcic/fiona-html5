@@ -9,9 +9,17 @@
 - if !(defined? labelName)
   - $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
 
-
-.form-group.form-md-line-input
-  %label.control-label
+- if defined? cols
+  - $cols = cols.split
+  %label.control-label{:for => "form_control_1", :class => "col-md-#{$cols[0]}"}
     #{fieldName} #{@formIdName}
 
-  %input.form-control{:type => "text", "ng-model"=>"#{$ngModel}" , "readonly" => "true"}/
+  %div{:class => "col-md-#{$cols[1]}"}
+    %input.form-control{:type => "text", "ng-model"=>"#{$ngModel}" , "readonly" => "true"}/
+
+- else
+  .form-group.form-md-line-input
+    %label.control-label
+      #{fieldName} #{@formIdName}
+
+    %input.form-control{:type => "text", "ng-model"=>"#{$ngModel}" , "readonly" => "true"}/

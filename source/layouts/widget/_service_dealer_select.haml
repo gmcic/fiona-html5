@@ -1,0 +1,7 @@
+/ 选择供应商
+- modal "选择供应商", "dealer"
+= partial :'layouts/partials/modal-portal-select-full' do
+  - portal "供应商", "dealer"
+  = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'selected' } do
+    / 不输出 outline 按钮
+

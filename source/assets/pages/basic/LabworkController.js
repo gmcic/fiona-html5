@@ -39,23 +39,14 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
                 // 加载
                 $scope.labworkportal.search();
             },
-            insert: function () {
-                // 加载
-                if (!$scope.labworktypeportal.selectedId) {
-                    $scope.labworktype.parent = "#";
-                    $scope.labworktypeportal.selected = {cateName: "顶级"}
-                }
-                else {
-                    $scope.labworktype.parent = $scope.labworktypeportal.selectedId;
-                }
-            },
             submit: function () {
-                $scope.labworktypeportal.search();
-                $scope.labworktypeportal.treeConfig.version++;
+
+                $scope.labworktypeportal.refresh();
             },
             delete: function () {
-                $scope.labworktypeportal.search();
-                $scope.labworktypeportal.treeConfig.version++;
+                $scope.labworktypeportal.cancelSelected();
+
+                $scope.labworktypeportal.refresh();
             }
         }
     };
@@ -85,6 +76,17 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
                 $scope.setSelectDefault("labwork", ["indexType", "cheTestUnit"]);
                 $scope.labworkdetails = [];
             },
+            submit: function () {
+                // 遍历保存所有子项
+                angular.forEach($scope.labworkdetails, function (data, index, array) {
+
+                    $scope.labworkdetail= data;
+                    $scope.labworkdetail.cheTestTypdId = $scope.labwork.id;
+
+                    $scope.labworkdetailportal.save();
+                });
+
+            },
             update: function () {
                 $scope.labworkdetailportal.search($scope.labwork.id);
             }
@@ -107,10 +109,21 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
 
         name: "参考值设置",
 
-        server: "/api/v2/medicchemicalexamtypedetails"
+        server: "/api/v2/medicchemicalexamtypedetails",
+
+        callback : {
+            insert: function () {
+                $scope.setSelectDefault("labworkdetail", ["petRaceName"]);
+            }
+         }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.labworkdetailportal}); //继承
+
+    $scope.labworkdetailportal.submit = function() {
+        $scope.labworkdetails.unshift($scope.labworkdetail);
+        $('#labworkdetail').modal('toggle');
+    }
 
     $scope.labworktypeportal.search();
     $scope.labworkportal.filter();

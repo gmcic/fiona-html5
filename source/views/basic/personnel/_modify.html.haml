@@ -15,7 +15,7 @@
               = partial :'layouts/inputs/textview', :locals => {:fieldName => '员工编号', :maxlength => '32', :required => 'true'}
 
             .col-md-4
-              = partial :'layouts/inputs/text', :locals => {:fieldName => '员工名称', :maxlength => '32'}
+              = partial :'layouts/inputs/text', :locals => {:fieldName => '员工名称', :maxlength => '32', :required => "true"}
 
             .col-md-4
               = partial :'layouts/inputs/select', :locals => {:fieldName => '员工性别', :maxlength => '32', :required => "true", :options => "type.id as type.valueNameCn for type in dropdowns.sexSet"}
@@ -29,7 +29,7 @@
 
           .row
             .col-md-4
-              = partial :'layouts/inputs/text', :locals => {:fieldName => '员工手机', :maxlength => '32'}
+              = partial :'layouts/inputs/text', :locals => {:fieldName => '员工手机', :maxlength => '32', :required => "true"}
 
             .col-md-4
               = partial :'layouts/inputs/text', :locals => {:fieldName => '紧急电话', :maxlength => '32'}
@@ -39,7 +39,7 @@
 
           .row
             .col-md-4
-              = partial :'layouts/inputs/text', :locals => {:fieldName => '密码', :maxlength => '32'}
+              = partial :'layouts/inputs/text', :locals => {:fieldName => '密码', :maxlength => '32', :required => "true"}
 
             .col-md-4
               = partial :'layouts/inputs/select', :locals => {:fieldName => '所属角色', :maxlength => '32', :options => "type.id as type.valueNameCn for type in dropdowns.roleSet"}
@@ -57,5 +57,5 @@
 
 
     #personnel_pictures.tab-pane
-      = partial :'layouts/inputs/fileupload', :locals => {:keyword => '', :fieldName => '头像', :maxlength => '32', :required => "true"}
+      = partial :'layouts/inputs/fileupload', :locals => {:keyword => '', :fieldName => '头像', :maxlength => '32'}
 

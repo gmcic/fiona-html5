@@ -1,0 +1,43 @@
+module:
+  name: 收费明细
+  id: paymentdetail
+  data: /gestpaidrecords/billDetail/{gestId}
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 结算
+
+  - fieldName: 名称
+
+  - fieldName: 原价
+
+  - fieldName: 实价
+    filter: currency:"￥"
+
+  - fieldName: 优惠
+
+  - fieldName: 数量
+
+  - fieldName: 单位
+
+  - fieldName: 小计
+
+searchFields:
+  - fieldName: 会员编号
+
+fields: #可定义多个中文名称指向同一个字段
+
+  结算: XX
+
+  名称: XX
+
+  原价: XX
+
+  实价: XX
+
+  优惠: XX
+
+  数量: XX
+
+  单位: XX
+
+  小计: XX

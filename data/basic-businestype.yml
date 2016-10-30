@@ -8,6 +8,7 @@ listFields:
   - fieldName: 类型名称
 
   - fieldName: 状态
+    fieldKey: status.valueNameCn
 
 searchFields:
   - fieldName: 类型名称

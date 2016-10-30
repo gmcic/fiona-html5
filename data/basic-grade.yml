@@ -1,12 +1,16 @@
-# 会员等级管理
+
+module:
+  name: 会员等级管理
+  id: grade
+  data: gestlevels
+
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 等级名称
 
   - fieldName: 备注
 
-  - fieldName: 创建人
-
   - fieldName: 创建日期
+    filter: date:"yyyy年MM月dd日"
 
 fields: #可定义多个中文名称指向同一个字段
   主键: id

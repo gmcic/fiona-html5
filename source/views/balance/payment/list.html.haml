@@ -6,5 +6,5 @@ layout: "page"
 
 = partial 'layouts/widget/portal'
 
-= partial :'layouts/partials/modal-portal-lg' do
+= partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|balance'}  do
   = partial 'modify'

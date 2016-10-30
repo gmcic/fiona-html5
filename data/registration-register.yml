@@ -28,6 +28,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
     fieldKey: status.valueNameCn
 
   - fieldName: 付费状态
+    filter: dropdown
 
   - fieldName: 暂停原因
 

@@ -1,0 +1,82 @@
+module:
+  name: 结算单明细
+  id: statementdetail
+  data: financesettleaccountsdetails
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 名称
+
+  - fieldName: 原价
+
+  - fieldName: 实价
+
+  - fieldName: 优惠
+
+  - fieldName: 数量
+
+  - fieldName: 单位
+
+  - fieldName: 小计
+
+searchFields:
+  - fieldName: 会员编号
+  - fieldName: 会员姓名
+  - fieldName: 会员电话
+
+  - fieldName: ---
+
+  - fieldName: 结算单号
+  - fieldName: 结算日期
+
+fields: #可定义多个中文名称指向同一个字段
+  settleAccountsDetailId: settleAccountsDetailId
+
+  关联细节ID: relationDetailId
+
+  类型编号: itemCode
+
+  类型名称: itemName
+
+  单元: packageUnit
+
+  规格: itemStandard
+
+  零散比: itemBulk
+
+  售价: sellPrice
+
+  总个数: totalNum
+
+  总价: totalCost
+
+  实际价格: infactPrice
+
+  折后价: discountMoney
+
+  业务类型ID: busiTypeId
+
+  关联ID: relationId
+
+  类型描述: itemDescript
+
+  支付状态: paidStatus
+
+  支付时间: paidTime
+
+  折后总价: sumDiscountMoney
+
+  原始价格: sumOriginalMoney
+
+
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
