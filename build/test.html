@@ -1,0 +1,21 @@
+<h1 class='text-center'>
+  Hello {{'World'}}!
+</h1>
+<div class='text-center' ng-controller='InvoiceCntl'>
+  <p>
+    Your name:
+  </p>
+  <input ng-model='yourname' placeholder='World' type='text'>
+  <hr>
+  <p>Hello {{yourname || 'World'}}!</p>
+  <p>
+    <a href='/'>HOME</a>
+  </p>
+  <p>
+    <a href='#inbox/ari'>INBOX</a>
+  </p>
+  <hr>
+  <div class='content'>
+    <div ng-view=''></div>
+  </div>
+</div>

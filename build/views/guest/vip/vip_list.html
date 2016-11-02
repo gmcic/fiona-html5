@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+    <div class='portlet light bordered'>
+      <div class='portlet-title'>
+        <div class='caption font-dark'>
+          <i class='fa fa-beer font-dark'></i>
+          <span class='caption-subject bold uppercase'>会员管理</span>
+        </div>
+        <div class='actions'>
+          <button class='btn btn-circle btn-primary btn-sm' ng-click='vipportal.insert()' type='button'>
+            <i class='fa fa-plus'></i>
+            增加
+          </button>
+          <button class='btn btn-circle red-sunglo btn-sm' ng-click='vipportal.removes()' ng-disabled='vipportal.isRemoves' type='button'>
+            <i class='fa fa-trash'></i>
+            删除
+          </button>
+        </div>
+      </div>
+      <div class='portlet-body'>
+        <div class='table-toolbar'>
+          <form name='searchform' role='form'>
+            <div class='row'>
+              <div class='col-md-8'>
+                <div>
+                  <div class='input-group'>
+                    <div class='input-group-btn'>
+                      <button class='form-control input-noborder-right input-circle-left dropdown-toggle' data-toggle='dropdown' type='button'>
+                        {{vipportal.searchbar.fieldName}}
+                        <i class='fa fa-angle-down'></i>
+                      </button>
+                      <ul class='dropdown-menu'>
+                        <li>
+                          <a href='javascript:;' ng-click="vipportal.setField('', '综合搜索', '')">综合搜索</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="vipportal.setField('gestCode', '会员编号')">会员编号</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="vipportal.setField('gestName', '会员姓名')">会员姓名</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="vipportal.setField('mobilePhone', '会员电话')">会员电话</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <input class='form-control' ng-model='vipportal.searchbar.firstValue' ng-readonly="vipportal.searchbar.dataType == 'date'" placeholder='{{vipportal.searchbar.firstTextPlaceholder}}' type='text'>
+                    <div class='input-group-btn' ng-show="vipportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <input class='form-control' ng-model='vipportal.searchbar.lastValue' ng-readonly="vipportal.searchbar.dataType == 'date'" ng-show="vipportal.searchbar.type == 'between'" placeholder='{{vipportal.searchbar.lastTextPlaceholder}}' style='display: table-cell;' type='text'>
+                    <div class='input-group-btn' ng-show="vipportal.searchbar.type == 'between' &amp;&amp; vipportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <div class='input-group-btn'>
+                      <button class='btn green input-circle-right' ng-click='vipportal.filter()'>
+                        <i class='fa fa-search'></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <table class='table table-striped table-hover table-bordered'>
+          <thead>
+            <tr>
+              <th>
+                <input class='group-checkable' ng-change='vipportal.selectAll()' ng-model='vipportal.selectedall' type='checkbox'>
+              </th>
+              <th>操作</th>
+              <th>会员等级</th>
+              <th>会员编号</th>
+              <th>会员姓名</th>
+              <th>会员性别</th>
+              <th>会员电话</th>
+              <th>固定电话</th>
+              <th>出生日期</th>
+              <th>账户金额</th>
+              <th>登记日期</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='odd gradeX' ng-repeat='vip in vips'>
+              <td>
+                <input class='checkboxes' ng-change='vipportal.selectChange()' ng-model='vipportal.selection[vip.id]' type='checkbox'>
+              </td>
+              <td>
+                <!-- / 查看按钮 -->
+                <!-- / 修改按钮 -->
+                <button class='btn btn-circle btn-default btn-sm' ng-click='vipportal.update(vip.id)' type='button'>
+                  <i class='fa fa-plus'></i>
+                  修改
+                </button>
+                <!-- / 删除按钮 -->
+                <button class='btn btn-circle red-sunglo btn-sm' ng-click='vipportal.remove(vip)' type='button'>
+                  <i class='fa fa-plus'></i>
+                  删除
+                </button>
+                <!-- / 选择按钮 -->
+                <!-- / 结算 -->
+                <!-- / 选择按钮 -->
+                <!-- / 审核按钮 -->
+              </td>
+              <td>
+                {{vip.gestStyle.levelName}}
+              </td>
+              <td>
+                {{vip.gestCode}}
+              </td>
+              <td>
+                {{vip.gestName}}
+              </td>
+              <td>
+                {{vip.gestSex.valueNameCn}}
+              </td>
+              <td>
+                {{vip.mobilePhone}}
+              </td>
+              <td>
+                {{vip.telPhone}}
+              </td>
+              <td>
+                {{vip.gestBirthday | date:"yyyy年MM月dd日"}}
+              </td>
+              <td>
+                {{vip.prepayMoney | currency:"￥"}}
+              </td>
+              <td>
+                {{vip.createDate | date:"yyyy年MM月dd日"}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class='row'>
+          <div class='col-md-12 col-sm-12'>
+            <form class='form-inline' name='paginationform' ng-submit='vipportal.jump()' novalidate='' role='form'>
+              <div class='form-group'>
+                <button class='btn btn-sm default prev' ng-click='vipportal.prevpage()' ng-disabled='vipportal.pagination.first==true' type='button'>
+                  <i class='fa fa-angle-left'></i>
+                </button>
+                <input class='pagination-panel-input form-control input-sm input-inline input-mini' maxlenght='5' ng-model='vipportal.pagination.pageNumber' style='text-align:center; margin: 0 5px;' type='text'>
+                <button class='btn btn-sm default next' ng-click='vipportal.nextpage()' ng-disabled='vipportal.pagination.last==true' type='button'>
+                  <i class='fa fa-angle-right'></i>
+                </button>
+                共 {{vipportal.pagination.totalElements}} 条 {{vipportal.pagination.totalPages}} 页
+                <label>
+                  <span class='seperator'>| 每页</span>
+                </label>
+                <select class='form-control input-xs input-sm input-inline' name='datatable_ajax_length' ng-change='vipportal.jump(1)' ng-model='vipportal.pagination.pageSize'>
+                  <option value='10'>10</option>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                </select>
+                条
+              </div>
+              <button class='btn btn-default' type='submit'>跳转</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 编辑 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='vip' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-full'>
+        <div class='modal-content'>
+          <form id='vipform' name='vipform' ng-submit='vipportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>会员管理</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='vip_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        会员编号
+                      </label>
+                      <input class='form-control' ng-model='vip.gestCode' readonly='true' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员姓名
+                        <span class='required'>*</span>
+                      </label>
+                      <input class='form-control' maxlength='32' name='gestName' ng-model='vip.gestName' required='true' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.gestName.$error.required &amp;&amp; vipform.submitted'>会员姓名不能为空.</p>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.gestName.$error.maxlength &amp;&amp; vipform.submitted'>会员姓名 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员性别
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='gestSex' name='gestSex' ng-model='vip.gestSex' ng-options='type as type.valueNameCn for type in dropdowns.gestSexSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.gestSex.$error.required &amp;&amp; vipform.submitted'>会员性别不能为空.</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        出生日期
+                      </label>
+                      <div class='input-icon right'>
+                        <i class='fa fa-calendar'></i>
+                        <input class='form-control date-picker' maxlength='32' name='gestBirthday' ng-model='vip.gestBirthday' readonly='true' type='text'>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        会员年龄
+                      </label>
+                      <input class='form-control' ng-model='local.age' readonly='true' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员电话
+                      </label>
+                      <input class='form-control' maxlength='32' name='mobilePhone' ng-model='vip.mobilePhone' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.mobilePhone.$error.maxlength &amp;&amp; vipform.submitted'>会员电话 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        固定电话
+                      </label>
+                      <input class='form-control' maxlength='32' name='telPhone' ng-model='vip.telPhone' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.telPhone.$error.maxlength &amp;&amp; vipform.submitted'>固定电话 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        联系邮箱
+                      </label>
+                      <input class='form-control' maxlength='32' name='email' ng-model='vip.email' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.email.$error.maxlength &amp;&amp; vipform.submitted'>联系邮箱 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        账户金额
+                      </label>
+                      <input class='form-control' ng-model='vip.prepayMoney' readonly='true' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        积分
+                      </label>
+                      <input class='form-control' maxlength='32' name='rewardPoint' ng-model='vip.rewardPoint' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.rewardPoint.$error.maxlength &amp;&amp; vipform.submitted'>积分 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          会员等级
+                          <span class='required'>*</span>
+                        </label>
+                        <select class='form-control' id='gestStyle' name='gestStyle' ng-model='vip.gestStyle' ng-options='type as type.levelName for type in dropdowns.gestStyleSet' required='true'></select>
+                        <p class='help-block font-red-thunderbird' ng-show='vipform.gestStyle.$error.required &amp;&amp; vipform.submitted'>会员等级不能为空.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员状态
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='status' name='status' ng-model='vip.status' ng-options='type as type.valueNameCn for type in dropdowns.statusSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.status.$error.required &amp;&amp; vipform.submitted'>会员状态不能为空.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-9'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        联系地址
+                      </label>
+                      <input class='form-control' maxlength='32' name='gestAddress' ng-model='vip.gestAddress' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='vipform.gestAddress.$error.maxlength &amp;&amp; vipform.submitted'>联系地址 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        登记日期
+                      </label>
+                      <div class='input-icon right'>
+                        <i class='fa fa-calendar'></i>
+                        <input class='form-control date-picker' maxlength='32' name='createDate' ng-model='vip.createDate' readonly='true' type='text'>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        备注
+                      </label>
+                      <textarea class='form-control' maxlength='32' name='remark' ng-model='vip.remark' type='text'></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portal -->
+              <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+              <div class='portlet light bordered'>
+                <div class='portlet-title'>
+                  <div class='caption font-dark'>
+                    <i class='fa fa-beer font-dark'></i>
+                    <span class='caption-subject bold uppercase'>宠物管理</span>
+                  </div>
+                  <div class='actions'>
+                    <button class='btn btn-circle btn-primary btn-sm' ng-click='petportal.insert()' type='button'>
+                      <i class='fa fa-plus'></i>
+                      增加
+                    </button>
+                    <button class='btn btn-circle red-sunglo btn-sm' ng-click='petportal.removes()' ng-disabled='petportal.isRemoves' type='button'>
+                      <i class='fa fa-trash'></i>
+                      删除
+                    </button>
+                  </div>
+                </div>
+                <div class='portlet-body'>
+                  <table class='table table-striped table-hover table-bordered'>
+                    <thead>
+                      <tr>
+                        <th>
+                          <input class='group-checkable' ng-change='petportal.selectAll()' ng-model='petportal.selectedall' type='checkbox'>
+                        </th>
+                        <th>操作</th>
+                        <th>挂号状态</th>
+                        <th>宠物状态</th>
+                        <th>会员编号</th>
+                        <th>会员姓名</th>
+                        <th>宠物卡号</th>
+                        <th>宠物牌号</th>
+                        <th>宠物病历号</th>
+                        <th>宠物昵称</th>
+                        <th>宠物性别</th>
+                        <th>宠物生日</th>
+                        <th>身高</th>
+                        <th>体重(kg)</th>
+                        <th>颜色</th>
+                        <th>宠物种类</th>
+                        <th>宠物品种</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class='odd gradeX' ng-repeat='pet in pets'>
+                        <td>
+                          <input class='checkboxes' ng-change='petportal.selectChange()' ng-model='petportal.selection[pet.id]' type='checkbox'>
+                        </td>
+                        <td>
+                          <button class='btn btn-circle btn-default btn-sm' ng-click='petportal.update(pet.id)' type='button'>
+                            <i class='fa fa-plus'></i>
+                            修改
+                          </button>
+                          <button class='btn btn-circle red-sunglo btn-sm' ng-click='petportal.remove(pet.id)' type='button'>
+                            <i class='fa fa-plus'></i>
+                            删除
+                          </button>
+                        </td>
+                        <td>
+                          {{pet.status.valueNameCn}}
+                        </td>
+                        <td>
+                          {{pet.status.valueNameCn}}
+                        </td>
+                        <td>
+                          {{pet.gestCode}}
+                        </td>
+                        <td>
+                          {{pet.gestName}}
+                        </td>
+                        <td>
+                          {{pet.petCode}}
+                        </td>
+                        <td>
+                          {{pet.dogBandId}}
+                        </td>
+                        <td>
+                          {{pet.sickFileCode}}
+                        </td>
+                        <td>
+                          {{pet.petName}}
+                        </td>
+                        <td>
+                          {{pet.petSex.valueNameCn}}
+                        </td>
+                        <td>
+                          {{pet.petBirthday}}
+                        </td>
+                        <td>
+                          {{pet.petHeight}}
+                        </td>
+                        <td>
+                          {{pet.petWeight}}
+                        </td>
+                        <td>
+                          {{pet.petSkinColor.valueNameCn}}
+                        </td>
+                        <td>
+                          {{pet.petRace.petRace.name}}
+                        </td>
+                        <td>
+                          {{pet.petRace.type}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 添加宠物 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='pet' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='petform' name='petform' ng-submit='petportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>添加宠物</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='pet_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-4'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        编号(自动)
+                      </label>
+                      <input class='form-control' ng-model='pet.petCode' readonly='true' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        宠物昵称
+                        <span class='required'>*</span>
+                      </label>
+                      <input class='form-control' maxlength='16' name='petName' ng-model='pet.petName' required='true' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.petName.$error.required &amp;&amp; petform.submitted'>宠物昵称不能为空.</p>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.petName.$error.maxlength &amp;&amp; petform.submitted'>宠物昵称 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class='form-group'>
+                      <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          宠物性别
+                          <span class='required'>*</span>
+                        </label>
+                        <select class='form-control' id='petSex' name='petSex' ng-model='pet.petSex' ng-options='type as type.valueNameCn for type in dropdowns.petSexSet' required='true'></select>
+                        <p class='help-block font-red-thunderbird' ng-show='petform.petSex.$error.required &amp;&amp; petform.submitted'>宠物性别不能为空.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-4'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        出生日期
+                      </label>
+                      <div class='input-icon right'>
+                        <i class='fa fa-calendar'></i>
+                        <input class='form-control date-picker' maxlength='32' name='petBirthday' ng-model='pet.petBirthday' readonly='true' type='text'>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        宠物年龄
+                      </label>
+                      <input class='form-control' ng-model='pet.age' readonly='true' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class='form-group'>
+                      <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          绝育状态
+                          <span class='required'>*</span>
+                        </label>
+                        <select class='form-control' id='petBreed' name='petBreed' ng-model='pet.petBreed' ng-options='type.id as type.valueNameCn for type in dropdowns.petBreedSet' required='true'></select>
+                        <p class='help-block font-red-thunderbird' ng-show='petform.petBreed.$error.required &amp;&amp; petform.submitted'>绝育状态不能为空.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-4'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        宠物颜色
+                      </label>
+                      <select class='form-control' id='petSkinColor' name='petSkinColor' ng-model='pet.petSkinColor' ng-options='type as type.valueNameCn for type in dropdowns.petSkinColorSet'></select>
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class='form-group'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          宠物种类
+                        </label>
+                        <select class='form-control' name='selectedname'>
+                          <option ng-repeat='type in dropdowns.raceTypeSet' value='{{type.id}}'>
+                            {{type.name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class='form-group'>
+                      <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          宠物品种
+                          <span class='required'>*</span>
+                        </label>
+                        <select class='form-control' id='petRace' name='petRace' ng-model='pet.petRace' ng-options='type as type.type for type in dropdowns.petRaceSet' required='true'></select>
+                        <p class='help-block font-red-thunderbird' ng-show='petform.petRace.$error.required &amp;&amp; petform.submitted'>宠物品种不能为空.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-4'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        宠物状态
+                      </label>
+                      <select class='form-control' id='status' name='status' ng-model='pet.status' ng-options='type as type.valueNameCn for type in dropdowns.sickFileCodeSet'></select>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        身高(cm)
+                      </label>
+                      <input class='form-control' maxlength='16' name='petHeight' ng-model='pet.petHeight' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        体重(kg)
+                      </label>
+                      <input class='form-control' maxlength='16' name='petWeight' ng-model='pet.petWeight' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        肩宽(cm)
+                      </label>
+                      <input class='form-control' maxlength='16' name='petSwidth' ng-model='pet.petSwidth' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        体长(cm)
+                      </label>
+                      <input class='form-control' maxlength='16' name='petBodyLong' ng-model='pet.petBodyLong' type='text'>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        宠物牌号
+                      </label>
+                      <input class='form-control' maxlength='16' name='dogBandId' ng-model='pet.dogBandId' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.dogBandId.$error.maxlength &amp;&amp; petform.submitted'>宠物牌号 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        备注
+                      </label>
+                      <textarea class='form-control' maxlength='16' name='remark' ng-model='pet.remark' type='text'></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
