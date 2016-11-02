@@ -1,0 +1,50 @@
+
+%center
+  %h3
+    fiona
+
+%center
+  %h3
+    收银小票
+
+%table.table-print-noborder.bottomline-dotted
+  %tbody
+    %tr
+      %th{:style => "width: 100px"} 会员帐号
+      %td {{vip.gestCode}}
+
+    %tr
+      %th 会员姓名
+      %td {{vip.gestName}}
+
+    %tr
+      %th 结算单号
+      %td {{statement.settleCode}}
+
+- portal '结算清单', 'statementdetail'
+= partial :'layouts/widget/print_table', :locals => {:listdataKey => "printFields"}
+
+%table.table-print-noborder.topline-dotted
+  %tbody
+    -#%tr
+    -#  %th.bottomline-dotted{:style => "width: 100px"} 现金
+    -#  %td.bottomline-dotted{:colspan => "3" } {{statement.factPaidMoney | currency:"￥"}}
+
+    %tr
+      %th{:style => "width: 100px"} 合计
+      %td{:colspan => "3" } {{statement.totalMoney | currency:"￥"}}
+
+    %tr
+      %th{:style => "width: 100px"} 应收
+      %td {{statement.shouldPaidMoney | currency:"￥"}}
+
+      %th{:style => "width: 100px"} 实收
+      %td {{statement.factPaidMoney | currency:"￥"}}
+
+    %tr
+      %th{:style => "width: 100px"} 找零金额
+      %td{:colspan => "3" } {{statement.changeMoney | currency:"￥"}}
+
+    %tr
+      %th{:style => "width: 100px"} 消费日期
+      %td{:colspan => "3" } {{statement.createDate | date:"yyyy年MM月dd日 hh时mm分ss秒" }}

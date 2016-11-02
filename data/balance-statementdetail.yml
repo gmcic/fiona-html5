@@ -19,6 +19,20 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 小计
 
+printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+  - fieldName: 项目名称
+
+  - fieldName: 数量
+
+  - fieldName: 单位
+
+  - fieldName: 价格
+    filter: currency:"￥"
+
+  - fieldName: 小计
+    filter: currency:"￥"
+
 searchFields:
   - fieldName: 会员编号
   - fieldName: 会员姓名
@@ -34,21 +48,24 @@ fields: #可定义多个中文名称指向同一个字段
 
   关联细节ID: relationDetailId
 
-  类型编号: itemCode
+  项目编号: itemCode
 
-  类型名称: itemName
+  项目名称: itemName
 
-  单元: packageUnit
+  单位: packageUnit
+
+  数量: totalNum
+
+  价格: totalCost
+
+  小计: sumprice
+
 
   规格: itemStandard
 
   零散比: itemBulk
 
   售价: sellPrice
-
-  总个数: totalNum
-
-  总价: totalCost
 
   实际价格: infactPrice
 
@@ -67,7 +84,6 @@ fields: #可定义多个中文名称指向同一个字段
   折后总价: sumDiscountMoney
 
   原始价格: sumOriginalMoney
-
 
   主键: id
 

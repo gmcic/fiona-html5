@@ -1,0 +1,40 @@
+- @portal_id = @portal_id || @page_id
+
+- @portal_name = @portal_name || @page_title
+
+- @portal_object = "" << @portal_id << "portal"
+
+- $pagefilter = (defined? pagefilter)? " | filter: " << pagefilter : (defined? filterbar) && filterbar == "page"? " | filter: pageFilterText": ""
+
+- @portal_prefix = @module[@portal_id]
+
+- @portal = data["" << @module[@portal_id] << "-" << @portal_id]
+
+- $listdataKey = (defined? listdataKey)? listdataKey : "listFields";
+
+-# 嵌套模块
+%table.table.table-bordered
+  %thead
+    %tr
+      - @portal[$listdataKey].each do |field|
+        %th #{field.aliasName || field.fieldName}
+
+  %tbody
+    %tr{ "ng-repeat" => @portal_id + " in " + @portal_id + "s" + $pagefilter}
+      - @portal[$listdataKey].each do |column|
+        %td
+          - if column.filter?
+            = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
+
+          - elsif column.input? && column.input == "select"
+            = bindSelect column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.options
+
+          - elsif column.input?
+            - if column.event?
+              = bindTextEvent column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.event
+
+            - else
+              = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+
+          - else
+            = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')

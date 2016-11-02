@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+    <div class='portlet light bordered'>
+      <div class='portlet-title'>
+        <div class='caption font-dark'>
+          <i class='fa fa-beer font-dark'></i>
+          <span class='caption-subject bold uppercase'>寄养管理</span>
+        </div>
+        <div class='actions'>
+          <button class='btn btn-circle btn-primary btn-sm' ng-click='fosterageportal.insert()' type='button'>
+            <i class='fa fa-plus'></i>
+            增加
+          </button>
+          <button class='btn btn-circle red-sunglo btn-sm' ng-click='fosterageportal.removes()' ng-disabled='fosterageportal.isRemoves' type='button'>
+            <i class='fa fa-trash'></i>
+            删除
+          </button>
+        </div>
+      </div>
+      <div class='portlet-body'>
+        <div class='table-toolbar'>
+          <form name='searchform' role='form'>
+            <div class='row'>
+              <div class='col-md-8'>
+                <div>
+                  <div class='input-group'>
+                    <div class='input-group-btn'>
+                      <button class='form-control input-noborder-right input-circle-left dropdown-toggle' data-toggle='dropdown' type='button'>
+                        {{fosterageportal.searchbar.fieldName}}
+                        <i class='fa fa-angle-down'></i>
+                      </button>
+                      <ul class='dropdown-menu'>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('', '综合搜索', '')">综合搜索</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('fosterNo', '寄养号')">寄养号</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('error', '会员编号')">会员编号</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('error', '宠物昵称')">宠物昵称</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('error', '会员姓名')">会员姓名</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('error', '主人手机')">主人手机</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('error', '类型')">类型</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('status', '状态')">状态</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('error', '寄养日期')">寄养日期</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="fosterageportal.setField('error', '到期天数')">到期天数</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <input class='form-control' ng-model='fosterageportal.searchbar.firstValue' ng-readonly="fosterageportal.searchbar.dataType == 'date'" placeholder='{{fosterageportal.searchbar.firstTextPlaceholder}}' type='text'>
+                    <div class='input-group-btn' ng-show="fosterageportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <input class='form-control' ng-model='fosterageportal.searchbar.lastValue' ng-readonly="fosterageportal.searchbar.dataType == 'date'" ng-show="fosterageportal.searchbar.type == 'between'" placeholder='{{fosterageportal.searchbar.lastTextPlaceholder}}' style='display: table-cell;' type='text'>
+                    <div class='input-group-btn' ng-show="fosterageportal.searchbar.type == 'between' &amp;&amp; fosterageportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <div class='input-group-btn'>
+                      <button class='btn green input-circle-right' ng-click='fosterageportal.filter()'>
+                        <i class='fa fa-search'></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <table class='table table-striped table-hover table-bordered'>
+          <thead>
+            <tr>
+              <th>
+                <input class='group-checkable' ng-change='fosterageportal.selectAll()' ng-model='fosterageportal.selectedall' type='checkbox'>
+              </th>
+              <th>操作</th>
+              <th>寄养号</th>
+              <th>会员姓名</th>
+              <th>宠物姓名</th>
+              <th>开始日期</th>
+              <th>预付金</th>
+              <th>预计天数</th>
+              <th>管理员</th>
+              <th>业务员</th>
+              <th>类型</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='odd gradeX' ng-repeat='fosterage in fosterages'>
+              <td>
+                <input class='checkboxes' ng-change='fosterageportal.selectChange()' ng-model='fosterageportal.selection[fosterage.id]' type='checkbox'>
+              </td>
+              <td>
+                <!-- / 查看按钮 -->
+                <!-- / 修改按钮 -->
+                <button class='btn btn-circle btn-default btn-sm' ng-click='fosterageportal.update(fosterage.id)' type='button'>
+                  <i class='fa fa-plus'></i>
+                  修改
+                </button>
+                <!-- / 删除按钮 -->
+                <button class='btn btn-circle red-sunglo btn-sm' ng-click='fosterageportal.remove(fosterage)' type='button'>
+                  <i class='fa fa-plus'></i>
+                  删除
+                </button>
+                <!-- / 选择按钮 -->
+                <!-- / 结算 -->
+                <!-- / 选择按钮 -->
+                <!-- / 审核按钮 -->
+              </td>
+              <td>
+                {{fosterage.fosterNo}}
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                {{fosterage.startTime}}
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                {{fosterage.preDays}}
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                {{fosterage.manufacturerId}}
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                {{fosterage.status}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class='row'>
+          <div class='col-md-12 col-sm-12'>
+            <form class='form-inline' name='paginationform' ng-submit='fosterageportal.jump()' novalidate='' role='form'>
+              <div class='form-group'>
+                <button class='btn btn-sm default prev' ng-click='fosterageportal.prevpage()' ng-disabled='fosterageportal.pagination.first==true' type='button'>
+                  <i class='fa fa-angle-left'></i>
+                </button>
+                <input class='pagination-panel-input form-control input-sm input-inline input-mini' maxlenght='5' ng-model='fosterageportal.pagination.pageNumber' style='text-align:center; margin: 0 5px;' type='text'>
+                <button class='btn btn-sm default next' ng-click='fosterageportal.nextpage()' ng-disabled='fosterageportal.pagination.last==true' type='button'>
+                  <i class='fa fa-angle-right'></i>
+                </button>
+                共 {{fosterageportal.pagination.totalElements}} 条 {{fosterageportal.pagination.totalPages}} 页
+                <label>
+                  <span class='seperator'>| 每页</span>
+                </label>
+                <select class='form-control input-xs input-sm input-inline' name='datatable_ajax_length' ng-change='fosterageportal.jump(1)' ng-model='fosterageportal.pagination.pageSize'>
+                  <option value='10'>10</option>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                </select>
+                条
+              </div>
+              <button class='btn btn-default' type='submit'>跳转</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div aria-hidden='true' class='modal fade' id='fosterage' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-full'>
+        <div class='modal-content'>
+          <form id='fosterageform' name='fosterageform' ng-submit='fosteragesubmit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>寄养管理</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='fosterage_alert'></div>
+              <!-- BEGIN SAMPLE FORM PORTLET -->
+              <div class='row'>
+                <div class='col-md-3'>
+                  <div class='portlet light bordered'>
+                    <div class='portlet-title'>
+                      <div class='caption'>
+                        <i class='icon-settings font-dark'></i>
+                        <span class='caption-subject font-dark sbold uppercase'>宠物资料</span>
+                      </div>
+                      <div class='actions'>
+                        <button class='btn btn-circle btn-primary btn-sm' ng-click='petportal.insert()' type='button'>
+                          <i class='fa fa-plus'></i>
+                          新增宠物
+                        </button>
+                        <button class='btn btn-circle btn-success btn-sm' ng-click='petportal.pupupselect()' type='button'>
+                          <i class='fa fa-search'></i>
+                          选择宠物
+                        </button>
+                      </div>
+                    </div>
+                    <div class='portlet-body form'>
+                      <div class='form-body'>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                会员编号
+                              </label>
+                              <input class='form-control' ng-model='pet.gestCode' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                会员姓名
+                              </label>
+                              <input class='form-control' ng-model='pet.gestName' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                宠物名称
+                              </label>
+                              <input class='form-control' ng-model='pet.petName' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                性别
+                              </label>
+                              <input class='form-control' ng-model='pet.error.valueNameCn' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                年龄
+                              </label>
+                              <input class='form-control' ng-model='pet.age' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                体重
+                              </label>
+                              <input class='form-control' ng-model='pet.petWeight' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                种类
+                              </label>
+                              <input class='form-control' ng-model='error' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                品种
+                              </label>
+                              <input class='form-control' ng-model='error' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                绝育状态
+                              </label>
+                              <input class='form-control' ng-model='pet.petBreed' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                病历编号
+                              </label>
+                              <input class='form-control' ng-model='pet.sickFileCode' readonly='true' type='text'>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-md-9'>
+                  <div class='row'>
+                    <div class='col-md-3'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          寄养号
+                        </label>
+                        <input class='form-control' maxlength='16' name='fosterNo' ng-model='fosterage.fosterNo' type='text'>
+                        <p class='help-block font-red-thunderbird' ng-show='fosterageform.fosterNo.$error.maxlength &amp;&amp; fosterageform.submitted'>寄养号 超过最大长度</p>
+                      </div>
+                    </div>
+                    <div class='col-md-3'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          寄养类型
+                        </label>
+                        <input class='form-control' maxlength='16' name='itemName' ng-model='fosterage.itemName' type='text'>
+                        <p class='help-block font-red-thunderbird' ng-show='fosterageform.itemName.$error.maxlength &amp;&amp; fosterageform.submitted'>寄养类型 超过最大长度</p>
+                      </div>
+                    </div>
+                    <div class='col-md-2'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          开始日期
+                        </label>
+                        <div class='input-icon right'>
+                          <i class='fa fa-calendar'></i>
+                          <input class='form-control date-picker' maxlength='16' name='startTime' ng-model='fosterage.startTime' readonly='true' type='text'>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='col-md-2'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          结束日期
+                        </label>
+                        <div class='input-icon right'>
+                          <i class='fa fa-calendar'></i>
+                          <input class='form-control date-picker' maxlength='16' name='endTime' ng-model='fosterage.endTime' readonly='true' type='text'>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='col-md-2'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          预计天数
+                        </label>
+                        <input class='form-control' maxlength='16' name='preDays' ng-model='fosterage.preDays' type='text'>
+                        <p class='help-block font-red-thunderbird' ng-show='fosterageform.preDays.$error.maxlength &amp;&amp; fosterageform.submitted'>预计天数 超过最大长度</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col-md-3'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          笼舍编号
+                        </label>
+                        <input class='form-control' maxlength='16' name='cageNo' ng-model='fosterage.cageNo' type='text'>
+                        <p class='help-block font-red-thunderbird' ng-show='fosterageform.cageNo.$error.maxlength &amp;&amp; fosterageform.submitted'>笼舍编号 超过最大长度</p>
+                      </div>
+                    </div>
+                    <div class='col-md-3'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          预付金额
+                        </label>
+                        <input class='form-control' maxlength='16' name='inputMoney' ng-model='fosterage.inputMoney' type='text'>
+                        <p class='help-block font-red-thunderbird' ng-show='fosterageform.inputMoney.$error.maxlength &amp;&amp; fosterageform.submitted'>预付金额 超过最大长度</p>
+                      </div>
+                    </div>
+                    <div class='col-md-2'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          价格
+                        </label>
+                        <input class='form-control' maxlength='16' name='price' ng-model='fosterage.price' type='text'>
+                        <p class='help-block font-red-thunderbird' ng-show='fosterageform.price.$error.maxlength &amp;&amp; fosterageform.submitted'>价格 超过最大长度</p>
+                      </div>
+                    </div>
+                    <div class='col-md-2'>
+                      <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          主管人员
+                        </label>
+                        <select class='form-control' id='managerId' name='managerId' ng-model='fosterage.managerId' ng-options='type.id as type.personName for type in dropdowns.managerIdSet'></select>
+                      </div>
+                    </div>
+                    <div class='col-md-2'>
+                      <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          业务员
+                        </label>
+                        <select class='form-control' id='manufacturerId' name='manufacturerId' ng-model='fosterage.manufacturerId' ng-options='type.id as type.personName for type in dropdowns.manufacturerIdSet'></select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col-md-12'>
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          备注
+                        </label>
+                        <textarea class='form-control' maxlength='16' name='remark' ng-model='fosterage.remark' type='text'></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='portlet light bordered'>
+                    <div class='portlet-title'>
+                      <div class='caption'>
+                        <i class='icon-settings font-dark'></i>
+                        <span class='caption-subject font-dark sbold uppercase'>宠物信息</span>
+                      </div>
+                    </div>
+                    <div class='portlet-body form'>
+                      <div class='tabbable-line'>
+                        <ul class='nav nav-tabs'>
+                          <li class='active'>
+                            <a data-toggle='tab' href='//#fosterage_consume'>寄养期间消费</a>
+                          </li>
+                          <li>
+                            <a data-toggle='tab' href='//#fosterage_prepay'>预付金记录</a>
+                          </li>
+                          <li>
+                            <a data-toggle='tab' href='//#fosterage_health'>健康状态记录</a>
+                          </li>
+                        </ul>
+                        <div class='tab-content'>
+                          <div class='tab-pane active' id='fosterage_consume'>
+                            <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+                            <div class='portlet light bordered'>
+                              <div class='portlet-title'>
+                                <div class='caption font-dark'>
+                                  <i class='fa fa-beer font-dark'></i>
+                                  <span class='caption-subject bold uppercase'>寄养期间消费</span>
+                                </div>
+                                <div class='actions'>
+                                  <button class='btn btn-circle btn-primary btn-sm' ng-click='productportal.insert()' type='button'>
+                                    <i class='fa fa-plus'></i>
+                                    增加
+                                  </button>
+                                  <button class='btn btn-circle red-sunglo btn-sm' ng-click='beautydetailportal.removes()' ng-disabled='beautydetailportal.isRemoves' type='button'>
+                                    <i class='fa fa-trash'></i>
+                                    删除
+                                  </button>
+                                </div>
+                              </div>
+                              <div class='portlet-body'>
+                                <table class='table table-striped table-hover table-bordered'>
+                                  <thead>
+                                    <tr>
+                                      <th>
+                                        <input class='group-checkable' ng-change='fosteragedetailportal.selectAll()' ng-model='fosteragedetailportal.selectedall' type='checkbox'>
+                                      </th>
+                                      <th>操作</th>
+                                      <th>收费名称</th>
+                                      <th>规格</th>
+                                      <th>生产商</th>
+                                      <th>价格</th>
+                                      <th>数量</th>
+                                      <th>单位</th>
+                                      <th>小计</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr class='odd gradeX' ng-repeat='fosteragedetail in fosteragedetails'>
+                                      <td>
+                                        <input class='checkboxes' ng-change='fosteragedetailportal.selectChange()' ng-model='fosteragedetailportal.selection[fosteragedetail.id]' type='checkbox'>
+                                      </td>
+                                      <td>
+                                        <button class='btn btn-circle btn-default btn-sm' ng-click='fosteragedetailportal.update(fosteragedetail.id)' type='button'>
+                                          <i class='fa fa-plus'></i>
+                                          修改
+                                        </button>
+                                        <button class='btn btn-circle red-sunglo btn-sm' ng-click='fosteragedetailportal.remove(fosteragedetail.id)' type='button'>
+                                          <i class='fa fa-plus'></i>
+                                          删除
+                                        </button>
+                                      </td>
+                                      <td>
+                                        <span class='label label-danger'>Danger</span>
+                                      </td>
+                                      <td>
+                                        {{fosteragedetail.itemStandard}}
+                                      </td>
+                                      <td>
+                                        {{fosteragedetail.manufacturerName}}
+                                      </td>
+                                      <td>
+                                        {{fosteragedetail.sellPrice}}
+                                      </td>
+                                      <td>
+                                        {{fosteragedetail.itemNum}}
+                                      </td>
+                                      <td>
+                                        {{fosteragedetail.recipeUnit}}
+                                      </td>
+                                      <td>
+                                        {{fosteragedetail.totalCost}}
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='tab-pane' id='fosterage_prepay'>
+                            <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+                            <div class='portlet light bordered'>
+                              <div class='portlet-title'>
+                                <div class='caption font-dark'>
+                                  <i class='fa fa-beer font-dark'></i>
+                                  <span class='caption-subject bold uppercase'>预付金额记录</span>
+                                </div>
+                                <div class='actions'>
+                                  <button class='btn btn-circle btn-primary btn-sm' ng-click='vipprepayportal.insert()' type='button'>
+                                    <i class='fa fa-plus'></i>
+                                    增加
+                                  </button>
+                                </div>
+                              </div>
+                              <div class='portlet-body'>
+                                <table class='table table-striped table-hover table-bordered'>
+                                  <thead>
+                                    <tr>
+                                      <th>
+                                        <input class='group-checkable' ng-change='vipprepayportal.selectAll()' ng-model='vipprepayportal.selectedall' type='checkbox'>
+                                      </th>
+                                      <th>操作</th>
+                                      <th>充值记录</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr class='odd gradeX' ng-repeat='vipprepay in vipprepays'>
+                                      <td>
+                                        <input class='checkboxes' ng-change='vipprepayportal.selectChange()' ng-model='vipprepayportal.selection[vipprepay.id]' type='checkbox'>
+                                      </td>
+                                      <td>
+                                        <button class='btn btn-circle btn-default btn-sm' ng-click='vipprepayportal.update(vipprepay.id)' type='button'>
+                                          <i class='fa fa-plus'></i>
+                                          修改
+                                        </button>
+                                        <button class='btn btn-circle red-sunglo btn-sm' ng-click='vipprepayportal.remove(vipprepay.id)' type='button'>
+                                          <i class='fa fa-plus'></i>
+                                          删除
+                                        </button>
+                                      </td>
+                                      <td>
+                                        <span class='label label-danger'>Danger</span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='tab-pane' id='fosterage_health'>
+                            <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+                            <div class='portlet light bordered'>
+                              <div class='portlet-title'>
+                                <div class='caption font-dark'>
+                                  <i class='fa fa-beer font-dark'></i>
+                                  <span class='caption-subject bold uppercase'>健康状态记录</span>
+                                </div>
+                                <div class='actions'>
+                                  <button class='btn btn-circle btn-primary btn-sm' ng-click='fosteragehealthportal.insert()' type='button'>
+                                    <i class='fa fa-plus'></i>
+                                    增加
+                                  </button>
+                                </div>
+                              </div>
+                              <div class='portlet-body'>
+                                <table class='table table-striped table-hover table-bordered'>
+                                  <thead>
+                                    <tr>
+                                      <th>
+                                        <input class='group-checkable' ng-change='fosteragehealthportal.selectAll()' ng-model='fosteragehealthportal.selectedall' type='checkbox'>
+                                      </th>
+                                      <th>操作</th>
+                                      <th>寄养号</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr class='odd gradeX' ng-repeat='fosteragehealth in fosteragehealths'>
+                                      <td>
+                                        <input class='checkboxes' ng-change='fosteragehealthportal.selectChange()' ng-model='fosteragehealthportal.selection[fosteragehealth.id]' type='checkbox'>
+                                      </td>
+                                      <td>
+                                        <button class='btn btn-circle btn-default btn-sm' ng-click='fosteragehealthportal.update(fosteragehealth.id)' type='button'>
+                                          <i class='fa fa-plus'></i>
+                                          修改
+                                        </button>
+                                        <button class='btn btn-circle red-sunglo btn-sm' ng-click='fosteragehealthportal.remove(fosteragehealth.id)' type='button'>
+                                          <i class='fa fa-plus'></i>
+                                          删除
+                                        </button>
+                                      </td>
+                                      <td>
+                                        <span class='label label-danger'>Danger</span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <button class='btn btn-primary' ng-disabled='fosterageform.$pristine' type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 健康记录 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='fosteragehealth' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='fosteragehealthform' name='fosteragehealthform' ng-submit='fosteragehealthportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>健康记录</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='fosteragehealth_alert'></div>
+              <!-- The file upload form used as target for the file upload widget -->
+              <div action='//jquery-file-upload.appspot.com/' data-file-upload='options' data-ng-class="{'fileupload-processing': processing() || loadingFiles}" enctype='multipart/form-data' id='fileupload' method='POST'>
+                <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                <noscript>
+                  <input name='redirect' type='hidden' value='https://blueimp.github.io/jQuery-File-Upload/'>
+                </noscript>
+                <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                <div class='row fileupload-buttonbar'>
+                  <div class='col-lg-7'>
+                    <!-- The fileinput-button span is used to style the file input field as button -->
+                    <span class='btn btn-success fileinput-button' ng-class='{disabled: disabled}'>
+                      <i class='glyphicon glyphicon-plus'></i>
+                      <span>Add files...</span>
+                      <input multiple='multiple' name='files[]' ng-disabled='disabled' type='file'>
+                    </span>
+                    <button class='btn btn-primary start' data-ng-click='submit()' type='button'>
+                      <i class='glyphicon glyphicon-upload'></i>
+                      <span>Start upload</span>
+                    </button>
+                    <button class='btn btn-warning cancel' data-ng-click='cancel()' type='button'>
+                      <i class='glyphicon glyphicon-ban-circle'></i>
+                      <span>Cancel upload</span>
+                    </button>
+                    <!-- The global file processing state -->
+                    <span class='fileupload-process'></span>
+                  </div>
+                  <!-- The global progress state -->
+                  <div class='col-lg-5 fade' data-ng-class='{in: active()}'>
+                    <!-- The global progress bar -->
+                    <div class='progress progress-striped active' data-file-upload-progress='progress()'>
+                      <div class='progress-bar progress-bar-success' data-ng-style="{width: num + '%'}"></div>
+                    </div>
+                    <!-- The extended global progress state -->
+                    <div class='progress-extended'> </div>
+                  </div>
+                </div>
+                <!-- The table listing the files available for upload/download -->
+                <table class='table table-striped files ng-cloak'>
+                  <tr data-ng-class="{'processing': file.$processing()}" data-ng-repeat='file in queue'>
+                    <td data-ng-switch='' data-on='!!file.thumbnailUrl'>
+                      <div class='preview' data-ng-switch-when='true'>
+                        <a data-gallery='' data-ng-href='{{file.url}}' download='{{file.name}}' title='{{file.name}}'>
+                          <img alt='' data-ng-src='{{file.thumbnailUrl}}'>
+                        </a>
+                      </div>
+                      <div class='preview' data-file-upload-preview='file' data-ng-switch-default=''></div>
+                    </td>
+                    <td>
+                      <p class='name' data-ng-switch='' data-on='!!file.url'>
+                        <span data-ng-switch-when='true' data-ng-switch='' data-on='!!file.thumbnailUrl'>
+                          <a data-gallery='' data-ng-href='{{file.url}}' data-ng-switch-when='true' download='{{file.name}}' title='{{file.name}}'>{{file.name}}</a>
+                          <a data-ng-href='{{file.url}}' data-ng-switch-default='' download='{{file.name}}' title='{{file.name}}'>{{file.name}}</a>
+                        </span>
+                        <span data-ng-switch-default=''>{{file.name}}</span>
+                      </p>
+                      <strong class='error text-danger' data-ng-show='file.error'>{{file.error}}</strong>
+                    </td>
+                    <td>
+                      <p class='size'>{{file.size | formatFileSize}}</p>
+                      <div class='progress progress-striped active fade' data-file-upload-progress='file.$progress()' data-ng-class="{pending: 'in'}[file.$state()]">
+                        <div class='progress-bar progress-bar-success' data-ng-style="{width: num + '%'}"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class='btn btn-primary start' data-ng-click='file.$submit()' data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'" data-ng-hide='!file.$submit || options.autoUpload' type='button'>
+                        <i class='glyphicon glyphicon-upload'></i>
+                        <span>Start</span>
+                      </button>
+                      <button class='btn btn-warning cancel' data-ng-click='file.$cancel()' data-ng-hide='!file.$cancel' type='button'>
+                        <i class='glyphicon glyphicon-ban-circle'></i>
+                        <span>Cancel</span>
+                      </button>
+                      <button class='btn btn-danger destroy' data-ng-click='file.$destroy()' data-ng-hide='!file.$destroy' type='button'>
+                        <i class='glyphicon glyphicon-trash'></i>
+                        <span>Delete</span>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 充值预付金 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='vipprepay' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='vipprepayform' name='vipprepayform' ng-submit='vipprepayportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>增加&减少金额</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='vipprepay_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        金额
+                      </label>
+                      <input class='form-control' maxlength='16' name='inputMoney' ng-model='vipprepay.inputMoney' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='vipprepayform.inputMoney.$error.maxlength &amp;&amp; vipprepayform.submitted'>金额 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 选择宠物 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='petselect' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+            <h4 class='modal-title'>选择宠物</h4>
+          </div>
+          <div class='modal-body'>
+            <div id='petselect_alert'></div>
+            <table class='table table-striped table-hover table-bordered'>
+              <thead>
+                <tr>
+                  <th>操作</th>
+                  <th>会员编号</th>
+                  <th>会员姓名</th>
+                  <th>宠物卡号</th>
+                  <th>宠物昵称</th>
+                  <th>宠物性别</th>
+                  <th>体重(kg)</th>
+                  <th>颜色</th>
+                  <th>宠物种类</th>
+                  <th>宠物品种</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='odd gradeX' ng-repeat='pet in pets'>
+                  <td class='text-center'>
+                    <button class='btn btn-circle btn-info btn-sm' ng-click='petportal.checked(pet.id)' type='button'>
+                      <i class='fa fa-check'></i>
+                      选择
+                    </button>
+                  </td>
+                  <td>
+                    {{pet.gestCode}}
+                  </td>
+                  <td>
+                    {{pet.gestName}}
+                  </td>
+                  <td>
+                    {{pet.petCode}}
+                  </td>
+                  <td>
+                    {{pet.petName}}
+                  </td>
+                  <td>
+                    {{pet.petSex.valueNameCn}}
+                  </td>
+                  <td>
+                    {{pet.petWeight}}
+                  </td>
+                  <td>
+                    {{pet.petSkinColor.valueNameCn}}
+                  </td>
+                  <td>
+                    {{pet.petRace.petRace.name}}
+                  </td>
+                  <td>
+                    {{pet.petRace.type}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class='modal-footer'>
+            <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 添加宠物 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='pet' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='petform' name='petform' ng-submit='petportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>添加宠物</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='pet_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员编号
+                        <span class='required'>*</span>
+                      </label>
+                      <input class='form-control' maxlength='32' name='gestCode' ng-model='vip.gestCode' required='true' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.gestCode.$error.required &amp;&amp; petform.submitted'>会员编号不能为空.</p>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.gestCode.$error.maxlength &amp;&amp; petform.submitted'>会员编号 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员姓名
+                        <span class='required'>*</span>
+                      </label>
+                      <input class='form-control' maxlength='32' name='gestName' ng-model='vip.gestName' required='true' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.gestName.$error.required &amp;&amp; petform.submitted'>会员姓名不能为空.</p>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.gestName.$error.maxlength &amp;&amp; petform.submitted'>会员姓名 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员性别
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='gestSex' name='gestSex' ng-model='vip.gestSex' ng-options='type as type.valueNameCn for type in vipportal.dropdowns.gestSexSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.gestSex.$error.required &amp;&amp; petform.submitted'>会员性别不能为空.</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        出生日期
+                      </label>
+                      <div class='input-icon right'>
+                        <i class='fa fa-calendar'></i>
+                        <input class='form-control date-picker' maxlength='32' name='gestBirthday' ng-model='vip.gestBirthday' readonly='true' type='text'>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        会员年龄
+                      </label>
+                      <input class='form-control' ng-model='local.age' readonly='true' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员电话
+                      </label>
+                      <input class='form-control' maxlength='32' name='mobilePhone' ng-model='vip.mobilePhone' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.mobilePhone.$error.maxlength &amp;&amp; petform.submitted'>会员电话 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        固定电话
+                      </label>
+                      <input class='form-control' maxlength='32' name='telPhone' ng-model='vip.telPhone' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.telPhone.$error.maxlength &amp;&amp; petform.submitted'>固定电话 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        联系邮箱
+                      </label>
+                      <input class='form-control' maxlength='32' name='email' ng-model='vip.email' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.email.$error.maxlength &amp;&amp; petform.submitted'>联系邮箱 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        账户金额
+                      </label>
+                      <input class='form-control' ng-model='vip.prepayMoney' readonly='true' type='text'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        积分
+                      </label>
+                      <input class='form-control' maxlength='32' name='rewardPoint' ng-model='vip.rewardPoint' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.rewardPoint.$error.maxlength &amp;&amp; petform.submitted'>积分 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                      <div class='form-group'>
+                        <label class='control-label'>
+                          会员等级
+                          <span class='required'>*</span>
+                        </label>
+                        <select class='form-control' id='gestStyle' name='gestStyle' ng-model='vip.gestStyle' ng-options='type as type.levelName for type in vipportal.dropdowns.gestStyleSet' required='true'></select>
+                        <p class='help-block font-red-thunderbird' ng-show='petform.gestStyle.$error.required &amp;&amp; petform.submitted'>会员等级不能为空.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        会员状态
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='status' name='status' ng-model='vip.status' ng-options='type as type.valueNameCn for type in vipportal.dropdowns.statusSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.status.$error.required &amp;&amp; petform.submitted'>会员状态不能为空.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-9'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        联系地址
+                      </label>
+                      <input class='form-control' maxlength='32' name='gestAddress' ng-model='vip.gestAddress' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='petform.gestAddress.$error.maxlength &amp;&amp; petform.submitted'>联系地址 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        登记日期
+                      </label>
+                      <div class='input-icon right'>
+                        <i class='fa fa-calendar'></i>
+                        <input class='form-control date-picker' maxlength='32' name='createDate' ng-model='vip.createDate' readonly='true' type='text'>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-6'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        备注
+                      </label>
+                      <textarea class='form-control' maxlength='32' name='remark' ng-model='vip.remark' type='text'></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 添加服务项目 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='product' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-full'>
+        <div class='modal-content'>
+          <form id='productform' name='productform' ng-submit='productportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>添加服务项目</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='product_alert'></div>
+              <!-- BEGIN SAMPLE FORM PORTLET -->
+              <div class='row'>
+                <div class='col-md-2'>
+                  <div js-tree='productportal.treeConfig' ng-model='productportal.treeData' tree-events-obj='productportal.treeEventsObj' tree='productportal.treeInstance'></div>
+                </div>
+                <div class='col-md-10'>
+                  <div class='portlet-input input-inline'>
+                    <div class='input-group'>
+                      <input class='form-control input-circle-left' ng-model='productportal.pageFilterText' placeholder='请输入商品名称' size='60' type='text'>
+                      <div class='input-group-btn'>
+                        <button class='btn green input-circle-right' ng-click='productportal.search()'>
+                          <i class='fa fa-search'></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class='portlet-body'>
+                      <table class='table table-striped table-hover table-bordered'>
+                        <thead>
+                          <tr>
+                            <th>
+                              <input class='group-checkable' ng-change='productportal.selectAll()' ng-model='productportal.selectedall' type='checkbox'>
+                            </th>
+                            <th>名称</th>
+                            <th>规格</th>
+                            <th>销售单位</th>
+                            <th>销售价格</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class='odd gradeX' ng-repeat='product in productportal.products'>
+                            <td>
+                              <input class='checkboxes' ng-change='productportal.selectChange()' ng-model='productportal.selection[product.id]' type='checkbox'>
+                            </td>
+                            <td>
+                              {{product.itemName}}
+                            </td>
+                            <td>
+                              {{product.itemStandard}}
+                            </td>
+                            <td>
+                              {{product.packageUnit}}
+                            </td>
+                            <td>
+                              {{product.sellPrice}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class='row'>
+                        <div class='col-md-12 col-sm-12' component='productportal' fa_pagination='' pagination='pagination' search='search()'></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

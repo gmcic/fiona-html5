@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- BEGIN EXAMPLE TABLE PORTLET -->
+    <div class='portlet light bordered'>
+      <div class='portlet-title'>
+        <div class='caption font-dark'>
+          <i class='fa fa-beer font-dark'></i>
+          <span class='caption-subject bold uppercase'>医院信息</span>
+        </div>
+        <div class='actions'>
+          
+        </div>
+      </div>
+      <div class='portlet-body'>
+        <form id='hospitalform' name='hospitalform' ng-submit='hospitalsubmit()' novalidate='' role='form'>
+          <div class='form-body'>
+            <div class='row'>
+              <div class='col-md-4'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    编号
+                  </label>
+                  <input class='form-control' maxlength='32' name='entNo' ng-model='hospital.entNo' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.entNo.$error.maxlength &amp;&amp; hospitalform.submitted'>编号 超过最大长度</p>
+                </div>
+              </div>
+              <div class='col-md-8'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    医院名称
+                  </label>
+                  <input class='form-control' maxlength='32' name='fullName' ng-model='hospital.fullName' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.fullName.$error.maxlength &amp;&amp; hospitalform.submitted'>医院名称 超过最大长度</p>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-md-4'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    联系人
+                    <span class='required'>*</span>
+                  </label>
+                  <input class='form-control' maxlength='32' name='responseMan' ng-model='hospital.responseMan' required='true' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.responseMan.$error.required &amp;&amp; hospitalform.submitted'>联系人不能为空.</p>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.responseMan.$error.maxlength &amp;&amp; hospitalform.submitted'>联系人 超过最大长度</p>
+                </div>
+              </div>
+              <div class='col-md-4'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    电话
+                  </label>
+                  <input class='form-control' maxlength='32' name='telPhone' ng-model='hospital.telPhone' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.telPhone.$error.maxlength &amp;&amp; hospitalform.submitted'>电话 超过最大长度</p>
+                </div>
+              </div>
+              <div class='col-md-4'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    传真
+                  </label>
+                  <input class='form-control' maxlength='32' name='fax' ng-model='hospital.fax' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.fax.$error.maxlength &amp;&amp; hospitalform.submitted'>传真 超过最大长度</p>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-md-4'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    手机
+                    <span class='required'>*</span>
+                  </label>
+                  <input class='form-control' maxlength='32' name='telPhone' ng-model='hospital.telPhone' required='true' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.telPhone.$error.required &amp;&amp; hospitalform.submitted'>手机不能为空.</p>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.telPhone.$error.maxlength &amp;&amp; hospitalform.submitted'>手机 超过最大长度</p>
+                </div>
+              </div>
+              <div class='col-md-8'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    电子信箱
+                  </label>
+                  <input class='form-control' maxlength='32' name='email' ng-model='hospital.email' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.email.$error.maxlength &amp;&amp; hospitalform.submitted'>电子信箱 超过最大长度</p>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-md-12'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    地址
+                  </label>
+                  <input class='form-control' maxlength='32' name='areaCode' ng-model='hospital.areaCode' type='text'>
+                  <p class='help-block font-red-thunderbird' ng-show='hospitalform.areaCode.$error.maxlength &amp;&amp; hospitalform.submitted'>地址 超过最大长度</p>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-md-12'>
+                <div class='form-group'>
+                  <label class='control-label'>
+                    备注
+                  </label>
+                  <textarea class='form-control' maxlength='32' name='remark' ng-model='hospital.remark' type='text'></textarea>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-md-12'>
+                <button class='btn btn-primary' ng-disabled='hospitalform.$pristine' type='submit'>
+                  <i class='fa fa-plus'></i>
+                  保存表单
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

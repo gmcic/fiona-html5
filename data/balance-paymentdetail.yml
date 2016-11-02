@@ -4,40 +4,52 @@ module:
   data: /gestpaidrecords/billDetail/{gestId}
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 结算
-
   - fieldName: 名称
 
   - fieldName: 原价
-
-  - fieldName: 实价
     filter: currency:"￥"
-
-  - fieldName: 优惠
+#
+#  - fieldName: 实价
+#    fieldKey: itemCost
+#    filter: currency:"￥"
+#
+#  - fieldName: 优惠
 
   - fieldName: 数量
 
   - fieldName: 单位
 
   - fieldName: 小计
+    filter: currency:"￥"
 
 searchFields:
   - fieldName: 会员编号
 
 fields: #可定义多个中文名称指向同一个字段
 
-  结算: XX
+  主键: id
 
-  名称: XX
+  会员ID: gestId
 
-  原价: XX
+  编码: itemCode
 
-  实价: XX
+  名称: itemName
 
-  优惠: XX
+  原价: itemCost
 
-  数量: XX
+  数量: itemNum
 
-  单位: XX
+  业务类型ID: busiTypeId
 
-  小计: XX
+  业务类型: businessType
+
+  优惠: isVipDiscount
+
+  单位: itemUnit
+
+  relationId: relationId
+
+  relationId: relationId
+
+  # 不提交后台
+  小计: sumprice

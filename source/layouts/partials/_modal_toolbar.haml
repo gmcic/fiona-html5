@@ -18,11 +18,11 @@
 
 // 审核按钮
 - if (defined? modal_toolbar) && ( modal_toolbar.include? "balance" )
-  %button.btn.btn-warning{:type => "button",  "ng-click"=> "rebalance()"}
-    %i.fa.fa-plus
-    重算
+  -#%button.btn.btn-warning{:type => "button",  "ng-click"=> "rebalance()"}
+  -#  %i.fa.fa-plus
+  -#  重算
 
-  %button.btn.btn-primary{:type => "button",  "ng-click"=> "balance()"}
+  %button.btn.btn-primary{:type => "button",  "ng-click"=> "balance()", "ng-disabled" => "allowpay == false"}
     %i.fa.fa-plus
     结算
 
@@ -35,5 +35,4 @@
 // 挂号
 - if (defined? modal_toolbar) && ( modal_toolbar.include? "register" )
   = partial :'layouts/buttons/submit', :locals => {:label => "保存挂号"}
-  = partial :'layouts/buttons/submit', :locals => {:label => "挂号并付款"}
   %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 取消挂号

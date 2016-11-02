@@ -24,8 +24,6 @@
       %span.seperator | 每页
 
     %select.form-control.input-xs.input-sm.input-inline{:name => "datatable_ajax_length", 'ng' =>{'model':"#{$portal_object}.pagination.pageSize", 'change': "#{$portal_object}.jump(1)" }}
-      %option{:value => "1"} 1
-      %option{:value => "2"} 2
       %option{:value => "10"} 10
       %option{:value => "20"} 20
       %option{:value => "50"} 50

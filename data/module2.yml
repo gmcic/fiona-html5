@@ -23,6 +23,14 @@ balance:
     name: 收费明细
     server: /gestpaidrecords/billDetail/{gestId}
 
+  - id: paymentlog
+    name: 支付流水
+    server: gestpaidrecords
+
+  - id: paymentpractical
+    name: 现场支付情况 
+    server: none
+
   - id: statement
     name: 结算单管理
     server: financesettleaccountss

@@ -1,4 +1,4 @@
-%table.table-noborder
+%table.table-print-noborder
   %tbody
     %tr
       %th{:style => "width: 70px"} 会员姓名
@@ -31,15 +31,16 @@
       %td {{curemanager.temperature}}
 
 - portal '商品与服务管理', 'doctorprescriptdetail'
-= partial :'layouts/widget/print_table', :locals => {:listdataKey => "printFields"}
-%table.table-noborder
+= partial :'layouts/widget/print_table_border', :locals => {:listdataKey => "printFields", :bordered => 'true'}
+
+%table.table-print-noborder
   %tbody
     %tr
-      %th{:style => "width: 100px"} 诊疗医生
-      %td{:style => "width: 200px"}
+      %th{:style => "width: 90px"} 诊疗医生
+      %td{:style => "width: 180px"}
 
-      %th{:style => "width: 100px"}  助理医生
-      %td{:style => "width: 200px"}
+      %th{:style => "width: 90px"}  助理医生
+      %td{:style => "width: 180px"}
 
       %td.text-right.h4 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}
 

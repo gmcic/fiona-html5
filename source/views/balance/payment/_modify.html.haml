@@ -9,47 +9,24 @@
   .col-md-4
     .form-body
       .row
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => { :fieldName => '总项数', :required => "true", :maxlength => '16'}
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '总项数', :required => "true", :maxlength => '16'}
 
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => { :fieldName => '总消费额', :required => "true", :maxlength => '16'}
-
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => { :fieldName => '优惠总额', :required => "true", :maxlength => '16'}
-
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '总消费额', :required => "true", :maxlength => '16'}
 
       .row
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => { :fieldName => '请支付金额', :required => "true", :maxlength => '16'}
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '请支付金额', :required => "true", :maxlength => '16'}
 
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => { :fieldName => '已支付金额', :required => "true", :maxlength => '16'}
-
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => { :fieldName => '找零', :required => "true", :maxlength => '16'}
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '找零', :required => "true", :maxlength => '16'}
 
     .form-body
       .row
-        .col-md-12
-          = partial :'layouts/inputs/text', :locals => { :fieldName => '预付金', :required => "true", :maxlength => '16'}
-
-      .row
         .col-md-4
-          = partial :'layouts/inputs/text', :locals => { :fieldName => '现金', :required => "true", :maxlength => '16'}
+          = partial :'layouts/inputs/select', :locals => {:keyword => "paymentpractical", :fieldName => '支付方式', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in dropdowns.paymentTypeSet"}
 
-        .col-md-4
-          = partial :'layouts/inputs/text', :locals => { :fieldName => '余额', :required => "true", :maxlength => '16'}
+        .col-md-8
+          = partial :'layouts/inputs/number', :locals => {:keyword => "paymentpractical", :fieldName => '支付金额', :maxlength => '32', :required => "true", :change => "pay()"}
 
-        .col-md-4
-          = partial :'layouts/inputs/text', :locals => { :fieldName => '支付宝', :required => "true", :maxlength => '16'}
-
-      .row
-        .col-md-4
-          = partial :'layouts/inputs/text', :locals => { :fieldName => '微信', :required => "true", :maxlength => '16'}
-
-        .col-md-4
-          = partial :'layouts/inputs/text', :locals => { :fieldName => '银行卡', :required => "true", :maxlength => '16'}
-
-        .col-md-4
-          = partial :'layouts/inputs/text', :locals => { :fieldName => '折扣', :required => "true", :maxlength => '16'}

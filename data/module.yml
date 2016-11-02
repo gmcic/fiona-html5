@@ -11,8 +11,10 @@ film: analysed
 # 结算服务
 payment: balance
 paymentdetail: balance
+paymentlog: balance
 statement: balance
 statementdetail: balance
+paymentpractical: balance
 
 #基础数据
 dealer: basic

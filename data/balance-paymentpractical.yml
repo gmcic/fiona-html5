@@ -1,0 +1,33 @@
+module:
+  name: 收费明细
+  id: paymentpractical
+  data: none
+
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+searchFields:
+  - fieldName: 会员编号
+
+fields: #可定义多个中文名称指向同一个字段
+  总项数: totalSize
+
+  总消费额: totalPrice
+
+  请支付金额: price
+
+  支付方式: operateAction
+
+  支付金额: operateContent
+
+  找零: backprice
+
+#  优惠总额:
+
+#  已支付金额:
+#
+#  预付金:
+#
+#  余额:
+#
+#  折扣:

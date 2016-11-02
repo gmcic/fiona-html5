@@ -2,11 +2,13 @@
 layout: "page"
 ---
 
-- page '预约管理', 'bespeak'
+- page "预约管理", "bespeak"
 
+预约管理
 
-= partial 'layouts/widget/portal'
-
+-#
+-#= partial 'layouts/widget/portal'
+-#
 
   -#%a.btn.btn-outline.btn-circle.btn-sm.purple{:href => "javascript:;", 'ng': {'click' => 'confirm(bespeak.id)'}}
   -#  %i.fa.fa-edit
@@ -30,34 +32,34 @@ layout: "page"
   -#  %i.fa.fa-trash-o
   -#  查看
 
-
-= partial :'layouts/partials/modal' do
-  = partial 'modify'
-
-/ Modal
-- modal "重发短信", "resend"
-
-= partial :'layouts/partials/modal' do
-  = partial 'resend'
-
-- modal "预约明细", "detail"
-
-= partial :'layouts/partials/modal' do
-  = partial 'detail'
-
-
-- modal "住院登记", "inhospital"
-
-= partial :'layouts/partials/modal-full' do
-  = partial 'inhospital'
-
-
-- modal "寄养登记", "fosterage"
-
-= partial :'layouts/partials/modal-full' do
-  = partial 'fosterage'
-
-- modal "会员挂号", "registervip"
-
-= partial :'layouts/partials/modal-full' do
-  = partial 'registervip'
+-#
+-#= partial :'layouts/partials/modal' do
+-#  = partial 'modify'
+-#
+-#/ Modal
+-#- modal "重发短信", "resend"
+-#
+-#= partial :'layouts/partials/modal' do
+-#  = partial 'resend'
+-#
+-#- modal "预约明细", "detail"
+-#
+-#= partial :'layouts/partials/modal' do
+-#  = partial 'detail'
+-#
+-#
+-#- modal "住院登记", "inhospital"
+-#
+-#= partial :'layouts/partials/modal-full' do
+-#  = partial 'inhospital'
+-#
+-#
+-#- modal "寄养登记", "fosterage"
+-#
+-#= partial :'layouts/partials/modal-full' do
+-#  = partial 'fosterage'
+-#
+-#- modal "会员挂号", "registervip"
+-#
+-#= partial :'layouts/partials/modal-full' do
+-#  = partial 'registervip'

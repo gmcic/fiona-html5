@@ -1,0 +1,2633 @@
+
+    $scope.filters = [
+        {
+            key: "---",
+            prefix: "---",
+            fields:[]
+        }
+        ,
+        {
+          key: "dashboard",
+          prefix: "dashboard",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "case",
+          prefix: "api",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "index",
+          prefix: "api",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "analysed",
+          prefix: "analysed",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "主人手机",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病历号",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "化验项目",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "化验状态",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "开单日期",
+                    name: "XX"
+                }
+          ]
+        }
+        ,
+        {
+          key: "film",
+          prefix: "analysed",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "主人手机",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病历号",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "影像项目",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "状态",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "开单日期",
+                    name: "XX"
+                }
+          ]
+        }
+        ,
+        {
+          key: "payment",
+          prefix: "balance",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "gestNo"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "gestName"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员电话",
+                    name: "phone"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "付款状态",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "paymentdetail",
+          prefix: "balance",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "paymentlog",
+          prefix: "balance",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "statement",
+          prefix: "balance",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "gestCode"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "gestName"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员电话",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "结算单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "结算日期",
+                    name: "createDate"
+                }
+          ]
+        }
+        ,
+        {
+          key: "statementdetail",
+          prefix: "balance",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员电话",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "结算单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "结算日期",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "paymentpractical",
+          prefix: "balance",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "dealer",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "自动编号",
+                    name: "code"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "经销商名称",
+                    name: "name"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "联系人",
+                    name: "contractMan"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "手机",
+                    name: "mobilePhone"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "地址",
+                    name: "dealerAddress"
+                }
+          ]
+        }
+        ,
+        {
+          key: "grade",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "hospital",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "labwork",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病例号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "labworktype",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病例号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "labworkdetail",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病例号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "personnel",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工编号",
+                    name: "personCode"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工名称",
+                    name: "personName"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工手机",
+                    name: "mobilePhone"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "登记日期",
+                    name: "createDate"
+                }
+          ]
+        }
+        ,
+        {
+          key: "product",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称",
+                    name: "itemName"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "编号",
+                    name: "itemCode"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "拼音码",
+                    name: "inputCode"
+                }
+          ]
+        }
+        ,
+        {
+          key: "producttype",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病例号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "role",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "setting",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "storage",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "仓库编号",
+                    name: "code"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "仓库名称",
+                    name: "name"
+                }
+          ]
+        }
+        ,
+        {
+          key: "varietie",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "品种",
+                    name: "type"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "种类",
+                    name: "$varietietype.name"
+                }
+          ]
+        }
+        ,
+        {
+          key: "varietietype",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "dictionary",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "dictionarytype",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "userdict",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "userdicttype",
+          prefix: "basic",
+          fields:[
+                {
+                }
+          ]
+        }
+        ,
+        {
+          key: "businestype",
+          prefix: "basic",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "类型名称",
+                    name: "cateName"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "状态",
+                    name: "status"
+                }
+          ]
+        }
+        ,
+        {
+          key: "check",
+          prefix: "check",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "检测号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "主人手机",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "状态",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "checkdevice",
+          prefix: "check",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "curemanager",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "medicalrecord",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "主人手机",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病历号",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "诊疗日期",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "invaccine",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "testsheet",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "testsheetdetail",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "doctorprescript",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "doctorprescriptdetail",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "类别名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "prescripttemplate",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "prescripttemplatedetail",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "prescripttemplatetype",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "prescription",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称",
+                    name: "itemName"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "prescriptiontype",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "prescriptiondetail",
+          prefix: "cure",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "beauty",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "主人姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "服务师",
+                    name: "hairdresserId"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "助理",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "服务时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "状态",
+                    name: "status"
+                }
+          ]
+        }
+        ,
+        {
+          key: "itback",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "itbackdetail",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "bespeak",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工电话",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "预约人",
+                    name: "XX"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "预约人手机",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "预约状态",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "beautydetail",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "fosterage",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "寄养号",
+                    name: "fosterNo"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "主人手机",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "类型",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "状态",
+                    name: "status"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "寄养日期",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "到期天数",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "fosteragedetail",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "收费名称",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "fosteragehealth",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "寄养号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "inhospital",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "住院号",
+                    name: "inHospitalNo"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "主人手机",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "类型",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "状态",
+                    name: "status"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "住院日期",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "到期天数",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "inhospitaldetail",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "住院号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "inhospitalhealth",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "寄养号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "inhospitalprescription",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "住院号",
+                    name: "inHospitalNo"
+                }
+          ]
+        }
+        ,
+        {
+          key: "inhospitalprescriptiondetail",
+          prefix: "direct",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "住院号",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "pet",
+          prefix: "guest",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物病历号",
+                    name: "sickFileCode"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "宠物昵称",
+                    name: "petName"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "gestCode"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员电话",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "登记日期",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "vip",
+          prefix: "guest",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员编号",
+                    name: "gestCode"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员姓名",
+                    name: "gestName"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "会员电话",
+                    name: "mobilePhone"
+                }
+          ]
+        }
+        ,
+        {
+          key: "vipprepay",
+          prefix: "guest",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "操作时间",
+                    name: "recordTime"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "金额",
+                    name: "inputMoney"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "操作员",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "expenditure",
+          prefix: "management",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "费用类别",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "摘要",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "支出时间",
+                    name: "inputDate"
+                }
+          ]
+        }
+        ,
+        {
+          key: "expendituretype",
+          prefix: "management",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "费用类别",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "msgfind",
+          prefix: "message",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "msgself",
+          prefix: "message",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "msgsetting",
+          prefix: "message",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "msgwarn",
+          prefix: "message",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "wechat",
+          prefix: "message",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "register",
+          prefix: "registration",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportachievements",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportcases",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportconsumption",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportgrossprofit",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportpurchase",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportreg",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportsales",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportstock",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportstorefront",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportturnover",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "reportvisit",
+          prefix: "report",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "saleplate",
+          prefix: "sales",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "saleplatedetail",
+          prefix: "sales",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "员工姓名",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "backstorage",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "经销商",
+                    name: "dealerName"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "createDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "checkDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "checkMan"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "status"
+                }
+          ]
+        }
+        ,
+        {
+          key: "backstoragedetail",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "经销商",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "createDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "instorage",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "经销商",
+                    name: "dealerName"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "createDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "checkMan"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "status.valueNameCn"
+                }
+          ]
+        }
+        ,
+        {
+          key: "instoragedetail",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "经销商",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "movestorage",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "createDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "checkDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "checkMan"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "status"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "拨出仓库",
+                    name: "fromWarehouseId"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "拨入仓库",
+                    name: "toWarehouseId"
+                }
+          ]
+        }
+        ,
+        {
+          key: "movestoragedetail",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "拨出仓库",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "拨入仓库",
+                    name: "Error"
+                }
+          ]
+        }
+        ,
+        {
+          key: "outstorage",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "createDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "checkDate"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "checkMan"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "status"
+                }
+          ]
+        }
+        ,
+        {
+          key: "outstoragedetail",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "商品名称",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单号",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "制单时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核时间",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "审核人",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "单据状态",
+                    name: "status"
+                }
+          ]
+        }
+        ,
+        {
+          key: "stock",
+          prefix: "stock",
+          fields:[
+                {
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "名称/拼音码",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "",
+                    label: "---",
+                    name: "Error"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "条码",
+                    name: "barCode"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "规格",
+                    name: "itemStandard"
+                }
+                ,
+                {
+                    flag: "isfield",
+                    label: "销售单位",
+                    name: "Error"
+                }
+          ]
+        }
+    ];
