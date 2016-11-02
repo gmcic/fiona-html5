@@ -24,7 +24,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $contro
 
         name: "收费管理",
 
-        server: "/api/v2/gestpaidrecords/bullList",
+        server: "/api/v2/gestpaidrecords/billList",
 
         defilters: { "personCode": "员工编号", "personName": "员工名称 "},
 
