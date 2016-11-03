@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+    <div class='portlet light bordered'>
+      <div class='portlet-title'>
+        <div class='caption font-dark'>
+          <i class='fa fa-beer font-dark'></i>
+          <span class='caption-subject bold uppercase'>病案管理</span>
+        </div>
+        <div class='actions'>
+          <button class='btn btn-circle btn-primary btn-sm' ng-click='medicalrecordportal.insert()' type='button'>
+            <i class='fa fa-plus'></i>
+            增加
+          </button>
+          <button class='btn btn-circle red-sunglo btn-sm' ng-click='medicalrecordportal.removes()' ng-disabled='medicalrecordportal.isRemoves' type='button'>
+            <i class='fa fa-trash'></i>
+            删除
+          </button>
+        </div>
+      </div>
+      <div class='portlet-body'>
+        <div class='table-toolbar'>
+          <form name='searchform' role='form'>
+            <div class='row'>
+              <div class='col-md-8'>
+                <div>
+                  <div class='input-group'>
+                    <div class='input-group-btn'>
+                      <button class='form-control input-noborder-right input-circle-left dropdown-toggle' data-toggle='dropdown' type='button'>
+                        {{medicalrecordportal.searchbar.fieldName}}
+                        <i class='fa fa-angle-down'></i>
+                      </button>
+                      <ul class='dropdown-menu'>
+                        <li>
+                          <a href='javascript:;' ng-click="medicalrecordportal.setField('', '综合搜索', '')">综合搜索</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="medicalrecordportal.setField('error', '会员编号')">会员编号</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="medicalrecordportal.setField('XX', '会员姓名')">会员姓名</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="medicalrecordportal.setField('error', '主人手机')">主人手机</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="medicalrecordportal.setField('XX', '宠物病历号')">宠物病历号</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="medicalrecordportal.setField('XX', '宠物昵称')">宠物昵称</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="medicalrecordportal.setField('error', '诊疗日期')">诊疗日期</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <input class='form-control' ng-model='medicalrecordportal.searchbar.firstValue' ng-readonly="medicalrecordportal.searchbar.dataType == 'date'" placeholder='{{medicalrecordportal.searchbar.firstTextPlaceholder}}' type='text'>
+                    <div class='input-group-btn' ng-show="medicalrecordportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <input class='form-control' ng-model='medicalrecordportal.searchbar.lastValue' ng-readonly="medicalrecordportal.searchbar.dataType == 'date'" ng-show="medicalrecordportal.searchbar.type == 'between'" placeholder='{{medicalrecordportal.searchbar.lastTextPlaceholder}}' style='display: table-cell;' type='text'>
+                    <div class='input-group-btn' ng-show="medicalrecordportal.searchbar.type == 'between' &amp;&amp; medicalrecordportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <div class='input-group-btn'>
+                      <button class='btn green input-circle-right' ng-click='medicalrecordportal.filter()'>
+                        <i class='fa fa-search'></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <table class='table table-striped table-hover table-bordered'>
+          <thead>
+            <tr>
+              <th>
+                <input class='group-checkable' ng-change='medicalrecordportal.selectAll()' ng-model='medicalrecordportal.selectedall' type='checkbox'>
+              </th>
+              <th>操作</th>
+              <th>会员姓名</th>
+              <th>宠物病历号</th>
+              <th>宠物昵称</th>
+              <th>医生诊断</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='odd gradeX' ng-repeat='medicalrecord in medicalrecords'>
+              <td>
+                <input class='checkboxes' ng-change='medicalrecordportal.selectChange()' ng-model='medicalrecordportal.selection[medicalrecord.id]' type='checkbox'>
+              </td>
+              <td>
+                <!-- / 查看按钮 -->
+                <!-- / 修改按钮 -->
+                <button class='btn btn-circle btn-default btn-sm' ng-click='medicalrecordportal.update(medicalrecord.id)' type='button'>
+                  <i class='fa fa-plus'></i>
+                  修改
+                </button>
+                <!-- / 删除按钮 -->
+                <button class='btn btn-circle red-sunglo btn-sm' ng-click='medicalrecordportal.remove(medicalrecord)' type='button'>
+                  <i class='fa fa-plus'></i>
+                  删除
+                </button>
+                <!-- / 选择按钮 -->
+                <!-- / 结算 -->
+                <!-- / 选择按钮 -->
+                <!-- / 审核按钮 -->
+              </td>
+              <td>
+                {{medicalrecord.XX}}
+              </td>
+              <td>
+                {{medicalrecord.XX}}
+              </td>
+              <td>
+                {{medicalrecord.XX}}
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class='row'>
+          <div class='col-md-12 col-sm-12'>
+            <form class='form-inline' name='paginationform' ng-submit='medicalrecordportal.jump()' novalidate='' role='form'>
+              <div class='form-group'>
+                <button class='btn btn-sm default prev' ng-click='medicalrecordportal.prevpage()' ng-disabled='medicalrecordportal.pagination.first==true' type='button'>
+                  <i class='fa fa-angle-left'></i>
+                </button>
+                <input class='pagination-panel-input form-control input-sm input-inline input-mini' maxlenght='5' ng-model='medicalrecordportal.pagination.pageNumber' style='text-align:center; margin: 0 5px;' type='text'>
+                <button class='btn btn-sm default next' ng-click='medicalrecordportal.nextpage()' ng-disabled='medicalrecordportal.pagination.last==true' type='button'>
+                  <i class='fa fa-angle-right'></i>
+                </button>
+                共 {{medicalrecordportal.pagination.totalElements}} 条 {{medicalrecordportal.pagination.totalPages}} 页
+                <label>
+                  <span class='seperator'>| 每页</span>
+                </label>
+                <select class='form-control input-xs input-sm input-inline' name='datatable_ajax_length' ng-change='medicalrecordportal.jump(1)' ng-model='medicalrecordportal.pagination.pageSize'>
+                  <option value='10'>10</option>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                </select>
+                条
+              </div>
+              <button class='btn btn-default' type='submit'>跳转</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='medicalrecord' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='medicalrecordform' name='medicalrecordform' ng-submit='medicalrecordportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>病案管理</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='medicalrecord_alert'></div>
+              <center>
+                <h1>
+                  福莱宠物医院病历单
+                </h1>
+              </center>
+              <table class='table'>
+                <tbody>
+                  <tr>
+                    <th width='100px'>医院名称</th>
+                    <td></td>
+                    <th width='100px'>医院地址</th>
+                    <td colspan='3'></td>
+                  </tr>
+                  <tr>
+                    <th>负责人</th>
+                    <td></td>
+                    <th>医院电话</th>
+                    <td></td>
+                    <th width='100px'>会员姓名</th>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>会员电话</th>
+                    <td></td>
+                    <th>宠物昵称</th>
+                    <td></td>
+                    <th>诊疗医生</th>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>助理医生</th>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class='table table-bordered'>
+                <thead>
+                  <tr>
+                    <th class='info'>就诊信息</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <table class='table'>
+                        <tbody>
+                          <tr>
+                            <td width='100px'>体温</td>
+                            <td></td>
+                            <td width='100px'>心跳</td>
+                            <td></td>
+                            <td width='100px'>呼吸</td>
+                            <td></td>
+                            <td width='100px'>血压</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>主叙</td>
+                            <td colspan='7'></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+- $click = ((defined? click) ? click: "submit()")
+- $label = ((defined? label) ? label: "保存表单")
+- $icon = ((defined? icon) ? icon: "fa-plus")
+
+- if (defined? disabled) && (defined? show)
+  %button.btn.btn-primary.btn-circle{:type => "button", "ng": {'click':"#{$click}", "disabled": "#{disabled}", "show": "#{show}" }}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- elsif defined? disabled
+  %button.btn.btn-primary.btn-circle{:type => "button", 'click':"#{$click}", "ng": {'click':"#{$click}", "disabled": "#{disabled}"}}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- elsif defined? show
+  %button.btn.btn-primary.btn-circle{:type => "button", 'click':"#{$click}", "ng": {'click':"#{$click}", "show": "#{show}" }}
+    %i.fa{:class => "#{$icon}"}
+    #{$label}
+
+- else
+  %button.btn.btn-primary.btn-circle{:type => "button", 'ng-click':"#{$click}" }
+    %i.fa{:class => "#{$icon}"}
+    #{$label}

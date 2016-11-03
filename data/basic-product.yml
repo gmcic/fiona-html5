@@ -29,6 +29,8 @@ fields:
   # 分类名称
   所属分类: itemStyle
 
+  业务类型ID: busiTypeId
+
   #商品信息
 
   编号: itemCode
@@ -80,8 +82,6 @@ fields:
   用法: useWay
 
   备注: remark
-
-  业务类型ID: busiTypeId
 
   #---- 还未使用
 

@@ -1,0 +1,22 @@
+- @modal_id = @modal_id || @page_id
+
+- @modal_name = @modal_name || @page_title
+
+.modal.fade.bs-modal-xs{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1", :id => "#{@modal_id}print"}
+  .modal-dialog.modal-xs
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title #{@modal_name}
+
+      .modal-body
+        .div{:id => "#{@modal_id}printbody"}
+          =yield
+
+        -#%iframe#printiframe{:frameborder => '1', :src => "/views/commons/print_template.html", :style => "width:870px;height: 800px"}
+        %iframe#printiframe.hide{:frameborder => '0', :src => "/views/commons/print_dump.html", :style => "width:0px;height:0px"}
+
+      .modal-footer
+        %button.btn.btn-primary{:type => "button", "ng-click" => "print()"}
+          %i.fa.fa-print
+          打印

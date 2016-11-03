@@ -10,18 +10,10 @@ searchFields:
   - fieldName: 宠物病例号
 
 fields:
-  主键: id
-  状态: status
-  创建人: createUserId
-  创建时间: createDate
-  修改人: updateUserId
-  修改时间: updateDate
-
   cateNo: cateNo
-  parentObject: parentObject
 
   # 只显示
-  父类名称: $labworktypeportal.selected.cateName
+  父类名称: parentObject.cateName
 
   类别名称: cateName
 
@@ -30,3 +22,10 @@ fields:
   remark: remark
   parent: parent
   text: text
+
+  主键: id
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

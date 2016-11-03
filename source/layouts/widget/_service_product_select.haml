@@ -1,12 +1,13 @@
-.row
-  .col-md-3
-    - portal "商品&服务", "producttype"
-    = partial 'layouts/widget/tree', :locals => {:sidename => "商品&服务", :sidefieldname=> 'name'} do
-      / 不输出 outline 按钮
+- modal "选择商品", "product"
 
-  .col-md-9
-    - portal '商品与服务管理', 'product'
-    = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'none'} do
-      = partial :'layouts/buttons/btn_primary', :locals => {:label => "保存表单", :click => "productportal.submit()", :icon => "fa-save"}
+= partial :'layouts/partials/modal-portal-select-full', :locals => {:modal_toolbar => "close|save"}  do
+  .row
+    .col-md-3
+      - portal "商品&服务", "producttype"
+      = partial 'layouts/widget/tree', :locals => {:sidename => "商品&服务", :sidefieldname=> 'name'} do
+        / 不输出 outline 按钮
 
-
+    .col-md-9
+      - portal '商品与服务管理', 'product'
+      = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'selected'} do
+        = partial :'layouts/buttons/btn_circle_primary', :locals => {:label => "保存表单", :click => "productportal.submit()", :icon => "fa-save"}

@@ -11,21 +11,14 @@
     #product_basic.tab-pane.active
       .form-body
         .row
-          .col-md-2
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '所属分类ID', :maxlength => '64'}
-
-          .col-md-2
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '业务类型ID', :maxlength => '32'}
-
-        .row
           .col-md-4
             = partial :'layouts/inputs/textview', :locals => {:fieldName => '所属分类', :maxlength => '32'}
 
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '编号', :maxlength => '32'}
+            = partial :'layouts/inputs/textview', :locals => {:fieldName => '编号', :maxlength => '32'}
 
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '名称', :maxlength => '32'}
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '名称', :maxlength => '32', :required => "true"}
 
         .row
           .col-md-4
@@ -39,10 +32,10 @@
 
         .row
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '默认进价', :maxlength => '32'}
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '默认进价', :maxlength => '32', :required => "true"}
 
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '销售价格', :maxlength => '32'}
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '销售价格', :maxlength => '32', :required => "true"}
 
           .col-md-4
             = partial :'layouts/inputs/select', :locals => {:fieldName => '是否打折', :options => "type.id as type.valueNameCn for type in dropdowns.isVipDiscountSet"}
@@ -52,24 +45,24 @@
             = partial :'layouts/inputs/select', :locals => {:fieldName => '是否销售', :options => "type.id as type.valueNameCn for type in dropdowns.isSellSet"}
 
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '库存下限', :maxlength => '32'}
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '库存下限', :maxlength => '32', :required => "true"}
 
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '库存上限', :maxlength => '32'}
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '库存上限', :maxlength => '32', :required => "true"}
 
         .row
           .col-md-4
             = partial :'layouts/inputs/select', :locals => {:fieldName => '剂型', :options => "type.id as type.valueNameCn for type in dropdowns.drugFormSet"}
 
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '零散比', :maxlength => '32'}
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '零散比', :maxlength => '32', :required => "true"}
 
           .col-md-4
-            = partial :'layouts/inputs/select', :locals => {:fieldName => '处方单位', :options => "type.id as type.valueNameCn for type in dropdowns.recipeUnitSet"}
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '处方单位', :options => "type.id as type.valueNameCn for type in dropdowns.recipeUnitSet", :required => "true"}
 
         .row
           .col-md-4
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '处方价格', :maxlength => '32'}
+            = partial :'layouts/inputs/text', :locals => {:fieldName => '处方价格', :maxlength => '32', :required => "true"}
 
           .col-md-4
             = partial :'layouts/inputs/select', :locals => {:fieldName => '是否记库', :options => "type.id as type.valueNameCn for type in dropdowns.isCountSet"}
@@ -92,7 +85,8 @@
             = partial :'layouts/inputs/text', :locals => {:fieldName => '兑换积分', :maxlength => '32'}
 
           .col-md-8
-            = partial :'layouts/inputs/text', :locals => {:fieldName => '生产厂商', :maxlength => '32'}
+            = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '生产厂商', :maxlength => '32', :btnname => '选择', :btnclick => 'dealerportal.pupupselect()'}
+
         -#
         -#.row
         -#

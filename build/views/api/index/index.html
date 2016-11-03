@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!DOCTYPE html>
+    <html>
+      <body>
+        <div class='alert'>
+          根据模块ID取目录: basic
+        </div>
+        <div class='portlet'>
+          <div class='portlet-title'>
+            <div class='caption'></div>
+            <div class='actions'>
+              <div class='portlet-input input-inline'>
+                <div class='input-icon right'>
+                  <i class='icon-magnifier'></i>
+                  <input class='form-control input-circle' id='filterdata' name='filterdata' ng-model='filterdata' placeholder='search...' size='60' type='text'>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='portlet-body portlet-empty'>
+            <div class='tabbable-line'>
+              <ul class='nav nav-tabs'>
+                <li>
+                  <a data-toggle='tab' href='//#api_links'>链接</a>
+                </li>
+                <li class='active'>
+                  <a data-toggle='tab' href='//#api_filter'>过滤器</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane' id='api_links'>
+                  <table class='table table-striped table-hover table-bordered'>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>URI</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class='odd gradeX' ng-repeat='side in sidebar | filter:filterdata'>
+                        <th>{{side.name}}</th>
+                        <th>{{side.uri}}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='tab-pane active' id='api_filter'>
+                  <table class='table table-striped table-hover table-bordered'>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>URI</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class='odd gradeX' ng-repeat='filter in filters | filter:filterdata'>
+                        <th width='80px'>{{filter.key}}</th>
+                        <th width='80px'>{{filter.prefix}}</th>
+                        <td>
+                          <p class='bg-danger'>
+                            <span ng-repeat="field in filter.fields | filter:'isfield'">
+                              <span ng-if='$index &gt; 0'>/</span>
+                              <span ng-if="field.name == 'Error'">
+                                <span class='label label-danger'>
+                                  {{field.label}}
+                                </span>
+                              </span>
+                              <span ng-if="field.name != 'Error'">
+                                {{field.label}}
+                              </span>
+                            </span>
+                          </p>
+                          <p class='bg-info'>
+                            <span ng-repeat="field in filter.fields | filter:'isfield'">
+                              <span ng-if='$index &gt; 0'>,</span>
+                              <span ng-if="field.name == 'Error'">
+                                {"
+                                <span class='label label-danger'>
+                                  {{field.name}}
+                                </span>
+                                ": "name","operator": "EQ", "value":""}
+                              </span>
+                              <span ng-if="field.name != 'Error'">
+                                {"{{field.name}}": "name","operator": "EQ", "value":""}
+                              </span>
+                            </span>
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
+  </body>
+</html>

@@ -1,3 +1,9 @@
+
+module:
+  name: 收费管理
+  id: payment
+  data: gestpaidrecords/billList
+
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 会员编号
@@ -7,11 +13,9 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 会员电话
 
   - fieldName: 总消费金额
+    filter: currency:"￥"
 
   - fieldName: 最后结算日期
-
-  - fieldName: 付款状态
-
 
 searchFields:
   - fieldName: 会员编号
@@ -26,17 +30,17 @@ searchFields:
   - fieldName: 付款状态
 
 fields: #可定义多个中文名称指向同一个字段
+
   主键: id
 
-  总项数: XX
+  会员ID: gestId
 
-  总消费额: XX
+  会员编号: gestNo
 
-  优惠总额: XX
+  会员姓名: gestName
 
-  请支付金额: XX
+  会员电话: phone
 
-  已支付金额: XX
+  总消费金额: total
 
-  找零: XX
-
+  最后结算日期: lastPayDate

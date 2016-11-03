@@ -6,32 +6,5 @@
   .modal-dialog.modal-lg
     .modal-content
       %form{:id => "#{@modal_id}form", :name => "#{@modal_id}form", :novalidate => "", "ng-submit" => "#{@modal_id}portal.submit()", :role => "form"}
-        .modal-header
-          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
-          %h4.modal-title #{@modal_name}
-
-        .modal-body
-          %div{:id => "#{@modal_id}_alert"}
+        = partial 'layouts/partials/modal-portal-body', :locals => locals do
           = yield
-
-        .modal-footer
-          // 关闭
-          - if (!defined? modal_toolbar) || ( modal_toolbar.include? "close" )
-            %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
-
-          // 保存表单
-          - if (!defined? modal_toolbar) || ( modal_toolbar.include? "submit" )
-            = partial :'layouts/buttons/submit', :locals => {:show => "instorage.status.dictDetailCode != 'SM00043'"}
-
-          // 审核按钮
-          - if (defined? modal_toolbar) && ( modal_toolbar.include? "auditing" )
-            %button.btn.btn-primary{"ng-show"=>"#{@modal_id}portal.auditingoperate == true", :type => "button",  "ng-click"=> "auditing()"}
-              %i.fa.fa-plus
-              审核
-
-          // 审核按钮
-          - if (defined? modal_toolbar) && ( modal_toolbar.include? "register" )
-            = partial :'layouts/buttons/submit', :locals => {:label => "保存挂号"}
-            = partial :'layouts/buttons/submit', :locals => {:label => "挂号并付款"}
-            %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 取消挂号
-

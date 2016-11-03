@@ -4,7 +4,16 @@ layout: "page"
 
 - page "收费管理", "payment"
 
-= partial 'layouts/widget/portal'
+= partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none", :inline_toolbar => "payment" } do
+  / 不输出
+  -#= partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
+  -#= partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
+  -#= partial :'layouts/buttons/print', :locals => {:click => 'paymentportal.print()'}
 
-= partial :'layouts/partials/modal-portal-lg' do
+= partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|balance'}  do
   = partial 'modify'
+
+/ 打印处方
+- modal "收银小票", "payment"
+= partial :'layouts/widget/modal_print_xs' do
+  = partial 'print_body'

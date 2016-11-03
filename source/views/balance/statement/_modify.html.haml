@@ -2,40 +2,56 @@
   .col-md-8
     = partial :'views/commons/vip_header_small'
 
-    = partial :'views/commons/product_list'
-
-    = partial :'views/commons/product_list_detail'
+    - portal '收费单明细', 'statementdetail'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none', :bordered => "false" } do
+      / 不输出 outline 按钮
 
   .col-md-4
-    .form-horizontal{:name=>"searchform", :role => "form"}
-      .form-group.form-md-line-input
-        = partial :'layouts/inputs/line/text', :locals => {:keyword => 'vip', :fieldName => '总项数', :maxlength => '16', :cols => '3 9'}
+    .form-body
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '总项数', :required => "true", :maxlength => '16'}
 
-      .form-group.form-md-line-input
-        = partial :'layouts/inputs/line/text', :locals => {:keyword => 'vip', :fieldName => '总消费额', :maxlength => '16', :cols => '3 9'}
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '总消费额', :required => "true", :maxlength => '16'}
 
-      .form-group.form-md-line-input
-        = partial :'layouts/inputs/line/text', :locals => {:keyword => 'vip', :fieldName => '优惠总额', :maxlength => '16', :cols => '3 9'}
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '优惠总额', :required => "true", :maxlength => '16'}
 
-      .form-group.form-md-line-input
-        = partial :'layouts/inputs/line/text', :locals => {:keyword => 'vip', :fieldName => '请支付金额', :maxlength => '16', :cols => '3 9'}
 
-      .form-group.form-md-line-input
-        = partial :'layouts/inputs/line/text', :locals => {:keyword => 'vip', :fieldName => '已支付金额', :maxlength => '16', :cols => '3 9'}
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '请支付金额', :required => "true", :maxlength => '16'}
 
-      .form-group.form-md-line-input
-        = partial :'layouts/inputs/line/text', :locals => {:keyword => 'vip', :fieldName => '找零', :maxlength => '16', :cols => '3 9'}
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '已支付金额', :required => "true", :maxlength => '16'}
 
-    %table#sample_editable_1.table.table-striped.table-hover.table-bordered
-      %thead
-        %tr
-          - ['序号', '操作', '内容'].each do |fieldName|
-            %th #{fieldName}
-      %tbody
-        %tr.odd.gradeX{ "ng-repeat" => @page_id + " in " +@page_id+ "s" }
-          - ['序号', '操作', '内容'].each do |fieldName|
-            %td
-              = bind @page_id, (@fields[fieldName] || 'error')
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '找零', :required => "true", :maxlength => '16'}
 
+    .form-body
+      .row
+        .col-md-12
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '预付金', :required => "true", :maxlength => '16'}
+
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '现金', :required => "true", :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '余额', :required => "true", :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '支付宝', :required => "true", :maxlength => '16'}
+
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '微信', :required => "true", :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '银行卡', :required => "true", :maxlength => '16'}
+
+        .col-md-4
+          = partial :'layouts/inputs/textview', :locals => { :fieldName => '折扣', :required => "true", :maxlength => '16'}
 
 

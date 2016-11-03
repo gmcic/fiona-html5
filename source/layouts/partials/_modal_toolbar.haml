@@ -1,0 +1,38 @@
+// 关闭
+- if (!defined? modal_toolbar) || ( modal_toolbar.include? "close" )
+  %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 关闭
+
+// 提交表单
+- if (!defined? modal_toolbar) || ( modal_toolbar.include? "submit" )
+  = partial :'layouts/buttons/submit', :locals => {:show => "instorage.status.dictDetailCode != 'SM00043'"}
+
+// 保存表单
+- if (defined? modal_toolbar) && ( modal_toolbar.include? "save" )
+  = partial :'layouts/buttons/btn_primary', :locals => {:click => "#{@modal_id}portal.submit()", :show => "instorage.status.dictDetailCode != 'SM00043'"}
+
+// 审核按钮
+- if (defined? modal_toolbar) && ( modal_toolbar.include? "auditing" )
+  %button.btn.btn-primary{"ng-show"=>"#{@modal_id}portal.auditingoperate == true", :type => "button",  "ng-click"=> "auditing()"}
+    %i.fa.fa-plus
+    审核
+
+// 审核按钮
+- if (defined? modal_toolbar) && ( modal_toolbar.include? "balance" )
+  -#%button.btn.btn-warning{:type => "button",  "ng-click"=> "rebalance()"}
+  -#  %i.fa.fa-plus
+  -#  重算
+
+  %button.btn.btn-primary{:type => "button",  "ng-click"=> "balance()", "ng-disabled" => "allowpay == false"}
+    %i.fa.fa-plus
+    结算
+
+// 审核按钮
+- if (defined? modal_toolbar) && ( modal_toolbar.include? "reprint" )
+  %button.btn.btn-success{:type => "button",  "ng-click"=> "reprint()"}
+    %i.fa.fa-plus
+    重打小票
+
+// 挂号
+- if (defined? modal_toolbar) && ( modal_toolbar.include? "register" )
+  = partial :'layouts/buttons/submit', :locals => {:label => "保存挂号"}
+  %button.btn.grey-mint.btn-outline{"data-dismiss" => "modal", :type => "button"} 取消挂号

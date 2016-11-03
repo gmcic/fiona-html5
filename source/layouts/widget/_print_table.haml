@@ -12,8 +12,8 @@
 
 - $listdataKey = (defined? listdataKey)? listdataKey : "listFields";
 
--#嵌套模块
-%table.table.table-bordered
+-# 嵌套模块
+%table{:class => (defined? bordered && bordered == "false")? "table-print-noborder" : "table table-bordered" }
   %thead
     %tr
       - @portal[$listdataKey].each do |field|

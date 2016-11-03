@@ -17,10 +17,17 @@
       %span.required *
 
   - if $required == 'true'
-    %input.form-control{:type => "number", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+    - if (defined? change)
+      %input.form-control{:type => "number", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "ng-change" => "#{change}"}/
+    - else
+      %input.form-control{:type => "number", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
 
   - if $required == 'false'
-    %input.form-control{:type => "number", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+    - if (defined? change)
+      %input.form-control{:type => "number", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
+
+    - else
+      %input.form-control{:type => "number", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
 
   - if $required == 'true'
     %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.

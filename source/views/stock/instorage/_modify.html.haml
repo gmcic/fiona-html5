@@ -24,12 +24,12 @@
       = partial :'layouts/inputs/text', :locals => {:fieldName => '备注', :maxlength => '32'}
 
     .col-md-3
-      = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '经销商', :maxlength => '32', :btnname => '选择', :btnclick => 'dealerportal.insert()'}
+      = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '经销商', :maxlength => '32', :btnname => '选择', :btnclick => 'dealerportal.pupupselect()'}
 
 / Portal
 - portal "入库商品清单", "instoragedetail"
 
 = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove'} do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()', :show => "instorage.status.dictDetailCode != 'SM00043'"}
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.pupupselect()', :show => "instorage.status.dictDetailCode != 'SM00043'"}
   = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves', :show => "instorage.status.dictDetailCode != 'SM00043'"}
 

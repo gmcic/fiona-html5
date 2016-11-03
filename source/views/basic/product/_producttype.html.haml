@@ -5,15 +5,15 @@
 
   .row
     .col-md-12
-      = partial :'layouts/inputs/text', :locals => {:keyword => "producttype", :fieldName => '种类编号', :maxlength => '32'}
+      = partial :'layouts/inputs/textview', :locals => {:keyword => "producttype", :fieldName => '种类编号', :maxlength => '32', :required => "true"}
 
   .row
     .col-md-12
-      = partial :'layouts/inputs/text', :locals => {:keyword => "producttype", :fieldName => '类别名称', :maxlength => '32'}
+      = partial :'layouts/inputs/text', :locals => {:keyword => "producttype", :fieldName => '类别名称', :maxlength => '32', :required => "true"}
 
   .row
     .col-md-12
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '业务类型', :options => "type.id as type.valueNameCn for type in dropdowns.busiTypeIdSet"}
+      = partial :'layouts/inputs/select', :locals => {:keyword => "producttype", :fieldName => '业务类型', :options => "type.id as type.valueNameCn for type in dropdowns.busiTypeIdSet"}
 
   .row
     .col-md-12

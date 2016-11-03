@@ -25,81 +25,41 @@ angular.module('fiona').controller('ProductController', function ($scope, $contr
 
     $controller('BaseController', {$scope: $scope}); //继承
 
-
     /**
-     * 商品&服务分类
+     * 商品管理
      * ---------------------------
      * */
-    $scope.producttypeportal= {
+    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
-        text: "cateName", // 树标签-字段名
+    /**
+     * 供应商
+     * ---------------------------
+     * */
+    $scope.dealerportal= {
 
-        parent: "parentId", // 父引用-字段名
+        id: "dealer",
 
-        foreign: "producttype",
+        name: "供应商",
 
-        foreignkey: "cateNo",
+        server: "/api/v2/dealers",
 
-        id: "producttype",
+        pupupselect: function () {
 
-        name: "商品&服务分类",
+            $scope.dealerportal.list();
 
-        server: "/api/v2/itemcates",
+            $("#dealerselect").modal('toggle');
+        },
 
-        callback: {
-            switched: function () {
-                // 加载
-                $scope.productportal.search();
-            },
-            insert: function () {
-                // 加载
-                if (!$scope.producttypeportal.selectedId) {
-                    $scope.producttype.parentId = "#";
-                    $scope.producttypeportal.selected = {cateName: "顶级"}
-                }
-                else {
-                    $scope.producttype.parentId = $scope.producttypeportal.selectedId;
-                }
-            },
-            submit: function () {
-                $scope.producttypeportal.search();
-                $scope.producttypeportal.treeConfig.version++;
-            },
-            delete: function () {
-                $scope.producttypeportal.search();
-                $scope.producttypeportal.treeConfig.version++;
-            }
+        checked: function (dealer) {
+            $scope.product.dealerCode = dealer.code;
+            $scope.product.dealerName = dealer.name;
+
+            $("#dealerselect").modal('toggle');
         }
     };
 
-    $controller('TreeSidePanelController', {$scope: $scope, component: $scope.producttypeportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.dealerportal}); //继承
 
-    /**
-     * 商品&服务
-     * ---------------------------
-     * */
-    $scope.productportal= {
-
-        foreign: "producttype", // 外键
-
-        foreignkey: "cateNo",
-
-        id: "product",
-
-        name: "商品&服务",
-
-        server: "/api/v2/itemtypes",
-
-        defilters: {"itemCode": "商品编号", "itemName": "商品名称", "inputCode": "拼音码"},
-
-        callback: {
-            insert: function () {
-                $scope.setSelectDefault("product", ["packageUnit", "drugForm", "isVipDiscount", "isSell", "isCount", "isCanExchangeSet"]);
-            }
-        }
-    };
-
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承
 
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);

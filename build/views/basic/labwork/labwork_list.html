@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <div class='row'>
+      <div class='col-md-3'>
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption font-dark'>
+              <i class='fa fa-sitemap font-dark'></i>
+              <span class='caption-subject bold uppercase'>化验项目</span>
+            </div>
+            <div class='actions'>
+              <button class='btn btn-circle btn-primary btn-sm' ng-click='labworktypeportal.insert()' type='button'>
+                <i class='fa fa-plus'></i>
+                增加
+              </button>
+              <button class='btn btn-circle red-sunglo btn-sm' ng-click='labworktypeportal.remove()' ng-disabled='!labworktypeportal.selected' type='button'>
+                <i class='fa fa-plus'></i>
+                删除
+              </button>
+              <button class='btn btn-circle btn-default btn-sm' ng-click='labworktypeportal.update()' ng-disabled='!labworktypeportal.selectedId' type='button'>
+                <i class='fa fa-plus'></i>
+                修改
+              </button>
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div js-tree='labworktypeportal.treeConfig' ng-model='labworktypes' tree-events-obj='labworktypeportal.treeEventsObj' tree='treeInstance'></div>
+          </div>
+        </div>
+      </div>
+      <div class='col-md-9'>
+        <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption font-dark'>
+              <i class='fa fa-beer font-dark'></i>
+              <span class='caption-subject bold uppercase'>化验项目管理</span>
+            </div>
+            <div class='actions'>
+              <button class='btn btn-circle btn-primary btn-sm' ng-click='labworkportal.insert()' ng-disabled='!labworktypeportal.selected' type='button'>
+                <i class='fa fa-plus'></i>
+                增加
+              </button>
+              <button class='btn btn-circle red-sunglo btn-sm' ng-click='labworkportal.removes()' ng-disabled='labworkportal.isRemoves' type='button'>
+                <i class='fa fa-trash'></i>
+                删除
+              </button>
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div class='table-toolbar'>
+              <form name='searchform' role='form'>
+                <div class='row'>
+                  <div class='col-md-8'>
+                    <div>
+                      <div class='input-group'>
+                        <div class='input-group-btn'>
+                          <button class='form-control input-noborder-right input-circle-left dropdown-toggle' data-toggle='dropdown' type='button'>
+                            {{labworkportal.searchbar.fieldName}}
+                            <i class='fa fa-angle-down'></i>
+                          </button>
+                          <ul class='dropdown-menu'>
+                            <li>
+                              <a href='javascript:;' ng-click="labworkportal.setField('', '综合搜索', '')">综合搜索</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                              <a href='javascript:;' ng-click="labworkportal.setField('error', '宠物病例号')">宠物病例号</a>
+                            </li>
+                            <li>
+                              <a href='javascript:;' ng-click="labworkportal.setField('error', '宠物昵称')">宠物昵称</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                              <a href='javascript:;' ng-click="labworkportal.setField('error', '宠物昵称')">宠物昵称</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <input class='form-control' ng-model='labworkportal.searchbar.firstValue' ng-readonly="labworkportal.searchbar.dataType == 'date'" placeholder='{{labworkportal.searchbar.firstTextPlaceholder}}' type='text'>
+                        <div class='input-group-btn' ng-show="labworkportal.searchbar.dataType == 'date'">
+                          <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                            <i class='fa fa-calendar'></i>
+                          </button>
+                        </div>
+                        <input class='form-control' ng-model='labworkportal.searchbar.lastValue' ng-readonly="labworkportal.searchbar.dataType == 'date'" ng-show="labworkportal.searchbar.type == 'between'" placeholder='{{labworkportal.searchbar.lastTextPlaceholder}}' style='display: table-cell;' type='text'>
+                        <div class='input-group-btn' ng-show="labworkportal.searchbar.type == 'between' &amp;&amp; labworkportal.searchbar.dataType == 'date'">
+                          <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                            <i class='fa fa-calendar'></i>
+                          </button>
+                        </div>
+                        <div class='input-group-btn'>
+                          <button class='btn green input-circle-right' ng-click='labworkportal.filter()'>
+                            <i class='fa fa-search'></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <table class='table table-striped table-hover table-bordered'>
+              <thead>
+                <tr>
+                  <th>
+                    <input class='group-checkable' ng-change='labworkportal.selectAll()' ng-model='labworkportal.selectedall' type='checkbox'>
+                  </th>
+                  <th>操作</th>
+                  <th>参数</th>
+                  <th>化验单位</th>
+                  <th>指标类型</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='odd gradeX' ng-repeat='labwork in labworks'>
+                  <td>
+                    <input class='checkboxes' ng-change='labworkportal.selectChange()' ng-model='labworkportal.selection[labwork.id]' type='checkbox'>
+                  </td>
+                  <td>
+                    <!-- / 查看按钮 -->
+                    <!-- / 修改按钮 -->
+                    <button class='btn btn-circle btn-default btn-sm' ng-click='labworkportal.update(labwork.id)' type='button'>
+                      <i class='fa fa-plus'></i>
+                      修改
+                    </button>
+                    <!-- / 删除按钮 -->
+                    <button class='btn btn-circle red-sunglo btn-sm' ng-click='labworkportal.remove(labwork)' type='button'>
+                      <i class='fa fa-plus'></i>
+                      删除
+                    </button>
+                    <!-- / 选择按钮 -->
+                    <!-- / 结算 -->
+                    <!-- / 选择按钮 -->
+                    <!-- / 审核按钮 -->
+                  </td>
+                  <td>
+                    {{labwork.cheTestName}}
+                  </td>
+                  <td>
+                    {{labwork.cheTestUnit | dropdown:dropdowns.cheTestUnitSet  }}
+                  </td>
+                  <td>
+                    {{labwork.indexType | dropdown:dropdowns.indexTypeSet  }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class='row'>
+              <div class='col-md-12 col-sm-12'>
+                <form class='form-inline' name='paginationform' ng-submit='labworkportal.jump()' novalidate='' role='form'>
+                  <div class='form-group'>
+                    <button class='btn btn-sm default prev' ng-click='labworkportal.prevpage()' ng-disabled='labworkportal.pagination.first==true' type='button'>
+                      <i class='fa fa-angle-left'></i>
+                    </button>
+                    <input class='pagination-panel-input form-control input-sm input-inline input-mini' maxlenght='5' ng-model='labworkportal.pagination.pageNumber' style='text-align:center; margin: 0 5px;' type='text'>
+                    <button class='btn btn-sm default next' ng-click='labworkportal.nextpage()' ng-disabled='labworkportal.pagination.last==true' type='button'>
+                      <i class='fa fa-angle-right'></i>
+                    </button>
+                    共 {{labworkportal.pagination.totalElements}} 条 {{labworkportal.pagination.totalPages}} 页
+                    <label>
+                      <span class='seperator'>| 每页</span>
+                    </label>
+                    <select class='form-control input-xs input-sm input-inline' name='datatable_ajax_length' ng-change='labworkportal.jump(1)' ng-model='labworkportal.pagination.pageSize'>
+                      <option value='10'>10</option>
+                      <option value='20'>20</option>
+                      <option value='50'>50</option>
+                    </select>
+                    条
+                  </div>
+                  <button class='btn btn-default' type='submit'>跳转</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='labwork' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='labworkform' name='labworkform' ng-submit='labworkportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>化验项目管理</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='labwork_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        参数
+                        <span class='required'>*</span>
+                      </label>
+                      <input class='form-control' maxlength='32' name='cheTestName' ng-model='labwork.cheTestName' required='true' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkform.cheTestName.$error.required &amp;&amp; labworkform.submitted'>参数不能为空.</p>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkform.cheTestName.$error.maxlength &amp;&amp; labworkform.submitted'>参数 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        化验单位
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='cheTestUnit' name='cheTestUnit' ng-model='labwork.cheTestUnit' ng-options='type.id as type.valueNameCn for type in dropdowns.cheTestUnitSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkform.cheTestUnit.$error.required &amp;&amp; labworkform.submitted'>化验单位不能为空.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        指标类型
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='indexType' name='indexType' ng-model='labwork.indexType' ng-options='type.id as type.valueNameCn for type in dropdowns.indexTypeSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkform.indexType.$error.required &amp;&amp; labworkform.submitted'>指标类型不能为空.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portal -->
+              <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+              <div class='portlet light bordered'>
+                <div class='portlet-title'>
+                  <div class='caption font-dark'>
+                    <i class='fa fa-beer font-dark'></i>
+                    <span class='caption-subject bold uppercase'>参考值设置</span>
+                  </div>
+                  <div class='actions'>
+                    <button class='btn btn-circle btn-primary btn-sm' ng-click='labworkdetailportal.insert()' type='button'>
+                      <i class='fa fa-plus'></i>
+                      增加
+                    </button>
+                    <button class='btn btn-circle red-sunglo btn-sm' ng-click='labworkdetailportal.removes()' ng-disabled='labworkdetailportal.isRemoves' type='button'>
+                      <i class='fa fa-trash'></i>
+                      删除
+                    </button>
+                  </div>
+                </div>
+                <div class='portlet-body'>
+                  <table class='table table-striped table-hover table-bordered'>
+                    <thead>
+                      <tr>
+                        <th>
+                          <input class='group-checkable' ng-change='labworkdetailportal.selectAll()' ng-model='labworkdetailportal.selectedall' type='checkbox'>
+                        </th>
+                        <th>操作</th>
+                        <th>医疗类型</th>
+                        <th>参考值上限</th>
+                        <th>参考值下限</th>
+                        <th>年龄段</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class='odd gradeX' ng-repeat='labworkdetail in labworkdetails'>
+                        <td>
+                          <input class='checkboxes' ng-change='labworkdetailportal.selectChange()' ng-model='labworkdetailportal.selection[labworkdetail.id]' type='checkbox'>
+                        </td>
+                        <td>
+                          <!-- / 查看按钮 -->
+                          <!-- / 修改按钮 -->
+                          <button class='btn btn-circle btn-default btn-sm' ng-click='labworkdetailportal.update(labworkdetail.id)' type='button'>
+                            <i class='fa fa-plus'></i>
+                            修改
+                          </button>
+                          <!-- / 删除按钮 -->
+                          <button class='btn btn-circle red-sunglo btn-sm' ng-click='labworkdetailportal.remove(labworkdetail)' type='button'>
+                            <i class='fa fa-plus'></i>
+                            删除
+                          </button>
+                          <!-- / 选择按钮 -->
+                          <!-- / 结算 -->
+                          <!-- / 选择按钮 -->
+                          <!-- / 审核按钮 -->
+                        </td>
+                        <td>
+                          {{labworkdetail.petRaceName | dropdown:dropdowns.petRaceNameSet  }}
+                        </td>
+                        <td>
+                          {{labworkdetail.referenceValueUp}}
+                        </td>
+                        <td>
+                          {{labworkdetail.referenceValueDonw}}
+                        </td>
+                        <td>
+                          {{labworkdetail.petAgeWord}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 参考值设置 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='labworkdetail' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='labworkdetailform' name='labworkdetailform' ng-submit='labworkdetailportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>参考值设置</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='labworkdetail_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-6'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        医疗类型
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='petRaceName' name='petRaceName' ng-model='labworkdetail.petRaceName' ng-options='type.dictDetailCode as type.valueNameCn for type in dropdowns.petRaceNameSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.petRaceName.$error.required &amp;&amp; labworkdetailform.submitted'>医疗类型不能为空.</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        年龄段
+                      </label>
+                      <input class='form-control' maxlength='32' name='petAgeWord' ng-model='labworkdetail.petAgeWord' type='number'>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.petAgeWord.$error.maxlength &amp;&amp; labworkdetailform.submitted'>年龄段 超过最大长度</p>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.petAgeWord.$error.number &amp;&amp; labworkdetailform.submitted'>年龄段 不是有效的数字格式</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-6'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        年龄从
+                      </label>
+                      <input class='form-control' maxlength='32' name='petAgeMothFrom' ng-model='labworkdetail.petAgeMothFrom' type='number'>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.petAgeMothFrom.$error.maxlength &amp;&amp; labworkdetailform.submitted'>年龄从 超过最大长度</p>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.petAgeMothFrom.$error.number &amp;&amp; labworkdetailform.submitted'>年龄从 不是有效的数字格式</p>
+                    </div>
+                  </div>
+                  <div class='col-md-6'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        年龄到
+                      </label>
+                      <input class='form-control' maxlength='32' name='petAgeMothTo' ng-model='labworkdetail.petAgeMothTo' type='number'>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.petAgeMothTo.$error.maxlength &amp;&amp; labworkdetailform.submitted'>年龄到 超过最大长度</p>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.petAgeMothTo.$error.number &amp;&amp; labworkdetailform.submitted'>年龄到 不是有效的数字格式</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-6'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        参考值上限
+                      </label>
+                      <input class='form-control' maxlength='32' name='referenceValueUp' ng-model='labworkdetail.referenceValueUp' type='number'>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.referenceValueUp.$error.maxlength &amp;&amp; labworkdetailform.submitted'>参考值上限 超过最大长度</p>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.referenceValueUp.$error.number &amp;&amp; labworkdetailform.submitted'>参考值上限 不是有效的数字格式</p>
+                    </div>
+                  </div>
+                  <div class='col-md-6'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        参考值下限
+                      </label>
+                      <input class='form-control' maxlength='32' name='referenceValueDonw' ng-model='labworkdetail.referenceValueDonw' type='number'>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.referenceValueDonw.$error.maxlength &amp;&amp; labworkdetailform.submitted'>参考值下限 超过最大长度</p>
+                      <p class='help-block font-red-thunderbird' ng-show='labworkdetailform.referenceValueDonw.$error.number &amp;&amp; labworkdetailform.submitted'>参考值下限 不是有效的数字格式</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 化验分类 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='labworktype' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='labworktypeform' name='labworktypeform' ng-submit='labworktypeportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>化验分类</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='labworktype_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        父类名称
+                      </label>
+                      <input class='form-control' ng-model='labworktype.parentObject.cateName' readonly='true' type='text'>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        类别名称
+                      </label>
+                      <input class='form-control' maxlength='32' name='cateName' ng-model='labworktype.cateName' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='labworktypeform.cateName.$error.maxlength &amp;&amp; labworktypeform.submitted'>类别名称 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

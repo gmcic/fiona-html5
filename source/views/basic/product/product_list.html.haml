@@ -11,7 +11,9 @@ layout: "page"
 
   .col-md-9
     - portal '商品与服务', 'product'
-    = partial 'layouts/widget/portal'
+    = partial 'layouts/widget/portal' do
+      = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()", :disabled => "!producttypeportal.selected"}
+      = partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
 
 / 商品&服务
 - modal '商品服务管理', 'product'
@@ -24,3 +26,6 @@ layout: "page"
 
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'producttype'
+
+/ 选择供应商
+= partial :'layouts/widget/service_dealer_select'

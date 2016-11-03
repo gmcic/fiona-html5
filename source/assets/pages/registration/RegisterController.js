@@ -4,7 +4,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
-        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态"},
+        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", paidStatusSet: "付款状态"},
         userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色"}
     };
 
@@ -25,13 +25,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
     $scope.dropdownWithTable({id: "assistantDoctorId", server: "/api/v2/personss"}); // 服务助理
 
     // 挂号服务类型
-    $http.post(commons.getBusinessHostname() + "/api/v2/itemtypes/page", {
-        'pageSize': 10000,
-        'pageNumber': 1,
-        'filters': [{"fieldName": 'cateNo', "operator": "EQ", "value": '2d8d75d7-c7af-4ceb-901b-22a7141c87bc'}]
-    }).success(function (data, status, headers, config) {
-        $scope.dropdowns["itemCodeSet"] = data.data.content;
-    });
+    $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "2d8d75d7-c7af-4ceb-901b-22a7141c87bc"}});
 
     /**
      * 挂号查询

@@ -1,53 +1,123 @@
-angular.module('fiona')
-    // 拦截器(验证用户是否登录)
-    .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons, Auth) {
-        return {
-            request:function(config){
-
-               // sessionStorage.setItem("authorization", "fc5db3b3-4063-4a12-a511-880ba19e4b58");
-
-                // config.headers["authorization"] = "fc5db3b3-4063-4a12-a511-880ba19e4b58";
-
-                // alert(("SessionStorage Auth : " + sessionStorage.getItem("authorization")));
-
-                if(sessionStorage.getItem("authorization"))
-                {
-                    config.headers.post = config.headers.post || {};
-                    config.headers.post['Content-Type']= 'application/json';
-                    config.headers["authorization"] = sessionStorage.getItem("authorization");
-                }
-                else
-                {
-                    $window.location.href = "login.html";
-                }
-
-                // alert('OK' + SessionService.isAnonymous);
-
-                return config;
-            }
-        };
-    }])
-    // 侧边栏
-    .controller('IndexController', function($scope, $http, commons) {
-
-        // alert(sessionStorage.getItem("authorization"));
-
-        if(sessionStorage.getItem("authorization")) {
-            $http.get(commons.getAccountHostname() + "/api/v2/auth", {headers: {'authorization': sessionStorage.getItem("authorization")}}).success(function (data, status, headers, config ) {
-                sessionStorage.setItem("userName", data.data.name);
-                $scope.userName = sessionStorage.getItem("userName");
-            }).error(function (data, status, headers, config) {
-                console.log('加载用户信息失败');
-            });
-
-            $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
-                $scope.menus = data.data;
-            }).error(function (data, status, headers, config) {
-                alert('加载目录树失败');
-            });
+// 根据ID 搜索数组中指定的对象
+Array.prototype.indexOfWithId = function(val) {
+    if(val)
+    {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id == val.id) return i;
         }
-    })
-    .controller('BaseController', function ($scope, $http, commons) {
+    }
+
+<<<<<<< HEAD
+               // sessionStorage.setItem("authorization", "fc5db3b3-4063-4a12-a511-880ba19e4b58");
+=======
+    return -1;
+};
+>>>>>>> 923d451a60c749683730995bbee070f4974b1f08
+
+// 搜索数组中与 对象ID 相同的对象
+Array.prototype.getObjectWithId = function(val) {
+    if(val)
+    {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id == val.id)
+            {
+                return  this[i];
+            }
+        }
+    }
+    return null;
+};
+
+// 根据ID 搜索数组中id相同的对象
+Array.prototype.findObjectWithProperty = function(key, value) {
+
+    if(value)
+    {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i][key] == value)
+            {
+                return this[i];
+            }
+        }
+    }
+
+    return null;
+};
+
+// 查找指定ID值的对象
+Array.prototype.getObjectWithIdValue = function(idvalue) {
+    if(idvalue)
+    {
+        for (var i = 0; i < this.length; i++) {
+
+            if (this[i].id == idvalue)
+            {
+                return this[i];
+            }
+        }
+    }
+
+    return null;
+};
+
+// 根据ID 删除数据指定的对象
+Array.prototype.removeById = function(val) {
+    var index = this.indexOfWithId(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};
+
+angular.module('fiona')
+// 拦截器(验证用户是否登录)
+.factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons, Auth) {
+    return {
+        request:function(config){
+
+//                sessionStorage.setItem("authorization", "fc5db3b3-4063-4a12-a511-880ba19e4b58");
+
+            // config.headers["authorization"] = "fc5db3b3-4063-4a12-a511-880ba19e4b58";
+
+            // alert(("SessionStorage Auth : " + sessionStorage.getItem("authorization")));
+
+            if(sessionStorage.getItem("authorization"))
+            {
+                config.headers.post = config.headers.post || {};
+                config.headers.post['Content-Type']= 'application/json';
+                config.headers["authorization"] = sessionStorage.getItem("authorization");
+            }
+            else
+            {
+                $window.location.href = "login.html";
+            }
+
+            // alert('OK' + SessionService.isAnonymous);
+
+            return config;
+        }
+    };
+}])
+// 侧边栏
+.controller('IndexController', function($scope, $http, commons) {
+
+    // alert(sessionStorage.getItem("authorization"));
+
+    if(sessionStorage.getItem("authorization")) {
+        $http.get(commons.getAccountHostname() + "/api/v2/auth", {headers: {'authorization': sessionStorage.getItem("authorization")}}).success(function (data, status, headers, config ) {
+            sessionStorage.setItem("userName", data.data.name);
+            $scope.userName = sessionStorage.getItem("userName");
+        }).error(function (data, status, headers, config) {
+            console.log('加载用户信息失败');
+        });
+
+        $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
+            $scope.menus = data.data;
+        }).error(function (data, status, headers, config) {
+            alert('加载目录树失败');
+        });
+    }
+})
+.controller('BaseController', function ($scope, $http, commons) {
 
     $scope.error = "未找到定义";
 
@@ -117,23 +187,35 @@ angular.module('fiona')
         });
     };
 
+
+    /**
+     * 设置下拉选项默认值
+     * ---------------------------
+     * */
     $scope.setSelectDefault = function (name, fieldNames) {
         angular.forEach(fieldNames, function (fieldName) {
-            if (!!$scope.dropdowns[fieldName + "Set"]) {
 
-                var type = $scope.dropdowns[fieldName + "Set"][0];
+            var keys = fieldName.split(".");
 
-                if(type.personName)
+            if ($scope.dropdowns[keys[0] + "Set"]) {
+
+                var type = $scope.dropdowns[keys[0] + "Set"][0];
+
+                if(keys.length == 2 && keys[1])
                 {
-                    $scope[name][fieldName] = type.id;
+                    $scope[name][keys[0]] = type[keys[1]];
+                }
+                else if(type.personName)
+                {
+                    $scope[name][keys[0]] = type.id;
                 }
                 else if (!!type.itemCode) {
                     // product
-                    $scope[name][fieldName] = type.itemCode;
+                    $scope[name][keys[0]] = type.itemCode;
                 }
                 else if (!!type.valueNameCn) {
                     // dicttypes | dicts | custom
-                    $scope[name][fieldName] = type.id;
+                    $scope[name][keys[0]] = type.id;
                 }
             }
         });
@@ -147,28 +229,90 @@ angular.module('fiona')
         });
     };
 
-    $scope.dropdownWithTable = function (component) {
-
-        $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
-
-            var dropdown = [];
-
-            if(component.value) {
-                angular.forEach(data.data, function (record) {
-                    dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
-                });
+    /**
+     * 下拉选项, 将查询出的对象替换为本地对象
+     * ---------------------------
+     * */
+    $scope.replaceLocalObject = function (keyword, fieldNames) {
+        angular.forEach(fieldNames, function(fieldName){
+            if($scope[keyword][fieldName])
+            {
+                $scope[keyword][fieldName] = $scope.dropdowns[fieldName + "Set"].getObjectWithId($scope[keyword][fieldName]);
             }
-            else {
-                dropdown = data.data;
-            }
-
-            // console.log(dropdown);
-
-            $scope.dropdowns[component.id + "Set"] = dropdown;
         });
     };
 
-}).controller('FilterController', function ($scope, component, $http, commons) {
+    $scope.dropdownWithTable = function (component) {
+
+        if(component.condition)
+        {
+            var filters = [];
+
+            angular.forEach(component.condition, function(data, key){
+                filters.push({"fieldName": key, "operator": "EQ", "value": data});
+            });
+
+            $http.post(commons.getBusinessHostname() + component.server+ "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': filters})
+
+            .success(function (data, status, headers, config) {
+                var dropdown = [];
+
+                if(component.value) {
+                    angular.forEach(data.data.content, function (record) {
+                        dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
+                    });
+                }
+                else {
+                    dropdown = data.data.content;
+                }
+
+                // console.log(dropdown);
+
+                $scope.dropdowns[component.id + "Set"] = dropdown;
+            });
+        }
+        else
+        {
+            $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
+
+                var dropdown = [];
+
+                if(component.value) {
+                    angular.forEach(data.data, function (record) {
+                        dropdown.push({id: record[component.value], valueNameCn: record[component.text]});
+                    });
+                }
+                else {
+                    dropdown = data.data;
+                }
+
+                // console.log(dropdown);
+
+                $scope.dropdowns[component.id + "Set"] = dropdown;
+            });
+        }
+
+    };
+
+
+
+    /**
+     * 生成编号
+     * ---------------------------
+     * */
+    $scope.serialNumber = function(component){
+        // 生成-会员编号
+        $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=" + component.numberName).success(function (data, status, headers, config) {
+
+            $scope[component.id][component.fieldName]= data.data;
+
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger(component.id, "生成" +component.numberName+ "失败");
+        });
+    };
+
+})
+.controller('FilterController', function ($scope, component, $http, commons) {
 
     if(!component.filters)
     {
@@ -309,7 +453,8 @@ angular.module('fiona')
     };
 
 
-}).controller('PaginationController', function ($scope, component, $http, commons) {
+})
+.controller('PaginationController', function ($scope, component, $http, commons) {
 
     /**
      * 分页对象
@@ -379,7 +524,8 @@ angular.module('fiona')
         // });
     };
 
-}).controller('BaseCUDController', function ($scope, component, $http, commons) {
+})
+.controller('BaseCUDController', function ($scope, component, $http, commons) {
 
     // 添加 \ 个性 \ 删除
 
@@ -429,13 +575,15 @@ angular.module('fiona')
 
         $scope[component.id + 'form'].submitted = false;
 
-        angular.forEach($scope[component.id + 's'], function (data, index, array) {
-            if (data.id == id) {
-                $scope[component.id] = data;
-            }
-        });
+        $scope[component.id] = $scope[component.id + 's'].getObjectWithIdValue(id);
 
-        // console.log($scope[component.id]);
+//        angular.forEach($scope[component.id + 's'], function (data, index, array) {
+//            if (data.id == id) {
+//                $scope[component.id] = data;
+//            }
+//        });
+
+         console.log($scope[component.id]);
 
         if (!!component.callback && !!component.callback.update) {
             component.callback.update();
@@ -552,9 +700,9 @@ angular.module('fiona')
         });
 
         if (confirm("您确定要删除选中[" + size + "]条记录吗?")) {
-            angular.forEach(component.selection, function (obj, key) {
+            angular.forEach(component.selection, function (value, key) {
                 if (value == true) {
-                    component.delete(obj);
+                    component.delete($scope[component.id+"s"].getObjectWithIdValue(key));
                 }
             });
         }
@@ -582,7 +730,7 @@ angular.module('fiona')
         {
             $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id).success(function (data, index, array) {
 
-                $scope[component.id + "s"].shift(obj);
+                $scope[component.id + "s"].removeById(obj);
 
                 if (!!component.callback && !!component.callback.delete) {
                     component.callback.delete();
@@ -596,7 +744,7 @@ angular.module('fiona')
         }
         else
         {
-            $scope[component.id + "s"].shift(obj);
+            $scope[component.id + "s"].removeById(obj);
 
             if (!!component.callback && !!component.callback.delete) {
                 component.callback.delete();
@@ -612,7 +760,8 @@ angular.module('fiona')
         // component.search();
     };
 
-}).controller('BaseCRUDController', function ($scope, component, $controller, $http, commons) {
+})
+.controller('BaseCRUDController', function ($scope, component, $controller, $http, commons) {
 
     $http.defaults.headers.post.authorization = commons.getAuthorization();
 
@@ -686,6 +835,11 @@ angular.module('fiona')
     component.list = function () {
         $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
             $scope[component.id + 's'] = data.data;
+
+            if(!!component.callback && !!component.callback.list)
+            {
+                component.callback.list();
+            }
         });
     };
 
@@ -719,6 +873,29 @@ angular.module('fiona')
      * 搜索
      * ---------------------------
      * */
+    component.searchByWhere = function(condition, invoke){
+
+        var filters = [];
+
+        angular.forEach(condition, function(data, key){
+            filters.push({"fieldName": key, "operator": "EQ", "value": data});
+        });
+
+        $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': filters})
+        .success(function (data, status, headers, config) {
+            $scope[component.id + 's'] = data.data.content;
+
+            if(invoke)
+            {
+                invoke.call();
+            }
+        });
+    };
+
+    /**
+     * 分页搜索
+     * ---------------------------
+     * */
     component.search = function () {
 
         if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id']) {
@@ -745,7 +922,8 @@ angular.module('fiona')
         });
     };
 
-}).controller('SidePanelController', function ($scope, component, $controller, $http, commons) {
+})
+.controller('SidePanelController', function ($scope, component, $controller, $http, commons) {
 
     $http.defaults.headers.post.authorization = commons.getAuthorization();
 
@@ -799,21 +977,14 @@ angular.module('fiona')
     component.init = function () {
         component.search();
     };
-}).controller('TreeSidePanelController', function ($scope, component, $controller, $http, commons) {
+})
+.controller('TreeSidePanelController', function ($scope, component, $controller, $http, commons) {
 
     $http.defaults.headers.post.authorization = commons.getAuthorization();
 
     $http.defaults.headers.post['Content-Type'] = 'application/json';
 
     // $controller('BaseCUDController', {$scope: $scope, component: component}); //继承
-
-    // Component 组件必填属性声明
-    component.vars = {
-        id: true,
-        name: true,
-        server: true,
-        callback: {search: false, insert: false, update: false, switched: false}
-    };
 
     /**
      * 目录树配置
@@ -873,6 +1044,17 @@ angular.module('fiona')
     };
 
     /**
+     * 取消选中
+     * ---------------------------
+     * */
+    component.cancelSelected = function () {
+        component.selectedId = null;
+        component.selected = null;
+        $scope[component.id] = null;
+    };
+
+
+    /**
      * 查询
      * ---------------------------
      * */
@@ -914,6 +1096,16 @@ angular.module('fiona')
             $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
         }
 
+        // 加载
+        if (!component.selected) {
+            $scope[component.id].parentObject = {};
+            $scope[component.id].parentObject[component.parent] = "#";
+            $scope[component.id].parentObject[component.text] = "顶级";
+        }
+        else {
+            $scope[component.id].parentObject = component.selected;
+        }
+
         if (!!component.callback && !!component.callback.insert) {
             component.callback.insert();
         }
@@ -925,15 +1117,23 @@ angular.module('fiona')
      * 变更
      * ---------------------------
      * */
-    component.update = function (id) {
+    component.update = function () {
 
         $scope[component.id + 'form'].submitted = false;
 
-        angular.forEach($scope[component.id + 's'], function (data, index, array) {
-            if (data.id == id) {
-                $scope[component.id] = data;
-            }
-        });
+        if((component.selected[component.parent] || "#") == "#")
+        {
+            $scope[component.id].parentObject = {};
+            $scope[component.id].parentObject[component.parent] = "#";
+            $scope[component.id].parentObject[component.text] = "顶级";
+        }
+        else{
+            $scope[component.id].parentObject = $scope[component.id + 's'].getObjectWithIdValue(component.selected[component.parent]);
+
+            console.log("$scope[component.id].parentObject");
+            console.log(component.selected[component.parent]);
+            console.log($scope[component.id].parentObject);
+        }
 
         if (!!component.callback && !!component.callback.update) {
             component.callback.update();
@@ -950,6 +1150,8 @@ angular.module('fiona')
         $scope[component.id + "form"].submitted = true;
 
         console.log($scope[component.id]);
+
+        delete $scope[component.id].parentObject;
 
         if (!!component.callback && !!component.callback.submitbefore) {
             component.callback.submitbefore();
@@ -1022,7 +1224,7 @@ angular.module('fiona')
         {
             $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id).success(function (data, index, array) {
 
-                $scope[component.id + "s"].shift(obj);
+                $scope[component.id + "s"].removeById(obj);
 
                 if (!!component.callback && !!component.callback.delete) {
                     component.callback.delete();
@@ -1038,7 +1240,7 @@ angular.module('fiona')
         }
         else
         {
-            $scope[component.id + "s"].shift(obj);
+            $scope[component.id + "s"].removeById(obj);
 
             if (!!component.callback && !!component.callback.delete) {
                 component.callback.delete();
@@ -1063,7 +1265,8 @@ angular.module('fiona')
     component.init = function () {
         component.search();
     };
-}).controller('ProductPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
+})
+.controller('ProductPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
 
     /**
      * 商品&服务分类
@@ -1090,22 +1293,20 @@ angular.module('fiona')
                 // 加载
                 $scope.productportal.search();
             },
-            insert: function () {
-                // 加载
-                if (!$scope.producttypeportal.selectedId) {
-                    $scope.producttype.parentId = "#";
-                }
-                else {
-                    $scope.producttype.parentId = $scope.producttypeportal.selectedId;
-                }
+            insert: function(){
+                $scope.setSelectDefault("producttype", ["busiTypeId"]);
+                $scope.serialNumber({id: "producttype", fieldName : "cateNo", numberName : "服务类型"});
+            },
+            submitbefore: function () {
+                delete $scope.producttype.text;
+                delete $scope.producttype.parent;
             },
             submit: function () {
-                $scope.producttypeportal.search();
-                $scope.producttypeportal.treeConfig.version++;
+                $scope.producttypeportal.refresh()
             },
             delete: function () {
-                $scope.producttypeportal.search();
-                $scope.producttypeportal.treeConfig.version++;
+                $scope.producttypeportal.cancelSelected();
+                $scope.producttypeportal.refresh()
             }
         }
     };
@@ -1128,7 +1329,20 @@ angular.module('fiona')
 
         server: "/api/v2/itemtypes",
 
-        defilters: {"itemCode": "商品编号", "itemName": "商品名称", "inputCode": "拼音码"}
+        defilters: {"itemCode": "商品编号", "itemName": "商品名称", "inputCode": "拼音码"},
+
+       callback: {
+           insert: function () {
+
+               $scope.product.busiTypeId = $scope.producttype.busiTypeId;
+
+               $scope.product.itemStyle = $scope.producttype.cateName;
+
+                $scope.serialNumber({id: "product", fieldName : "itemCode", numberName : "商品服务"});
+
+               $scope.setSelectDefault("product", ["packageUnit", "drugForm", "isVipDiscount", "isSell", "isCount", "recipeUnit", "isCanExchange"]);
+           }
+       }
     };
 
     $scope.productportal.pupupselect = function () {
@@ -1139,14 +1353,13 @@ angular.module('fiona')
 
         $scope.productportal.selection = {};
 
-
-
         $("#productselect").modal('toggle');
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承
 
-}).controller('PetPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
+})
+.controller('PetPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
 
     /**
      * 弹出选择宠物
@@ -1162,10 +1375,17 @@ angular.module('fiona')
 
         callback: {
             insert: function () {
+                $scope.setSelectDefault("pet", ["petBreed.valueNameCn"]);
 
+                $scope.setSelectDefaultObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+                $scope.serialNumber({id: "pet", fieldName : "petCode", numberName : "宠物编号"});
             },
             update: function () {
 
+                $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+                $scope.vipportal.unique($scope.pet.gestId);
             }
         }
     };
@@ -1179,14 +1399,11 @@ angular.module('fiona')
         $("#petselect").modal('toggle');
     };
 
-    $scope.petportal.checked = function (id) {
+    $scope.petportal.checked = function (pet) {
 
-        angular.forEach($scope["pets"], function (data) {
-            if(data.id == id)
-            {
-                $scope.pet = data;
-            }
-        });
+        $scope.pet = pet;
+
+        $scope.vipportal.unique($scope.pet.gestId);
 
         $("#petselect").modal('toggle');
     };
@@ -1196,7 +1413,8 @@ angular.module('fiona')
         $scope.petportal.search();
     };
 
-}).controller('VipPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
+})
+.controller('VipPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
 
     /**
      * 弹出选择会员
@@ -1248,24 +1466,18 @@ angular.module('fiona')
         $("#vipselect").modal('toggle');
     };
 
-    $scope.vipportal.checked = function (id) {
+    $scope.vipportal.checked = function (vip) {
 
-        angular.forEach($scope["vips"], function (data) {
-            if(data.id == id)
-            {
-                $scope.vip = data;
+        $scope.vip = vip;
 
-                // 主人ID
-                $scope.pet.gestId = $scope.vip.id;
+        // 主人ID
+        $scope.pet.gestId = vip.id;
 
-                // 主人编号
-                $scope.pet.gestCode = $scope.vip.gestCode;
+        // 主人编号
+        $scope.pet.gestCode = vip.gestCode;
 
-                // 主人名称
-                $scope.pet.gestName = $scope.vip.gestName;
-
-            }
-        });
+        // 主人名称
+        $scope.pet.gestName = vip.gestName;
 
         $("#vipselect").modal('toggle');
     };

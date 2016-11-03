@@ -4,14 +4,34 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
-        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态"},
+        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", doctorStatusSet : "就诊状态"},
         userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"},
         callback : {
             dicts: function()
             {
                 $scope.dropdowns.recipeUnitSet = $scope.dropdowns.useUnitSet;
-                console.log($scope.dropdowns.recipeUnitSet);
+//                console.log($scope.dropdowns.recipeUnitSet);
 
+                // SM00036	已中止
+                angular.forEach($scope.dropdowns.doctorStatusSet, function(data){
+
+                    if(data.dictDetailCode == 'SM00034') // 待就诊
+                    {
+                        $scope.waitStatus = data;
+                    }
+                    else if(data.dictDetailCode == 'SM00035') // 就诊中
+                    {
+                        $scope.playStatus = data;
+                    }
+                    else if(data.dictDetailCode == 'SM00036') // 已中止
+                    {
+                        $scope.pauseStatus = data;
+                    }
+                    else if(data.dictDetailCode == 'SM00037') // 已就诊
+                    {
+                        $scope.stopStatus = data;
+                    }
+                });
             }
         }
     };
@@ -24,6 +44,10 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);
 
+     $scope.isPlayList= function(data) {
+        return (data.status.dictDetailCode == 'SM00034' || data.status.dictDetailCode == 'SM00035')
+     };
+
     /**
      *  开始诊断 | 结束诊断 | 完成诊断
      * ---------------------------
@@ -32,67 +56,79 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
         $scope.register = entity;
 
+//        console.log("Play");
+//        console.log($scope.register);
+
+        // 查询挂号信息
         $scope.petportal.unique($scope.register.petId);
 
+        // 查询就诊信息
         $http.post(commons.getBusinessHostname() + $scope.curemanagerportal.server, {registerNo: $scope.register.registerNo}).success(function (data, status, headers, config) {
             $scope.curemanager = data.data;
-
-            // console.log(data.data);
-
             $scope.doctorprescriptportal.search();
+
+            if(entity.status.dictDetailCode == 'SM00034')
+            {
+                $scope.register.status = $scope.playStatus;
+                $scope.curemanager.status = $scope.playStatus;
+
+                $scope.registerportal.save();
+                $scope.curemanagerportal.save();
+            }
         });
 
-        $http.get(commons.getBusinessHostname() + "/api/v2/enterprises").success(function (data, status, headers, config) {
-            angular.forEach(data.data, function (item) {
-                $scope.hospital = item;
-            });
-        });
+//
+//        angular.forEach($scope.registers, function(data){
+//            alert(data.status.dictDetailCode + ", " + data.status.valueNameCn);
+//        });
 
         $('#curelist a[href="//#cure_pet"]').tab('show') // Select tab by
     };
 
+    // 暂停就诊
+    $scope.pause= function () {
 
-    $scope.stop = function (entity) {
-        $scope.register = entity;
+//        console.log("Pause");
+        // SM00036	已中止
+        $scope.register.status = $scope.pauseStatus;
+        $scope.curemanager.status = $scope.pauseStatus;
+
+        $scope.registerportal.save();
+        $scope.curemanagerportal.save();
+
+        console.log("pause.register");
+        console.log($scope.register);
+
+        $scope.plays.removeById($scope.register);
+        $scope.pauses.push($scope.register);
+
     };
 
-    /**
-     *  诊断信息
-     * ---------------------------
-     * */
-    $scope.curemanagerportal = {
-        id: "curemanager",
+    // 重新诊断
+    $scope.replay= function () {
 
-        name: "诊断信息",
+        $scope.register.status = $scope.playStatus;
+        $scope.curemanager.status = $scope.playStatus;
 
-        server: "/api/v2/medicmedictreatrecords",
+        $scope.registerportal.save();
+        $scope.curemanagerportal.save();
 
-        callback: {
-            submitbefore: function () {
-                angular.forEach(["petId", "petName", "gestName", "doctor", "registerNo", "assistantDoctorName", "assistantDoctorId"], function (name) {
-                    $scope.curemanager[name] = $scope.register[name];
-                });
-            },
-            switched: function () {
-                $scope.expenditureportal.search();
-            }
-        }
+        $scope.pauses.removeById($scope.register);
+        $scope.plays.push($scope.register);
+
+        $('#curelist a[href="//#cure_pet"]').tab('show') // Select tab by
     };
 
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.curemanagerportal}); //继承
+    // 结束就诊
+    $scope.stop = function () {
 
-    // $scope.curemanagerportal.insert = function () {
-    //
-    //     $scope.curemanager = {};
-    //
-    //     // // 生成-登记编号
-    //     $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=登记编号").success(function (data, status, headers, config) {
-    //         $scope.register.registerNo = data.data;
-    //     }).error(function (data, status, headers, config) { //     错误
-    //         commons.danger("生成登记编号失败");
-    //     });
-    // };
+        // SM00037	已就诊
+        $scope.register.status = $scope.stopStatus;
+        $scope.curemanager.status = $scope.stopStatus;
 
+        $scope.registerportal.save();
+        $scope.curemanagerportal.save();
+    };
 
     /**
      * 挂号查询
@@ -142,6 +178,60 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.registerportal}); //继承
 
     /**
+     *  诊断信息
+     * ---------------------------
+     * */
+    $scope.curemanagerportal = {
+        id: "curemanager",
+
+        name: "诊断信息",
+
+        server: "/api/v2/medicmedictreatrecords",
+
+        history: function(){
+           $scope.curemanagerportal.searchByWhere({"petId" : $scope.pet.id});
+
+           $scope.historyview = "view";
+        },
+
+        underway: function(){
+            $scope.curemanager= {};
+           $scope.play($scope.register);
+           $scope.historyview = "pet";
+        },
+
+        switched: function(_curemanager){
+            $scope.curemanager = _curemanager;
+            $scope.doctorprescriptportal.search();
+        },
+
+        callback: {
+            submitbefore: function () {
+                angular.forEach(["petId", "petName", "gestName", "doctor", "registerNo", "assistantDoctorName", "assistantDoctorId"], function (name) {
+                    $scope.curemanager[name] = $scope.register[name];
+                });
+            },
+            switched: function () {
+                $scope.expenditureportal.search();
+            }
+        }
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.curemanagerportal}); //继承
+
+    // $scope.curemanagerportal.insert = function () {
+    //
+    //     $scope.curemanager = {};
+    //
+    //     // // 生成-登记编号
+    //     $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=登记编号").success(function (data, status, headers, config) {
+    //         $scope.register.registerNo = data.data;
+    //     }).error(function (data, status, headers, config) { //     错误
+    //         commons.danger("生成登记编号失败");
+    //     });
+    // };
+
+    /**
      * 会员管理
      * ---------------------------
      * */
@@ -156,10 +246,6 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
     $scope.petportal.callback.unique = function () {
         $scope.vipportal.unique($scope.pet.gestId);
     };
-    
-
-    // 初始化
-    $scope.registerportal.list();
 
     /**
     * 化验单分类
@@ -249,6 +335,10 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
                 $scope.doctorprescriptdetail = {};
             },
 
+            delete: function () {
+                $scope.doctorprescriptdetails = [];
+            },
+
             switched: function () {
                 $scope.doctorprescriptdetailportal.search();
             }
@@ -257,26 +347,11 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     $controller('SidePanelController', {$scope: $scope, component: $scope.doctorprescriptportal}); //继承
 
-    $scope.getAgeByBirthday = function (birthday) {
-
-        if(birthday) {
-            var date = new Date(birthday);
-
-            var age = parseInt(new Date().getFullYear()) - date.getFullYear();
-
-            age++;
-
-            return age;
-        }
-
-        return 0;
-    };
-
     $scope.doctorprescriptportal.print = function () {
 
         $scope.nowtime = new Date();
 
-        $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
+        // $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
 
         $('#doctorprescriptprint').modal('toggle');
     };
@@ -360,43 +435,51 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
      * 弹出选择商品
      * ---------------------------
      * */
-
     $scope.productchecked = {}; // 已选择的商品
 
     $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
-    $scope.productportal.submit = function () {
+    $scope.productportal.checked = function (_product) {
+
+        console.log(this);
 
         if (!$scope.doctorprescriptdetails) {
             $scope.doctorprescriptdetails = [];
         }
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
+        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
+
+        }
+        else {
+            // 未选择新添加
+
+            var doctorprescriptdetail= {};
+
+            //  "inputCount",
+
+            angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
+                doctorprescriptdetail[name] = _product[name];
+            });
+
+            doctorprescriptdetail.itemCost = _product.recipePrice;
+
+            // 个数
+            doctorprescriptdetail.itemNum = 1;
+
+            $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
+
+            $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+        }
+
+        commons.modalsuccess("product", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
+    };
+
+    $scope.productportal.submit = function () {
+
+        angular.forEach($scope[$scope.productportal.id + "s"], function (_product) {
+            if($scope.productportal.selection[_product.id])
             {
-                if($scope.productchecked[product.itemCode]) {    // 是否已选择
-
-                }
-                else {
-                    // 未选择新添加
-
-                    var doctorprescriptdetail= {};
-
-                    //  "inputCount",
-
-                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                        doctorprescriptdetail[name] = product[name];
-                    });
-
-                    doctorprescriptdetail.itemCost = product.recipePrice;
-
-                    // 个数
-                    doctorprescriptdetail.itemNum = 1;
-
-                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
-
-                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
-                }
+                $scope.productportal.checked(_product)
             }
         });
 
@@ -409,7 +492,73 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     // 打印页面
     $scope.print = function () {
+
+         $('#doctorprescriptprintbody').find(':text').each(function(i, node){
+            var _text = $(node);
+            _text.parent().html(_text.val());
+         });
+
         document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML =$('#doctorprescriptprintbody').html();
         document.getElementById('printiframe').contentWindow.print();
     }
+
+    /**
+     * 弹出选择商品
+     * ---------------------------
+     * */
+
+    // 查询等诊列表
+//    $scope.registerportal.searchByWhere({"status": "SM00034"});
+//    $scope.registerportal.list();
+
+    $scope.themap = {};
+
+    $http.get(commons.getBusinessHostname() + $scope.registerportal.server).success(function (data, status, headers, config) {
+
+        if(!$scope.plays)
+        {
+            $scope.plays = [];
+        }
+
+        if(!$scope.pauses)
+        {
+            $scope.pauses = [];
+        }
+
+        angular.forEach(data.data, function(reg){
+
+            if(!$scope.themap[reg.id])
+            {
+//                alert(reg.id + ", " + reg.status.dictDetailCode );
+
+                $scope.themap[reg.id] = true;
+
+                if(reg.status.dictDetailCode == 'SM00034')
+                {
+                    //  待诊
+                    $scope.plays.push(reg);
+                }
+                else if(reg.status.dictDetailCode == 'SM00035')
+                {
+                    //  就诊中
+                    $scope.plays.push(reg);
+                }
+                else if(reg.status.dictDetailCode == 'SM00036')
+                {
+                    //已暂停
+                    $scope.pauses.push(reg);
+                }
+            }
+        });
+
+    });
+
+
+    // 查询医院信息
+    $http.get(commons.getBusinessHostname() + "/api/v2/enterprises").success(function (data, status, headers, config) {
+        angular.forEach(data.data, function (item) {
+            $scope.hospital = item;
+        });
+    });
+
 });

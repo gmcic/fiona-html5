@@ -18,11 +18,11 @@ layout: "page"
             暂停
             -#%span.badge.badge-danger 3
         %li
-          %a{"data-toggle" => "tab", :href => "//#cure_pet"}
+          %a{"data-toggle" => "tab", :href => "//#cure_pet", "ng" => {"show":"pet.id"}}
             %i.fa.fa-paw
             宠物
 
-      .tab-content
+      .tab-content{:style => "padding-top: 5px;"}
         -# 待诊列表
         #play_pets.tab-pane.active
           -#.clearfix
@@ -34,7 +34,7 @@ layout: "page"
           -#    会员
           -#%br
           %div.list-group
-            %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in registers", "class": '{active: register.id == node.id}'}}
+            %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in plays", "class": '{active: register.id == node.id}'}}
               %img{"ng" => {"src": "/assets/images/pet{{$index+1}}.png"}, :width => "45px"}
               %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}
 
@@ -45,25 +45,58 @@ layout: "page"
           -#  %button.btn.btn-info{:type => "button"} 会员
           -#%br
           %div.list-group
-            %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in registers", "class": '{active: register.id == node.id}' }}
+            %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in pauses", "class": '{active: register.id == node.id}' }}
               %img{"ng" => {"src": "/assets/images/pet{{$index+1}}.png"}, :width => "45px"}
               %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}
 
         #cure_pet.tab-pane
-          .clearfix
-            %button.btn.btn-warning{:type => "button"}
+          .clearfix.text-center{:style => "margin-bottom: 5px;"}
+            %button.btn.btn-warning{:type => "button", "ng-click" => "pause()", "ng-show" => "register.status.dictDetailCode == 'SM00035'"}
               %i.fa.fa-pause
               暂停诊断
-            %button.btn.btn-danger{:type => "button"}
+
+            %button.btn.btn-success{:type => "button", "ng-click" => "replay()", "ng-show" => "register.status.dictDetailCode == 'SM00036'"}
+              %i.fa.fa-undo
+              重新诊断
+
+            %button.btn.btn-danger{:type => "button", "ng-click" => "stop()", "ng-show" => "register.status.dictDetailCode != 'SM00037'"}
               %i.fa.fa-stop
               结束诊断
-            %button.btn.btn-info{:type => "button"}
+
+            %button.btn.btn-info{:type => "button", "ng-click" => "", "ng-show" => "register.status.dictDetailCode == 'SM00035'"}
               %i.fa.fa-file
-              疫苗登记
+                疫苗登记
 
-          = partial :'views/commons/pet/portal_pet_view', :locals => {:model => 'readonly'}
+          = partial 'layouts/widget/service_pet' do
+            = partial :'layouts/buttons/btn_pruple', :locals => {:label => "查看历史病历", :click => "curemanagerportal.history()", :icon => "fa-history"}
 
-  .col-md-9{"ng" => {"show":"curemanager.id"}}
+          / BEGIN BORDERED TABLE PORTLET
+          .portlet.light.bordered{"ng-show" => "historyview == 'view'"}
+            .portlet-title
+              .caption
+                %i.fa.fa-paw
+                %span.caption-subject.font-dark.sbold.uppercase 诊断历史
+              .actions
+                = partial :'layouts/buttons/btn_pruple', :locals => {:label => "返回当前", :click => "curemanagerportal.underway()", :icon => "fa-arrow-circle-left "}
+
+            .portlet-body
+              .table-scrollable
+                %table.table.table-striped.table-bordered.table-advance.table-hover
+                  %thead
+                    %tr
+                      %th #
+                      %th 诊断日期
+                      %th 医生
+                      %th
+                  %tbody
+                    %tr.cursor-pointer{"ng" => {"class":"{warning: _curemanager.id == curemanager.id}", "repeat": "_curemanager in curemanagers", "click": "curemanagerportal.switched(_curemanager)", :style => "cursor:pointer"}}
+                      %td {{$index + 1}}
+                      %td {{ _curemanager.createDate | date:"yyyy年MM月dd日"}}
+                      %td {{ _curemanager.doctor}}
+                      %td
+                        %span.fa.fa-arrow-circle-right
+
+  .col-md-9{"ng" => {"show":"curemanager.id && register.status.dictDetailCode == 'SM00035'"}}
     .tabbable-line
       %ul.nav.nav-tabs
         %li.active
@@ -144,9 +177,7 @@ layout: "page"
   = partial 'prescripttemplate'
 
 / 选择商品
-- modal "选择商品", "product"
-= partial :'layouts/partials/modal-portal-select-full' do
-  = partial 'layouts/widget/service_product_select'
+= partial 'layouts/widget/service_product_select'
 
 / 打印处方
 - modal "打印处方", "doctorprescript"

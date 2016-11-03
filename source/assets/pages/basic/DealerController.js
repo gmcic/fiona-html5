@@ -27,7 +27,7 @@ angular.module('fiona').controller('DealerController', function($scope, $control
             insert: function () {
                 $scope.setSelectDefault("dealer", ["companyType"]);
 
-                $scope.dealer.code = commons.serialNumber();
+                $scope.serialNumber({id: "dealer", fieldName : "code", numberName : "经销商编号"});
             }
         }
     };

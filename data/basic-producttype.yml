@@ -21,7 +21,7 @@ fields:
   主键: id
 
   # 只显示
-  父类名称: $producttypeportal.selected.cateName
+  父类名称: parentObject.cateName
 
   种类编号: cateNo
 

@@ -50,16 +50,9 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
         callback: {
             insert: function () {
 
-                // 生成-会员编号
-                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=会员编号").success(function (data, status, headers, config) {
-                    $scope.vip.gestCode = data.data;
-                }).error(function (data, status, headers, config) { //     错误
-                    commons.modaldanger("vip", "生成会员编号失败");
-                });
+                $scope.serialNumber({id: "vip", fieldName : "gestCode", numberName : "会员编号"});
 
-                angular.forEach(['gestSex', 'gestStyle', 'status'], function (key) {
-                    $scope.vip[key] = $scope.dropdowns[key + 'Set'][0];
-                });
+                $scope.setSelectDefaultObject("vip", ["gestSex", "gestStyle", "status"]);
             },
 
             update: function () {
@@ -117,42 +110,44 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
      * 宠物管理
      * ---------------------------
      * */
-    $scope.petportal= {
+//    $scope.petportal = {
+//
+//        foreign: "vip",
+//
+//        foreignkey: "gestId",
+//
+//        id: "pet",
+//
+//        name: "宠物管理",
+//
+//        server: "/api/v2/pets",
+//
+//        // defilters: {"petCode": "宠物病例号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员名称",  "gestPhone": "会员电话"},
+//
+//        callback: {
+//            insert: function () {
+//                $scope.setSelectDefault("pet", ["petBreed.valueNameCn"]);
+//
+//                $scope.setSelectDefaultObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+//
+//                $scope.serialNumber({id: "pet", fieldName : "petCode", numberName : "宠物编号"});
+//            },
+//            update: function () {
+//                $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+//            }
+//        }
+//    };
+//
+//    $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
 
-        foreign: "vip",
+    $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
-        foreignkey: "gestId",
+    $scope.petportal.foreign =  "vip";
+    $scope.petportal.foreignkey =  "gestId";
 
-        id: "pet",
-
-        name: "宠物管理",
-
-        server: "/api/v2/pets",
-
-        // defilters: {"petCode": "宠物病例号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员名称",  "gestPhone": "会员电话"},
-
-        callback: {
-            insert: function () {
-                angular.forEach(['status', 'petBreed', 'petSkinColor', 'petRace', 'petSex'], function (key) {
-                    if($scope.dropdowns[key + 'Set'])
-                    {
-                        $scope.pet[key] = $scope.dropdowns[key + 'Set'][0];
-                    }
-                });
-
-                // 生成-会员编号
-                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=宠物编号").success(function (data, status, headers, config) {
-                    $scope.pet.petCode = data.data;
-                }).error(function (data, status, headers, config) { //     错误
-                    commons.modaldanger("vip", "生成宠物编号失败");
-                });
-            },
-            update: function () {
-            }
-        }
-    };
-
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
+    $scope.petportal.callback.update = function () {
+      $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+    }
 
     $scope.vipportal.filter();
 });

@@ -2,8 +2,7 @@
 .row
   .col-md-6
     / 选择宠物
-    = partial 'layouts/widget/service_pet' do
-      / 不输出 outline 按钮
+    = partial 'layouts/widget/service_pet'
 
   .col-md-6
     .portlet.light.bordered
@@ -24,7 +23,7 @@
 
           .row
             .col-md-12
-              = partial :'layouts/inputs/text', :locals => {:fieldName => '金额', :maxlength => '16', :required => "true"}
+              = partial :'layouts/inputs/number', :locals => {:fieldName => '金额', :maxlength => '16', :required => "true"}
 
           .row
             .col-md-12

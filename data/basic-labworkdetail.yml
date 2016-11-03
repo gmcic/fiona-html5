@@ -1,6 +1,11 @@
-# 化验项目管理
+module:
+  name: 参考值设置
+  id: labworkdetail
+  data: medicchemicalexamtypedetails
+
 listFields:
   - fieldName: 医疗类型
+    filter: dropdown
 
   - fieldName: 参考值上限
 

@@ -1,12 +1,16 @@
 / BEGIN SAMPLE FORM PORTLET
-.portlet.light.bordered
+.portlet.light.bordered{"ng-show" => "!historyview || historyview != 'view'"}
   .portlet-title
     .caption
       %i.fa.fa-paw
       %span.caption-subject.font-dark.sbold.uppercase 宠物信息
     .actions
-      = partial :'layouts/buttons/insert', :locals => {:click => 'petportal.insert()', :label => '新增宠物'}
-      = partial :'layouts/buttons/btn_find', :locals => {:click => 'petportal.pupupselect()', :label => '选择宠物'}
+      - if defined? yield
+        =yield
+
+      - else
+        = partial :'layouts/buttons/insert', :locals => {:click => 'petportal.insert()', :label => '新增宠物'}
+        = partial :'layouts/buttons/btn_find', :locals => {:click => 'petportal.pupupselect()', :label => '选择宠物'}
 
   .portlet-body.form
     .form-body
@@ -20,6 +24,10 @@
 
       .row
         .col-md-12
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '会员电话', :maxlength => '32'}
+
+      .row
+        .col-md-12
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '宠物名称', :maxlength => '32'}
       .row
         .col-md-12
@@ -30,13 +38,13 @@
       .row
         .col-md-12
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '体重', :maxlength => '16'}
-
-      .row
-        .col-md-12
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '种类', :maxlength => '16'}
-      .row
-        .col-md-12
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '宠物品种', :maxlength => '16'}
+      -#
+      -#.row
+      -#  .col-md-12
+      -#    = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '种类', :maxlength => '16'}
+      -#.row
+      -#  .col-md-12
+      -#    = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '宠物品种', :maxlength => '16'}
 
       .row
         .col-md-12
