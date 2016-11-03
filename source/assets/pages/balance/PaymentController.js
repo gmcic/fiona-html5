@@ -81,11 +81,6 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
         name: "收费管理",
 
         server: "/api/v2/gestpaidrecords/billList",
-<<<<<<< HEAD
-=======
-
-        defilters: { "personCode": "员工编号", "personName": "员工名称 "},
->>>>>>> 97e6886016eedceeb91474ecb09af1e3206f4061
 
         callback: {
             update: function(){
