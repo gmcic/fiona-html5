@@ -87,17 +87,7 @@ wechat: message
 register: registration
 
 # 报表
-reportachievements: report
-reportcases: report
-reportconsumption: report
-reportgrossprofit: report
-reportpurchase: report
-reportreg: report
-reportsales: report
-reportstock: report
-reportstorefront: report
-reportturnover: report
-reportvisit: report
+amchartdashboard: report
 
 # 销售
 saleplate: sales

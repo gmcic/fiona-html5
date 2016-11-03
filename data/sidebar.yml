@@ -325,6 +325,22 @@
           controller: UserdictController
           template: /userdict/userdict_list.html
 
+# 业务办理
+- name: Report
+  menus:
+  #Reception - BEGIN
+
+    - name: 统计报表
+      icon: fa fa-medkit
+      prefix: /report
+      uri: javascript:;
+      menus:
+        - name: Dashboard
+          icon: fa fa-area-chart
+          controller: AmchartController
+          uri: /amchart/dashboard
+          template: /amchart/dashboard.html
+
 #
 #    - name: 护士工作站
 #      uri: javascript:;

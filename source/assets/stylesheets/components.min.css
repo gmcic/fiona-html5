@@ -8756,30 +8756,30 @@ body[ng-controller] .modal {
 }
 
 .portlet > .portlet-title > .tools > a.remove {
-    background-image: url(../img/portlet-remove-icon.png);
+    background-image: url(../images/portlet-remove-icon.png);
     background-repeat: no-repeat;
     width: 11px
 }
 
 .portlet > .portlet-title > .tools > a.config {
-    background-image: url(../img/portlet-config-icon.png);
+    background-image: url(../images/portlet-config-icon.png);
     background-repeat: no-repeat;
     width: 12px
 }
 
 .portlet > .portlet-title > .tools > a.reload {
-    background-image: url(../img/portlet-reload-icon.png);
+    background-image: url(../images/portlet-reload-icon.png);
     width: 13px
 }
 
 .portlet > .portlet-title > .tools > a.expand {
-    background-image: url(../img/portlet-expand-icon.png);
+    background-image: url(../images/portlet-expand-icon.png);
     width: 14px;
     visibility: visible
 }
 
 .portlet > .portlet-title > .tools > a.collapse {
-    background-image: url(../img/portlet-collapse-icon.png);
+    background-image: url(../images/portlet-collapse-icon.png);
     width: 14px;
     visibility: visible
 }
