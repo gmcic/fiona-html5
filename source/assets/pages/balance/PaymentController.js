@@ -56,12 +56,30 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
     $scope.allowpay = false;
 
+    $scope.allowmessage = "";
+
     $scope.pay = function()
     {
+//        alert($scope.paymentpractical.price + ",  " + $scope.paymentpractical.operateContent);
+
+        if($scope.paymentpractical.price <= 0)
+        {
+            $scope.allowmessage = "请支付金额为空,请要结算的项目!";
+        }
+        else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent  <= $scope.paymentpractical.price)
+        {
+            $scope.allowmessage = "支付金额不足";
+        }
+        else
+        {
+            $scope.allowmessage = "";
+        }
+
         if($scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  && $scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
         {
            $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
 
+            $scope.allowmessage = "";
            $scope.allowpay = true;
         }
         else

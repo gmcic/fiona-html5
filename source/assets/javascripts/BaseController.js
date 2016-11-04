@@ -7,12 +7,8 @@ Array.prototype.indexOfWithId = function(val) {
         }
     }
 
-<<<<<<< HEAD
-               // sessionStorage.setItem("authorization", "fc5db3b3-4063-4a12-a511-880ba19e4b58");
-=======
     return -1;
 };
->>>>>>> 923d451a60c749683730995bbee070f4974b1f08
 
 // 搜索数组中与 对象ID 相同的对象
 Array.prototype.getObjectWithId = function(val) {
