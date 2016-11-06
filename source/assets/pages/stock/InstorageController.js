@@ -217,7 +217,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                 instoragedetail[name] = _product[name];
             });
 
-
             // 个数
             instoragedetail.inputCount = 1;
 

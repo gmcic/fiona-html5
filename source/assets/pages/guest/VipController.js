@@ -50,6 +50,8 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
         callback: {
             insert: function () {
 
+                $scope.pets = [];
+
                 $scope.serialNumber({id: "vip", fieldName : "gestCode", numberName : "会员编号"});
 
                 $scope.setSelectDefaultObject("vip", ["gestSex", "gestStyle", "status"]);
@@ -57,33 +59,11 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
 
             update: function () {
 
-                $scope.petportal.search();
+                $scope.petportal.searchByWhere({gestId: $scope.vip.id});
 
                 $scope.local.recount();
 
-                angular.forEach($scope.dropdowns.gestSexSet, function (data) {
-                    if(data.id == $scope.vip.gestSex.id)
-                    {
-                        $scope.vip.gestSex = data;
-                    }
-                });
-
-                angular.forEach($scope.dropdowns.gestStyleSet, function (data) {
-                    if(data.id == $scope.vip.gestStyle.id)
-                    {
-                        $scope.vip.gestStyle = data;
-                    }
-                });
-
-                if($scope.vip.status)
-                {
-                    angular.forEach($scope.dropdowns.statusSet, function (data) {
-                        if(data.id == $scope.vip.status.id)
-                        {
-                            $scope.vip.status = data;
-                        }
-                    });
-                }
+                $scope.replaceLocalObject("vip", ["gestSex", "gestStyle", "status"]);
             },
 
             submit : function () {
@@ -106,40 +86,6 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipportal}); //继承
 
-    /**
-     * 宠物管理
-     * ---------------------------
-     * */
-//    $scope.petportal = {
-//
-//        foreign: "vip",
-//
-//        foreignkey: "gestId",
-//
-//        id: "pet",
-//
-//        name: "宠物管理",
-//
-//        server: "/api/v2/pets",
-//
-//        // defilters: {"petCode": "宠物病例号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员名称",  "gestPhone": "会员电话"},
-//
-//        callback: {
-//            insert: function () {
-//                $scope.setSelectDefault("pet", ["petBreed.valueNameCn"]);
-//
-//                $scope.setSelectDefaultObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
-//
-//                $scope.serialNumber({id: "pet", fieldName : "petCode", numberName : "宠物编号"});
-//            },
-//            update: function () {
-//                $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
-//            }
-//        }
-//    };
-//
-//    $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
-
     $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
     $scope.petportal.foreign =  "vip";
@@ -147,6 +93,21 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
 
     $scope.petportal.callback.update = function () {
       $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+    }
+
+    $scope.petportal.submit = function(){
+
+        $scope["petform"].submitted = true;
+
+        if (!!this.callback && !!this.callback.submitbefore) {
+            this.callback.submitbefore();
+        }
+
+        if ($scope["petform"].$valid) {
+            $scope["pets"].unshift($scope.pet);
+        }
+
+        $('#' + this.id).modal('toggle');
     }
 
     $scope.vipportal.filter();
