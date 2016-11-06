@@ -7,6 +7,11 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", doctorStatusSet : "就诊状态"},
         userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"},
         callback : {
+            userdicts : function () {
+                // 处方单位
+                $scope.dropdowns.recipeUnitSet = $scope.dropdowns.useUnitSet;
+            },
+
             dicts: function()
             {
                 $scope.dropdowns.recipeUnitSet = $scope.dropdowns.useUnitSet;
@@ -201,7 +206,11 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         },
 
         switched: function(_curemanager){
+
             $scope.curemanager = _curemanager;
+            $scope.doctorprescripts = [];
+            $scope.doctorprescriptdetails = [];
+
             $scope.doctorprescriptportal.search();
         },
 
@@ -449,6 +458,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
         if($scope.productchecked[_product.itemCode]) {   // 是否已选择
 
+            commons.modaldanger("product", "[ 商品" +_product.itemName+ " ]已存在");
         }
         else {
             // 未选择新添加
@@ -461,6 +471,11 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
                 doctorprescriptdetail[name] = _product[name];
             });
 
+            if(_product.itemStandard)
+            {
+                doctorprescriptdetail.itemName = doctorprescriptdetail.itemName + "(" +  _product.itemStandard + ")";
+            }
+
             doctorprescriptdetail.itemCost = _product.recipePrice;
 
             // 个数
@@ -469,9 +484,10 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
 
             $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+
+            commons.modalsuccess("product", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
         }
 
-        commons.modalsuccess("product", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
     };
 
     $scope.productportal.submit = function () {
@@ -479,7 +495,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         angular.forEach($scope[$scope.productportal.id + "s"], function (_product) {
             if($scope.productportal.selection[_product.id])
             {
-                $scope.productportal.checked(_product)
+                $scope.productportal.checked(_product);
             }
         });
 

@@ -9,10 +9,10 @@ listFields:
 
   - fieldName: 规格
 
-  - fieldName: 销售单位
+  - fieldName: 处方单位
     filter: dropdown
 
-  - fieldName: 销售价格
+  - fieldName: 处方价格
     filter: currency:"￥"
 
 searchFields:

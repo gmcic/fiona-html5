@@ -5,7 +5,7 @@ layout: "page"
 - page "挂号查询", "register"
 
 = partial 'layouts/widget/portal' do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'registerfastportal.insert()', :label => '快捷挂号'}
+  -#= partial :'layouts/buttons/insert', :locals => {:click => 'registerfastportal.insert()', :label => '快捷挂号'}
   = partial :'layouts/buttons/insert', :locals => {:label => '会员挂号', :click => "registerportal.insert()"}
   = partial :'layouts/buttons/removes'
 

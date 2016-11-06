@@ -10,7 +10,7 @@ angular.module('fiona').controller('PersonnelController', function ($scope, $htt
 
     $scope.dropdowns = {
         isSyncEasSet: [{id: "true", valueNameCn: "是"}, {id: "false", valueNameCn: "否"}],
-        roleSet: [{id: "docto", valueNameCn: "医生"}, {id: "nurse", valueNameCn: "护士"}]
+        roleSet: [{id: "doctor", valueNameCn: "医生"}, {id: "nurse", valueNameCn: "护士"}]
     };
 
 

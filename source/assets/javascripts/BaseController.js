@@ -1367,6 +1367,9 @@ angular.module('fiona')
 
         name: "宠物选择",
 
+        defilters: {"sickFileCode": "宠物病历号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员姓名"},
+
+//        ,  "gestName": "会员电话"
         server: "/api/v2/pets",
 
         callback: {

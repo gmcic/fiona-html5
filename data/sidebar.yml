@@ -1,14 +1,14 @@
-#- name: Cases
-#  menus:
-#    - name: 案例
-#      prefix: /api
-#      uri: javascript:;
-#      menus:
-#        - name: Index
-#          uri: /index
-#          controller: CasesController
-#          template: /index/index.html
-#
+- name: Cases
+  menus:
+    - name: 案例
+      prefix: /api
+      uri: javascript:;
+      menus:
+        - name: Index
+          uri: /index
+          controller: CasesController
+          template: /index/index.html
+
 #        - name: Table
 #          uri: /cases/list
 #          controller: CasesController

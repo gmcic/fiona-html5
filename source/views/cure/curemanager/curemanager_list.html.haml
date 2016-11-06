@@ -89,7 +89,7 @@ layout: "page"
                       %th 医生
                       %th
                   %tbody
-                    %tr.cursor-pointer{"ng" => {"class":"{warning: _curemanager.id == curemanager.id}", "repeat": "_curemanager in curemanagers", "click": "curemanagerportal.switched(_curemanager)", :style => "cursor:pointer"}}
+                    %tr.cursor-pointer{"ng" => {"class":"{warning: _curemanager.id == curemanager.id}", "repeat": "_curemanager in curemanagers", "click": "curemanagerportal.switched(_curemanager)"}}
                       %td {{$index + 1}}
                       %td {{ _curemanager.createDate | date:"yyyy年MM月dd日"}}
                       %td {{ _curemanager.doctor}}

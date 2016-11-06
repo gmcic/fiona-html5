@@ -33,9 +33,35 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 暂停原因
 
 searchFields:
-  - fieldName: 员工姓名
+  - fieldName: 会员编号
 
-  - fieldName: ---
+  - fieldName: 宠物病历号
+
+  - fieldName: 宠物昵称
+
+  - fieldName: 会员姓名
+
+  - fieldName: 主人手机
+
+  - fieldName: 暂停原因
+
+  - fieldName: 挂号时间
+
+  - fieldName: 挂号类型
+
+  - fieldName: 挂号状态
+
+  - fieldName: 付费状态
+
+  - fieldName: 暂停原因
+
+  - fieldName: 诊疗医生
+
+  - fieldName: 助理医生
+
+  - fieldName: 挂号状态
+
+  - fieldName: 挂号类型
 
 
 fields: #可定义多个中文名称指向同一个字段
