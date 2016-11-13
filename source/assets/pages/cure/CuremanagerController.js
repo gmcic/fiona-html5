@@ -462,6 +462,17 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.doctorprescriptdetailportal}); //继承
 
+    $scope.doctorprescriptdetailportal.remove = function (obj) {
+
+        delete $scope.productchecked[obj.itemCode];
+
+        obj = obj || $scope[component.id];
+
+        if (confirm("您确定要删除该记录吗?")) {
+            this.delete(obj);
+        }
+    }
+
     /**
      * 弹出选择处方模版
      * ---------------------------
