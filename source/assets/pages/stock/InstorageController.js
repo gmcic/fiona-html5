@@ -20,14 +20,23 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     // 会员等级, 会员状态
     $scope.dropboxinit($scope.dropboxargs);
 
+    // 供应商
     $scope.dropdownWithTable({id: "warehouses", server: "/api/v2/warehouses", value: "id", text: "name"});
 
+    /** 审核 */
     $scope.auditing  = function () {
+
         $http.get(commons.getBusinessHostname() + $scope.instorageportal.server + "/audit/" + $scope.instorage.id).success(function (data, status, headers, config) {
-            commons.modalsuccess(instorage.id, "审核成功");
+
+            $scope.instorages.replaceById(data.data);
+
+            commons.success("审核成功");
+
+            $("#instorage").modal('toggle');
         }).error(function (data, status, headers, config) { //     错误
             commons.modaldanger(instorage.id, "保存失败");
         });
+
     };
 
     /**
@@ -54,7 +63,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                 }
             });
         },
-
 
         resize: function () {
 
@@ -190,7 +198,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
     $scope.productportal.filter();
 
-
     $scope.productportal.checked = function (_product) {
 
         if($scope.productchecked[_product.itemCode]) {
@@ -235,7 +242,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         if (!$scope.doctorprescriptdetails) {
             $scope.doctorprescriptdetails = [];
         }
-
     };
 
     $scope.productportal.submit = function () {

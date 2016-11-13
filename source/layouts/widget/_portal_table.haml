@@ -34,7 +34,7 @@
 
       - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
         %td
-          - inline_attr_show = (defined? inline_toolbar) && (inline_toolbar.include? "auditing") ? (@portal_id + ".status.dictDetailCode != 'SM00043'") : ""
+          - inline_attr_disabled = (defined? inline_toolbar) && (inline_toolbar.include? "auditing") ? (@portal_id + ".status.dictDetailCode == 'SM00043'") : ""
 
           // 查看按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "view" )
@@ -42,11 +42,11 @@
 
           // 修改按钮
           - if (!defined? inline_toolbar) || ( inline_toolbar.include? "update" )
-            = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)', :show => "#{inline_attr_show}"}
+            = partial :'layouts/buttons/update', :locals => {:click => @portal_id + 'portal.update(' + @portal_id + '.id)', :disabled => "#{inline_attr_disabled}"}
 
           // 删除按钮
           - if (!defined? inline_toolbar) || ( inline_toolbar.include? "remove" )
-            = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + ')', :show => "#{inline_attr_show}"}
+            = partial :'layouts/buttons/remove', :locals => {:click => @portal_id + 'portal.remove(' + @portal_id + ')', :disabled => "#{inline_attr_disabled}"}
 
           // 选择按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "selected" )
@@ -62,7 +62,7 @@
 
           // 审核按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "auditing" )
-            = partial :'layouts/buttons/btn', :locals => {:label => "审核", :icon => "fa-gavel", :click => @portal_id + 'portal.auditing(' + @portal_id + '.id)', :show => "#{inline_attr_show}"}
+            = partial :'layouts/buttons/btn', :locals => {:label => "审核", :icon => "fa-gavel", :click => @portal_id + 'portal.auditing(' + @portal_id + '.id)', :disabled => "#{inline_attr_disabled}"}
 
       - @portal[$listdataKey].each do |column|
         %td

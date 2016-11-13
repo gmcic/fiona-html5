@@ -10,6 +10,17 @@ Array.prototype.indexOfWithId = function(val) {
     return -1;
 };
 
+// 根据ID 替换对象
+Array.prototype.replaceById = function(obj) {
+
+    var index = this.indexOfWithId(obj);
+
+    if(index != -1)
+    {
+        this[index] = obj;
+    }
+};
+
 // 搜索数组中与 对象ID 相同的对象
 Array.prototype.getObjectWithId = function(val) {
     if(val)

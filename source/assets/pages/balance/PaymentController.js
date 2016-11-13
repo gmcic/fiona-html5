@@ -121,8 +121,11 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
     // 打印页面
     $scope.print = function () {
-        document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML =$('#paymentprintbody').html();
-        document.getElementById('printiframe').contentWindow.print();
+
+        document.getElementById('printiframe').contentWindow.document.getElementById('printContent').contentWindow.document.getElementById('printBody').innerHTML = $('#paymentprintbody').html();
+        document.getElementById('printiframe').contentWindow.demoPrint();
+
+        // $('#doctorprescriptprint').modal('toggle');
     }
 
     /**

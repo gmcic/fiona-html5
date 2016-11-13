@@ -360,6 +360,48 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
         $scope.nowtime = new Date();
 
+        var $first = 20; // 首页行数
+
+        var $middle = 20; // 中间页行数
+
+        var $last = 20; // 最后页行数
+
+        $scope.doctorprescriptdetail2ds = [];
+
+        var size = $scope.doctorprescriptdetails.length;
+
+        // 首页
+        $scope.doctorprescriptdetail2ds.push($scope.doctorprescriptdetails.slice(0, size > $first ? $first : size));
+
+        if(size > $first)
+        {
+            var $index = $first;
+
+            var size = size - $first;
+
+            // 中间页
+            while(size > $middle)
+            {
+               $scope.doctorprescriptdetail2ds.push($scope.doctorprescriptdetails.slice($index, $index + $middle));
+
+               $index = $index + $middle;
+
+               size = size - $middle;
+            }
+
+            // 尾页
+            if(size > 0)
+            {
+                $scope.doctorprescriptdetail2ds.push($scope.doctorprescriptdetails.slice($index));
+
+                $scope.lastpagebreak = size > $last;
+            }
+            else
+            {
+                $scope.lastpagebreak = true;
+            }
+        }
+
         // $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
 
         $('#doctorprescriptprint').modal('toggle');
@@ -514,8 +556,20 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             _text.parent().html(_text.val());
          });
 
-        document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML =$('#doctorprescriptprintbody').html();
-        document.getElementById('printiframe').contentWindow.print();
+        var html = '';
+
+         $('#doctorprescriptprintbody').find('.print-body-html').each(function(i, node){
+            html += "<p></p>";
+            html += node.outerHTML;
+            html += "<p style='page-break-after:always;both: clean'>&nbsp;</p>";
+         });
+
+        document.getElementById('printiframe').contentWindow.document.getElementById('printContent').contentWindow.document.getElementById('printBody').innerHTML = html;
+        document.getElementById('printiframe').contentWindow.demoPrint();
+
+
+
+        $('#doctorprescriptprint').modal('toggle');
     }
 
     /**

@@ -2,29 +2,29 @@
 .form-body
   .row
     .col-md-3
-      = partial :'layouts/inputs/textview', :locals => {:fieldName => '入库单号', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '入库单号', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '入库仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehousesSet", :disabled => "true"}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '入库仓库名称', :fieldKey => 'inWarehouse'}
 
   .row
     .col-md-3
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '审核人', :maxlength => '32'}
 
     .col-md-3
-      = partial :'layouts/inputs/textview', :locals => {:fieldName => '审核日期', :maxlength => '32'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '审核日期', :filter => "date:'yyyy年MM月dd日'"}
 
     .col-md-3
-      = partial :'layouts/inputs/textview', :locals => {:fieldName => '备注', :maxlength => '32'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '备注'}
 
     .col-md-3
-      = partial :'layouts/inputs/textview', :locals => {:fieldName => '经销商', :maxlength => '32'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '经销商'}
 
 / Portal
 - portal "入库商品清单", "instoragedetail"

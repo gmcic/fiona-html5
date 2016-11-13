@@ -3,11 +3,15 @@
 
 - fields = data["" << @module[$keyword] << "-" << $keyword].fields
 
-- if defined? labelName
-  - $ngModel = inputModel($keyword, (fields[fieldName] || 'error') + "." + labelName)
+- $filter = (defined? filter) ? " | " << filter : ""
 
-- if !(defined? labelName)
-  - $ngModel = inputModel($keyword, (fields[fieldName] || 'error'))
+- fieldKey = (defined? fieldKey) ? fieldKey : nil
+
+- if defined? labelName
+  - $ngModel = inputModel($keyword, (fieldKey || fields[fieldName] || 'error') + "." + labelName)
+
+- else
+  - $ngModel = inputModel($keyword, (fieldKey || fields[fieldName] || 'error'))
 
 - if defined? cols
   - $cols = cols.split
@@ -15,11 +19,11 @@
     #{fieldName} #{@formIdName}
 
   %div{:class => "col-md-#{$cols[1]}"}
-    %input.form-control{:type => "text", "ng-model"=>"#{$ngModel}" , "readonly" => "true"}/
+    %input.form-control{:type => "text", "value"=>"{{#{$ngModel}#{$filter}}}" , "readonly" => "true"}/
 
 - else
   .form-group.form-md-line-input
     %label.control-label
       #{fieldName} #{@formIdName}
 
-    %input.form-control{:type => "text", "ng-model"=>"#{$ngModel}" , "readonly" => "true"}/
+    %input.form-control{:type => "text", "value"=>"{{#{$ngModel}#{$filter}}}" , "readonly" => "true"}/
