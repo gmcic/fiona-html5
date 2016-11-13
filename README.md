@@ -8,13 +8,8 @@
 
 # TODO
 
-1. 生成 挂号信息 - 登记编号
+1. 入库管理 -> 审核 —> 返回审核后的对象,不要返回 true, false
 
-2. 生成 诊断  - 就诊编号
-
-3. medicchemicalexamdetails 接口数据不正确,  与 medicchemicalexams 接口相同
-
-3. prescriptiontemplatedetails 接口数据不正确,  与 prescriptiontemplates 接口相同
 
 # ERROR
 
@@ -35,7 +30,6 @@
  > constraint [login_name]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement
  
 
-
 ## 化验项目 - 化验项目分类
  
 >  保存成功,数据没有更新
@@ -44,7 +38,6 @@
 ## 就诊管理
  
 >  查询就诊信息失败
-
 
 ## 商品与分类 - 分类历史数据 - 不能保存
  
