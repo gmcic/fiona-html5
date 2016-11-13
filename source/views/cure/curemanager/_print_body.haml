@@ -82,7 +82,7 @@
               = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
 
 
-  %table.table-print-noborder{"ng-if" => "!lastpagebreak && $last"}
+  %table.table-print-noborder
     %tbody
       %tr
         %th{:style => "width: 90px"} 诊疗医生
@@ -91,7 +91,7 @@
         %th{:style => "width: 90px"}  助理医生
         %td{:style => "width: 180px"}
 
-        %td.text-right.h4 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}
+        %td.text-right.h4{"ng-if" => "$last"} 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}
 
       %tr
         %th{:colspan => "5"}
@@ -102,12 +102,12 @@
       %tr
         %th{:colspan => "5"}
 
-  .text-right{"ng-if" => "!lastpagebreak && $last"}
+  .text-right
     医院电话: {{hospital.telPhone}}
 
     %p 医院地址: {{hospital.areaCode}}
 
-  .text-right.h5{"ng-if" => "!lastpagebreak && $last"}
+  .text-right.h5
     {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
 
 
