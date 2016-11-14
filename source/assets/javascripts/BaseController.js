@@ -10,6 +10,21 @@ Array.prototype.indexOfWithId = function(val) {
     return -1;
 };
 
+// 测试指定属性值的对象
+Array.prototype.existprop = function(propertyName, value) {
+    if(value)
+    {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i][propertyName] == value)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+};
+
 // 根据ID 替换对象
 Array.prototype.replaceById = function(obj) {
 

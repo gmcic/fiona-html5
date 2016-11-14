@@ -462,6 +462,8 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.doctorprescriptdetailportal}); //继承
 
+    $scope.doctorprescriptdetailportal.pagination.pageSize = 100000;
+
     /**
      * 弹出选择处方模版
      * ---------------------------
@@ -486,19 +488,16 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
      * 弹出选择商品
      * ---------------------------
      * */
-    $scope.productchecked = {}; // 已选择的商品
-
     $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
 
     $scope.productportal.checked = function (_product) {
-
-        console.log(this);
 
         if (!$scope.doctorprescriptdetails) {
             $scope.doctorprescriptdetails = [];
         }
 
-        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
+//        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
+        if($scope.doctorprescriptdetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
             commons.modaldanger("product", "[ 商品" +_product.itemName+ " ]已存在");
         }
@@ -523,7 +522,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             // 个数
             doctorprescriptdetail.itemNum = 1;
 
-            $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
+//            $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
 
             $scope.doctorprescriptdetails.push(doctorprescriptdetail);
 
