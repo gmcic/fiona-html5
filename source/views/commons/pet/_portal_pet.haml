@@ -22,7 +22,7 @@
           %tbody
             %tr.odd.gradeX{ "ng-repeat" => @portal_id + " in " + @portal_id + "s"}
               %td.text-center
-                = partial :'layouts/buttons/btn_info', :locals => {:click => @portal_id + 'portal.checked(' + @portal_id + '.id)' , :label => '选择', :icon => "fa-check"}
+                = partial :'layouts/buttons/btn_info', :locals => {:click => @portal_id + 'portal.checked(' + @portal_id + ')' , :label => '选择', :icon => "fa-check"}
 
               - @portal.portalFields.each do |column|
                 %td

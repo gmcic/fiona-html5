@@ -1381,6 +1381,80 @@ angular.module('fiona')
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承
 
 })
+.controller('ProductAutoCompleteController', function ($scope, $controller, $http, commons) {
+
+    /**
+     * 商品&服务
+     * ---------------------------
+     * */
+    $scope.productportal= {
+
+        foreign: "producttype", // 外键
+
+        foreignkey: "cateNo",
+
+        id: "product",
+
+        name: "商品&服务",
+
+        server: "/api/v2/itemtypes",
+
+        defilters: {"itemCode": "商品编号", "itemName": "商品名称", "inputCode": "拼音码"},
+
+       callback: {
+           insert: function () {
+
+               $scope.product.busiTypeId = $scope.producttype.busiTypeId;
+
+               $scope.product.itemStyle = $scope.producttype.cateName;
+
+                $scope.serialNumber({id: "product", fieldName : "itemCode", numberName : "商品服务"});
+
+               $scope.setSelectDefault("product", ["packageUnit", "drugForm", "isVipDiscount", "isSell", "isCount", "recipeUnit", "isCanExchange"]);
+           }
+       }
+    };
+
+    // 查询回调
+    $scope.productportal.callback.unique = function(){
+        $scope.productportal.checked($scope.product);
+    };
+
+    // 商品选择
+    $scope.onselectobject = function() {
+
+        $scope.productportal.unique($scope.selectedProduct.originalObject.id);
+
+        // 清除选中
+        $scope.selectedProduct = {};
+
+        $scope.searchStr = "";
+
+        $('#productautocomplete_value').val("");
+    };
+
+    // 自动补全
+    $scope.productportal.autocompletedata = function () {
+        $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/search").success(function (data, status, headers, config) {
+            $scope[$scope.productportal.id + 's'] = data.data;
+        });
+    };
+
+    // 弹出选择
+    $scope.productportal.pupupselect = function () {
+
+        $scope.productportal.selectedall = false;
+
+        $scope.productportal.isRemoves = true;
+
+        $scope.productportal.selection = {};
+
+        $("#productselect").modal('toggle');
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承
+})
+
 .controller('PetPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
 
     /**
