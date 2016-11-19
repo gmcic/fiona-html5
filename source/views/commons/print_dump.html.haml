@@ -15,40 +15,24 @@ layout: false
     %link{:href => "/assets/plugins/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "/assets/stylesheets/print.css", :rel => "stylesheet", :type => "text/css"}/
 
-    %link{:href => "http://localhost:8000/c_c2.css", :rel => "stylesheet", :type => "text/css"}/
-    %script{:src => "http://localhost:8000/CLodopfuncs.js", :type => "text/javascript"}
-
     / END GLOBAL MANDATORY STYLES
     = yield_content :head
 
-    :javascript
-      function demoPrint(){
+    :css
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        line-height: 1.42857143;
+        color: #333;
+        background-color: #fff;
+      }
 
-        var strHTML = document.getElementById('printContent').contentWindow.document.getElementsByTagName("html")[0].innerHTML;;
-
-         console.log(strHTML);
-
-        // var strHTML=document.getElementById("pageContent").innerHTML;
-
-        LODOP.PRINT_INITA(10,20,810,610,"打印处方");
-
-        LODOP.SET_PRINTER_INDEXA('EPSON L300 Series');
-
-        // EPSON L300 Series
-
-        LODOP.SET_PRINT_PAGESIZE(0,0,0,0);
-
-        LODOP.ADD_PRINT_HTM(20,10,"90%","95%",strHTML);
-
-        LODOP.PRINT();
-      };
 
   %body.page-header-fixed.page-sidebar-closed-hide-logo.page-content-white.page-sidebar-fixed
     .page-container
       .page-content-wrapper
         .page-content#pageContent
-          -##printBody
-          %iframe#printContent.hide{:frameborder => '0', :src => "/views/commons/print_content.html", :style => "width:0px;height:0px"}
+          #printBody
 
     / Footer
     = partial 'layouts/partials/footer'

@@ -561,10 +561,8 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             html += "<p style='page-break-after:always;both: clean'>&nbsp;</p>";
          });
 
-        document.getElementById('printiframe').contentWindow.document.getElementById('printContent').contentWindow.document.getElementById('printBody').innerHTML = html;
-        document.getElementById('printiframe').contentWindow.demoPrint();
-
-
+        document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = html;
+        document.getElementById('printiframe').contentWindow.print();
 
         $('#doctorprescriptprint').modal('toggle');
     }

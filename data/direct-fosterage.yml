@@ -62,8 +62,8 @@ fields: #可定义多个中文名称指向同一个字段
   宠物ID: petId
   宠物名称: petName
 
-  寄养类型Code: itemCode
-  寄养类型: itemName
+  寄养类型: itemCode
+  寄养类型名称: itemName
 
   主管人员姓名: managerBy
   主管人员: managerId
@@ -85,8 +85,9 @@ fields: #可定义多个中文名称指向同一个字段
   总价: totalMoney
   备注: remark
 
-  影像状态: paidStatus
-  影像时间: paidTime
+  支付状态: paidStatus
+  支付时间: paidTime
+
   记录时间: recordTime
 
   主键: id

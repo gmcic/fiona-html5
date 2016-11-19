@@ -76,9 +76,10 @@ fields: #可定义多个中文名称指向同一个字段
   笼舍编号: cageNo
 
   记录时间: recordTime
-  影像状态: paidStatus
-  影像时间: paidTime
   updateTime: updateTime
+
+  支付状态: paidStatus
+  支付时间: paidTime
 
   主键: id
   状态: status
