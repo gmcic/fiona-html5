@@ -65,10 +65,12 @@
           .tab-content
             -#住院期间消费
             #inhospital_consume.tab-pane.active
+              .row
+                .col-md-12
+                  = partial 'views/commons/product/product_autocomplete'
+
               - portal "住院期间消费", "inhospitaldetail"
-              = partial :'layouts/table/portal' do
-                = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
-                = partial :'layouts/buttons/removes', :locals => {:click => 'beautydetailportal.removes()', 'disabled': 'beautydetailportal.isRemoves'}
+              = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false" }
 
             -#预付金记录
             #inhospital_prepay.tab-pane

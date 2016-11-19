@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- BEGIN EXAMPLE TABLE PORTLET -->
+    <div class='portlet light bordered'>
+      <div class='portlet-title'>
+        <div class='caption font-dark'>
+          <i class='fa fa-beer font-dark'></i>
+          <span class='caption-subject bold uppercase'>销售退货</span>
+        </div>
+        <div class='actions'>
+          <button class='btn btn-circle btn-primary btn-sm' ng-click='insert()' type='button'>
+            <i class='fa fa-plus'></i>
+            增加
+          </button>
+          <button class='btn btn-circle red-sunglo btn-sm' ng-click='removes()' ng-disabled='isRemoves' type='button'>
+            <i class='fa fa-trash'></i>
+            删除
+          </button>
+        </div>
+      </div>
+      <div class='portlet-body'>
+        <div class='table-toolbar'>
+          <form name='searchform' role='form'>
+            <div class='row'>
+              <div class='col-md-8' fa_filter='' filters='filters' placeholder='{{ placeholder }}' search='search()' templateUrl='/views/direct/itback/filter.html'></div>
+            </div>
+          </form>
+        </div>
+        <table class='table table-striped table-hover table-bordered' id='sample_editable_1'>
+          <thead>
+            <tr>
+              <th>
+                <input class='group-checkable' ng-change='selectAll()' ng-model='selectedall' type='checkbox'>
+              </th>
+              <th>操作</th>
+              <th>退货单号</th>
+              <th>会员姓名</th>
+              <th>会员电话</th>
+              <th>退款金额</th>
+              <th>总项</th>
+              <th>业务员</th>
+              <th>经手人</th>
+              <th>申请日期</th>
+              <th>结算单号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='odd gradeX' ng-repeat='itback in itbacks'>
+              <td>
+                <input class='checkboxes' ng-change='selectChange()' ng-model='selection[itback.id]' type='checkbox'>
+              </td>
+              <td>
+                <a class='btn btn-outline btn-circle btn-sm purple' ng-click='update(itback.id)'>
+                  <i class='fa fa-edit'></i>
+                  编辑
+                </a>
+                <a class='btn btn-outline btn-circle dark btn-sm black' href='javascript:;' ng-click='remove(itback.id)'>
+                  <i class='fa fa-close'></i>
+                  删除
+                </a>
+              </td>
+              <td>
+                {{itback.rcCode}}
+              </td>
+              <td>
+                {{itback.gestName}}
+              </td>
+              <td>
+                {{itback.gestPhone}}
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                {{itback.countNum}}
+              </td>
+              <td>
+                {{itback.handlerName}}
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                <span class='label label-danger'>Danger</span>
+              </td>
+              <td>
+                {{itback.cashCode}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class='row'>
+          <div class='col-md-12 col-sm-12' fa_pagination='1111' pagination='pagination' search='search()'></div>
+        </div>
+        <!-- 编辑 -->
+        <div aria-hidden='true' class='modal fade bs-modal-lg' id='itback' role='dialog' tabindex='-1'>
+          <div class='modal-dialog modal-lg'>
+            <div class='modal-content'>
+              <form id='itbackform' name='itbackform' ng-submit='itbacksubmit()' novalidate='' role='form'>
+                <div class='modal-header'>
+                  <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+                  <h4 class='modal-title'>销售退货</h4>
+                </div>
+                <div class='modal-body'>
+                  <div id='itback_alert'></div>
+                  <div class='well'>
+                    <form class='form-horizontal'>
+                      <div class='row'>
+                        <div class='col-md-2'>
+                          <div class='form-control-static'>
+                            <label>
+                              <input name='purchaserType-radio' ng-change='vipportal.purchaser()' ng-model='vipportal.purchaserType' ng-value='1' type='radio'>
+                              会员
+                            </label>
+                            <label>
+                              <input name='purchaserType-radio' ng-change='vipportal.purchaser()' ng-model='vipportal.purchaserType' ng-value='2' type='radio'>
+                              散客
+                            </label>
+                          </div>
+                        </div>
+                        <div class='col-md-7' ng-show='vipportal.purchaserType == 1'>
+                          <div class='form-control' ng-show='!vip.id'>
+                            <label class='font-grey-silver'>请选择会员...</label>
+                          </div>
+                          <div class='form-control' ng-show='!!vip.id'>
+                            <label class='text-muted'>会员编号:</label>
+                            <b>{{ vip.gestCode }},</b>
+                            <label class='text-muted'>会员姓名:</label>
+                            <b>{{ vip.gestName }},</b>
+                            <label class='text-muted'>会员等级:</label>
+                            <b>{{ vip.gestStyle.levelName }}</b>
+                          </div>
+                        </div>
+                        <div class='col-md-3' ng-show='vipportal.purchaserType == 1'>
+                          <div class='btn-group btn-group-circle btn-group-solid'>
+                            <button class='btn green' ng-click='vipportal.pupupselect()' type='button'>
+                              <i class='fa fa-search'></i>
+                              选择会员
+                            </button>
+                            <button class='btn red' ng-click='vipportal.cancel()' type='button'>
+                              <i class='fa fa-remove'></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class='form-body'>
+                    <div class='row'>
+                      <div class='col-md-4'>
+                        <div class='form-group'>
+                          <label class='control-label'>
+                            退货单号
+                            <span class='required'>*</span>
+                          </label>
+                          <input class='form-control' maxlength='32' name='rcCode' ng-model='itback.rcCode' required='true' type='text'>
+                          <p class='help-block font-red-thunderbird' ng-show='itbackform.rcCode.$error.required &amp;&amp; itbackform.submitted'>退货单号不能为空.</p>
+                          <p class='help-block font-red-thunderbird' ng-show='itbackform.rcCode.$error.maxlength &amp;&amp; itbackform.submitted'>退货单号 超过最大长度</p>
+                        </div>
+                      </div>
+                      <div class='col-md-4'>
+                        <div class='form-group form-md-line-input'>
+                          <label class='control-label'>
+                            总项
+                          </label>
+                          <input class='form-control' readonly='true' type='text' value='{{itback.countNum}}'>
+                        </div>
+                      </div>
+                      <div class='col-md-4'>
+                        <div class='form-group form-md-line-input'>
+                          <label class='control-label'>
+                            总金额
+                          </label>
+                          <input class='form-control' readonly='true' type='text' value='{{itback.totalCost}}'>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='row'>
+                      <div class='col-md-4'>
+                        <div class='form-group'>
+                          <label class='control-label'>
+                            业务员
+                            <span class='required'>*</span>
+                          </label>
+                          <input class='form-control' maxlength='32' name='handlerName' ng-model='itback.handlerName' required='true' type='text'>
+                          <p class='help-block font-red-thunderbird' ng-show='itbackform.handlerName.$error.required &amp;&amp; itbackform.submitted'>业务员不能为空.</p>
+                          <p class='help-block font-red-thunderbird' ng-show='itbackform.handlerName.$error.maxlength &amp;&amp; itbackform.submitted'>业务员 超过最大长度</p>
+                        </div>
+                      </div>
+                      <div class='col-md-4'>
+                        <div class='form-group'>
+                          <label class='control-label'>
+                            备注
+                          </label>
+                          <input class='form-control' maxlength='32' name='remark' ng-model='itback.remark' type='text'>
+                          <p class='help-block font-red-thunderbird' ng-show='itbackform.remark.$error.maxlength &amp;&amp; itbackform.submitted'>备注 超过最大长度</p>
+                        </div>
+                      </div>
+                      <div class='col-md-4'>
+                        <div class='form-group'>
+                          <label class='control-label'>
+                            结算单号
+                          </label>
+                          <input class='form-control' maxlength='32' name='cashCode' ng-model='itback.cashCode' type='text'>
+                          <p class='help-block font-red-thunderbird' ng-show='itbackform.cashCode.$error.maxlength &amp;&amp; itbackform.submitted'>结算单号 超过最大长度</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+                  <div class='portlet light bordered'>
+                    <div class='portlet-title'>
+                      <div class='caption font-dark'>
+                        <i class='fa fa-beer font-dark'></i>
+                        <span class='caption-subject bold uppercase'>退货明细</span>
+                      </div>
+                      <div class='actions'>
+                        <button class='btn btn-circle btn-primary btn-sm' ng-click='productportal.insert()' type='button'>
+                          <i class='fa fa-plus'></i>
+                          增加
+                        </button>
+                      </div>
+                    </div>
+                    <div class='portlet-body'>
+                      <table class='table table-striped table-hover table-bordered'>
+                        <thead>
+                          <tr>
+                            <th>
+                              <input class='group-checkable' ng-change='itbackdetailportal.selectAll()' ng-model='itbackdetailportal.selectedall' type='checkbox'>
+                            </th>
+                            <th>操作</th>
+                            <th>编码</th>
+                            <th>名称</th>
+                            <th>规格</th>
+                            <th>销售单位</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>金额</th>
+                            <th>批号</th>
+                            <th>有效期至</th>
+                            <th>生产商</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class='odd gradeX' ng-repeat='itbackdetail in itbackdetails'>
+                            <td>
+                              <input class='checkboxes' ng-change='itbackdetailportal.selectChange()' ng-model='itbackdetailportal.selection[itbackdetail.id]' type='checkbox'>
+                            </td>
+                            <td>
+                              <button class='btn btn-circle btn-default btn-sm' ng-click='itbackdetailportal.update(itbackdetail.id)' type='button'>
+                                <i class='fa fa-plus'></i>
+                                修改
+                              </button>
+                              <button class='btn btn-circle red-sunglo btn-sm' ng-click='itbackdetailportal.remove(itbackdetail.id)' type='button'>
+                                <i class='fa fa-plus'></i>
+                                删除
+                              </button>
+                            </td>
+                            <td>
+                              {{itbackdetail.itemCode}}
+                            </td>
+                            <td>
+                              {{itbackdetail.itemName}}
+                            </td>
+                            <td>
+                              {{itbackdetail.itemStandard}}
+                            </td>
+                            <td>
+                              {{itbackdetail.packageUnit}}
+                            </td>
+                            <td>
+                              <span class='label label-danger'>Danger</span>
+                            </td>
+                            <td>
+                              {{itbackdetail.sellCountNum}}
+                            </td>
+                            <td>
+                              <span class='label label-danger'>Danger</span>
+                            </td>
+                            <td>
+                              {{itbackdetail.batchNumber}}
+                            </td>
+                            <td>
+                              <span class='label label-danger'>Danger</span>
+                            </td>
+                            <td>
+                              <span class='label label-danger'>Danger</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class='modal-footer'>
+                  <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+                  <button class='btn btn-primary' ng-disabled='itbackform.$pristine' type='submit'>
+                    <i class='fa fa-plus'></i>
+                    保存表单
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- 选择会员 -->
+        <div aria-hidden='true' class='modal fade bs-modal-lg' id='vipselect' role='dialog' tabindex='-1'>
+          <div class='modal-dialog modal-lg'>
+            <div class='modal-content'>
+              <div class='modal-header'>
+                <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+                <h4 class='modal-title'>选择会员</h4>
+              </div>
+              <div class='modal-body'>
+                <div id='vipselect_alert'></div>
+                <table class='table table-striped table-hover table-bordered'>
+                  <thead>
+                    <tr>
+                      <th>操作</th>
+                      <th>会员编号</th>
+                      <th>会员姓名</th>
+                      <th>会员性别</th>
+                      <th>会员电话</th>
+                      <th>固定电话</th>
+                      <th>出生日期</th>
+                      <th>账户金额</th>
+                      <th>会员状态</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class='odd gradeX' ng-repeat='vip in vips'>
+                      <td class='text-center'>
+                        <button class='btn btn-circle btn-info btn-sm' ng-click='vipportal.checked(vip.id)' type='button'>
+                          <i class='fa fa-check'></i>
+                          选择
+                        </button>
+                      </td>
+                      <td>
+                        {{vip.gestCode}}
+                      </td>
+                      <td>
+                        {{vip.gestName}}
+                      </td>
+                      <td>
+                        {{vip.gestSex.valueNameCn}}
+                      </td>
+                      <td>
+                        {{vip.mobilePhone}}
+                      </td>
+                      <td>
+                        {{vip.telPhone}}
+                      </td>
+                      <td>
+                        {{vip.gestBirthday}}
+                      </td>
+                      <td>
+                        {{vip.prepayMoney}}
+                      </td>
+                      <td>
+                        {{vip.status.valueNameCn}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class='modal-footer'>
+                <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 添加服务项目 -->
+        <div aria-hidden='true' class='modal fade bs-modal-lg' id='product' role='dialog' tabindex='-1'>
+          <div class='modal-dialog modal-full'>
+            <div class='modal-content'>
+              <form id='productform' name='productform' ng-submit='productportal.submit()' novalidate='' role='form'>
+                <div class='modal-header'>
+                  <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+                  <h4 class='modal-title'>添加服务项目</h4>
+                </div>
+                <div class='modal-body'>
+                  <div id='product_alert'></div>
+                  <!-- BEGIN SAMPLE FORM PORTLET -->
+                  <div class='row'>
+                    <div class='col-md-2'>
+                      <div js-tree='productportal.treeConfig' ng-model='productportal.treeData' tree-events-obj='productportal.treeEventsObj' tree='productportal.treeInstance'></div>
+                    </div>
+                    <div class='col-md-10'>
+                      <div class='portlet-input input-inline'>
+                        <div class='input-group'>
+                          <input class='form-control input-circle-left' ng-model='productportal.pageFilterText' placeholder='请输入商品名称' size='60' type='text'>
+                          <div class='input-group-btn'>
+                            <button class='btn green input-circle-right' ng-click='productportal.search()'>
+                              <i class='fa fa-search'></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class='portlet-body'>
+                          <table class='table table-striped table-hover table-bordered'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  <input class='group-checkable' ng-change='productportal.selectAll()' ng-model='productportal.selectedall' type='checkbox'>
+                                </th>
+                                <th>名称</th>
+                                <th>规格</th>
+                                <th>处方单位</th>
+                                <th>处方价格</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class='odd gradeX' ng-repeat='product in productportal.products'>
+                                <td>
+                                  <input class='checkboxes' ng-change='productportal.selectChange()' ng-model='productportal.selection[product.id]' type='checkbox'>
+                                </td>
+                                <td>
+                                  {{product.itemName}}
+                                </td>
+                                <td>
+                                  {{product.itemStandard}}
+                                </td>
+                                <td>
+                                  {{product.recipeUnit}}
+                                </td>
+                                <td>
+                                  {{product.recipePrice}}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class='row'>
+                            <div class='col-md-12 col-sm-12' component='productportal' fa_pagination='' pagination='pagination' search='search()'></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='modal-footer'>
+                  <!-- / 关闭 -->
+                  <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+                  <!-- / 提交表单 -->
+                  <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                    <i class='fa fa-plus'></i>
+                    保存表单
+                  </button>
+                  <!-- / 保存表单 -->
+                  <!-- / 审核按钮 -->
+                  <!-- / 审核按钮 -->
+                  <!-- / 审核按钮 -->
+                  <!-- / 挂号 -->
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

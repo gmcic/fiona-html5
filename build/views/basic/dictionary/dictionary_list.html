@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <div class='row'>
+      <div class='col-md-3'>
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption font-dark'>
+              <i class='fa fa-sitemap font-dark'></i>
+              <span class='caption-subject bold uppercase'>分类</span>
+            </div>
+            <div class='actions'>
+              <!-- 不显示工具条 -->
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div class='list-group'>
+              <a class='list-group-item' href='javascript:;' ng-class='{active: record.id == dictionarytypeportal.selectedId}' ng-click='dictionarytypeportal.switched(record.id)' ng-repeat='record in dictionarytypes'>
+                {{ record.dictName }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='col-md-9'>
+        <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption font-dark'>
+              <i class='fa fa-beer font-dark'></i>
+              <span class='caption-subject bold uppercase'>数据字典</span>
+            </div>
+            <div class='actions'>
+              <button class='btn btn-circle btn-primary btn-sm' ng-click='dictionaryportal.insert()' type='button'>
+                <i class='fa fa-plus'></i>
+                增加
+              </button>
+              <button class='btn btn-circle red-sunglo btn-sm' ng-click='dictionaryportal.removes()' ng-disabled='dictionaryportal.isRemoves' type='button'>
+                <i class='fa fa-trash'></i>
+                删除
+              </button>
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div class='table-toolbar'>
+              <form name='searchform' role='form'>
+                <div class='row'>
+                  <div class='col-md-8'>
+                    <div class='portlet-input input-inline'>
+                      <div class='input-icon right'>
+                        <i class='fa fa-search'></i>
+                        <input class='form-control input-circle' id='pageFilterText' name='pageFilterText' ng-model='pageFilterText' placeholder='{{placeholder}}' size='60' type='text'>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <table class='table table-striped table-hover table-bordered'>
+              <thead>
+                <tr>
+                  <th>
+                    <input class='group-checkable' ng-change='dictionaryportal.selectAll()' ng-model='dictionaryportal.selectedall' type='checkbox'>
+                  </th>
+                  <th>序号</th>
+                  <th>操作</th>
+                  <th>编码</th>
+                  <th>名称</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='odd gradeX' ng-repeat='dictionary in dictionarys | filter: pageFilterText'>
+                  <td>
+                    <input class='checkboxes' ng-change='dictionaryportal.selectChange()' ng-model='dictionaryportal.selection[dictionary.id]' type='checkbox'>
+                  </td>
+                  <td>
+                    {{$index + 1}}
+                  </td>
+                  <td>
+                    <!-- / 查看按钮 -->
+                    <!-- / 修改按钮 -->
+                    <button class='btn btn-circle btn-default btn-sm' ng-click='dictionaryportal.update(dictionary.id)' ng-disabled='' type='button'>
+                      <i class='fa fa-plus'></i>
+                      修改
+                    </button>
+                    <!-- / 删除按钮 -->
+                    <button class='btn btn-circle red-sunglo btn-sm' ng-click='dictionaryportal.remove(dictionary)' ng-disabled='' type='button'>
+                      <i class='fa fa-plus'></i>
+                      删除
+                    </button>
+                    <!-- / 选择按钮 -->
+                    <!-- / 结算 -->
+                    <!-- / 选择按钮 -->
+                    <!-- / 审核按钮 -->
+                  </td>
+                  <td>
+                    {{dictionary.dictDetailCode}}
+                  </td>
+                  <td>
+                    {{dictionary.valueNameCn}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='dictionary' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+          <form id='dictionaryform' name='dictionaryform' ng-submit='dictionaryportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>数据字典</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='dictionary_alert'></div>
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        数据分类
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{dictionarytypeportal.selected.dictName}}'>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        编码
+                        <span class='required'>*</span>
+                      </label>
+                      <input class='form-control' maxlength='32' name='dictDetailCode' ng-model='dictionary.dictDetailCode' required='true' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='dictionaryform.dictDetailCode.$error.required &amp;&amp; dictionaryform.submitted'>编码不能为空.</p>
+                      <p class='help-block font-red-thunderbird' ng-show='dictionaryform.dictDetailCode.$error.maxlength &amp;&amp; dictionaryform.submitted'>编码 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-12'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        名称
+                      </label>
+                      <input class='form-control' maxlength='32' name='valueNameCn' ng-model='dictionary.valueNameCn' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='dictionaryform.valueNameCn.$error.maxlength &amp;&amp; dictionaryform.submitted'>名称 超过最大长度</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

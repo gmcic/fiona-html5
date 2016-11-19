@@ -1,0 +1,714 @@
+{
+    "data": [
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "会员信息",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "宠物管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/pet/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "会员管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/vip/list",
+            "subMenu": []
+          }
+        ]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "预约管理",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "预约管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/bespeak/list",
+            "subMenu": []
+          }]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "挂号",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "会员挂号",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/register/register",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "快捷挂号",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/register/fastregister",
+            "subMenu": []
+          }
+        ]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "诊疗服务",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "就诊管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "疫苗登记",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "处方模板管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "病案管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "化验影像",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "化验检查",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "影像检查",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/vip/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "护士工作站",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": []
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "仓库管理",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "库存查询",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "入库管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "出库管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "移库管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "退货管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "宠物寄养",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": []
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "宠物住院",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": []
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "销售服务",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "直接销售",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "销售查询",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/vip/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "结算服务",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "收费管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "结算单管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/vip/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "拓瑞检测",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "检测申请",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "检测查询",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "拓瑞检测提醒",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "经营管理",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "支出管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "绩效考核统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "门店收支统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "会员消费统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "毛利统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "商品采购统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "商品销售统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "统计报表",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "就诊分期统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "挂号就诊统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "营业收入统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "库存资产统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "病例统计",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/views/pet/List.html",
+            "subMenu": []
+          }
+        ]
+      },
+
+      {
+        "uuid": "39ceae1a-3dcd-11e6-b83c-ace474959013",
+        "name": "基础数据",
+        "code": "FM0600",
+        "leaf": false,
+        "order": 0,
+        "iconClass": "icon-bulb",
+        "uri": "#",
+        "subMenu": [
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "宠物品种管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/varieties/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "经销商与生产商",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/dealer/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "仓库信息管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/storage/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "商品与服务管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/product/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "会员等级管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/grade/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "数据字典管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/dictionary/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "员工管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/personnel/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "化验项目管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/labwork/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "医院信息",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/hospital/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "角色管理",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/role/list",
+            "subMenu": []
+          },
+          {
+            "uuid": "39cebca2-3dcd-11e6-b83c-ace474959013",
+            "name": "应用参数配置",
+            "code": "FM0601",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "icon-settings",
+            "uri": "#/setting/list",
+            "subMenu": []
+          }
+
+        ]
+    },
+    
+    {
+        "uuid": "39c75e94-3dcd-11e6-b83c-ace474959013",
+        "name": "美容服务管理",
+        "code": "M00300",
+        "leaf": false,
+        "order": 1,
+        "iconClass": "icon-lock",
+        "uri": "#"
+    },
+    {
+        "uuid": "39c75e94-3dcd-11e6-b83c-ace474959013",
+        "name": "前台服务",
+        "code": "M00300",
+        "leaf": false,
+        "order": 1,
+        "iconClass": "icon-lock",
+        "uri": "#",
+        "subMenu": [{
+            "uuid": "39c773d4-3dcd-11e6-b83c-ace474959013",
+            "name": "门诊挂号",
+            "code": "FM0301",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "nav-item",
+            "uri": "MedicBusiness/ApplyRegister",
+            "subMenu": []
+            },
+            {
+                "uuid": "39c78e14-3dcd-11e6-b83c-ace474959013",
+                "name": "门诊收费",
+                "code": "FM0302",
+                "leaf": true,
+                "order": 0,
+                "iconClass": "nav-item",
+                "uri": "Business/PatientCharge",
+                "subMenu": []
+        }]
+    },
+    
+    {
+        "uuid": "39c9af82-3dcd-11e6-b83c-ace474959013",
+        "name": "诊疗服务",
+        "code": "M00350",
+        "leaf": false,
+        "order": 2,
+        "iconClass": "icon-wrench",
+        "uri": "#",
+        "subMenu": [{
+            "uuid": "39c9fd48-3dcd-11e6-b83c-ace474959013",
+            "name": "就诊管理",
+            "code": "FM0306",
+            "leaf": true,
+            "order": 0,
+            "iconClass": "nav-item",
+            "uri": "MedicBusiness/MedicTreatment",
+            "subMenu": []
+        }]
+    }
+  ],
+  "message": "OK",
+  "code": 0
+}
+
+
+

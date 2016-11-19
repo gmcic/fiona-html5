@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+    <div class='portlet light bordered'>
+      <div class='portlet-title'>
+        <div class='caption font-dark'>
+          <i class='fa fa-beer font-dark'></i>
+          <span class='caption-subject bold uppercase'>入库管理</span>
+        </div>
+        <div class='actions'>
+          <button class='btn btn-circle btn-primary btn-sm' ng-click='instorageportal.insert()' type='button'>
+            <i class='fa fa-plus'></i>
+            增加
+          </button>
+          <button class='btn btn-circle red-sunglo btn-sm' ng-click='instorageportal.removes()' ng-disabled='instorageportal.isRemoves' type='button'>
+            <i class='fa fa-trash'></i>
+            删除
+          </button>
+        </div>
+      </div>
+      <div class='portlet-body'>
+        <div class='table-toolbar'>
+          <form name='searchform' role='form'>
+            <div class='row'>
+              <div class='col-md-8'>
+                <div>
+                  <div class='input-group'>
+                    <div class='input-group-btn'>
+                      <button class='form-control input-noborder-right input-circle-left dropdown-toggle' data-toggle='dropdown' type='button'>
+                        {{instorageportal.searchbar.fieldName}}
+                        <i class='fa fa-angle-down'></i>
+                      </button>
+                      <ul class='dropdown-menu'>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('', '综合搜索', '')">综合搜索</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('error', '商品名称')">商品名称</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('dealerName', '经销商')">经销商</a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('error', '单号')">单号</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('createDate', '制单时间')">制单时间</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('error', '审核时间')">审核时间</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('checkMan', '审核人')">审核人</a>
+                        </li>
+                        <li>
+                          <a href='javascript:;' ng-click="instorageportal.setField('status.valueNameCn', '单据状态')">单据状态</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <input class='form-control' ng-model='instorageportal.searchbar.firstValue' ng-readonly="instorageportal.searchbar.dataType == 'date'" placeholder='{{instorageportal.searchbar.firstTextPlaceholder}}' type='text'>
+                    <div class='input-group-btn' ng-show="instorageportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <input class='form-control' ng-model='instorageportal.searchbar.lastValue' ng-readonly="instorageportal.searchbar.dataType == 'date'" ng-show="instorageportal.searchbar.type == 'between'" placeholder='{{instorageportal.searchbar.lastTextPlaceholder}}' style='display: table-cell;' type='text'>
+                    <div class='input-group-btn' ng-show="instorageportal.searchbar.type == 'between' &amp;&amp; instorageportal.searchbar.dataType == 'date'">
+                      <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                        <i class='fa fa-calendar'></i>
+                      </button>
+                    </div>
+                    <div class='input-group-btn'>
+                      <button class='btn green input-circle-right' ng-click='instorageportal.filter()'>
+                        <i class='fa fa-search'></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <table class='table table-striped table-hover table-bordered'>
+          <thead>
+            <tr>
+              <th>
+                <input class='group-checkable' ng-change='instorageportal.selectAll()' ng-model='instorageportal.selectedall' type='checkbox'>
+              </th>
+              <th>序号</th>
+              <th>操作</th>
+              <th>入库单号</th>
+              <th>入库仓库</th>
+              <th>总项</th>
+              <th>总金额</th>
+              <th>制单时间</th>
+              <th>单据状态</th>
+              <th>审核日期</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='odd gradeX' ng-repeat='instorage in instorages'>
+              <td>
+                <input class='checkboxes' ng-change='instorageportal.selectChange()' ng-model='instorageportal.selection[instorage.id]' type='checkbox'>
+              </td>
+              <td>
+                {{$index + 1}}
+              </td>
+              <td>
+                <!-- / 查看按钮 -->
+                <button class='btn btn-circle btn-default btn-sm' ng-click='instorageportal.view(instorage.id)' type='button'>
+                  <i class='fa fa-file-o'></i>
+                  查看
+                </button>
+                <!-- / 修改按钮 -->
+                <button class='btn btn-circle btn-default btn-sm' ng-click='instorageportal.update(instorage.id)' ng-disabled="instorage.status.dictDetailCode == 'SM00043'" type='button'>
+                  <i class='fa fa-plus'></i>
+                  修改
+                </button>
+                <!-- / 删除按钮 -->
+                <button class='btn btn-circle red-sunglo btn-sm' ng-click='instorageportal.remove(instorage)' ng-disabled="instorage.status.dictDetailCode == 'SM00043'" type='button'>
+                  <i class='fa fa-plus'></i>
+                  删除
+                </button>
+                <!-- / 选择按钮 -->
+                <!-- / 结算 -->
+                <!-- / 选择按钮 -->
+                <!-- / 审核按钮 -->
+                <button class='btn btn-circle btn-default btn-sm' ng-click='instorageportal.auditing(instorage.id)' ng-disabled="instorage.status.dictDetailCode == 'SM00043'" type='button'>
+                  <i class='fa fa-gavel'></i>
+                  审核
+                </button>
+              </td>
+              <td>
+                {{instorage.inWarehouseCode}}
+              </td>
+              <td>
+                {{instorage.inWarehouse}}
+              </td>
+              <td>
+                {{instorage.totalCount}}
+              </td>
+              <td>
+                {{instorage.inWarehouseTotalCost | currency:"￥"}}
+              </td>
+              <td>
+                {{instorage.createDate | date:"yyyy年MM月dd日"}}
+              </td>
+              <td>
+                {{instorage.status.valueNameCn}}
+              </td>
+              <td>
+                {{instorage.checkDate | date:"yyyy年MM月dd日"}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class='row'>
+          <div class='col-md-12 col-sm-12'>
+            <form class='form-inline' name='paginationform' ng-submit='instorageportal.jump()' novalidate='' role='form'>
+              <div class='form-group'>
+                <button class='btn btn-sm default prev' ng-click='instorageportal.prevpage()' ng-disabled='instorageportal.pagination.first==true' type='button'>
+                  <i class='fa fa-angle-left'></i>
+                </button>
+                <input class='pagination-panel-input form-control input-sm input-inline input-mini' maxlenght='5' ng-model='instorageportal.pagination.pageNumber' style='text-align:center; margin: 0 5px;' type='text'>
+                <button class='btn btn-sm default next' ng-click='instorageportal.nextpage()' ng-disabled='instorageportal.pagination.last==true' type='button'>
+                  <i class='fa fa-angle-right'></i>
+                </button>
+                共 {{instorageportal.pagination.totalElements}} 条 {{instorageportal.pagination.totalPages}} 页
+                <label>
+                  <span class='seperator'>| 每页</span>
+                </label>
+                <select class='form-control input-xs input-sm input-inline' name='datatable_ajax_length' ng-change='instorageportal.jump(1)' ng-model='instorageportal.pagination.pageSize'>
+                  <option value='10'>10</option>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                </select>
+                条
+              </div>
+              <button class='btn btn-default' type='submit'>跳转</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 编辑页面 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='instorage' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-full'>
+        <div class='modal-content'>
+          <form id='instorageform' name='instorageform' ng-submit='instorageportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>入库管理</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='instorage_alert'></div>
+              <!-- BEGIN SAMPLE FORM PORTLET -->
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        入库单号
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.inWarehouseCode}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        总项
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.totalCount}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        总金额
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.inWarehouseTotalCost}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <!-- / - $change = ((defined? change) ? click: "warning()") -->
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        入库仓库
+                        <span class='required'>*</span>
+                      </label>
+                      <select class='form-control' id='warehouseId' name='warehouseId' ng-change='instorageportal.onchange()' ng-model='instorage.warehouseId' ng-options='type.id as type.valueNameCn for type in dropdowns.warehouseIdSet' required='true'></select>
+                      <p class='help-block font-red-thunderbird' ng-show='instorageform.warehouseId.$error.required &amp;&amp; instorageform.submitted'>入库仓库不能为空.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        审核人
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.checkMan}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        审核日期
+                      </label>
+                      <div class='input-icon right'>
+                        <i class='fa fa-calendar'></i>
+                        <input class='form-control date-picker' maxlength='32' name='checkDate' ng-model='instorage.checkDate' readonly='true' type='text'>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        备注
+                      </label>
+                      <input class='form-control' maxlength='32' name='remark' ng-model='instorage.remark' type='text'>
+                      <p class='help-block font-red-thunderbird' ng-show='instorageform.remark.$error.maxlength &amp;&amp; instorageform.submitted'>备注 超过最大长度</p>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group'>
+                      <label class='control-label'>
+                        经销商
+                      </label>
+                      <div class='input-group'>
+                        <input class='form-control' maxlength='32' name='dealerName' ng-model='instorage.dealerName' type='text'>
+                        <span class='input-group-btn'>
+                          <button class='btn btn-primary' ng-click='dealerportal.pupupselect()' type='button'>选择</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col-md-12'>
+                  <angucomplete descriptionfield='itemStyle, itemStandard' id='productautocomplete' inputclass='form-control form-control-small' localdata='products' matchclass='highlight' minlength='1' on-send='onselectobject()' pause='300' placeholder='请输入查询项' searchfields='itemStyle,itemName,itemStandard,inputCode' selectedobject='selectedProduct' titlefield='itemStyle,itemName,itemStandard,inputCode'></angucomplete>
+                </div>
+              </div>
+              <!-- Portal -->
+              <table class='table table-striped table-hover table-bordered'>
+                <thead>
+                  <tr>
+                    <th>
+                      <input class='group-checkable' ng-change='instoragedetailportal.selectAll()' ng-model='instoragedetailportal.selectedall' type='checkbox'>
+                    </th>
+                    <th>序号</th>
+                    <th>操作</th>
+                    <th>编码</th>
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>生产商</th>
+                    <th>进价</th>
+                    <th>数量</th>
+                    <th>销售单位</th>
+                    <th>金额</th>
+                    <th>批号</th>
+                    <th>有效日期至</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='odd gradeX' ng-repeat='instoragedetail in instoragedetails'>
+                    <td>
+                      <input class='checkboxes' ng-change='instoragedetailportal.selectChange()' ng-model='instoragedetailportal.selection[instoragedetail.id]' type='checkbox'>
+                    </td>
+                    <td>
+                      {{$index + 1}}
+                    </td>
+                    <td>
+                      <!-- / 查看按钮 -->
+                      <!-- / 修改按钮 -->
+                      <!-- / 删除按钮 -->
+                      <button class='btn btn-circle red-sunglo btn-sm' ng-click='instoragedetailportal.remove(instoragedetail)' ng-disabled='' type='button'>
+                        <i class='fa fa-plus'></i>
+                        删除
+                      </button>
+                      <!-- / 选择按钮 -->
+                      <!-- / 结算 -->
+                      <!-- / 选择按钮 -->
+                      <!-- / 审核按钮 -->
+                    </td>
+                    <td>
+                      {{instoragedetail.itemCode}}
+                    </td>
+                    <td>
+                      {{instoragedetail.itemName}}
+                    </td>
+                    <td>
+                      {{instoragedetail.itemStandard}}
+                    </td>
+                    <td>
+                      {{instoragedetail.manufacturerName}}
+                    </td>
+                    <td>
+                      {{instoragedetail.inputPrice}}
+                    </td>
+                    <td>
+                      <input type='number' class='form-control form-filter input-sm' ng-model='instoragedetail.inputCount' ng-change='instorageportal.resize()' >
+                    </td>
+                    <td>
+                      {{instoragedetail.packageUnit}}
+                    </td>
+                    <td>
+                      {{instoragedetail.inputCost}}
+                    </td>
+                    <td>
+                      {{instoragedetail.batchNumber}}
+                    </td>
+                    <td>
+                      {{instoragedetail.outDateTime}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                <i class='fa fa-plus'></i>
+                保存表单
+              </button>
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <button class='btn btn-primary' ng-click='auditing()' ng-show='instorageportal.auditingoperate == true' type='button'>
+                <i class='fa fa-plus'></i>
+                审核
+              </button>
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 编辑页面 -->
+    <div aria-hidden='true' class='modal fade bs-modal-lg' id='instorageview' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-full'>
+        <div class='modal-content'>
+          <form id='instorageform' name='instorageform' ng-submit='instorageportal.submit()' novalidate='' role='form'>
+            <div class='modal-header'>
+              <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+              <h4 class='modal-title'>入库管理</h4>
+            </div>
+            <div class='modal-body'>
+              <div id='instorage_alert'></div>
+              <!-- BEGIN SAMPLE FORM PORTLET -->
+              <div class='form-body'>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        入库单号
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.inWarehouseCode}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        总项
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.totalCount}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        总金额
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.inWarehouseTotalCost}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        入库仓库名称
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.inWarehouse}}'>
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        审核人
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.checkMan}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        审核日期
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value="{{instorage.checkDate | date:'yyyy年MM月dd日'}}">
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        备注
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.remark}}'>
+                    </div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='form-group form-md-line-input'>
+                      <label class='control-label'>
+                        经销商
+                      </label>
+                      <input class='form-control' readonly='true' type='text' value='{{instorage.dealerName}}'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portal -->
+              <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+              <div class='portlet light bordered'>
+                <div class='portlet-title'>
+                  <div class='caption font-dark'>
+                    <i class='fa fa-beer font-dark'></i>
+                    <span class='caption-subject bold uppercase'>入库商品清单</span>
+                  </div>
+                  <div class='actions'>
+                    <!-- 不输出按钮 -->
+                  </div>
+                </div>
+                <div class='portlet-body'>
+                  <table class='table table-striped table-hover table-bordered'>
+                    <thead>
+                      <tr>
+                        <th>编码</th>
+                        <th>名称</th>
+                        <th>规格</th>
+                        <th>生产商</th>
+                        <th>进价</th>
+                        <th>数量</th>
+                        <th>销售单位</th>
+                        <th>金额</th>
+                        <th>批号</th>
+                        <th>有效日期至</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class='odd gradeX' ng-repeat='instoragedetail in instoragedetails'>
+                        <td>
+                          {{instoragedetail.itemCode}}
+                        </td>
+                        <td>
+                          {{instoragedetail.itemName}}
+                        </td>
+                        <td>
+                          {{instoragedetail.itemStandard}}
+                        </td>
+                        <td>
+                          {{instoragedetail.manufacturerName}}
+                        </td>
+                        <td>
+                          {{instoragedetail.inputPrice}}
+                        </td>
+                        <td>
+                          {{instoragedetail.inputCount}}
+                        </td>
+                        <td>
+                          {{instoragedetail.packageUnit}}
+                        </td>
+                        <td>
+                          {{instoragedetail.inputCost}}
+                        </td>
+                        <td>
+                          {{instoragedetail.batchNumber}}
+                        </td>
+                        <td>
+                          {{instoragedetail.outDateTime}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='modal-footer'>
+              <!-- / 关闭 -->
+              <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+              <!-- / 提交表单 -->
+              <!-- / 保存表单 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 审核按钮 -->
+              <!-- / 挂号 -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 选择商品 -->
+    <div aria-hidden='true' class='modal fade' id='productselect' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-full'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+            <h4 class='modal-title'>选择商品</h4>
+          </div>
+          <div class='modal-body'>
+            <div id='product_alert'></div>
+            <div class='row'>
+              <div class='col-md-3'>
+                <div class='portlet light bordered'>
+                  <div class='portlet-title'>
+                    <div class='caption font-dark'>
+                      <i class='fa fa-sitemap font-dark'></i>
+                      <span class='caption-subject bold uppercase'>商品&服务</span>
+                    </div>
+                    <div class='actions'>
+                      <!-- 不输出 outline 按钮 -->
+                    </div>
+                  </div>
+                  <div class='portlet-body'>
+                    <div js-tree='producttypeportal.treeConfig' ng-model='producttypes' tree-events-obj='producttypeportal.treeEventsObj' tree='treeInstance'></div>
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-9'>
+                <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+                <div class='portlet light bordered'>
+                  <div class='portlet-title'>
+                    <div class='caption font-dark'>
+                      <i class='fa fa-beer font-dark'></i>
+                      <span class='caption-subject bold uppercase'>商品与服务管理</span>
+                    </div>
+                    <div class='actions'>
+                      <button class='btn btn-primary btn-circle' ng-click='productportal.submit()' type='button'>
+                        <i class='fa fa-save'></i>
+                        保存表单
+                      </button>
+                    </div>
+                  </div>
+                  <div class='portlet-body'>
+                    <div class='table-toolbar'>
+                      <form name='searchform' role='form'>
+                        <div class='row'>
+                          <div class='col-md-8'>
+                            <div>
+                              <div class='input-group'>
+                                <div class='input-group-btn'>
+                                  <button class='form-control input-noborder-right input-circle-left dropdown-toggle' data-toggle='dropdown' type='button'>
+                                    {{productportal.searchbar.fieldName}}
+                                    <i class='fa fa-angle-down'></i>
+                                  </button>
+                                  <ul class='dropdown-menu'>
+                                    <li>
+                                      <a href='javascript:;' ng-click="productportal.setField('', '综合搜索', '')">综合搜索</a>
+                                    </li>
+                                    <li class='divider'></li>
+                                    <li>
+                                      <a href='javascript:;' ng-click="productportal.setField('error', '名称')">名称</a>
+                                    </li>
+                                    <li>
+                                      <a href='javascript:;' ng-click="productportal.setField('error', '编号')">编号</a>
+                                    </li>
+                                    <li>
+                                      <a href='javascript:;' ng-click="productportal.setField('error', '拼音码')">拼音码</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <input class='form-control' ng-model='productportal.searchbar.firstValue' ng-readonly="productportal.searchbar.dataType == 'date'" placeholder='{{productportal.searchbar.firstTextPlaceholder}}' type='text'>
+                                <div class='input-group-btn' ng-show="productportal.searchbar.dataType == 'date'">
+                                  <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                                    <i class='fa fa-calendar'></i>
+                                  </button>
+                                </div>
+                                <input class='form-control' ng-model='productportal.searchbar.lastValue' ng-readonly="productportal.searchbar.dataType == 'date'" ng-show="productportal.searchbar.type == 'between'" placeholder='{{productportal.searchbar.lastTextPlaceholder}}' style='display: table-cell;' type='text'>
+                                <div class='input-group-btn' ng-show="productportal.searchbar.type == 'between' &amp;&amp; productportal.searchbar.dataType == 'date'">
+                                  <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                                    <i class='fa fa-calendar'></i>
+                                  </button>
+                                </div>
+                                <div class='input-group-btn'>
+                                  <button class='btn green input-circle-right' ng-click='productportal.filter()'>
+                                    <i class='fa fa-search'></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <table class='table table-striped table-hover table-bordered'>
+                      <thead>
+                        <tr>
+                          <th>
+                            <input class='group-checkable' ng-change='productportal.selectAll()' ng-model='productportal.selectedall' type='checkbox'>
+                          </th>
+                          <th>序号</th>
+                          <th>操作</th>
+                          <th>名称</th>
+                          <th>规格</th>
+                          <th>处方单位</th>
+                          <th>处方价格</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class='odd gradeX' ng-repeat='product in products'>
+                          <td>
+                            <input class='checkboxes' ng-change='productportal.selectChange()' ng-model='productportal.selection[product.id]' type='checkbox'>
+                          </td>
+                          <td>
+                            {{$index + 1}}
+                          </td>
+                          <td>
+                            <!-- / 查看按钮 -->
+                            <!-- / 修改按钮 -->
+                            <!-- / 删除按钮 -->
+                            <!-- / 选择按钮 -->
+                            <button class='btn btn-circle btn-info btn-sm' ng-click='productportal.checked(product)' type='button'>
+                              <i class='fa fa-check'></i>
+                              选择
+                            </button>
+                            <!-- / 结算 -->
+                            <!-- / 选择按钮 -->
+                            <!-- / 审核按钮 -->
+                          </td>
+                          <td>
+                            {{product.itemName}}
+                          </td>
+                          <td>
+                            {{product.itemStandard}}
+                          </td>
+                          <td>
+                            {{product.recipeUnit | dropdown:dropdowns.recipeUnitSet  }}
+                          </td>
+                          <td>
+                            {{product.recipePrice | currency:"￥"}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class='row'>
+                      <div class='col-md-12 col-sm-12'>
+                        <form class='form-inline' name='paginationform' ng-submit='productportal.jump()' novalidate='' role='form'>
+                          <div class='form-group'>
+                            <button class='btn btn-sm default prev' ng-click='productportal.prevpage()' ng-disabled='productportal.pagination.first==true' type='button'>
+                              <i class='fa fa-angle-left'></i>
+                            </button>
+                            <input class='pagination-panel-input form-control input-sm input-inline input-mini' maxlenght='5' ng-model='productportal.pagination.pageNumber' style='text-align:center; margin: 0 5px;' type='text'>
+                            <button class='btn btn-sm default next' ng-click='productportal.nextpage()' ng-disabled='productportal.pagination.last==true' type='button'>
+                              <i class='fa fa-angle-right'></i>
+                            </button>
+                            共 {{productportal.pagination.totalElements}} 条 {{productportal.pagination.totalPages}} 页
+                            <label>
+                              <span class='seperator'>| 每页</span>
+                            </label>
+                            <select class='form-control input-xs input-sm input-inline' name='datatable_ajax_length' ng-change='productportal.jump(1)' ng-model='productportal.pagination.pageSize'>
+                              <option value='10'>10</option>
+                              <option value='20'>20</option>
+                              <option value='50'>50</option>
+                            </select>
+                            条
+                          </div>
+                          <button class='btn btn-default' type='submit'>跳转</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='modal-footer'>
+            <!-- / 关闭 -->
+            <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+            <!-- / 提交表单 -->
+            <!-- / 保存表单 -->
+            <button class='btn btn-primary' click='productportal.submit()' ng-click='productportal.submit()' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='button'>
+              <i class='fa fa-plus'></i>
+              保存表单
+            </button>
+            <!-- / 审核按钮 -->
+            <!-- / 审核按钮 -->
+            <!-- / 审核按钮 -->
+            <!-- / 挂号 -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 选择供应商 -->
+    <!-- 选择供应商 -->
+    <div aria-hidden='true' class='modal fade' id='dealerselect' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-full'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+            <h4 class='modal-title'>选择供应商</h4>
+          </div>
+          <div class='modal-body'>
+            <div id='dealer_alert'></div>
+            <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+            <div class='portlet light bordered'>
+              <div class='portlet-title'>
+                <div class='caption font-dark'>
+                  <i class='fa fa-beer font-dark'></i>
+                  <span class='caption-subject bold uppercase'>供应商</span>
+                </div>
+                <div class='actions'>
+                  <!-- 不输出 outline 按钮 -->
+                </div>
+              </div>
+              <div class='portlet-body'>
+                <div class='table-toolbar'>
+                  <form name='searchform' role='form'>
+                    <div class='row'>
+                      <div class='col-md-8'>
+                        <div>
+                          <div class='input-group'>
+                            <div class='input-group-btn'>
+                              <button class='form-control input-noborder-right input-circle-left dropdown-toggle' data-toggle='dropdown' type='button'>
+                                {{dealerportal.searchbar.fieldName}}
+                                <i class='fa fa-angle-down'></i>
+                              </button>
+                              <ul class='dropdown-menu'>
+                                <li>
+                                  <a href='javascript:;' ng-click="dealerportal.setField('', '综合搜索', '')">综合搜索</a>
+                                </li>
+                                <li class='divider'></li>
+                                <li>
+                                  <a href='javascript:;' ng-click="dealerportal.setField('error', '自动编号')">自动编号</a>
+                                </li>
+                                <li>
+                                  <a href='javascript:;' ng-click="dealerportal.setField('error', '经销商名称')">经销商名称</a>
+                                </li>
+                                <li class='divider'></li>
+                                <li>
+                                  <a href='javascript:;' ng-click="dealerportal.setField('error', '联系人')">联系人</a>
+                                </li>
+                                <li>
+                                  <a href='javascript:;' ng-click="dealerportal.setField('error', '手机')">手机</a>
+                                </li>
+                                <li>
+                                  <a href='javascript:;' ng-click="dealerportal.setField('error', '地址')">地址</a>
+                                </li>
+                              </ul>
+                            </div>
+                            <input class='form-control' ng-model='dealerportal.searchbar.firstValue' ng-readonly="dealerportal.searchbar.dataType == 'date'" placeholder='{{dealerportal.searchbar.firstTextPlaceholder}}' type='text'>
+                            <div class='input-group-btn' ng-show="dealerportal.searchbar.dataType == 'date'">
+                              <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                                <i class='fa fa-calendar'></i>
+                              </button>
+                            </div>
+                            <input class='form-control' ng-model='dealerportal.searchbar.lastValue' ng-readonly="dealerportal.searchbar.dataType == 'date'" ng-show="dealerportal.searchbar.type == 'between'" placeholder='{{dealerportal.searchbar.lastTextPlaceholder}}' style='display: table-cell;' type='text'>
+                            <div class='input-group-btn' ng-show="dealerportal.searchbar.type == 'between' &amp;&amp; dealerportal.searchbar.dataType == 'date'">
+                              <button class='form-control date-picker-btn input-noborder-vertical' tabindex='-1' type='button'>
+                                <i class='fa fa-calendar'></i>
+                              </button>
+                            </div>
+                            <div class='input-group-btn'>
+                              <button class='btn green input-circle-right' ng-click='dealerportal.filter()'>
+                                <i class='fa fa-search'></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <table class='table table-striped table-hover table-bordered'>
+                  <thead>
+                    <tr>
+                      <th>
+                        <input class='group-checkable' ng-change='dealerportal.selectAll()' ng-model='dealerportal.selectedall' type='checkbox'>
+                      </th>
+                      <th>序号</th>
+                      <th>操作</th>
+                      <th>编号</th>
+                      <th>经销商名称</th>
+                      <th>联系人</th>
+                      <th>电话</th>
+                      <th>传真</th>
+                      <th>手机</th>
+                      <th>地址</th>
+                      <th>备注</th>
+                      <th>电子信箱</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class='odd gradeX' ng-repeat='dealer in dealers'>
+                      <td>
+                        <input class='checkboxes' ng-change='dealerportal.selectChange()' ng-model='dealerportal.selection[dealer.id]' type='checkbox'>
+                      </td>
+                      <td>
+                        {{$index + 1}}
+                      </td>
+                      <td>
+                        <!-- / 查看按钮 -->
+                        <!-- / 修改按钮 -->
+                        <!-- / 删除按钮 -->
+                        <!-- / 选择按钮 -->
+                        <button class='btn btn-circle btn-info btn-sm' ng-click='dealerportal.checked(dealer)' type='button'>
+                          <i class='fa fa-check'></i>
+                          选择
+                        </button>
+                        <!-- / 结算 -->
+                        <!-- / 选择按钮 -->
+                        <!-- / 审核按钮 -->
+                      </td>
+                      <td>
+                        {{dealer.code}}
+                      </td>
+                      <td>
+                        {{dealer.name}}
+                      </td>
+                      <td>
+                        {{dealer.contractMan}}
+                      </td>
+                      <td>
+                        {{dealer.telPhone}}
+                      </td>
+                      <td>
+                        {{dealer.fax}}
+                      </td>
+                      <td>
+                        {{dealer.mobilePhone}}
+                      </td>
+                      <td>
+                        {{dealer.dealerAddress}}
+                      </td>
+                      <td>
+                        {{dealer.remark}}
+                      </td>
+                      <td>
+                        {{dealer.email}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class='row'>
+                  <div class='col-md-12 col-sm-12'>
+                    <form class='form-inline' name='paginationform' ng-submit='dealerportal.jump()' novalidate='' role='form'>
+                      <div class='form-group'>
+                        <button class='btn btn-sm default prev' ng-click='dealerportal.prevpage()' ng-disabled='dealerportal.pagination.first==true' type='button'>
+                          <i class='fa fa-angle-left'></i>
+                        </button>
+                        <input class='pagination-panel-input form-control input-sm input-inline input-mini' maxlenght='5' ng-model='dealerportal.pagination.pageNumber' style='text-align:center; margin: 0 5px;' type='text'>
+                        <button class='btn btn-sm default next' ng-click='dealerportal.nextpage()' ng-disabled='dealerportal.pagination.last==true' type='button'>
+                          <i class='fa fa-angle-right'></i>
+                        </button>
+                        共 {{dealerportal.pagination.totalElements}} 条 {{dealerportal.pagination.totalPages}} 页
+                        <label>
+                          <span class='seperator'>| 每页</span>
+                        </label>
+                        <select class='form-control input-xs input-sm input-inline' name='datatable_ajax_length' ng-change='dealerportal.jump(1)' ng-model='dealerportal.pagination.pageSize'>
+                          <option value='10'>10</option>
+                          <option value='20'>20</option>
+                          <option value='50'>50</option>
+                        </select>
+                        条
+                      </div>
+                      <button class='btn btn-default' type='submit'>跳转</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='modal-footer'>
+            <!-- / 关闭 -->
+            <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+            <!-- / 提交表单 -->
+            <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+              <i class='fa fa-plus'></i>
+              保存表单
+            </button>
+            <!-- / 保存表单 -->
+            <!-- / 审核按钮 -->
+            <!-- / 审核按钮 -->
+            <!-- / 审核按钮 -->
+            <!-- / 挂号 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

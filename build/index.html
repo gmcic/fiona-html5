@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang='en' ng-app='fiona'>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <meta charset='utf-8'>
+    <title>Fiona 福莱动物医院</title>
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
+    <meta content='' name='description'>
+    <meta content='' name='author'>
+    <!-- BEGIN CLASSNAME -->
+    <link href='./assets/plugins/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <link href='./assets/plugins/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <!-- 日期选择插件 -->
+    <link href='./assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' rel='stylesheet' type='text/css'>
+    <link href='./assets/plugins/morris/morris.css' rel='stylesheet' type='text/css'>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN 文件上传 PLUGINS -->
+    <link href='../assets/plugins/fancybox/source/jquery.fancybox.css' rel='stylesheet' type='text/css'>
+    <link href='../assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css' rel='stylesheet' type='text/css'>
+    <link href='../assets/plugins/jquery-file-upload/css/jquery.fileupload.css' rel='stylesheet' type='text/css'>
+    <link href='../assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css' rel='stylesheet' type='text/css'>
+    <!-- END 文件上传 PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href='./assets/stylesheets/components.min.css' rel='stylesheet' type='text/css'>
+    <link href='./assets/stylesheets/plugins.min.css' rel='stylesheet' type='text/css'>
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN 下拉框自动完成 -->
+    <link href='./assets/plugins/angucomplete/angucomplete.css' rel='stylesheet' type='text/css'>
+    <!-- BEGIN Plugin STYLES -->
+    <link href='./assets/plugins/jstree/dist/themes/default/style.min.css' rel='stylesheet' type='text/css'>
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href='./assets/stylesheets/layout.min.css' rel='stylesheet' type='text/css'>
+    <link href='./assets/stylesheets/darkblue.min.css' rel='stylesheet' type='text/css'>
+    <link href='./assets/stylesheets/custom.min.css' rel='stylesheet' type='text/css'>
+    <link href='./assets/stylesheets/fiona.css' rel='stylesheet' type='text/css'>
+    <link href='/assets/stylesheets/print.css' rel='stylesheet' type='text/css'>
+    <!-- END THEME LAYOUT STYLES -->
+    <link href="/assets/images/favicon.ico" rel="icon" type="image/ico" />
+    
+  </head>
+  <body class='page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-fixed' ng-controller='IndexController'>
+    <!-- Header -->
+    <!-- BEGIN HEADER -->
+    <div class='page-header navbar navbar-fixed-top'>
+      <!-- BEGIN HEADER INNER -->
+      <div class='page-header-inner'>
+        <!-- BEGIN LOGO -->
+        <div class='page-logo'>
+          <a href='index.html'>
+            <img alt='logo' class='logo-default' src='./assets/images/logo.png'>
+          </a>
+          <div class='menu-toggler sidebar-toggler'>
+            <span></span>
+          </div>
+        </div>
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a class='menu-toggler responsive-toggler' data-target='.navbar-collapse' data-toggle='collapse' href='javascript:;'>
+          <span></span>
+        </a>
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class='top-menu'>
+          <ul class='nav navbar-nav pull-right'>
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class='dropdown dropdown-user'>
+              <a class='dropdown-toggle' data-close-others='true' data-hover='dropdown' data-toggle='dropdown' href='javascript:;'>
+                <img alt='' class='img-circle' src='./assets/images/doctor.png'>
+                <span class='username username-hide-on-mobile' ng-bind='userName'></span>
+                <i class='fa fa-angle-down'></i>
+              </a>
+            </li>
+            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+            <li class='dropdown dropdown-quick-sidebar-toggler'>
+              <a class='dropdown-toggle' href='login.html'>
+                <i class='fa fa-sign-out'></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='clearfix'></div>
+    <!-- BEGIN CONTAINER -->
+    <div class='page-container'>
+      <!-- / -->
+      <div class='page-sidebar-wrapper'>
+        <div class='page-sidebar navbar-collapse collapse'>
+          <ul class='page-sidebar-menu page-header-fixed' data-auto-scroll='true' data-keep-expanded='false' data-slide-speed='200' style='padding-top: 20px'>
+            <li class='sidebar-toggler-wrapper hide'>
+              <div class='sidebar-toggler'>
+                <span></span>
+              </div>
+            </li>
+            <li class='heading'>
+              <h3 class='uppercase'>业务办理</h3>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-medkit'></i>
+                <span class='title'>诊疗服务</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/curemanager/list'>
+                    <i class='fa fa-stethoscope'></i>
+                    <span class='title'>就诊管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/invaccine/list'>
+                    <i class='fa fa-stethoscope'></i>
+                    <span class='title'>疫苗登记</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/prescription/list'>
+                    <i class='fa fa-stethoscope'></i>
+                    <span class='title'>处方模板管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/medicalrecord/list'>
+                    <i class='fa fa-sticky-note'></i>
+                    <span class='title'>病案管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-flask'></i>
+                <span class='title'>化验影像</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/analysed/list'>
+                    <i class='fa fa-flask'></i>
+                    <span class='title'>化验检查</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/film/list'>
+                    <i class='fa fa-camera-retro'></i>
+                    <span class='title'>影像检查</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-flask'></i>
+                <span class='title'>拓瑞检测</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/check/list'>
+                    <i class='fa fa-flask'></i>
+                    <span class='title'>检测查询</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/checkdevice/formset'>
+                    <i class='fa fa-balance-scale'></i>
+                    <span class='title'>尿检设备</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='heading'>
+              <h3 class='uppercase'>经营管理</h3>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-object-ungroup'></i>
+                <span class='title'>结算服务</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/payment/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>收费管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/statement/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>结算单管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='heading'>
+              <h3 class='uppercase'>Finished</h3>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='glyphicon glyphicon-credit-card'></i>
+                <span class='title'>会员信息</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/pet/list'>
+                    <i class='fa fa-paw'></i>
+                    <span class='title'>宠物管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/vip/list'>
+                    <i class='fa fa-user'></i>
+                    <span class='title'>会员管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='icon-bar-chart'></i>
+                <span class='title'>经营管理</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/expenditure/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>支出管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-tty'></i>
+                <span class='title'>销售服务</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/saleplatedetail'>
+                    <i class='fa fa-suitcase'></i>
+                    <span class='title'>直接销售</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/saleplate'>
+                    <i class='fa fa-suitcase'></i>
+                    <span class='title'>销售查询</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-ambulance'></i>
+                <span class='title'>直达通道</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/bespeak/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>预约管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/beauty/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>美容服务</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/fosterage/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>寄养管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/inhospital/list'>
+                    <i class='fa fa-hospital-o'></i>
+                    <span class='title'>住院管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/itback/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>销售退货</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-file-text'></i>
+                <span class='title'>挂号</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/register/search'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>挂号查询</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-university'></i>
+                <span class='title'>仓库管理</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/stock/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>库存查询</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/instorage/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>入库管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/outstorage/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>出库管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/movestorage/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>移库管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/backstorage/list'>
+                    <i class='fa fa-th-large'></i>
+                    <span class='title'>退货管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='glyphicon glyphicon-hdd'></i>
+                <span class='title'>基础数据</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/varietie/list'>
+                    <i class='fa fa-paw'></i>
+                    <span class='title'>宠物品种管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/dealer/list'>
+                    <i class='glyphicon glyphicon-compressed'></i>
+                    <span class='title'>经销商与生产商</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/storage/list'>
+                    <i class='fa fa-university'></i>
+                    <span class='title'>仓库信息管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/product/list'>
+                    <i class='fa fa-shopping-bag'></i>
+                    <span class='title'>商品与服务管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/grade/list'>
+                    <i class='fa fa-signal'></i>
+                    <span class='title'>会员等级管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/businestype/list'>
+                    <i class='fa fa-signal'></i>
+                    <span class='title'>业务类型</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/personnel/list'>
+                    <i class='fa fa-user-md'></i>
+                    <span class='title'>员工管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/labwork/list'>
+                    <i class='fa fa-flask'></i>
+                    <span class='title'>化验项目管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/hospital/list'>
+                    <i class='fa fa-hospital-o'></i>
+                    <span class='title'>医院信息</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/role/list'>
+                    <i class='icon-eyeglasses'></i>
+                    <span class='title'>角色管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/execute/execute_list'>
+                    <i class='fa fa-book'></i>
+                    <span class='title'>数据字典管理</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/userdict/list'>
+                    <i class='fa fa-book'></i>
+                    <span class='title'>用户数据字典</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class='heading'>
+              <h3 class='uppercase'>Report</h3>
+            </li>
+            <li class='nav-item start'>
+              <a class='nav-link nav-toggle' href='javascript:;'>
+                <i class='fa fa-medkit'></i>
+                <span class='title'>统计报表</span>
+                <span class='arrow'></span>
+              </a>
+              <ul class='sub-menu'>
+                <li class='nav-item start'>
+                  <a class='nav-link' href='#/amchart/dashboard'>
+                    <i class='fa fa-area-chart'></i>
+                    <span class='title'>Dashboard</span>
+                    <span class='selected'></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='page-content-wrapper'>
+        <div class='page-content'>
+          <div ng-view=''></div>
+        </div>
+      </div>
+    </div>
+    <!-- BEGIN FOOTER -->
+    <div class='page-footer'>
+      <div class='page-footer-inner'>
+        2016 © Fiona.
+      </div>
+      <div class='scroll-to-top'>
+        <i class='fa fa-arrow-circle-up'></i>
+      </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- Footer -->
+    <!-- Javascripts -->
+    <!-- 'jquery-ui.min.js', -->
+    <!-- '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js', -->
+    <!-- = javascript_include_tag 'application' -->
+    <!-- Google Analytics -->
+    
+  </body>
+</html>
+<!-- BEGIN CORE PLUGINS -->
+<script src='./assets/plugins/jquery.min.js' type='text/javascript'></script>
+<script src='./assets/plugins/bootstrap/js/bootstrap.min.js' type='text/javascript'></script>
+<!-- bootstrap-hover-dropdown 引入hover监听，鼠标经过自动展示下拉框。 -->
+<script src='./assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' type='text/javascript'></script>
+<!-- Query slimScroll插件是一个支持把内容放在一个盒子里面，固定一个高度，超出的则使用滚动。 -->
+<script src='./assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' type='text/javascript'></script>
+<!-- jQuery BlockUI插件可以在不锁定浏览器的同时，模拟同步模式下发起Ajax请求的行为。 -->
+<!-- 该插件激活时，会阻止用户在页面进行的操作，直到插件被关闭。BlockUI通过向DOM中添加元素实现其外观和组织用户交互的行为。 -->
+<script src='./assets/plugins/jquery.blockui.min.js' type='text/javascript'></script>
+<!-- jquery.cookie.js 提供了jquery中非常简单的操作cookie的方法。 -->
+<script src='./assets/plugins/js.cookie.min.js' type='text/javascript'></script>
+<!-- 日期选择 -->
+<script src='./assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' type='text/javascript'></script>
+<!-- 树组件 -->
+<script src='./assets/plugins/jstree/dist/jstree.min.js' type='text/javascript'></script>
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<!-- 日期控件 -->
+<!-- %script{:src => "./assets/plugins/bootstrap-daterangepicker/daterangepicker.min.js", :type => "text/javascript"} -->
+<!-- Morris.js 是一个轻量级的 JS 库，使用 jQuery 和 Rapha&euml;l 来生成各种时序图。 -->
+<script src='./assets/plugins/morris/morris.min.js' type='text/javascript'></script>
+<!-- 用于捕获各种滚动事件的插件, 同时Waypoints还支持固定元素和无限滚动的功能，功力十分强大。 -->
+<script src='./assets/plugins/counterup/jquery.waypoints.min.js' type='text/javascript'></script>
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src='./assets/javascripts/layout.min.js' type='text/javascript'></script>
+<script src='./assets/plugins/angular/angular.js' type='text/javascript'></script>
+<script src='./assets/plugins/angular-route/angular-route.js' type='text/javascript'></script>
+<script src='./assets/plugins/jstree/ngJsTree.min.js' type='text/javascript'></script>
+<!-- BEGIN 文件上传 PLUGINS -->
+<script src='../assets/plugins/fancybox/source/jquery.fancybox.pack.js' type='text/javascript'></script>
+<!-- BEGIN 下拉框自动完成 -->
+<script src='../assets/plugins/angucomplete/angucomplete.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/vendor/tmpl.min.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/vendor/load-image.min.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.iframe-transport.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.fileupload.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.fileupload-process.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.fileupload-image.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.fileupload-audio.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.fileupload-video.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.fileupload-validate.js' type='text/javascript'></script>
+<script src='../assets/plugins/jquery-file-upload/js/jquery.fileupload-angular.js' type='text/javascript'></script>
+<!-- / %script{:src => "../assets/plugins/jquery-file-upload/js/jquery.fileupload-ui.js", :type => "text/javascript"} -->
+<!-- END 文件上传 PLUGINS -->
+gi
+<!-- / Fiona Core -->
+<script src='./assets/javascripts/services.js' type='text/javascript'></script>
+<script src='./assets/javascripts/application.js' type='text/javascript'></script>
+<script src='./assets/javascripts/directive.js' type='text/javascript'></script>
+<script src='./assets/javascripts/BaseController.js' type='text/javascript'></script>
+<script src='./assets/javascripts/BaseSideController.js' type='text/javascript'></script>
+<script src='./assets/javascripts/BasePaginationController.js' type='text/javascript'></script>
+<script src='./assets/javascripts/BasePageFilterController.js' type='text/javascript'></script>
+<script src='./assets/javascripts/BaseTreeController.js' type='text/javascript'></script>
+<script src='./assets/javascripts/BasePortalController.js' type='text/javascript'></script>
+<script src='./assets/javascripts/CommonPortaController.js' type='text/javascript'></script>
+<script src='./assets/pages/cure/CuremanagerController.js' type='text/javascript'></script>
+<script src='./assets/pages/cure/InvaccineController.js' type='text/javascript'></script>
+<script src='./assets/pages/cure/PrescriptionController.js' type='text/javascript'></script>
+<script src='./assets/pages/cure/MedicalrecordController.js' type='text/javascript'></script>
+<script src='./assets/pages/analysed/AnalysedController.js' type='text/javascript'></script>
+<script src='./assets/pages/analysed/FilmController.js' type='text/javascript'></script>
+<script src='./assets/pages/check/CheckController.js' type='text/javascript'></script>
+<script src='./assets/pages/check/CheckdeviceController.js' type='text/javascript'></script>
+<script src='./assets/pages/balance/PaymentController.js' type='text/javascript'></script>
+<script src='./assets/pages/balance/StatementController.js' type='text/javascript'></script>
+<script src='./assets/pages/guest/PetController.js' type='text/javascript'></script>
+<script src='./assets/pages/guest/VipController.js' type='text/javascript'></script>
+<script src='./assets/pages/management/ExpenditureController.js' type='text/javascript'></script>
+<script src='./assets/pages/sales/SaleplatedetailController.js' type='text/javascript'></script>
+<script src='./assets/pages/sales/SaleplateController.js' type='text/javascript'></script>
+<script src='./assets/pages/direct/BespeakController.js' type='text/javascript'></script>
+<script src='./assets/pages/direct/BeautyController.js' type='text/javascript'></script>
+<script src='./assets/pages/direct/FosterageController.js' type='text/javascript'></script>
+<script src='./assets/pages/direct/InhospitalController.js' type='text/javascript'></script>
+<script src='./assets/pages/direct/ItbackController.js' type='text/javascript'></script>
+<script src='./assets/pages/registration/RegisterController.js' type='text/javascript'></script>
+<script src='./assets/pages/stock/StockController.js' type='text/javascript'></script>
+<script src='./assets/pages/stock/InstorageController.js' type='text/javascript'></script>
+<script src='./assets/pages/stock/OutstorageController.js' type='text/javascript'></script>
+<script src='./assets/pages/stock/MovestorageController.js' type='text/javascript'></script>
+<script src='./assets/pages/stock/BackstorageController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/VarietieController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/DealerController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/StorageController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/ProductController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/GradeController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/BusinestypeController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/PersonnelController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/LabworkController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/HospitalController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/RoleController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/DictionaryController.js' type='text/javascript'></script>
+<script src='./assets/pages/basic/UserdictController.js' type='text/javascript'></script>
+<script src='./assets/pages/report/AmchartController.js' type='text/javascript'></script>

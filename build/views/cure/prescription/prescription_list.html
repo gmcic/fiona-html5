@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id='operate_msg_box'></div>
+    <div class='row'>
+      <div class='col-md-3'>
+        <!-- BEGIN Outline -->
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption font-dark'>
+              <i class='fa fa-sitemap font-dark'></i>
+              <span class='caption-subject bold uppercase'>模版类型</span>
+            </div>
+            <div class='actions'>
+              <button class='btn btn-circle btn-primary btn-sm' ng-click='prescriptiontypeportal.insert()' type='button'>
+                <i class='fa fa-plus'></i>
+                增加
+              </button>
+              <button class='btn btn-circle red-sunglo btn-sm' ng-click='prescriptiontypeportal.remove()' ng-disabled='!selectedId' type='button'>
+                <i class='fa fa-plus'></i>
+                删除
+              </button>
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div js-tree='producttypepanel.treeConfig' ng-model='producttypes' tree-events-obj='producttypepanel.treeEventsObj' tree='treeInstance'></div>
+          </div>
+        </div>
+      </div>
+      <div class='col-md-9'>
+        <!-- BEGIN EXAMPLE TABLE PORTLET -->
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption font-dark'>
+              <i class='fa fa-beer font-dark'></i>
+              <span class='caption-subject bold uppercase'>处方模板管理</span>
+            </div>
+            <div class='actions'>
+              <button class='btn btn-circle btn-primary btn-sm' ng-click='prescriptionportal.insert()' type='button'>
+                <i class='fa fa-plus'></i>
+                增加
+              </button>
+              <button class='btn btn-circle red-sunglo btn-sm' ng-click='prescriptionportal.remove()' type='button'>
+                <i class='fa fa-plus'></i>
+                删除
+              </button>
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div class='table-toolbar'>
+              <form name='searchform' role='form'>
+                <div class='row'>
+                  <div class='col-md-8' fa_filter='' filters='filters' placeholder='{{ placeholder }}' search='search()' templateUrl='/views/cure/prescription/filter.html'></div>
+                </div>
+              </form>
+            </div>
+            <table class='table table-striped table-hover table-bordered' id='sample_editable_1'>
+              <thead>
+                <tr>
+                  <th>
+                    <input class='group-checkable' ng-change='selectAll()' ng-model='selectedall' type='checkbox'>
+                  </th>
+                  <th>操作</th>
+                  <th>名称</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='odd gradeX' ng-repeat='prescription in prescriptions'>
+                  <td>
+                    <input class='checkboxes' ng-change='selectChange()' ng-model='selection[prescription.id]' type='checkbox'>
+                  </td>
+                  <td>
+                    <a class='btn btn-outline btn-circle btn-sm purple' ng-click='update(prescription.id)'>
+                      <i class='fa fa-edit'></i>
+                      编辑
+                    </a>
+                    <a class='btn btn-outline btn-circle dark btn-sm black' href='javascript:;' ng-click='remove(prescription.id)'>
+                      <i class='fa fa-close'></i>
+                      删除
+                    </a>
+                  </td>
+                  <td>
+                    {{prescription.itemName}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class='row'>
+              <div class='col-md-12 col-sm-12' fa_pagination='1111' pagination='pagination' search='search()'></div>
+            </div>
+            <!-- 处方模板 -->
+            <div aria-hidden='true' class='modal fade bs-modal-lg' id='prescription' role='dialog' tabindex='-1'>
+              <div class='modal-dialog modal-lg'>
+                <div class='modal-content'>
+                  <form id='prescriptionform' name='prescriptionform' ng-submit='prescriptionportal.submit()' novalidate='' role='form'>
+                    <div class='modal-header'>
+                      <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+                      <h4 class='modal-title'>处方模板</h4>
+                    </div>
+                    <div class='modal-body'>
+                      <div id='prescription_alert'></div>
+                      <div class='form-body'>
+                        <div class='row'>
+                          <div class='col-md-6'>
+                            <div class='form-group'>
+                              <label class='control-label'>
+                                所属类型
+                                <span class='required'>*</span>
+                              </label>
+                              <input class='form-control' maxlength='32' name='templateNo' ng-model='prescription.templateNo' required='true' type='text'>
+                              <p class='help-block font-red-thunderbird' ng-show='prescriptionform.templateNo.$error.required &amp;&amp; prescriptionform.submitted'>所属类型不能为空.</p>
+                              <p class='help-block font-red-thunderbird' ng-show='prescriptionform.templateNo.$error.maxlength &amp;&amp; prescriptionform.submitted'>所属类型 超过最大长度</p>
+                            </div>
+                          </div>
+                          <div class='col-md-6'>
+                            <div class='form-group'>
+                              <label class='control-label'>
+                                名称
+                              </label>
+                              <input class='form-control' maxlength='32' name='itemName' ng-model='prescription.itemName' type='text'>
+                              <p class='help-block font-red-thunderbird' ng-show='prescriptionform.itemName.$error.maxlength &amp;&amp; prescriptionform.submitted'>名称 超过最大长度</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='portlet'>
+                        <!-- PORTLET {"ng": {"show": "!!#{@page_id}.id"}} -->
+                        <div class='portlet light bordered'>
+                          <div class='portlet-title'>
+                            <div class='caption font-dark'>
+                              <i class='fa fa-beer font-dark'></i>
+                              <span class='caption-subject bold uppercase'>商品列表</span>
+                            </div>
+                            <div class='actions'>
+                              <button class='btn btn-circle btn-primary btn-sm' ng-click='productportal.insert()' type='button'>
+                                <i class='fa fa-plus'></i>
+                                选择药物
+                              </button>
+                            </div>
+                          </div>
+                          <div class='portlet-body'>
+                            <table class='table table-striped table-hover table-bordered'>
+                              <thead>
+                                <tr>
+                                  <th>
+                                    <input class='group-checkable' ng-change='prescriptiondetailportal.selectAll()' ng-model='prescriptiondetailportal.selectedall' type='checkbox'>
+                                  </th>
+                                  <th>操作</th>
+                                  <th>名称</th>
+                                  <th>处方单位</th>
+                                  <th>数量</th>
+                                  <th>价格</th>
+                                  <th>用药频次</th>
+                                  <th>单次用量</th>
+                                  <th>投药单位</th>
+                                  <th>用法</th>
+                                  <th>分组</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr class='odd gradeX' ng-repeat='prescriptiondetail in prescriptiondetails'>
+                                  <td>
+                                    <input class='checkboxes' ng-change='prescriptiondetailportal.selectChange()' ng-model='prescriptiondetailportal.selection[prescriptiondetail.id]' type='checkbox'>
+                                  </td>
+                                  <td>
+                                    <button class='btn btn-circle btn-default btn-sm' ng-click='prescriptiondetailportal.update(prescriptiondetail.id)' type='button'>
+                                      <i class='fa fa-plus'></i>
+                                      修改
+                                    </button>
+                                    <button class='btn btn-circle red-sunglo btn-sm' ng-click='prescriptiondetailportal.remove(prescriptiondetail.id)' type='button'>
+                                      <i class='fa fa-plus'></i>
+                                      删除
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                  <td>
+                                    <span class='label label-danger'>Danger</span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='modal-footer'>
+                      <!-- / 关闭 -->
+                      <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+                      <!-- / 提交表单 -->
+                      <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                        <i class='fa fa-plus'></i>
+                        保存表单
+                      </button>
+                      <!-- / 保存表单 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 挂号 -->
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- 处方类型 -->
+            <div aria-hidden='true' class='modal fade bs-modal-lg' id='prescriptiontype' role='dialog' tabindex='-1'>
+              <div class='modal-dialog'>
+                <div class='modal-content'>
+                  <form id='prescriptiontypeform' name='prescriptiontypeform' ng-submit='prescriptiontypeportal.submit()' novalidate='' role='form'>
+                    <div class='modal-header'>
+                      <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+                      <h4 class='modal-title'>处方模板</h4>
+                    </div>
+                    <div class='modal-body'>
+                      <div id='prescriptiontype_alert'></div>
+                      <div class='form-body'>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group form-md-line-input'>
+                              <label class='control-label'>
+                                父类名称
+                              </label>
+                              <input class='form-control' readonly='true' type='text' value='{{error}}'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='row'>
+                          <div class='col-md-12'>
+                            <div class='form-group'>
+                              <label class='control-label'>
+                                子类名称
+                              </label>
+                              <input class='form-control' maxlength='32' name='typeName' ng-model='prescriptiontype.typeName' type='text'>
+                              <p class='help-block font-red-thunderbird' ng-show='prescriptiontypeform.typeName.$error.maxlength &amp;&amp; prescriptiontypeform.submitted'>子类名称 超过最大长度</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='modal-footer'>
+                      <!-- / 关闭 -->
+                      <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+                      <!-- / 提交表单 -->
+                      <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                        <i class='fa fa-plus'></i>
+                        保存表单
+                      </button>
+                      <!-- / 保存表单 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 挂号 -->
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- 添加服务项目 -->
+            <div aria-hidden='true' class='modal fade bs-modal-lg' id='product' role='dialog' tabindex='-1'>
+              <div class='modal-dialog modal-full'>
+                <div class='modal-content'>
+                  <form id='productform' name='productform' ng-submit='productportal.submit()' novalidate='' role='form'>
+                    <div class='modal-header'>
+                      <button aria-hidden='true' class='close' data-dismiss='modal' type='button'></button>
+                      <h4 class='modal-title'>添加服务项目</h4>
+                    </div>
+                    <div class='modal-body'>
+                      <div id='product_alert'></div>
+                      <!-- BEGIN SAMPLE FORM PORTLET -->
+                      <div class='row'>
+                        <div class='col-md-2'>
+                          <div js-tree='productportal.treeConfig' ng-model='productportal.treeData' tree-events-obj='productportal.treeEventsObj' tree='productportal.treeInstance'></div>
+                        </div>
+                        <div class='col-md-10'>
+                          <div class='portlet-input input-inline'>
+                            <div class='input-group'>
+                              <input class='form-control input-circle-left' ng-model='productportal.pageFilterText' placeholder='请输入商品名称' size='60' type='text'>
+                              <div class='input-group-btn'>
+                                <button class='btn green input-circle-right' ng-click='productportal.search()'>
+                                  <i class='fa fa-search'></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class='portlet-body'>
+                              <table class='table table-striped table-hover table-bordered'>
+                                <thead>
+                                  <tr>
+                                    <th>
+                                      <input class='group-checkable' ng-change='productportal.selectAll()' ng-model='productportal.selectedall' type='checkbox'>
+                                    </th>
+                                    <th>名称</th>
+                                    <th>规格</th>
+                                    <th>处方单位</th>
+                                    <th>处方价格</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr class='odd gradeX' ng-repeat='product in productportal.products'>
+                                    <td>
+                                      <input class='checkboxes' ng-change='productportal.selectChange()' ng-model='productportal.selection[product.id]' type='checkbox'>
+                                    </td>
+                                    <td>
+                                      {{product.itemName}}
+                                    </td>
+                                    <td>
+                                      {{product.itemStandard}}
+                                    </td>
+                                    <td>
+                                      {{product.recipeUnit}}
+                                    </td>
+                                    <td>
+                                      {{product.recipePrice}}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <div class='row'>
+                                <div class='col-md-12 col-sm-12' component='productportal' fa_pagination='' pagination='pagination' search='search()'></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='modal-footer'>
+                      <!-- / 关闭 -->
+                      <button class='btn grey-mint btn-outline' data-dismiss='modal' type='button'>关闭</button>
+                      <!-- / 提交表单 -->
+                      <button class='btn btn-primary' ng-show="instorage.status.dictDetailCode != 'SM00043'" type='submit'>
+                        <i class='fa fa-plus'></i>
+                        保存表单
+                      </button>
+                      <!-- / 保存表单 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 审核按钮 -->
+                      <!-- / 挂号 -->
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

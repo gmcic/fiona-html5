@@ -11,7 +11,7 @@
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '入库仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehousesSet", :change => "instorageportal.onchange()", :required => 'true'}
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '入库仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehouseIdSet", :change => "instorageportal.onchange()", :required => 'true'}
 
   .row
     .col-md-3
@@ -26,10 +26,10 @@
     .col-md-3
       = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '经销商', :maxlength => '32', :btnname => '选择', :btnclick => 'dealerportal.pupupselect()'}
 
+.row
+  .col-md-12
+    = partial 'views/commons/product/product_autocomplete'
+
 / Portal
 - portal "入库商品清单", "instoragedetail"
-
-= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove'} do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.pupupselect()', :show => "instorage.status.dictDetailCode != 'SM00043'"}
-  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves', :show => "instorage.status.dictDetailCode != 'SM00043'"}
-
+= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false"}
