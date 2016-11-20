@@ -18,7 +18,7 @@
 %div.print-body-html{ "ng-repeat" => @portal_id + "2d in " + @portal_id + "2ds" + $pagefilter}
 
   .page-header{:style => 'padding-top: 0;margin-top: 0px'}
-    %img{:src => 'http://192.168.0.108:8080/assets/images/logo-fiona.png'}
+    %img{:src => '/assets/images/logo-fiona.png'}
 
   %center{"ng-if" => "$index == 0"}
     %h1 北京福莱动物医院处方单
@@ -120,7 +120,7 @@
 %div.print-body-html{"ng-if" => "lastpagebreak"}
 
   .page-header{:style => 'padding-top: 0;margin-top: 0px'}
-    %img{:src => 'http://192.168.0.108:8080/assets/images/logo-fiona.png'}
+    %img{:src => '/assets/images/logo-fiona.png'}
 
   %table.table-print-noborder
     %tbody

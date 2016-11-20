@@ -12,28 +12,8 @@
     %link{:href => "/assets/plugins/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "/assets/stylesheets/print.css", :rel => "stylesheet", :type => "text/css"}/
 
-    %link{:href => "http://192.168.0.107:8000/c_c2.css", :rel => "stylesheet", :type => "text/css"}/
-
-    %script{:src => "http://192.168.0.107:8000/CLodopfuncs.js", :type => "text/javascript"}
     / END GLOBAL MANDATORY STYLES
     = yield_content :head
-
-    :javascript
-      function demoPrint(){
-        var strHTML=document.getElementById("pageContent").innerHTML;
-
-        LODOP.PRINT_INITA(10,20,810,610,"打印处方");
-
-        LODOP.SET_PRINTER_INDEXA('EPSON L300 Series');
-
-        // EPSON L300 Series
-
-        LODOP.SET_PRINT_PAGESIZE(0,0,0,0);
-
-        LODOP.ADD_PRINT_HTM(20,10,"90%","95%",strHTML);
-
-        LODOP.PRINT();
-      };
 
   %body.page-header-fixed.page-sidebar-closed-hide-logo.page-content-white.page-sidebar-fixed
     .page-container
