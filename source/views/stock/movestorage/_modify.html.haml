@@ -10,10 +10,10 @@
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '调拨金额', :maxlength => '32', :required => 'true'}
 
     .col-md-2
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '拨出仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehousesSet", :change => "movestorageportal.onchange()"}
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '拨出仓库', :options => "type.id as type.valueNameCn for type in dropdowns.fromWarehouseIdSet", :change => "movestorageportal.onchange()"}
 
     .col-md-2
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '拨入仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehousesSet", :change => "movestorageportal.onchange()"}
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '拨入仓库', :options => "type.id as type.valueNameCn for type in dropdowns.toWarehouseIdSet", :change => "movestorageportal.onchange()"}
 
   .row
     .col-md-3
@@ -25,9 +25,11 @@
     .col-md-6
       = partial :'layouts/inputs/text', :locals => {:fieldName => '备注', :maxlength => '32'}
 
+.row
+  .col-md-12
+    = partial 'views/commons/product/product_autocomplete'
+
   / Portal
 - portal "入库商品清单", "movestoragedetail"
 
-= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' } do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
-  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false", :inline_toolbar => 'remove', :selection => "none"}

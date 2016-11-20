@@ -16,13 +16,10 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 预计天数
 
-  - fieldName: 管理员
-
-  - fieldName: 业务员
-
-  - fieldName: 类型
+  - fieldName: 住院类型
 
   - fieldName: 状态
+    fieldKey: status.valueNameCn
 
 
 searchFields:
@@ -44,14 +41,17 @@ searchFields:
 
 fields: #可定义多个中文名称指向同一个字段
 
-  顾客ID: gestId
-  顾客编号: gestCode
-  顾客名称: gestName
+  住院号: inHospitalNo
+
+  会员ID: gestId
+  会员编号: gestCode
+  会员姓名: gestName
   手机: mobilePhone
+
   VIP编号: vipNo
 
   宠物ID: petId
-  宠物名称: petName
+  宠物姓名: petName
 
   主管人员ID: managerId
   主管人员: managerBy
@@ -67,10 +67,11 @@ fields: #可定义多个中文名称指向同一个字段
   总价: totalMoney
   住院诊断: remark
 
-  住院号: inHospitalNo
   开始日期: startTime
   结束日期: endTime
-  预付金额: inputMoney
+
+  预付金: inputMoney
+
   预计天数: preDays
   实际天数: realDays
   笼舍编号: cageNo

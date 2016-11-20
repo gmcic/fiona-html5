@@ -10,7 +10,5 @@ layout: "page"
 = partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|submit|auditing' } do
   = partial 'modify'
 
-/ 选择商品
-- modal "选择商品", "product"
-= partial :'layouts/partials/modal-portal-full' do
-  = partial 'layouts/widget/service_product_select'
+/ 选择供应商
+= partial :'layouts/widget/service_dealer_select'

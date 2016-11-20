@@ -40,7 +40,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     };
 
     /**
-     * 入库管理
+     * 住院管理
      * ---------------------------
      * */
     $scope.instorageportal= {
@@ -90,10 +90,16 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
             submit : function () {
                 // 遍历保存所有子项
-                angular.forEach($scope.instoragedetails, function (data, index, array) {
-                    console.log(data);
-                    $scope.instoragedetail = data;
-                    $scope.instoragedetail.inWarehouseCode = $scope.instorage.inWarehouseCode;
+                angular.forEach($scope.instoragedetails, function (_instoragedetail) {
+
+                    $scope.instoragedetail = _instoragedetail;
+
+                      // 医院ID
+                      $scope.instoragedetail.inHospitalId = instorage.id;
+
+                      // 医院编号
+                      $scope.instoragedetail.inHospitalNo = instorage.inHospitalNo;
+
                     $scope.instoragedetailportal.save();
                 });
             }
@@ -181,9 +187,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         if($scope.instoragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
-            var instoragedetail = $scope.productchecked[_product.itemCode];
-
-            // 是否已选择
+            var instoragedetail = $scope.instoragedetails.unique('itemCode', _product.itemCode);
 
             // 个数
             instoragedetail.inputCount++;
@@ -202,9 +206,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             // 个数
             instoragedetail.inputCount = 1;
 
-            // 总数据
-            $scope.instorage.totalCount++;
-
             $scope.instoragedetails.push(instoragedetail);
 
             commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
@@ -219,9 +220,12 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
     $scope.productportal.resize = function () {
 
+        $scope.instorage.totalCount = 0;
         $scope.instorage.inWarehouseTotalCost = 0;
 
         angular.forEach($scope.instoragedetails, function (_instoragedetail) {
+
+            $scope.instorage.totalCount += _instoragedetail.inputCount;
 
             // 小计
             _instoragedetail.inputCost = _instoragedetail.sellPrice * _instoragedetail.inputCount;

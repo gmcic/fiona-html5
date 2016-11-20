@@ -12,9 +12,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
 //    $scope.dropboxinit($scope.dropboxargs);
 
-
     $scope.dropdownWithTable({id: "managerId", server: "/api/v2/personss"}); // 主管人员
-    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
+//    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
 
     // 挂号服务类型
     $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
@@ -34,10 +33,31 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         defilters: { },
 
         callback: {
+            update: function () {
+                $scope.petportal.unique($scope.inhospital.petId);
+
+                $scope.inhospitaldetailportal.search();
+            },
             insert: function() {
+                $scope.inhospital.totalMoney = 0;
+
                 $scope.serialNumber({id: "inhospital", fieldName : "inHospitalNo", numberName : "住院编号"});
 
                 $scope.setSelectDefault("inhospital", ["itemCode", "managerId", "manufacturerId"]);
+            },
+            submit : function () {
+                // 遍历保存所有子项
+                angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
+                    $scope.inhospitaldetail = _inhospitaldetail;
+
+                    // 寄养ID
+                    $scope.inhospitaldetail.inHospitalId = $scope.inhospital.id;
+
+                    // 寄养编号
+                    $scope.inhospitaldetail.inHospitalNo = $scope.inhospital.inHospitalNo;
+
+                    $scope.inhospitaldetailportal.save();
+                });
             }
         }
     };
@@ -52,7 +72,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         foreign: "inhospital", // 外键
 
-        foreignkey: "serviceId", // 外键
+        foreignkey: "inHospitalId", // 外键
 
         id: "inhospitaldetail",
 
@@ -116,29 +136,6 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalhealthportal}); //继承
 
-//    /**
-//     * 住院处方
-//     * ---------------------------
-//     * */
-//    $scope.inhospitalprescriptiondetailportal = {
-//        slave: {
-//            name: "处方",
-//            server: "/api/v2/inhospitalprescriptions"
-//        },
-//
-//        // 主数据加载地址
-//        master: {
-//            id: "inhospitalprescriptiondetail",
-//            name: "住院处方",
-//            foreignkey: "dictTypeId",
-//            server: "/api/v2/inhospitalprescriptiondetails",
-//        }
-//    };
-//
-//    $controller('SidePortalController', {$scope: $scope, component: $scope.inhospitalprescriptiondetailportal}); //继承
-//
-//    $scope.inhospitalprescriptiondetailportal.init();
-
     /**
      * 宠物管理
      * ---------------------------
@@ -186,7 +183,45 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         }
     };
 
+    $scope.productportal.resize = function () {
+
+        $scope.inhospital.totalMoney = 0;
+
+        angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
+            // 小计
+            _inhospitaldetail.totalCost = _inhospitaldetail.sellPrice * _inhospitaldetail.itemNum;
+
+            // 总金额
+            $scope.inhospital.totalMoney += _inhospitaldetail.totalCost;
+        });
+    }
+
+    $scope.petportal.checked = function (_pet) {
+
+        $scope.pet = _pet;
+
+        // 会员ID
+        $scope.inhospital.gestId = _pet.gestId;
+
+        // 会员编号
+        $scope.inhospital.gestCode = _pet.gestCode;
+
+        // 会员姓名
+        $scope.inhospital.gestName = _pet.gestName;
+
+        // 会员手机
+        $scope.inhospital.mobilePhone = "";
+
+        // 宠物ID
+        $scope.inhospital.petId = _pet.id;
+
+        // 宠物名称
+        $scope.inhospital.petName = _pet.petName;
+
+        $("#petselect").modal('toggle');
+    };
+
     $scope.productportal.autocompletedata();
 
-
+    $scope.inhospitalportal.filter();
 });

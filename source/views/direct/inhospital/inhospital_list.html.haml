@@ -6,7 +6,7 @@ layout: "page"
 
 = partial 'layouts/widget/portal'
 
-= partial :'layouts/partials/modal-full' do
+= partial :'layouts/partials/modal-portal-full' do
   = partial 'modify'
 
 / 健康记录
@@ -31,8 +31,3 @@ layout: "page"
 - modal "添加宠物", "pet"
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'views/commons/pet/portal_pet_form'
-
-/ 添加服务项目
-- modal "添加服务项目", "product"
-= partial :'layouts/partials/modal-portal-full' do
-  = partial 'views/commons/product/popup_select'

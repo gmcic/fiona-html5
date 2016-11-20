@@ -25,6 +25,20 @@ Array.prototype.existprop = function(propertyName, value) {
     return false;
 };
 
+Array.prototype.unique = function(propertyName, value) {
+    if(value)
+    {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i][propertyName] == value)
+            {
+                return this[i];
+            }
+        }
+    }
+
+    return nil;
+};
+
 // 根据ID 替换对象
 Array.prototype.replaceById = function(obj) {
 

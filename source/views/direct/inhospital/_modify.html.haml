@@ -7,7 +7,7 @@
     -#住院登记表单
     .row
       .col-md-3
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '住院号', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '住院号', :maxlength => '16'}
 
       .col-md-3
         = partial :'layouts/inputs/select', :locals => {:fieldName => '住院类型', :options => "type.itemCode as type.itemName for type in dropdowns.itemCodeSet"}
@@ -19,17 +19,17 @@
         = partial :'layouts/inputs/date', :locals => { :fieldName => '结束日期', :maxlength => '16'}
 
       .col-md-2
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '预计天数', :maxlength => '16'}
+        = partial :'layouts/inputs/number', :locals => { :fieldName => '预计天数', :maxlength => '16'}
 
     .row
       .col-md-3
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '笼舍编号', :maxlength => '16'}
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '笼舍编号', :maxlength => '16', :required => "true"}
 
       .col-md-3
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '价格', :maxlength => '16'}
+        = partial :'layouts/inputs/number', :locals => { :fieldName => '价格', :maxlength => '16'}
 
       .col-md-2
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '预付金额', :maxlength => '16'}
+        = partial :'layouts/inputs/number', :locals => { :fieldName => '预付金', :maxlength => '16'}
 
       .col-md-2
         = partial :'layouts/inputs/select', :locals => {:fieldName => '主管人员', :options => "type.id as type.personName for type in dropdowns.managerIdSet"}
@@ -41,61 +41,54 @@
       .col-md-12
         = partial :'layouts/inputs/textarea', :locals => { :fieldName => '住院诊断', :maxlength => '16'}
 
-    .portlet.light.bordered
-      .portlet-title
-        .caption
-          %i.fa.fa-file
-          %span.caption-subject.font-dark.sbold.uppercase 住院登记
+    .tabbable-line
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "//#inhospital_consume"} 寄养期间消费
 
-      .portlet-body.form
-        .tabbable-line
-          %ul.nav.nav-tabs
-            %li.active
-              %a{"data-toggle" => "tab", :href => "//#inhospital_consume"} 寄养期间消费
+        %li
+          %a{"data-toggle" => "tab", :href => "//#inhospital_prepay"} 预付金记录
 
-            %li
-              %a{"data-toggle" => "tab", :href => "//#inhospital_prepay"} 预付金记录
+        %li
+          %a{"data-toggle" => "tab", :href => "//#inhospital_health"} 健康状态记录
 
-            %li
-              %a{"data-toggle" => "tab", :href => "//#inhospital_health"} 健康状态记录
+        %li
+          %a{"data-toggle" => "tab", :href => "//#inhospital_recipe"} 住院处方
 
-            %li
-              %a{"data-toggle" => "tab", :href => "//#inhospital_recipe"} 住院处方
+      .tab-content
+        -#住院期间消费
+        #inhospital_consume.tab-pane.active
+          .row
+            .col-md-12
+              = partial 'views/commons/product/product_autocomplete'
 
-          .tab-content
-            -#住院期间消费
-            #inhospital_consume.tab-pane.active
-              .row
-                .col-md-12
-                  = partial 'views/commons/product/product_autocomplete'
+          - portal "住院期间消费", "inhospitaldetail"
+          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false" }
 
-              - portal "住院期间消费", "inhospitaldetail"
-              = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false" }
+        -#预付金记录
+        #inhospital_prepay.tab-pane
+          .well
+            总金额:, 总项数:
 
-            -#预付金记录
-            #inhospital_prepay.tab-pane
-              .well
-                总金额:, 总项数:
+          - portal "预付金额记录", "vipprepay"
 
-              - portal "预付金额记录", "vipprepay"
+          = partial :'layouts/table/portal' do
+            = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
 
-              = partial :'layouts/table/portal' do
-                = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
+        -#健康状态记录
+        #inhospital_health.tab-pane
+          - portal "健康状态记录", "inhospitalhealth"
 
-            -#健康状态记录
-            #inhospital_health.tab-pane
-              - portal "健康状态记录", "inhospitalhealth"
+          = partial :'layouts/table/portal' do
+            = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalhealthportal.insert()'}
 
-              = partial :'layouts/table/portal' do
-                = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalhealthportal.insert()'}
+        -#住院处方
+        #inhospital_recipe.tab-pane
+          - portal "住院处方", "inhospitalprescriptiondetail"
 
-            -#住院处方
-            #inhospital_recipe.tab-pane
-              - portal "住院处方", "inhospitalprescriptiondetail"
-
-              = partial :'layouts/portal/sideportal', :locals => {:sidename => "住院处方", :sidefieldname=> 'prescriptionCode'} do
-                = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalprescriptiondetailportal.insert()'}
-                = partial :'layouts/buttons/btn', :locals => {:label => "复制上一个处方", :icon => "fa-copy", :click => "void()"}
-                = partial :'layouts/buttons/btn', :locals => {:label => "处理处方", :icon => "fa-plus", :click => "void()"}
-                = partial :'layouts/buttons/btn', :locals => {:label => "打印", :icon => "fa-print", :click => "void()"}
-                = partial :'layouts/buttons/btn', :locals => {:label => "编辑", :icon => "fa-edit", :click => "void()"}
+          = partial :'layouts/portal/sideportal', :locals => {:sidename => "住院处方", :sidefieldname=> 'prescriptionCode'} do
+            = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalprescriptiondetailportal.insert()'}
+            = partial :'layouts/buttons/btn', :locals => {:label => "复制上一个处方", :icon => "fa-copy", :click => "void()"}
+            = partial :'layouts/buttons/btn', :locals => {:label => "处理处方", :icon => "fa-plus", :click => "void()"}
+            = partial :'layouts/buttons/btn', :locals => {:label => "打印", :icon => "fa-print", :click => "void()"}
+            = partial :'layouts/buttons/btn', :locals => {:label => "编辑", :icon => "fa-edit", :click => "void()"}

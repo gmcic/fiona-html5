@@ -159,6 +159,12 @@
           controller: SaleplateController
           template: /saleplate/saleplate_list.html
 
+        - name: 销售退货
+          uri: /itback/list
+          icon: fa fa-th-large
+          controller: ItbackController
+          template: /itback/itback_list.html
+
     - name: 直达通道
       icon: fa fa-ambulance
       prefix: /direct
@@ -187,12 +193,6 @@
           icon: fa fa-hospital-o
           controller: InhospitalController
           template: /inhospital/inhospital_list.html
-
-        - name: 销售退货
-          uri: /itback/list
-          icon: fa fa-th-large
-          controller: ItbackController
-          template: /itback/itback_list.html
 
     - name: 挂号
       icon: fa fa-file-text

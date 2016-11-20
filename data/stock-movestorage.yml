@@ -52,7 +52,6 @@ fields: #可定义多个中文名称指向同一个字段
 
   拨出仓库名称: fromWarehouse
 
-
   拨入仓库: toWarehouseId
 
   拨入仓库名称: toWarehouse

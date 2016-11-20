@@ -8,7 +8,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 会员姓名
 
-  - fieldName: 宠物姓名
+  - fieldName: 宠物昵称
 
   - fieldName: 开始日期
 
@@ -16,14 +16,10 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 预计天数
 
-  - fieldName: 管理员
-
-  - fieldName: 业务员
-
-  - fieldName: 类型
+  - fieldName: 寄养类型
 
   - fieldName: 状态
-
+    fieldKey: status.valueNameCn
 
 searchFields:
   - fieldName: 寄养号
@@ -53,14 +49,18 @@ searchFields:
 
 fields: #可定义多个中文名称指向同一个字段
 
-  顾客ID: gestId
-  顾客编号: gestCode
-  顾客名称: gestName
+  寄养号: fosterNo
+
+  会员ID: gestId
+  会员编号: gestCode
+  会员姓名: gestName
+
   手机: mobilePhone
-  vip编号: vipNo
+
+  VIP编号: vipNo
 
   宠物ID: petId
-  宠物名称: petName
+  宠物昵称: petName
 
   寄养类型: itemCode
   寄养类型名称: itemName
@@ -71,16 +71,15 @@ fields: #可定义多个中文名称指向同一个字段
   业务员姓名: manufacturerName
   业务员: manufacturerId
 
-  寄养号: fosterNo
   开始日期: startTime
   结束日期: endTime
-  预付金额: inputMoney
+  预付金: inputMoney
   预计天数: preDays
   实际天数: realDays
 
   笼舍编号: cageNo
-  价格: price
-  实际价格: realPrice
+  实际价格: price
+  价格: realPrice
 
   总价: totalMoney
   备注: remark

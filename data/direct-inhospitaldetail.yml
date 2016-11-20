@@ -11,7 +11,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 生产商
 
   - fieldName: 数量
-    input: text
+    input: number
+    event: ng-change='productportal.resize()'
 
   - fieldName: 单位
 
@@ -33,12 +34,11 @@ fields: #可定义多个中文名称指向同一个字段
   类型编号: itemCode
   收费名称: itemName
 
-  数量: itemNum
-
   商品服务种类: itemStyle
 
-  小计: totalCost
+  数量: itemNum
   价格: sellPrice
+  小计: totalCost
 
   单位: recipeUnit
   规格: itemStandard

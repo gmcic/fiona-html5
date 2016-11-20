@@ -9,7 +9,8 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
 
-    $scope.dropdownWithTable({id: "warehouses", server: "/api/v2/warehouses", value: "id", text: "name"});
+    // 仓库
+    $scope.dropdownWithTable({id: "warehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});
 
     /**
      * 退回记录
@@ -28,26 +29,12 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
         defilters: {"petCode": "宠物昵称", "petName": "宠物昵称", "gestCode": "会员编号", "gestName": "会员名称"},
 
         onchange: function () {
-            angular.forEach($scope.dropdowns.warehousesSet, function (data) {
+            angular.forEach($scope.dropdowns.warehousesSet, function (_warehouse) {
 
-                if($scope.backstorage.toWarehouseCode == data.id)
+                if($scope.backstorage.toWarehouseCode == _warehouse.id)
                 {
-                    $scope.backstorage.toWarehouseName = data.valueNameCn;
+                    $scope.backstorage.toWarehouseName = _warehouse.valueNameCn;
                 }
-            });
-        },
-
-        resize: function () {
-
-            $scope.backstorage.backWarehouseTotalCost = 0;
-
-            angular.forEach($scope.backstoragedetails, function (data) {
-
-                // 小计
-                data.inputCost = data.sellPrice * data.inputCount;
-
-                // 总金额
-                $scope.backstorage.backWarehouseTotalCost += data.inputCost;
             });
         },
 
@@ -63,21 +50,15 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
                 $scope.backstorage.totalCount = 0;
 
                 // 总金额
-                $scope.backstorage.backWarehouseTotalCost= 0;
+                $scope.backstorage.backWarehouseTotalCost = 0;
 
                 // 生成入库单号
-                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=退货单号").success(function (data, status, headers, config) {
+                $scope.serialNumber({id: "backstorage", fieldName : "backWarehouseCode", numberName : "退货单号"});
 
-                    $scope.backstorage.backWarehouseCode = data.data;
-
-                }).error(function (data, status, headers, config) { //     错误
-
-                    commons.danger("生成入库单号失败");
-                });
+                $scope.setSelectDefault("backstorage", ["warehouseId.id"]);
             },
 
             submit : function () {
-
                 // 遍历保存所有子项
                 angular.forEach($scope.backstoragedetails, function (data, index, array) {
                     console.log(data);
@@ -120,60 +101,99 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
 
 
     /**
-     * 商品&服务弹出选择
+     * 供应商
      * ---------------------------
      * */
+    $scope.dealerportal= {
 
-    $scope.productchecked = {};
+        id: "dealer",
 
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
+        name: "供应商",
 
-    $scope.producttypeportal.init();
+        server: "/api/v2/dealers",
 
-    $scope.productportal.filter();
+        pupupselect: function () {
 
-    $scope.productportal.submit = function () {
+            $scope.dealerportal.list();
+
+            $("#dealerselect").modal('toggle');
+        },
+
+        checked: function (dealer) {
+            $scope.instorage.dealerCode = dealer.code;
+            $scope.instorage.dealerName = dealer.name;
+
+            $("#dealerselect").modal('toggle');
+        }
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.dealerportal}); //继承
+
+    $scope.dealerportal.list();
+
+    /**
+     * 弹出选择商品
+     * ---------------------------
+     * */
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
+
+    $scope.productportal.checked = function (_product) {
+
         if (!$scope.backstoragedetails) {
             $scope.backstoragedetails = [];
         }
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
-            {
-                if($scope.productchecked[product.itemCode]) {
+        if($scope.backstoragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
-                    var backstoragedetail = $scope.productchecked[product.itemCode];
+            var backstoragedetail = $scope.backstoragedetails.unique('itemCode', _product.itemCode);
 
-                    // 个数
-                    backstoragedetail.inputCount++;
+            // 个数
+            backstoragedetail.inputCount++;
 
-                    $scope.backstorageportal.resize();
-                }
-                else {
-                    // 未选择新添加
-                    var backstoragedetail= {};
+            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
+        }
+        else {
+            var backstoragedetail= {};
 
-                    angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "packageUnit", "itemBulk", "inputPrice", "drugForm", "itemStyle", "sellPrice", "inputCost", "produceDate", "inputDate", "outDateTime", "safeDay", "wareUpLimit", "wareDownLimit", "remark", "batchNumber", "manufacturerCode", "manufacturerName"], function (name) {
-                        backstoragedetail[name] = product[name];
-                    });
+            //  "inputCount",
 
-                    // 个数
-                    backstoragedetail.inputCount = 1;
+            angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "packageUnit", "itemBulk", "inputPrice", "drugForm", "itemStyle", "sellPrice", "inputCost", "produceDate", "inputDate", "outDateTime", "safeDay", "wareUpLimit", "wareDownLimit", "remark", "batchNumber", "manufacturerCode", "manufacturerName"], function (name) {
+                backstoragedetail[name] = _product[name];
+            });
 
-                    // 总数据
-                    $scope.instorage.totalCount++;
+            // 个数
+            backstoragedetail.inputCount = 1;
 
-                    $scope.productchecked[backstoragedetail.itemCode] = backstoragedetail;
+            $scope.backstoragedetails.push(backstoragedetail);
 
-                    $scope.backstoragedetails.push(backstoragedetail);
+            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
+        }
 
-                    $scope.backstorageportal.resize();
-                }
-            }
-        });
+        $scope.productportal.resize();
 
-        $('#' + $scope.productportal.id).modal('toggle');
+        if (!$scope.doctorprescriptdetails) {
+            $scope.doctorprescriptdetails = [];
+        }
     };
+
+    $scope.productportal.resize = function () {
+
+        $scope.backstorage.totalCount = 0;
+        $scope.backstorage.backWarehouseTotalCost = 0;
+
+        angular.forEach($scope.backstoragedetails, function (_backstoragedetail) {
+
+            $scope.backstorage.totalCount += _backstoragedetail.inputCount;
+
+            // 小计
+            _backstoragedetail.inputCost = _backstoragedetail.sellPrice * _backstoragedetail.inputCount;
+
+            // 总金额
+            $scope.backstorage.backWarehouseTotalCost += _backstoragedetail.inputCost;
+        });
+    }
+
+    $scope.productportal.autocompletedata();
 
     // 初始化列表
     $scope.backstorageportal.filter();

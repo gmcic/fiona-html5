@@ -1,6 +1,6 @@
 
 // 寄养管理
-angular.module('fiona').controller('FosterageController', function($scope, $controller) {
+angular.module('fiona').controller('FosterageController', function($scope, $controller, commons) {
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = { };
@@ -12,7 +12,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 //    $scope.dropboxinit($scope.dropboxargs);
 
     $scope.dropdownWithTable({id: "managerId", server: "/api/v2/personss"}); // 主管人员
-    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
+//    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
 
     // 挂号服务类型
     $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "d7079dde-f3b0-4db6-b693-a78ddb33d02d"}});
@@ -27,15 +27,36 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
         name: "寄养管理",
 
-        server: "/api/v2/fosterrecorddetails",
+        server: "/api/v2/fosterrecords",
 
         defilters: { },
 
         callback: {
+            update: function () {
+                $scope.petportal.unique($scope.fosterage.petId);
+
+                $scope.fosteragedetailportal.search();
+            },
             insert: function() {
+                $scope.fosterage.totalMoney = 0;
+
                 $scope.serialNumber({id: "fosterage", fieldName : "fosterNo", numberName : "寄养编号"});
 
                 $scope.setSelectDefault("fosterage", ["itemCode", "managerId", "manufacturerId"]);
+            },
+            submit : function () {
+                // 遍历保存所有子项
+                angular.forEach($scope.fosteragedetails, function (_fosteragedetail) {
+                    $scope.fosteragedetail = _fosteragedetail;
+
+                    // 寄养ID
+                    $scope.fosteragedetail.fosterId = $scope.fosterage.id;
+
+                    // 寄养编号
+                    $scope.fosteragedetail.fosterNo = $scope.fosterage.fosterNo;
+
+                    $scope.fosteragedetailportal.save();
+                });
             }
         }
     };
@@ -50,7 +71,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
         foreign: "fosterage",
 
-        foreignkey: "serviceId", // 外键
+        foreignkey: "fosterId", // 外键
 
         id: "fosteragedetail",
 
@@ -78,14 +99,15 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         }
 
         if($scope.fosteragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
-            commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
+
+            var fosteragedetail = $scope.fosteragedetails.unique('itemCode', _product.itemCode);
+
+//            commons.modaldanger("fosterage", "[ 商品" +_product.itemName+ " ]已存在");
         }
         else {
             // 未选择新添加
 
             var fosteragedetail= {};
-
-            //  "inputCount",
 
             angular.forEach(["itemCode", "itemName", "recipeUnit", "sellPrice",  "useWay", "itemStandard"], function (name) {
                 fosteragedetail[name] = _product[name];
@@ -99,12 +121,24 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
             fosteragedetail.totalCost = fosteragedetail.itemNum * fosteragedetail.sellPrice;
 
-
             $scope.fosteragedetails.push(fosteragedetail);
 
-            commons.modalsuccess("doctorprescript", "成功添加[ " +fosteragedetail.itemName+ " ]商品");
+//            commons.modalsuccess("fosterage", "成功添加[ " +fosteragedetail.itemName+ " ]商品");
         }
     };
+
+    $scope.productportal.resize = function () {
+
+        $scope.fosterage.totalMoney = 0;
+
+        angular.forEach($scope.fosteragedetails, function (_fosteragedetail) {
+            // 小计
+            _fosteragedetail.totalCost = _fosteragedetail.sellPrice * _fosteragedetail.itemNum;
+
+            // 总金额
+            $scope.fosterage.totalMoney += _fosteragedetail.totalCost;
+        });
+    }
 
     $scope.productportal.autocompletedata();
 
@@ -131,7 +165,6 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipprepayportal}); //继承
-
 
     /**
      * 健康状态记录
@@ -185,4 +218,6 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         $("#petselect").modal('toggle');
     };
 
+    // 实始化
+    $scope.fosterageportal.filter();
 });

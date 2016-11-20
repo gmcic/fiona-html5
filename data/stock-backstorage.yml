@@ -40,11 +40,14 @@ fields: #可定义多个中文名称指向同一个字段
 
   退回仓库人: backWarehouseMan
 
+  仓库: warehouseId
+
   退回仓库: backWarehouse
 
   退回时间: backWarehouseDate
 
-  仓库: toWarehouseCode
+
+  仓库Code: toWarehouseCode
 
   仓库名称: toWarehouseName
 
@@ -55,8 +58,6 @@ fields: #可定义多个中文名称指向同一个字段
   总项: totalCount
 
   总金额: backWarehouseTotalCost
-
-  仓库ID: warehouseId
 
   审核人: checkMan
 

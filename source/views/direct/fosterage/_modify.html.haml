@@ -27,7 +27,7 @@
         = partial :'layouts/inputs/text', :locals => { :fieldName => '笼舍编号', :maxlength => '16', :required => "true"}
 
       .col-md-3
-        = partial :'layouts/inputs/number', :locals => { :fieldName => '预付金额', :maxlength => '16'}
+        = partial :'layouts/inputs/number', :locals => { :fieldName => '预付金', :maxlength => '16'}
 
       .col-md-2
         = partial :'layouts/inputs/number', :locals => { :fieldName => '价格', :maxlength => '16'}
@@ -42,42 +42,35 @@
       .col-md-12
         = partial :'layouts/inputs/textarea', :locals => { :fieldName => '备注', :maxlength => '16'}
 
-    .portlet.light.bordered
-      .portlet-title
-        .caption
-          %i.icon-settings.font-dark
-          %span.caption-subject.font-dark.sbold.uppercase 宠物信息
+    .tabbable-line
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "//#fosterage_consume"} 寄养期间消费
 
-      .portlet-body.form
-        .tabbable-line
-          %ul.nav.nav-tabs
-            %li.active
-              %a{"data-toggle" => "tab", :href => "//#fosterage_consume"} 寄养期间消费
+        %li
+          %a{"data-toggle" => "tab", :href => "//#fosterage_prepay"} 预付金记录
 
-            %li
-              %a{"data-toggle" => "tab", :href => "//#fosterage_prepay"} 预付金记录
+        %li
+          %a{"data-toggle" => "tab", :href => "//#fosterage_health"} 健康状态记录
 
-            %li
-              %a{"data-toggle" => "tab", :href => "//#fosterage_health"} 健康状态记录
+      .tab-content
+        -#寄养期间消费
+        #fosterage_consume.tab-pane.active
+          .row
+            .col-md-12
+              = partial 'views/commons/product/product_autocomplete'
 
-          .tab-content
-            -#寄养期间消费
-            #fosterage_consume.tab-pane.active
-              .row
-                .col-md-12
-                  = partial 'views/commons/product/product_autocomplete'
+          - portal "寄养期间消费", "fosteragedetail"
+          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false", :selection => "none" } do
+            // 不输出按钮
 
-              - portal "寄养期间消费", "fosteragedetail"
-              = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false" } do
-                // 不输出按钮
+        -#预付金记录
+        #fosterage_prepay.tab-pane
+          - portal "预付金额记录", "vipprepay"
+          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
 
-            -#预付金记录
-            #fosterage_prepay.tab-pane
-              - portal "预付金额记录", "vipprepay"
-              = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
-
-            -#健康状态记录
-            #fosterage_health.tab-pane
-              - portal "健康状态记录", "fosteragehealth"
-              = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
+        -#健康状态记录
+        #fosterage_health.tab-pane
+          - portal "健康状态记录", "fosteragehealth"
+          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
 

@@ -10,26 +10,26 @@
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
 
     .col-md-3
-      = partial :'layouts/inputs/select', :locals => {:fieldName => '仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehousesSet", :change => "instorageportal.onchange()"}
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehouseIdSet", :change => "backstorageportal.onchange()"}
 
   .row
     .col-md-3
-      = partial :'layouts/inputs/date', :locals => {:fieldName => '审核日期', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/date', :locals => {:fieldName => '审核日期', :maxlength => '32'}
 
     .col-md-3
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '审核人', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '审核人', :maxlength => '32'}
 
     .col-md-6
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '经销商', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '经销商', :maxlength => '32', :btnname => '选择', :btnclick => 'dealerportal.pupupselect()'}
 
   .row
     .col-md-12
       = partial :'layouts/inputs/text', :locals => {:fieldName => '退货原因', :maxlength => '32', :required => 'true'}
 
+.row
+  .col-md-12
+    = partial 'views/commons/product/product_autocomplete'
+
 / Portal
 - portal "入库商品清单", "backstoragedetail"
-
-= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove'} do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
-  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
-
+= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :bordered => "false", :inline_toolbar => 'remove', :selection => "none" }

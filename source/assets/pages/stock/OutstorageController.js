@@ -9,7 +9,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
 
-    $scope.dropdownWithTable({id: "warehouses", server: "/api/v2/warehouses", value: "id", text: "name"});
+    $scope.dropdownWithTable({id: "warehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});
 
     /**
      * 出库管理
@@ -37,20 +37,6 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
             });
         },
 
-        resize: function () {
-
-            $scope.outstorage.outWarehouseTotalCost = 0;
-
-            angular.forEach($scope.outstoragedetails, function (data) {
-                // 小计
-                data.inputCost = data.sellPrice * data.inputCount;
-
-                // 总金额
-                $scope.outstorage.outWarehouseTotalCost += data.inputCost;
-
-            });
-        },
-
         callback: {
             update: function () {
                 $scope.outstoragedetailportal.search();
@@ -65,16 +51,12 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
                 // 总金额
                 $scope.outstorage.outWarehouseTotalCost= 0;
 
-                // 生成入库单号
-                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=出库单号").success(function (data, status, headers, config) {
+                // 生成出库单号
+                $scope.serialNumber({id: "outstorage", fieldName : "outWarehouseCode", numberName : "出库单号"});
 
-                    $scope.outstorage.outWarehouseCode= data.data;
-
-                }).error(function (data, status, headers, config) { //     错误
-
-                    commons.modaldanger("outstorage", "生成出库单号失败");
-                });
+                $scope.setSelectDefault("outstorage", ["warehouseId.id"]);
             },
+
             submit : function () {
                 // 遍历保存所有子项
                 angular.forEach($scope.outstoragedetails, function (data, index, array) {
@@ -127,39 +109,28 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
             $scope.outstoragedetails = [];
         }
 
-        if($scope.outstoragedetails.existprop('itemCode', _productitemCode)) {   // 是否已选择
+        if($scope.outstoragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
-            var outstoragedetail = $scope.productchecked[_productitemCode];
+            var outstoragedetail = $scope.outstoragedetails.unique('itemCode', _product.itemCode);
 
             // 个数
             outstoragedetail.inputCount++;
 
-            $scope.outstoragedetail.resize();
-
-            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
+            commons.modalsuccess("outstorage", "成功添加[ " +_product.itemName+ " ]商品");
         }
         else {
             var outstoragedetail= {};
 
-            //  "inputCount",
-
             angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "packageUnit", "itemBulk", "inputPrice", "drugForm", "itemStyle", "sellPrice", "inputCost", "produceDate", "inputDate", "outDateTime", "safeDay", "wareUpLimit", "wareDownLimit", "remark", "batchNumber", "manufacturerCode", "manufacturerName"], function (name) {
-                outstoragedetail[name] = product[name];
+                outstoragedetail[name] = _product[name];
             });
 
             // 个数
             outstoragedetail.inputCount = 1;
 
-            // 总数据
-            $scope.instorage.totalCount++;
-
-            $scope.productchecked[outstoragedetail.itemCode] = outstoragedetail;
-
             $scope.outstoragedetails.push(outstoragedetail);
 
-            $scope.movestorageportal.resize();
-
-            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
+            commons.modalsuccess("outstorage", "成功添加[ " +_product.itemName+ " ]商品");
         }
 
         $scope.productportal.resize();
@@ -171,21 +142,23 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
 
     $scope.productportal.resize = function () {
 
-        $scope.instorage.inWarehouseTotalCost = 0;
+        $scope.outstorage.totalCount = 0;
 
-        angular.forEach($scope.instoragedetails, function (_instoragedetail) {
+        $scope.outstorage.outWarehouseTotalCost = 0;
+
+        angular.forEach($scope.outstoragedetails, function (_outstoragedetail) {
+
+            $scope.outstorage.totalCount += _outstoragedetail.inputCount;
 
             // 小计
-            _instoragedetail.inputCost = _instoragedetail.sellPrice * _instoragedetail.inputCount;
+            _outstoragedetail.inputCost = _outstoragedetail.sellPrice * _outstoragedetail.inputCount;
 
             // 总金额
-            $scope.instorage.inWarehouseTotalCost += _instoragedetail.inputCost;
-
+            $scope.outstorage.outWarehouseTotalCost += _outstoragedetail.inputCost;
         });
     }
 
     $scope.productportal.autocompletedata();
-
 
     // 初始化列表
     $scope.outstorageportal.filter();

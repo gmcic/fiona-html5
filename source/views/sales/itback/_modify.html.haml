@@ -5,7 +5,7 @@
 .form-body
   .row
     .col-md-4
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '退货单号', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '退货单号', :maxlength => '32', :required => 'true'}
 
     .col-md-4
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :maxlength => '32'}
@@ -23,9 +23,11 @@
     .col-md-4
       = partial :'layouts/inputs/text', :locals => {:fieldName => '结算单号', :maxlength => '32'}
 
+  .row
+    .col-md-12
+      = partial 'views/commons/product/product_autocomplete'
 
-- portal "退货明细", "itbackdetail"
-
-= partial :'layouts/table/portal' do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  - portal "退货明细", "itbackdetail"
+  = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false", :selection => "none" } do
+    // 不输出按钮
 

@@ -4,13 +4,14 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
     // 声明要使用的下拉选项
     $scope.dropboxargs = { };
 
-    $scope.dropdowns = {
-//        typesSet: [{id: "1", va'': "经销商"}, {id: "2", va'': "生产商"}, {id: "3", va'': "经销商和生产商"}]
-    };
+    $scope.dropdowns = { };
 
     $controller('BaseController', {$scope: $scope}); //继承
 
 //    $scope.dropboxinit($scope.dropboxargs);
+
+    $scope.dropdownWithTable({id: "assistantId", server: "/api/v2/personss"}); //服务助理
+    $scope.dropdownWithTable({id: "hairdresserId", server: "/api/v2/personss"}); // 服务师
 
     /**
      * 美容服务
@@ -28,8 +29,30 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 
         callback: {
             update: function(){
-                $scope.petportal.get($scope.beauty.gestId);
-            }
+                $scope.petportal.unique($scope.beauty.petId);
+
+                $scope.beautydetailportal.search();
+            },
+
+            insert: function() {
+                 $scope.beauty.totalNum = 0;
+                 $scope.beauty.totalCost = 0;
+
+                 $scope.serialNumber({id: "beauty", fieldName : "serviceCode", numberName : "服务编号"});
+
+                 $scope.setSelectDefault("beauty", ["itemCode", "hairdresserId", "assistantId"]);
+            },
+             submit : function () {
+                 // 遍历保存所有子项
+                 angular.forEach($scope.beautydetails, function (_beautydetail) {
+                     $scope.beautydetail = _beautydetail;
+
+                     // 寄养ID
+                     $scope.beautydetail.serviceId = $scope.beauty.id;
+
+                     $scope.beautydetailportal.save();
+                 });
+             }
         }
     };
 
@@ -41,6 +64,10 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
      * */
     $scope.beautydetailportal = {
 
+        foreign: "beauty",
+
+        foreignkey: "serviceId", // 外键
+
         id: "beautydetail",
 
         name: "服务项目",
@@ -51,6 +78,7 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 
         callback: {
             update: function(){
+
             }
         }
     };
@@ -58,58 +86,94 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.beautydetailportal}); //继承
 
     /**
-     * 弹出选择商品
+     * 自动补全选择商品
      * ---------------------------
      * */
-    $scope.productchecked = {}; // 已选择的商品
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
 
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
+    $scope.productportal.checked = function (_product) {
 
-    $scope.productportal.submit = function () {
-
-        if (!$scope.doctorprescriptdetails) {
-            $scope.doctorprescriptdetails = [];
+        if (!$scope.beautydetails) {
+            $scope.beautydetails = [];
         }
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
-            {
-                if($scope.productchecked[product.itemCode]) {    // 是否已选择
+        if($scope.beautydetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
-                }
-                else {
-                    // 未选择新添加
+            var beautydetail = $scope.beautydetails.unique('itemCode', _product.itemCode);
 
-                    var doctorprescriptdetail= {};
+//            commons.modaldanger("beauty", "[ 商品" +_product.itemName+ " ]已存在");
+        }
+        else {
+            // 未选择新添加
 
-                    //  "inputCount",
+            var beautydetail= {};
 
-                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                        doctorprescriptdetail[name] = product[name];
-                    });
+            angular.forEach(["itemCode", "itemName", "packageUnit", "sellPrice",  "itemStandard", "barCode"], function (name) {
+                beautydetail[name] = _product[name];
+            });
 
-                    doctorprescriptdetail.itemCost = product.recipePrice;
+            // 个数
+            beautydetail.inputCount = 1;
 
-                    // 个数
-                    doctorprescriptdetail.itemNum = 1;
+            beautydetail.totalCost = beautydetail.inputCount * beautydetail.sellPrice;
 
-                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
+            $scope.beautydetails.push(beautydetail);
 
-                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
-                }
-            }
-        });
-
-        $('#' + $scope.productportal.id + "select").modal('toggle');
+//            commons.modalsuccess("beauty", "成功添加[ " +beautydetail.itemName+ " ]商品");
+        }
     };
 
-    $scope.producttypeportal.init();
+    $scope.productportal.resize = function () {
 
-    $scope.productportal.filter();
+        $scope.beauty.totalNum = 0;
+        $scope.beauty.totalCost = 0;
+
+        angular.forEach($scope.beautydetails, function (_beautydetail) {
+
+            $scope.beauty.totalNum += _beautydetail.inputCount;
+
+            // 小计
+            _beautydetail.totalCost = _beautydetail.sellPrice * _beautydetail.inputCount;
+
+            // 总金额
+            $scope.beauty.totalCost += _beautydetail.totalCost;
+        });
+    }
+
+    $scope.productportal.autocompletedata();
+
 
     /**
      * 宠物管理
      * ---------------------------
      * */
     $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
+
+    $scope.petportal.checked = function (_pet) {
+
+        $scope.pet = _pet;
+
+        // 会员ID
+        $scope.beauty.gestId = _pet.gestId;
+
+        // 会员编号
+        $scope.beauty.gestCode = _pet.gestCode;
+
+        // 会员姓名
+        $scope.beauty.gestName = _pet.gestName;
+
+        // 会员手机
+        $scope.beauty.mobilePhone = "";
+
+        // 宠物ID
+        $scope.beauty.petId = _pet.id;
+
+        // 宠物名称
+        $scope.beauty.petName = _pet.petName;
+
+        $("#petselect").modal('toggle');
+    };
+
+    // 实始化
+    $scope.beautyportal.filter();
 });
