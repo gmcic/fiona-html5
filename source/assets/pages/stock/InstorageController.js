@@ -232,7 +232,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         });
     }
 
-    $scope.productportal.list();
+    $scope.productportal.autocompletedata();
 
 //    $scope.productportal.submit = function () {
 //

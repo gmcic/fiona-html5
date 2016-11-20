@@ -543,7 +543,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         $('#' + $scope.productportal.id + "select").modal('toggle');
     };
 
-    $scope.productportal.list();
+    $scope.productportal.autocompletedata();
 
     // 打印页面
     $scope.print = function () {

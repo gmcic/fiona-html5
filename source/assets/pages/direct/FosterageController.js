@@ -106,7 +106,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         }
     };
 
-    $scope.productportal.list();
+    $scope.productportal.autocompletedata();
 
     /**
      * 预付金额

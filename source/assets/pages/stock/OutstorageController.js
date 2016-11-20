@@ -184,7 +184,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
         });
     }
 
-    $scope.productportal.list();
+    $scope.productportal.autocompletedata();
 
 
     // 初始化列表

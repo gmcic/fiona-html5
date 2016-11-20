@@ -1436,7 +1436,7 @@ angular.module('fiona')
     // 自动补全
     $scope.productportal.autocompletedata = function () {
         $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/search").success(function (data, status, headers, config) {
-            $scope[$scope.productportal.id + 's'] = data.data;
+            $scope[$scope.productportal.id + 's'] = data;
         });
     };
 

@@ -179,7 +179,7 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
         }
     };
 
-    $scope.productportal.list();
+    $scope.productportal.autocompletedata();
 
     /**
      * 选择会员

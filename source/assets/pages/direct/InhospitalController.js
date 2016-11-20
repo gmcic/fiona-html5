@@ -186,7 +186,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         }
     };
 
-    $scope.productportal.list();
+    $scope.productportal.autocompletedata();
 
 
 });
