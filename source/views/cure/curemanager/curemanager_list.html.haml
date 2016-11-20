@@ -176,9 +176,6 @@ layout: "page"
 = partial :'layouts/partials/modal-portal-full', :locals => {:filterbar => "none", :pagingbar => "none"}  do
   = partial 'prescripttemplate'
 
-/ 选择商品
-= partial 'layouts/widget/service_product_select'
-
 / 打印处方
 - modal "打印处方", "doctorprescript"
 = partial :'layouts/widget/modal_print' do

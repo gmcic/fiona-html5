@@ -21,7 +21,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     $scope.dropboxinit($scope.dropboxargs);
 
     // 供应商
-    $scope.dropdownWithTable({id: "warehouses", server: "/api/v2/warehouses", value: "id", text: "name"});
+    $scope.dropdownWithTable({id: "warehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});
 
     /** 审核 */
     $scope.auditing  = function () {
@@ -64,21 +64,6 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             });
         },
 
-        resize: function () {
-
-            $scope.instorage.inWarehouseTotalCost = 0;
-
-            angular.forEach($scope.instoragedetails, function (data) {
-
-                // 小计
-                data.inputCost = data.sellPrice * data.inputCount;
-
-                // 总金额
-                $scope.instorage.inWarehouseTotalCost += data.inputCost;
-
-            });
-        },
-
         callback: {
             update: function () {
                 $scope.instoragedetailportal.search();
@@ -98,13 +83,9 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
                 $scope.instorage.inWarehouseTotalCost= 0;
 
                 // 生成入库单号
-                $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=入库单号").success(function (data, status, headers, config) {
+                $scope.serialNumber({id: "instorage", fieldName : "inWarehouseCode", numberName : "入库单号"});
 
-                    $scope.instorage.inWarehouseCode = data.data;
-
-                }).error(function (data, status, headers, config) { //     错误
-
-                });
+                $scope.setSelectDefault("instorage", ["warehouseId.id"]);
             },
 
             submit : function () {
@@ -185,22 +166,20 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.dealerportal}); //继承
 
     $scope.dealerportal.list();
-    
+
     /**
-     * 商品&服务弹出选择
+     * 弹出选择商品
      * ---------------------------
      * */
-    $scope.productchecked = {};
-
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
-
-    $scope.producttypeportal.init();
-
-    $scope.productportal.filter();
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
 
     $scope.productportal.checked = function (_product) {
 
-        if($scope.productchecked[_product.itemCode]) {
+        if (!$scope.instoragedetails) {
+            $scope.instoragedetails = [];
+        }
+
+        if($scope.instoragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
             var instoragedetail = $scope.productchecked[_product.itemCode];
 
@@ -209,13 +188,9 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             // 个数
             instoragedetail.inputCount++;
 
-            $scope.instorageportal.resize();
-
-            commons.modalsuccess("product", "成功添加[ " +_product.itemName+ " ]商品");
+            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
         }
         else {
-            // 未选择新添加
-
             var instoragedetail= {};
 
             //  "inputCount",
@@ -230,35 +205,50 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             // 总数据
             $scope.instorage.totalCount++;
 
-            $scope.productchecked[instoragedetail.itemCode] = instoragedetail;
-
             $scope.instoragedetails.push(instoragedetail);
 
-            $scope.instorageportal.resize();
-
-            commons.modalsuccess("product", "成功添加[ " +_product.itemName+ " ]商品");
+            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
         }
+
+        $scope.productportal.resize();
 
         if (!$scope.doctorprescriptdetails) {
             $scope.doctorprescriptdetails = [];
         }
     };
 
-    $scope.productportal.submit = function () {
+    $scope.productportal.resize = function () {
 
-        if (!$scope.instoragedetails) {
-            $scope.instoragedetails = [];
-        }
+        $scope.instorage.inWarehouseTotalCost = 0;
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (_product) {
-            if($scope.productportal.selection[_product.id])
-            {
-                $scope.productportal.checked(_product);
-            }
+        angular.forEach($scope.instoragedetails, function (_instoragedetail) {
+
+            // 小计
+            _instoragedetail.inputCost = _instoragedetail.sellPrice * _instoragedetail.inputCount;
+
+            // 总金额
+            $scope.instorage.inWarehouseTotalCost += _instoragedetail.inputCost;
+
         });
+    }
 
-        $("#productselect").modal('toggle');
-    };
+    $scope.productportal.list();
+
+//    $scope.productportal.submit = function () {
+//
+//        if (!$scope.instoragedetails) {
+//            $scope.instoragedetails = [];
+//        }
+//
+//        angular.forEach($scope[$scope.productportal.id + "s"], function (_product) {
+//            if($scope.productportal.selection[_product.id])
+//            {
+//                $scope.productportal.checked(_product);
+//            }
+//        });
+//
+//        $("#productselect").modal('toggle');
+//    };
 
     // 初始化列表
     $scope.instorageportal.filter();

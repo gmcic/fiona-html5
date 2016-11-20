@@ -1,4 +1,8 @@
-# 经销商与生产商
+module:
+  name: 直接销售
+  id: saleplate
+  data: storedirectsells
+
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
 
@@ -39,8 +43,8 @@ fields: #可定义多个中文名称指向同一个字段
 
   折扣: discount
 
-  影像状态: paidStatus
-  影像时间: paidTime
+  支付状态: paidStatus
+  支付时间: paidTime
   备注: remark
 
   主键: id

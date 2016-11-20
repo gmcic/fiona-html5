@@ -116,63 +116,75 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
 
 
     /**
-     * 商品&服务弹出选择
+     * 弹出选择商品
      * ---------------------------
      * */
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
 
-    $scope.productchecked = {};
+    $scope.productportal.checked = function (_product) {
 
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
-
-    $scope.producttypeportal.init();
-
-    $scope.productportal.filter();
-
-    $scope.productportal.submit = function () {
         if (!$scope.outstoragedetails) {
             $scope.outstoragedetails = [];
         }
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
-            {
-                if($scope.productchecked[product.itemCode]) {
+        if($scope.outstoragedetails.existprop('itemCode', _productitemCode)) {   // 是否已选择
 
-                    var outstoragedetail = $scope.productchecked[product.itemCode];
+            var outstoragedetail = $scope.productchecked[_productitemCode];
 
-                    // 个数
-                    outstoragedetail.inputCount++;
+            // 个数
+            outstoragedetail.inputCount++;
 
-                    $scope.outstoragedetail.resize();
-                }
-                else {
-                    // 未选择新添加
+            $scope.outstoragedetail.resize();
 
-                    var outstoragedetail= {createUserId: 1, updateUserId: 1};
+            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
+        }
+        else {
+            var outstoragedetail= {};
 
-                    //  "inputCount",
+            //  "inputCount",
 
-                    angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "packageUnit", "itemBulk", "inputPrice", "drugForm", "itemStyle", "sellPrice", "inputCost", "produceDate", "inputDate", "outDateTime", "safeDay", "wareUpLimit", "wareDownLimit", "remark", "batchNumber", "manufacturerCode", "manufacturerName"], function (name) {
-                        outstoragedetail[name] = product[name];
-                    });
+            angular.forEach(["itemCode", "itemName", "itemStandard", "barCode", "packageUnit", "itemBulk", "inputPrice", "drugForm", "itemStyle", "sellPrice", "inputCost", "produceDate", "inputDate", "outDateTime", "safeDay", "wareUpLimit", "wareDownLimit", "remark", "batchNumber", "manufacturerCode", "manufacturerName"], function (name) {
+                outstoragedetail[name] = product[name];
+            });
 
-                    // 个数
-                    outstoragedetail.inputCount = 1;
+            // 个数
+            outstoragedetail.inputCount = 1;
 
-                    // 总数据
-                    $scope.instorage.totalCount++;
+            // 总数据
+            $scope.instorage.totalCount++;
 
-                    $scope.productchecked[outstoragedetail.itemCode] = outstoragedetail;
+            $scope.productchecked[outstoragedetail.itemCode] = outstoragedetail;
 
-                    $scope.outstoragedetails.push(outstoragedetail);
+            $scope.outstoragedetails.push(outstoragedetail);
 
-                    $scope.movestorageportal.resize();
-                }
-            }
-        });
+            $scope.movestorageportal.resize();
 
-        $('#' + $scope.productportal.id).modal('toggle');
+            commons.modalsuccess("instorage", "成功添加[ " +_product.itemName+ " ]商品");
+        }
+
+        $scope.productportal.resize();
+
+        if (!$scope.doctorprescriptdetails) {
+            $scope.doctorprescriptdetails = [];
+        }
     };
+
+    $scope.productportal.resize = function () {
+
+        $scope.instorage.inWarehouseTotalCost = 0;
+
+        angular.forEach($scope.instoragedetails, function (_instoragedetail) {
+
+            // 小计
+            _instoragedetail.inputCost = _instoragedetail.sellPrice * _instoragedetail.inputCount;
+
+            // 总金额
+            $scope.instorage.inWarehouseTotalCost += _instoragedetail.inputCost;
+
+        });
+    }
+
+    $scope.productportal.list();
 
 
     // 初始化列表

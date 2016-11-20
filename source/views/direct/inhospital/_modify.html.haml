@@ -10,7 +10,7 @@
         = partial :'layouts/inputs/text', :locals => { :fieldName => '住院号', :maxlength => '16'}
 
       .col-md-3
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '住院类型', :maxlength => '16'}
+        = partial :'layouts/inputs/select', :locals => {:fieldName => '住院类型', :options => "type.itemCode as type.itemName for type in dropdowns.itemCodeSet"}
 
       .col-md-2
         = partial :'layouts/inputs/date', :locals => { :fieldName => '开始日期', :maxlength => '16'}
@@ -65,10 +65,12 @@
           .tab-content
             -#住院期间消费
             #inhospital_consume.tab-pane.active
+              .row
+                .col-md-12
+                  = partial 'views/commons/product/product_autocomplete'
+
               - portal "住院期间消费", "inhospitaldetail"
-              = partial :'layouts/table/portal' do
-                = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
-                = partial :'layouts/buttons/removes', :locals => {:click => 'beautydetailportal.removes()', 'disabled': 'beautydetailportal.isRemoves'}
+              = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false" }
 
             -#预付金记录
             #inhospital_prepay.tab-pane

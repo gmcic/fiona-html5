@@ -27,11 +27,12 @@ fields: #可定义多个中文名称指向同一个字段
   医院ID: inHospitalId
   医院编号: inHospitalNo
 
-  经销商编号: manufacturerCode
-  经销商: manufacturerName
+  生产商Code: manufacturerCode
+  生产商: manufacturerName
 
   类型编号: itemCode
-  类型名称: itemName
+  收费名称: itemName
+
   数量: itemNum
 
   商品服务种类: itemStyle
@@ -49,9 +50,11 @@ fields: #可定义多个中文名称指向同一个字段
   备注: remark
 
   状态: itemCountStatus
-  影像状态: paidStatus
-  影像时间: paidTime
+
+  支付状态: paidStatus
+  支付时间: paidTime
   记录时间: recordTime
+
   批次号: batchNumber
   过期时间: outDateTime
 

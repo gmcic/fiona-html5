@@ -12,6 +12,13 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
 //    $scope.dropboxinit($scope.dropboxargs);
 
+
+    $scope.dropdownWithTable({id: "managerId", server: "/api/v2/personss"}); // 主管人员
+    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
+
+    // 挂号服务类型
+    $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
+
     /**
      * 住院管理
      * ---------------------------
@@ -27,6 +34,11 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         defilters: { },
 
         callback: {
+            insert: function() {
+                $scope.serialNumber({id: "inhospital", fieldName : "inHospitalNo", numberName : "住院编号"});
+
+                $scope.setSelectDefault("inhospital", ["itemCode", "managerId", "manufacturerId"]);
+            }
         }
     };
 
@@ -104,28 +116,28 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalhealthportal}); //继承
 
-    /**
-     * 住院处方
-     * ---------------------------
-     * */
-    $scope.inhospitalprescriptiondetailportal = {
-        slave: {
-            name: "处方",
-            server: "/api/v2/inhospitalprescriptions"
-        },
-
-        // 主数据加载地址
-        master: {
-            id: "inhospitalprescriptiondetail",
-            name: "住院处方",
-            foreignkey: "dictTypeId",
-            server: "/api/v2/inhospitalprescriptiondetails",
-        }
-    };
-
-    $controller('SidePortalController', {$scope: $scope, component: $scope.inhospitalprescriptiondetailportal}); //继承
-
-    $scope.inhospitalprescriptiondetailportal.init();
+//    /**
+//     * 住院处方
+//     * ---------------------------
+//     * */
+//    $scope.inhospitalprescriptiondetailportal = {
+//        slave: {
+//            name: "处方",
+//            server: "/api/v2/inhospitalprescriptions"
+//        },
+//
+//        // 主数据加载地址
+//        master: {
+//            id: "inhospitalprescriptiondetail",
+//            name: "住院处方",
+//            foreignkey: "dictTypeId",
+//            server: "/api/v2/inhospitalprescriptiondetails",
+//        }
+//    };
+//
+//    $controller('SidePortalController', {$scope: $scope, component: $scope.inhospitalprescriptiondetailportal}); //继承
+//
+//    $scope.inhospitalprescriptiondetailportal.init();
 
     /**
      * 宠物管理
@@ -134,53 +146,47 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
     /**
-     * 弹出选择商品
+     * 自动补全选择商品
      * ---------------------------
      * */
-    $scope.productchecked = {}; // 已选择的商品
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
 
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
+    $scope.productportal.checked = function (_product) {
 
-    $scope.productportal.submit = function () {
-
-        if (!$scope.doctorprescriptdetails) {
-            $scope.doctorprescriptdetails = [];
+        if (!$scope.inhospitaldetails) {
+            $scope.inhospitaldetails = [];
         }
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
-            {
-                if($scope.productchecked[product.itemCode]) {    // 是否已选择
+        if($scope.inhospitaldetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+            commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
+        }
+        else {
+            // 未选择新添加
 
-                }
-                else {
-                    // 未选择新添加
+            var inhospitaldetail= {};
 
-                    var doctorprescriptdetail= {};
+            //  "inputCount",
 
-                    //  "inputCount",
+            angular.forEach(["itemCode", "itemName", "recipeUnit", "sellPrice",  "useWay", "itemStandard"], function (name) {
+                inhospitaldetail[name] = _product[name];
+            });
 
-                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                        doctorprescriptdetail[name] = product[name];
-                    });
+            inhospitaldetail.manufacturerCode = _product.dealerCode;
+            inhospitaldetail.manufacturerName = _product.dealerName;
 
-                    doctorprescriptdetail.itemCost = product.recipePrice;
+            // 个数
+            inhospitaldetail.itemNum = 1;
 
-                    // 个数
-                    doctorprescriptdetail.itemNum = 1;
+            inhospitaldetail.totalCost = inhospitaldetail.itemNum * inhospitaldetail.sellPrice;
 
-                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
 
-                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
-                }
-            }
-        });
+            $scope.inhospitaldetails.push(inhospitaldetail);
 
-        $('#' + $scope.productportal.id + "select").modal('toggle');
+            commons.modalsuccess("doctorprescript", "成功添加[ " +inhospitaldetail.itemName+ " ]商品");
+        }
     };
 
-    $scope.producttypeportal.init();
+    $scope.productportal.list();
 
-    $scope.productportal.filter();
 
 });

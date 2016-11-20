@@ -1,19 +1,21 @@
 
 // 寄养管理
-
-// 住院管理
 angular.module('fiona').controller('FosterageController', function($scope, $controller) {
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = { };
 
-    $scope.dropdowns = {
-//        typesSet: [{id: "1", va'': "经销商"}, {id: "2", va'': "生产商"}, {id: "3", va'': "经销商和生产商"}]
-    };
+    $scope.dropdowns = {};
 
     $controller('BaseController', {$scope: $scope}); //继承
 
 //    $scope.dropboxinit($scope.dropboxargs);
+
+    $scope.dropdownWithTable({id: "managerId", server: "/api/v2/personss"}); // 主管人员
+    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
+
+    // 挂号服务类型
+    $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "d7079dde-f3b0-4db6-b693-a78ddb33d02d"}});
 
     /**
      * 寄养管理
@@ -30,6 +32,11 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         defilters: { },
 
         callback: {
+            insert: function() {
+                $scope.serialNumber({id: "fosterage", fieldName : "fosterNo", numberName : "寄养编号"});
+
+                $scope.setSelectDefault("fosterage", ["itemCode", "managerId", "manufacturerId"]);
+            }
         }
     };
 
@@ -53,11 +60,53 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
         defilters: { },
 
-        callback: {
-        }
+        callback: {}
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosteragedetailportal}); //继承
+
+    /**
+     * 自动补全选择商品
+     * ---------------------------
+     * */
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
+
+    $scope.productportal.checked = function (_product) {
+
+        if (!$scope.fosteragedetails) {
+            $scope.fosteragedetails = [];
+        }
+
+        if($scope.fosteragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+            commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
+        }
+        else {
+            // 未选择新添加
+
+            var fosteragedetail= {};
+
+            //  "inputCount",
+
+            angular.forEach(["itemCode", "itemName", "recipeUnit", "sellPrice",  "useWay", "itemStandard"], function (name) {
+                fosteragedetail[name] = _product[name];
+            });
+
+            fosteragedetail.manufacturerCode = _product.dealerCode;
+            fosteragedetail.manufacturerName = _product.dealerName;
+
+            // 个数
+            fosteragedetail.itemNum = 1;
+
+            fosteragedetail.totalCost = fosteragedetail.itemNum * fosteragedetail.sellPrice;
+
+
+            $scope.fosteragedetails.push(fosteragedetail);
+
+            commons.modalsuccess("doctorprescript", "成功添加[ " +fosteragedetail.itemName+ " ]商品");
+        }
+    };
+
+    $scope.productportal.list();
 
     /**
      * 预付金额
@@ -105,59 +154,35 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosteragehealthportal}); //继承
 
     /**
-     * 弹出选择商品
-     * ---------------------------
-     * */
-    $scope.productchecked = {}; // 已选择的商品
-
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
-
-    $scope.productportal.submit = function () {
-
-        if (!$scope.doctorprescriptdetails) {
-            $scope.doctorprescriptdetails = [];
-        }
-
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
-            {
-                if($scope.productchecked[product.itemCode]) {    // 是否已选择
-
-                }
-                else {
-                    // 未选择新添加
-
-                    var doctorprescriptdetail= {};
-
-                    //  "inputCount",
-
-                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                        doctorprescriptdetail[name] = product[name];
-                    });
-
-                    doctorprescriptdetail.itemCost = product.recipePrice;
-
-                    // 个数
-                    doctorprescriptdetail.itemNum = 1;
-
-                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
-
-                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
-                }
-            }
-        });
-
-        $('#' + $scope.productportal.id + "select").modal('toggle');
-    };
-
-    $scope.producttypeportal.init();
-
-    $scope.productportal.filter();
-
-
-    /**
      * 宠物管理
      * ---------------------------
      * */
     $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
+
+    $scope.petportal.checked = function (_pet) {
+
+        $scope.pet = _pet;
+
+        // 会员ID
+        $scope.fosterage.gestId = _pet.gestId;
+
+        // 会员编号
+        $scope.fosterage.gestCode = _pet.gestCode;
+
+        // 会员姓名
+        $scope.fosterage.gestName = _pet.gestName;
+
+        // 会员手机
+        $scope.fosterage.mobilePhone = "";
+
+        // 宠物ID
+        $scope.fosterage.petId = _pet.id;
+
+        // 宠物名称
+        $scope.fosterage.petName = _pet.petName;
+
+
+        $("#petselect").modal('toggle');
+    };
+
 });

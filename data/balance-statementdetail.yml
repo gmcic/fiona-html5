@@ -21,17 +21,15 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
 printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
 
-  - fieldName: 项目名称
+  - fieldName: 名称
 
   - fieldName: 数量
 
   - fieldName: 单位
 
   - fieldName: 价格
-    filter: currency:"￥"
 
   - fieldName: 小计
-    filter: currency:"￥"
 
 searchFields:
   - fieldName: 会员编号
@@ -51,6 +49,8 @@ fields: #可定义多个中文名称指向同一个字段
   项目编号: itemCode
 
   项目名称: itemName
+
+  名称: itemName
 
   单位: packageUnit
 

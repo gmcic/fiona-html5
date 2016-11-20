@@ -20,7 +20,7 @@
         %th
           %input.group-checkable{:type => "checkbox", 'ng': {'model':"#{@portal_id}portal.selectedall", 'change': "#{@portal_id}portal.selectAll()"}}/
 
-        %th 序号
+      %th 序号
 
       - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
         %th 操作

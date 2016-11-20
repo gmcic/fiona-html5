@@ -10,15 +10,15 @@
 %table.table-print-noborder.bottomline-dotted
   %tbody
     %tr
-      %th{:style => "width: 100px"} 会员帐号
+      %th{:style => "width: 60px"} 帐号
       %td {{vip.gestCode}}
 
     %tr
-      %th 会员姓名
+      %th 姓名
       %td {{vip.gestName}}
 
     %tr
-      %th 结算单号
+      %th 单号
       %td {{statement.settleCode}}
 
 - portal '结算清单', 'statementdetail'
@@ -31,20 +31,19 @@
     -#  %td.bottomline-dotted{:colspan => "3" } {{statement.factPaidMoney | currency:"￥"}}
 
     %tr
-      %th{:style => "width: 100px"} 合计
+      %th{:style => "width: 60px"} 合计
       %td{:colspan => "3" } {{statement.totalMoney | currency:"￥"}}
 
     %tr
-      %th{:style => "width: 100px"} 应收
+      %th{:style => "width: 60px"} 应收
       %td {{statement.shouldPaidMoney | currency:"￥"}}
 
-      %th{:style => "width: 100px"} 实收
+      %th{:style => "width: 60px"} 实收
       %td {{statement.factPaidMoney | currency:"￥"}}
 
     %tr
-      %th{:style => "width: 100px"} 找零金额
+      %th{:style => "width: 60px"} 找零
       %td{:colspan => "3" } {{statement.changeMoney | currency:"￥"}}
 
     %tr
-      %th{:style => "width: 100px"} 消费日期
-      %td{:colspan => "3" } {{statement.createDate | date:"yyyy年MM月dd日 hh时mm分ss秒" }}
+      %td{:colspan => "4" } {{statement.createDate | date:"yyyy年MM月dd日 hh时mm分ss秒" }}

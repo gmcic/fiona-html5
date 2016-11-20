@@ -485,10 +485,10 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.prescripttemplateportal}); //继承
 
     /**
-     * 弹出选择商品
+     * 自动补全选择商品
      * ---------------------------
      * */
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
 
     $scope.productportal.checked = function (_product) {
 
@@ -499,7 +499,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 //        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
         if($scope.doctorprescriptdetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
-            commons.modaldanger("product", "[ 商品" +_product.itemName+ " ]已存在");
+            commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
         }
         else {
             // 未选择新添加
@@ -526,7 +526,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
             $scope.doctorprescriptdetails.push(doctorprescriptdetail);
 
-            commons.modalsuccess("product", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
+            commons.modalsuccess("doctorprescript", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
         }
 
     };
@@ -543,9 +543,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         $('#' + $scope.productportal.id + "select").modal('toggle');
     };
 
-    $scope.producttypeportal.init();
-
-    $scope.productportal.filter();
+    $scope.productportal.list();
 
     // 打印页面
     $scope.print = function () {
@@ -563,16 +561,14 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             html += "<p style='page-break-after:always;both: clean'>&nbsp;</p>";
          });
 
-        document.getElementById('printiframe').contentWindow.document.getElementById('printContent').contentWindow.document.getElementById('printBody').innerHTML = html;
-        document.getElementById('printiframe').contentWindow.demoPrint();
-
-
+        document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = html;
+        document.getElementById('printiframe').contentWindow.print();
 
         $('#doctorprescriptprint').modal('toggle');
     }
 
     /**
-     * 弹出选择商品
+     * 加载待诊信息
      * ---------------------------
      * */
 
@@ -621,7 +617,6 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         });
 
     });
-
 
     // 查询医院信息
     $http.get(commons.getBusinessHostname() + "/api/v2/enterprises").success(function (data, status, headers, config) {
