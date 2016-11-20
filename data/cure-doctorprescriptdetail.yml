@@ -61,8 +61,8 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
 
   - fieldName: 执行人
 
-  - fieldName: 状态
-    fieldKey: status.valueNameCn
+#  - fieldName: 状态
+#    fieldKey: status.valueNameCn
 
 printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称

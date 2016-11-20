@@ -4,7 +4,7 @@
 
 - @portal_object = "" << @portal_id << "portal"
 
-- $pagefilter = (defined? pagefilter)? " | filter: " << pagefilter : (defined? filterbar) && filterbar == "page"? " | filter: pageFilterText": ""
+- $pagefilter = (defined? pagefilter)? " | " << pagefilter : (defined? filterbar) && filterbar == "page"? " | filter: pageFilterText": ""
 
 - @portal_prefix = @module[@portal_id]
 

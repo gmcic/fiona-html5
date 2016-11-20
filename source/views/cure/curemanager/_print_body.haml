@@ -13,7 +13,7 @@
 
 - @portal = data["" << @module[@portal_id] << "-" << @portal_id]
 
-- $listdataKey = (defined? listdataKey)? listdataKey : "listFields";
+- $listdataKey = "printFields";
 
 %div.print-body-html{ "ng-repeat" => @portal_id + "2d in " + @portal_id + "2ds" + $pagefilter}
 
@@ -55,6 +55,10 @@
         %th{:style => "width: 50px"} 体温
         %td {{curemanager.temperature}}
 
+      %tr
+        %th{:style => "width: 70px"} 临床诊断
+        %td{"colspan" => "9"} {{curemanager.diagnosed}}
+
   -# 嵌套模块
   %table.table.table-bordered
     %tbody
@@ -62,7 +66,7 @@
         - @portal[$listdataKey].each do |field|
           %td #{field.aliasName || field.fieldName}
 
-      %tr{ "ng-repeat" => @portal_id + " in " + @portal_id + "2d" + $pagefilter}
+      %tr{ "ng-repeat" => @portal_id + " in " + @portal_id + "2d" + $pagefilter + " | orderBy:'groupName':false"}
         - @portal[$listdataKey].each do |column|
           %td
             - if column.filter?
@@ -107,9 +111,11 @@
 
     %p 医院地址: {{hospital.areaCode}}
 
-  .text-right.h5
-    {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
+  %h5
+    .text-right
+      {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
 
+    此处方1天有效
 
 %div.print-body-html{"ng-if" => "lastpagebreak"}
 
@@ -141,5 +147,7 @@
 
     %p 医院地址: {{hospital.areaCode}}
 
-  .text-right.h5
-    {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
+  %h5
+    .text-right
+      {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
+    此处方1天有效
