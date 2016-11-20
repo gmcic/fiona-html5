@@ -35,9 +35,9 @@
         %th{:style => "width: 70px"} 病历号
         %td{:colspan => "7"} {{pet.sickFileCode}}
 
-      %tr
-        %th{:style => "width: 70px"} 住址
-        %td{:colspan => "9"} {{vip.gestAddress}}
+      -#%tr
+      -#  %th{:style => "width: 70px"} 住址
+      -#  %td{:colspan => "9"} {{vip.gestAddress}}
 
       %tr
         %th{:style => "width: 70px"} 宠物昵称
@@ -115,7 +115,8 @@
     .text-right
       {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
 
-    此处方1天有效
+    .text-left
+    (※此处方1日有效)
 
 %div.print-body-html{"ng-if" => "lastpagebreak"}
 
@@ -150,4 +151,5 @@
   %h5
     .text-right
       {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
-    此处方1天有效
+    .text-left
+    (※此处方1日有效)
