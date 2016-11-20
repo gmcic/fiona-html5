@@ -360,11 +360,11 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
         $scope.nowtime = new Date();
 
-        var $first = 12; // 首页行数
+        var $first = 18; // 首页行数
 
-        var $middle = 18; // 中间页行数
+        var $middle = 24; // 中间页行数
 
-        var $last = 18; // 最后页行数
+        var $last = 24; // 最后页行数
 
         $scope.doctorprescriptdetail2ds = [];
 

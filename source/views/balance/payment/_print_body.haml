@@ -21,8 +21,8 @@
       %th 单号
       %td {{statement.settleCode}}
 
-- portal '结算清单', 'statementdetail'
-= partial :'layouts/widget/print_table', :locals => {:listdataKey => "printFields"}
+-#- portal '结算清单', 'statementdetail'
+-#= partial :'layouts/widget/print_table', :locals => {:listdataKey => "printFields"}
 
 %table.table-print-noborder.topline-dotted
   %tbody
