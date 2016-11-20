@@ -53,22 +53,22 @@ layout: "page"
           .clearfix.text-center{:style => "margin-bottom: 5px;"}
             %button.btn.btn-warning{:type => "button", "ng-click" => "pause()", "ng-show" => "register.status.dictDetailCode == 'SM00035'"}
               %i.fa.fa-pause
-              暂停诊断
+              暂停
 
             %button.btn.btn-success{:type => "button", "ng-click" => "replay()", "ng-show" => "register.status.dictDetailCode == 'SM00036'"}
               %i.fa.fa-undo
-              重新诊断
+              重新
 
             %button.btn.btn-danger{:type => "button", "ng-click" => "stop()", "ng-show" => "register.status.dictDetailCode != 'SM00037'"}
               %i.fa.fa-stop
-              结束诊断
+              结束
 
-            %button.btn.btn-info{:type => "button", "ng-click" => "", "ng-show" => "register.status.dictDetailCode == 'SM00035'"}
-              %i.fa.fa-file
-                疫苗登记
+            -#%button.btn.btn-info{:type => "button", "ng-click" => "", "ng-show" => "register.status.dictDetailCode == 'SM00035'"}
+            -#  %i.fa.fa-file
+            -#    疫苗登记
 
           = partial 'layouts/widget/service_pet' do
-            = partial :'layouts/buttons/btn_pruple', :locals => {:label => "查看历史病历", :click => "curemanagerportal.history()", :icon => "fa-history"}
+            = partial :'layouts/buttons/btn_pruple', :locals => {:label => "历史病历", :click => "curemanagerportal.history()", :icon => "fa-history"}
 
           / BEGIN BORDERED TABLE PORTLET
           .portlet.light.bordered{"ng-show" => "historyview == 'view'"}
