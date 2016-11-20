@@ -22,6 +22,7 @@
 
   %center{"ng-if" => "$index == 0"}
     %h1 北京福莱动物医院处方单
+    %h1{:style => "padding:0px;border: 1px solid #000;position:absolute;right:60px;top:80px"} 底方
 
   %table.table-print-noborder{"ng-if" => "$index == 0"}
     %tbody
@@ -100,16 +101,9 @@
       %tr
         %th{:colspan => "5"}
 
-      %tr
-        %th{:colspan => "5"}
-
-      %tr
-        %th{:colspan => "5"}
-
   .text-right
     医院电话: {{hospital.telPhone}}
-
-    %p 医院地址: {{hospital.areaCode}}
+    医院地址: {{hospital.areaCode}}
 
   %h5
     .text-right
@@ -117,6 +111,8 @@
 
     .text-left
     (※此处方1日有效)
+    .text-left
+    [医院留存]
 
 %div.print-body-html{"ng-if" => "lastpagebreak"}
 
@@ -137,19 +133,14 @@
       %tr
         %th{:colspan => "5"}
 
-      %tr
-        %th{:colspan => "5"}
-
-      %tr
-        %th{:colspan => "5"}
-
   .text-right
     医院电话: {{hospital.telPhone}}
-
-    %p 医院地址: {{hospital.areaCode}}
+    医院地址: {{hospital.areaCode}}
 
   %h5
     .text-right
       {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
     .text-left
     (※此处方1日有效)
+    .text-left
+    [医院留存]
