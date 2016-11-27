@@ -3,39 +3,35 @@
 angular.module('fiona').controller('MarketingController', function($scope, $controller) {
 
     // 声明要使用的下拉选项
-    $scope.dropboxargs = [
-        {name: "assistantDoctorIdSet", server: "personss"}  // 服务助理ID
-    ];
+    $scope.dropboxlist = [];
 
-    $scope.dropdowns= {};
+    $scope.dropdowns= {companyTypeSet: [{id: "1", valueNameCn: "经销商"}, {id: "2", valueNameCn: "生产商"}, {id: "3", valueNameCn: "经销商和生产商"}]};
 
-    // 主数据加载地址
-    $scope.master = {
+    $controller('BaseController', {$scope: $scope}); //继承
+
+    /**
+     * 销售查询
+     * ---------------------------
+     * */
+    $scope.marketingportal= {
+
         id: "marketing",
 
         name: "销售查询",
 
-        server: "/api/v2/storedirectsells"
+        defilters: { "code": "自动编号" , "name": "经销商名称" , "contractMan": "联系人" , "mobilePhone": "手机" , "marketingAddress": "地址"  },
+
+        server: "/api/v2/storedirectsells",
+
+        callback: {
+            insert: function () {
+                $scope.setSelectDefault("marketing", ["companyType"]);
+
+                $scope.serialNumber({id: "marketing", fieldName : "code", numberName : "经销商编号"});
+            }
+        }
     };
 
-    // 综合搜索项
-    $scope.filters = [
-        // 宠物昵称
-        {"fieldName": "petCode","operator": "EQ", "value":""},
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.marketingportal}); //继承
 
-        // 宠物昵称
-        {"fieldName": "petName","operator": "EQ", "value":""},
-
-        // 会员编号
-        {"fieldName": "gestCode","operator": "EQ", "value":""},
-
-        // 会员名称
-        {"fieldName": "gestName","operator": "EQ", "value":""}
-    ];
-
-    $scope.placeholder = "请输入宠物病例号/宠物昵称/会员编号/会员名称/会员电话";
-
-    $controller('BasePaginationController', {$scope: $scope}); //继承
-
-    
 });

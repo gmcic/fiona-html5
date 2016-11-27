@@ -1,49 +1,33 @@
 ---
-layout: "cols2_light"
+layout: "page"
 ---
+
 - page '处方模板管理', 'prescription'
 
 -#处方模板类型
 
-- content_for :outline_title do
-  模版类型
+.row
+  .col-md-3
+    - portal "横版类型", "prescriptiontype"
+    = partial 'layouts/widget/tree', :locals => {:sidename => "横版类型", :sidefieldname=> 'name'}
 
-- content_for :outline_toolbar do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'prescriptiontypeportal.insert()'}
-  = partial :'layouts/buttons/remove', :locals => {:click => 'prescriptiontypeportal.remove()', :disabled => "!selectedId"}
+  .col-md-9
+    - portal '处方模板', 'prescripttemplate'
+    = partial 'layouts/widget/portal' do
+      = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()", :disabled => "!prescriptiontypeportal.selected"}
+      = partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
 
-- content_for :outline_body do
-  - modal "商品&服务", "producttype"
-  = partial 'views/commons/tree/panel_tree', :locals => {:sidename => "商品&服务", :sidefieldname=> 'name'}
 
--# 主体部分
-- content_for :toolbar do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'prescriptionportal.insert()'}
-  = partial :'layouts/buttons/remove', :locals => {:click => 'prescriptionportal.remove()'}
-
-- content_for :theader do
-  - @page.listFields.each do |field|
-    %th #{field.aliasName || field.fieldName}
-
-- content_for :tbody do
-  - @page.listFields.each do |column|
-    %td
-      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
-
--#表格(搜索+分页)
-= partial :'layouts/table/table_full'
-
-/ 处方模板
-- modal '处方模板', 'prescription'
+/ 商品&服务分类
+- modal "处方模板", "prescriptiontype"
 
 = partial :'layouts/partials/modal-portal-lg' do
-  = partial 'modify'
-
-/ 处方类型
-- modal '处方模板', 'prescriptiontype'
-
-= partial :'layouts/partials/modal-portal' do
   = partial 'prescriptiontype'
+
+/ 处方模板
+- modal '处方模板', 'prescripttemplate'
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'
 
 / 添加服务项目
 - modal "添加服务项目", "product"

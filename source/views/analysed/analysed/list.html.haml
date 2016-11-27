@@ -7,5 +7,17 @@ layout: "page"
 = partial 'layouts/widget/portal'
 
 / Modal
-= partial :'layouts/partials/modal-portal-lg' do
+= partial :'layouts/partials/modal-portal-full' do
   = partial 'modify'
+
+/ 选择宠物
+- portal "选择宠物", "pet"
+
+= partial :'views/commons/pet/portal_pet' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+
+/ 添加宠物
+- modal "添加宠物", "pet"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'views/commons/pet/portal_pet_form'

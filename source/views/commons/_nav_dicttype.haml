@@ -1,8 +1,0 @@
--#数据字典, 侧边导航
-- content_for :outline_title do
-  类别
-
-- content_for :outline_body do
-  %div.list-group
-    %a.list-group-item{:href => 'javascript:;', "ng" => {"class":"{active: dictypeId==dicttype.id}", "repeat":"dicttype in dicttypes", "click": "setDictType(dicttype.id)"}}
-      {{dicttype.dictName}}

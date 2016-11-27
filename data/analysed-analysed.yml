@@ -1,5 +1,10 @@
-# 化验管理
-listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+
+module:
+  name: 化验管理
+  id: analysed
+  data: fosterhealths
+
+listFields:
   - fieldName: 化验项目
 
   - fieldName: 宠物病历号
@@ -35,7 +40,6 @@ searchFields:
   - fieldName: 开单日期
 
 fields: #可定义多个中文名称指向同一个字段
-  主键: id
 
   化验项目: XX
 
@@ -53,4 +57,16 @@ fields: #可定义多个中文名称指向同一个字段
 
   付费状态: XX
 
+  # 系统信息
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
 

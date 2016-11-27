@@ -27,6 +27,11 @@ layout: "page"
   = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
   = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
 
+/ 选择处方模板
+- modal "处方模板", "inhospitalprescription"
+= partial :'layouts/partials/modal-portal-full', :locals => {:filterbar => "none", :pagingbar => "none"}  do
+  = partial 'inhospitalprescriptiontemplate'
+
 / 添加宠物
 - modal "添加宠物", "pet"
 = partial :'layouts/partials/modal-portal-lg' do

@@ -45,7 +45,5 @@ angular.module('fiona').controller('ExpenditureController', function ($scope, $c
 
     $controller('TablePaginationPanelController', {$scope: $scope, component: $scope.expenditureportal}); //继承
 
-    // $controller('BaseSideController', {$scope: $scope}); //继承
-
     // $scope.init();
 });

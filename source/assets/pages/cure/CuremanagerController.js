@@ -356,6 +356,27 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     $controller('SidePanelController', {$scope: $scope, component: $scope.doctorprescriptportal}); //继承
 
+    /**
+    * 医生处方明细
+    * ---------------------------
+    * */
+    $scope.doctorprescriptdetailportal = {
+
+        foreign: "doctorprescript", // 外键
+
+        foreignkey: "prescriptionId",
+
+        id: "doctorprescriptdetail",
+
+        name: "医生处方明细",
+
+        server: "/api/v2/medicprescriptiondetails"
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.doctorprescriptdetailportal}); //继承
+
+    $scope.doctorprescriptdetailportal.pagination.pageSize = 100000;
+
     $scope.doctorprescriptportal.print = function () {
 
         $scope.nowtime = new Date();
@@ -433,36 +454,10 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         $scope.doctorprescript = {};
         $scope.doctorprescriptdetails = [];
 
-        // // 生成-登记编号
-        $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=处方流水").success(function (data, status, headers, config) {
-            $scope.doctorprescript.prescriptionCode = data.data;
-        }).error(function (data, status, headers, config) { //     错误
-            commons.modaldanger("doctorprescript", "生成处方流水编号失败");
-        });
+        $scope.serialNumber({id: "doctorprescript", fieldName : "prescriptionCode", numberName : "处方流水"});
 
         $("#doctorprescript").modal('toggle');
     };
-
-    /**
-    * 医生处方明细
-    * ---------------------------
-    * */
-    $scope.doctorprescriptdetailportal = {
-
-        foreign: "doctorprescript", // 外键
-
-        foreignkey: "prescriptionId",
-
-        id: "doctorprescriptdetail",
-
-        name: "医生处方明细",
-
-        server: "/api/v2/medicprescriptiondetails"
-    };
-
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.doctorprescriptdetailportal}); //继承
-
-    $scope.doctorprescriptdetailportal.pagination.pageSize = 100000;
 
     /**
      * 弹出选择处方模版

@@ -5,7 +5,11 @@ module:
 
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 充值记录
+  - fieldName: 金额
+    filter: currency:"￥"
+
+  - fieldName: 创建时间
+    filter: date:"yyyy年MM月dd日"
 
 portalFields: # 选择会员弹出图层字段
   - fieldName: 会员编号

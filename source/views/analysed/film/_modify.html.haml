@@ -1,22 +1,7 @@
 -#医学影像
 .row
   .col-md-3
-    .portlet
-      .portlet-title
-        .caption
-          %i.fa.fa-user
-          化验检查
-        .actions
-          %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
-            %i.fa.fa-plus
-            选择宠物
-
-          %a.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;"}
-            %i.fa.fa-remove
-            新增宠物
-
-      .portlet-body.portlet-empty
-        = partial 'views/commons/pet_header'
+    = partial :'views/commons/pet/portal_pet_view'
 
   .col-md-9
     -#文件上传

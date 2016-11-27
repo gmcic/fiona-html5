@@ -1,26 +1,28 @@
+---
+layout: "page"
+---
 - page '疫苗登记', "invaccine"
 
-- content_for :toolbar do
-  %button.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", 'ng': {'click':'update()'}}
-    %i.fa.fa-plus
-    增加
-  %button.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;", 'ng': {'click':'removes()', 'disabled': 'isRemoves'} }
-    %i.fa.fa-remove
-    删除
+= partial 'layouts/widget/portal' do
+  = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
+  = partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
 
-- content_for :theader do
-  - @page.listFields.each do |field|
-    %th #{field.aliasName || field.fieldName}
-
-- content_for :tbody do
-  - @page.listFields.each do |column|
-    %td
-      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
-
-= partial :'layouts/partials/modal-full' do
+= partial :'layouts/partials/modal-portal-full' do
   = partial 'modify'
 
 - modal "添加疫苗", "vaccines"
 
 = partial :'layouts/partials/modal-lg' do
   = partial 'vaccines'
+
+/ 选择宠物
+- portal "选择宠物", "pet"
+
+= partial :'views/commons/pet/portal_pet' do
+  = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
+  = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
+
+/ 添加宠物
+- modal "添加宠物", "pet"
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'views/commons/pet/portal_pet_form'

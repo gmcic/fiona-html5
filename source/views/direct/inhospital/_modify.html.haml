@@ -60,7 +60,8 @@
         #inhospital_consume.tab-pane.active
           .row
             .col-md-12
-              = partial 'views/commons/product/product_autocomplete'
+              -#= partial 'views/commons/product/product_autocomplete'
+              %angucomplete#inhospitalautocomplete{ "placeholder" => "请输入查询项", "pause" => "300", "on-send" => "onselectinhospital()", "selectedobject" => "selectedProduct", "localdata" => "products", "searchfields" => "itemStyle,itemName,itemStandard,inputCode", "titlefield" => "itemStyle,itemName,itemStandard,inputCode", "descriptionfield" => "itemStyle, itemStandard", "minlength" => "1", "inputclass" => "form-control form-control-small", "matchclass" => "highlight" }
 
           - portal "住院期间消费", "inhospitaldetail"
           = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false" }
@@ -72,23 +73,16 @@
 
           - portal "预付金额记录", "vipprepay"
 
-          = partial :'layouts/table/portal' do
+          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' } do
             = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
 
         -#健康状态记录
         #inhospital_health.tab-pane
           - portal "健康状态记录", "inhospitalhealth"
 
-          = partial :'layouts/table/portal' do
+          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }  do
             = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalhealthportal.insert()'}
 
         -#住院处方
         #inhospital_recipe.tab-pane
-          - portal "住院处方", "inhospitalprescriptiondetail"
-
-          = partial :'layouts/portal/sideportal', :locals => {:sidename => "住院处方", :sidefieldname=> 'prescriptionCode'} do
-            = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalprescriptiondetailportal.insert()'}
-            = partial :'layouts/buttons/btn', :locals => {:label => "复制上一个处方", :icon => "fa-copy", :click => "void()"}
-            = partial :'layouts/buttons/btn', :locals => {:label => "处理处方", :icon => "fa-plus", :click => "void()"}
-            = partial :'layouts/buttons/btn', :locals => {:label => "打印", :icon => "fa-print", :click => "void()"}
-            = partial :'layouts/buttons/btn', :locals => {:label => "编辑", :icon => "fa-edit", :click => "void()"}
+          = partial :'inhospitalprescription'

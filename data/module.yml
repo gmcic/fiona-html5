@@ -6,6 +6,7 @@ index: api
 
 #检测影像
 analysed: analysed
+analyseddetail: analysed
 film: analysed
 
 # 结算服务
@@ -45,6 +46,7 @@ checkdevice: check
 curemanager: cure
 medicalrecord: cure
 invaccine: cure
+invaccinedetail: cure
 testsheet: cure
 testsheetdetail: cure
 doctorprescript: cure
@@ -82,11 +84,11 @@ vipprepay: guest
 expenditure: management
 expendituretype: management
 
-msgfind: message
-msgself: message
-msgsetting: message
-msgwarn: message
-wechat: message
+# msgfind: message
+# msgself: message
+# msgsetting: message
+# msgwarn: message
+# wechat: message
 
 register: registration
 

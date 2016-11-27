@@ -619,7 +619,7 @@ angular.module('fiona')
 //            }
 //        });
 
-         console.log($scope[component.id]);
+//         console.log($scope[component.id]);
 
         if (!!component.callback && !!component.callback.update) {
             component.callback.update();
@@ -1185,7 +1185,7 @@ angular.module('fiona')
     component.submit = function () {
         $scope[component.id + "form"].submitted = true;
 
-        console.log($scope[component.id]);
+//        console.log($scope[component.id]);
 
         delete $scope[component.id].parentObject;
 
@@ -1194,6 +1194,9 @@ angular.module('fiona')
         }
 
         if ($scope[component.id + "form"].$valid) {
+
+            delete $scope[component.id].text;
+            delete $scope[component.id].parent;
 
             $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
 
@@ -1401,7 +1404,7 @@ angular.module('fiona')
      * 商品&服务
      * ---------------------------
      * */
-    $scope.productportal= {
+    $scope.productportal = {
 
         foreign: "producttype", // 外键
 
@@ -1429,15 +1432,16 @@ angular.module('fiona')
        }
     };
 
-    // 查询回调
-    $scope.productportal.callback.unique = function(){
-        $scope.productportal.checked($scope.product);
-    };
-
     // 商品选择
     $scope.onselectobject = function() {
 
-        $scope.productportal.unique($scope.selectedProduct.originalObject.id);
+        $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id).success(function (data, status, headers, config) {
+
+            $scope.productportal.checked(data.data);
+
+        }).error(function (data, status, headers, config) {
+            commons.modaldanger($scope.productportal.id, "加载惟一的记录失败")
+        });
 
         // 清除选中
         $scope.selectedProduct = {};

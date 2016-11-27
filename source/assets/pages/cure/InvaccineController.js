@@ -1,235 +1,187 @@
 
 // 宠物管理
-angular.module('fiona').controller('InvaccineController', function($scope, $http, commons) {
+angular.module('fiona').controller('InvaccineController', function($scope, $controller, $http, commons) {
 
-    $http.defaults.headers.post.authorization = commons.getAuthorization();
+    // 声明要使用的下拉选项
+    $scope.dropboxlist = [];
 
-    $http.defaults.headers.post['Content-Type']= 'application/json';
+    $scope.dropdowns= {companyTypeSet: [{id: "1", valueNameCn: "经销商"}, {id: "2", valueNameCn: "生产商"}, {id: "3", valueNameCn: "经销商和生产商"}]};
 
-    // alert(commons.getAuthorization());
+    $controller('BaseController', {$scope: $scope}); //继承
 
-    // 使用日期控件
-    jQuery().datepicker && $(".date-picker-btn").datepicker({
-        format: 'yyyy-mm-dd',
-        orientation: "left",
-        autoclose: !0
-    }).on("changeDate", function() {
-        $(this).parent().prev().val($(this).datepicker('getFormattedDate'));
-    });
+//    $scope.dropboxinit($scope.dropboxargs);
 
-    jQuery().datepicker && $(".date-picker").datepicker({
-        format: 'yyyy-mm-dd',
-        orientation: "left",
-        autoclose: !0
-    });
+    $scope.dropdownWithTable({id: "doctorId", server: "/api/v2/personss"}); // 主治医生
+    $scope.dropdownWithTable({id: "assistantDoctorId", server: "/api/v2/personss"}); // 助理医师
 
+    /**
+     * 驱虫疫苗
+     * ---------------------------
+     * */
+    $scope.invaccineportal = {
 
-    $scope.error= "未找到定义";
+        id: "invaccine",
 
-    $scope.selectedall = false;
+        name: "驱虫疫苗",
 
-    $scope.isRemoves = true;
+        defilters: { "code": "自动编号"},
 
-    $scope.selection = {};
+        server: "/api/v2/medicvaccines",
 
-    $scope.selectChange = function () {
-        $scope.isRemoves = true;
-        angular.forEach($scope.selection, function(value, key){
-            if(value == true)
-            {
-                $scope.isRemoves = false;
+        callback: {
+            insert: function () {
+                $scope.setSelectDefault("invaccine", ["doctorId", "assistantDoctorId"]);
+
+                $scope.serialNumber({id: "invaccine", fieldName : "vaccineGroupCode", numberName : "驱虫疫苗组号"});
             }
+        }
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.invaccineportal}); //继承
+
+    /**
+     * 提交保存
+     * ---------------------------
+     * */
+    $scope.invaccineportal.submit = function () {
+
+        $scope[this.id + "form"].submitted = true;
+
+        if ($scope[this.id + "form"].$valid) {
+
+            angular.forEach($scope.invaccinedetails, function (_invaccinedetail) {
+
+                $scope.invaccinedetail = _invaccinedetail;
+
+                angular.forEach(["gestId","gestCode","gestName","mobilePhone","id","petName"], function(name){
+                    $scope.invaccinedetail[name] = $scope.invaccine[name];
+                });
+
+                $scope.invaccinedetailportal.save();
+            });
+
+            $scope.invaccinedetail = {};
+        }
+
+        $scope.invaccineportal.list();
+
+        commons.success("保存成功");
+        $('#' + this.id).modal('toggle');
+    };
+
+    /**
+     * 驱虫疫苗
+     * ---------------------------
+     * */
+    $scope.invaccinedetailportal= {
+
+        foreign: "invaccine", // 外键
+
+        foreignkey: "vaccineGroupCode",
+
+        id: "invaccinedetail",
+
+        name: "驱虫疫苗",
+
+        server: "/api/v2/medicvaccines"
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.invaccinedetailportal}); //继承
+
+    /**
+     * 自动补全选择商品
+     * ---------------------------
+     * */
+    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
+
+    /**
+     * 添加处方明细
+     * ---------------------------
+     * */
+    $scope.productportal.checked = function (_product) {
+
+        if (!$scope.invaccinedetails) {
+            $scope.invaccinedetails = [];
+        }
+
+        if($scope.invaccinedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+            commons.modaldanger("invaccinedetails", "[ 商品" +_product.itemName+ " ]已存在");
+        }
+        else {
+            // 未选择新添加
+
+            var invaccinedetail= {};
+
+            //  "inputCount",
+
+            angular.forEach(["itemCode", "itemName", "itemStandard"], function (name) {
+                invaccinedetail[name] = _product[name];
+            });
+
+            invaccinedetail.manufacturerCode = _product.dealerCode;
+            invaccinedetail.manufacturerName = _product.dealerName;
+
+            // 售价
+            invaccinedetail.itemCost = _product.sellPrice;
+
+            // 个数
+            invaccinedetail.itemNum = 1;
+
+            $scope.invaccinedetails.push(invaccinedetail);
+
+            commons.modalsuccess("invaccinedetails", "成功添加[ " +invaccinedetail.itemName+ " ]商品");
+        }
+
+        $scope.productportal.resize();
+    };
+
+    // 重新计算
+    $scope.productportal.resize = function () {
+
+        $scope.invaccine.totalCost = 0;
+
+        angular.forEach($scope.invaccinedetails, function (_invaccinedetail) {
+            // 小计
+            _invaccinedetail.totalCost = _invaccinedetail.itemCost * _invaccinedetail.itemNum;
+
+            // 总金额
+            $scope.invaccine.totalCost += _invaccinedetail.totalCost;
         });
-    };
+    }
 
-    $scope.selectAll= function () {
-        angular.forEach($scope.vaccinereg, function (vaccinereg) {
-            $scope.selection[vaccinereg.id] = $scope.selectedall;
-        })
+    /**
+     * 宠物管理
+     * ---------------------------
+     * */
+    $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
-        $scope.isRemoves = !$scope.selectedall
-    };
+    $scope.petportal.checked = function (_pet) {
 
-    // 综合搜索项
-    $scope.pagination = {
-        'pageSize': 1,
-        'pageNumber': 1,
-        "first":true,
-        "last":false,
-        "totalElements": 1,
-        "totalPages": 1
-    };
+        $scope.pet = _pet;
 
-    $scope.combox = {
-        types: [ {'name':'猫科'}, {'name':'犬科'} ],
-        sex:[{'code':'1', cnname: '男', enname:''}, {'code':'0', cnname: '女', enname:''}]
-    };
-
-    // 综合搜索项
-    $scope.filters = [
-        // 宠物病例号
-        // {"fieldName": "name","operator": "EQ", "value":""},
-
-        // 宠物昵称
-        {"fieldName": "vaccineregCode","operator": "EQ", "value":""},
-
-        // 宠物昵称
-        {"fieldName": "vaccineregName","operator": "EQ", "value":""},
+        // 会员ID
+        $scope.invaccine.gestId = _pet.gestId;
 
         // 会员编号
-        {"fieldName": "gestCode","operator": "EQ", "value":""},
+        $scope.invaccine.gestCode = _pet.gestCode;
 
-        // 会员名称
-        {"fieldName": "gestName","operator": "EQ", "value":""},
+        // 会员姓名
+        $scope.invaccine.gestName = _pet.gestName;
 
-        // 会员电话
-        // {"fieldName": "mobilePhone","operator": "EQ", "value":""}
-    ];
+        // 会员手机
+        $scope.invaccine.mobilePhone = "";
 
-    $scope.placeholder = "请输入宠物病例号/宠物昵称/会员编号/会员名称/会员电话";
+        // 宠物ID
+        $scope.invaccine.petId = _pet.id;
 
-    // 检索宠物信息
-    $scope.search = function () {
+        // 宠物名称
+        $scope.invaccine.petName = _pet.petName;
 
-        // alert(" 执行搜索.... ");
-
-        console.log(" 执行搜索.... " + searchform.$dirty);
-
-        angular.forEach($scope.filters, function (data) {
-            console.log(" 执行搜索.... " + data.fieldName + ", " + data.operator + ", " + data.value);
-        });
-
-        // 分页查询  /business/api/v2/vaccinereg
-        // $http.get('/server/api/v2/vaccinereg/page.json', {'pageSize':$scope.pagination.pageSize, 'pageNumber':$scope.pagination.pageNumber, 'filters':$scope.filters}).success( function ( data, status, headers, config ) {
-
-        // alert('pageSize: '+ $scope.pagination.pageSize  +'pageNumber: ' + $scope.pagination.pageNumber + ", " + $scope.filters.length);
-
-        // angular.forEach($scope.filters, function (data, index) {
-        //     alert(data.fieldName);
-        // });
-
-        $http.post('/server/api/v2/vaccinereg/page.json', {'pageSize':$scope.pagination.pageSize, 'pageNumber':$scope.pagination.pageNumber, 'filters':$scope.filters}).success( function ( data, status, headers, config ) {
-            console.log( data );
-
-            $scope.vaccinereg = data.data.content;
-
-            // $http.post('/business/api/v2/vaccinereg', data).success( function ( data, status, headers, config ) {
-            //     console.log( data );
-            //     alert("Submit OK");
-            // }).error(function(data,status,headers,config) { //     错误
-            //     alert("保存失败,请确认后重试" + status);
-            // });
-
-            // angular.forEach($scope.vaccinereg, function (vaccinereg, i) {
-            //     alert(vaccinereg.id);
-            // });
-
-            // 搜索+分页
-            $scope.pagination.pageNumber = data.data.number+1;
-
-            $scope.pagination.last = data.data.last;
-            $scope.pagination.first = data.data.first;
-            $scope.pagination.totalPages = data.data.totalPages;
-            $scope.pagination.totalElements = data.data.totalElements;
-        });
+        $("#petselect").modal('toggle');
     };
 
+    $scope.productportal.autocompletedata();
 
-    // Form 界面
-    $scope.vaccineubmit = function () {
-
-        $scope.vaccineregform.submitted = true;
-
-        alert("VaccineregSex: " + $scope.vaccinereg.vaccineregSex.valueNameCn);
-
-        // angular.forEach($scope.vaccinereg.vaccineregSex, function (data, key) {
-        //     alert(key + ": "  + data);
-        // });
-
-
-        if ($scope.vaccineregform.$valid) {
-            // alert('submit: ' + $scope.vaccinereg.id);
-            $http.post('/business/api/v2/vaccinereg', $scope.vaccinereg).success( function ( data, status, headers, config ) {
-                console.log( data );
-                alert("Submit OK");
-            }).error(function(data,status,headers,config) { //     错误
-                alert("Status: " + status);
-            });
-        } else {
-
-            alert("Error: " + $scope.vaccineregform.$error);
-
-            // $scope.message = "请输入用户名和密码.";
-
-            // $scope.signup_form.submitted = true;
-        }
-    };
-
-    $scope.update = function (id) {
-
-        if(id == undefined)
-        {
-            // 添加
-            $scope.vaccinereg = {};
-        }
-        else
-        {
-            angular.forEach($scope.vaccinereg, function(data,index,array){
-                if(data.id== id)
-                {
-                    $scope.vaccinereg = data;
-                }
-            });
-        }
-
-        $('#invaccine').modal('toggle');
-    };
-
-    $scope.vaccinesmodal = function (id) {
-
-        if(id == undefined)
-        {
-            // 添加
-            $scope.vaccinereg = {};
-        }
-        else
-        {
-            angular.forEach($scope.vaccinereg, function(data,index,array){
-                if(data.id== id)
-                {
-                    $scope.vaccinereg = data;
-                }
-            });
-        }
-
-        $('#vaccines').modal('toggle');
-    };
-
-    // 删除功能
-    $scope.removes = function () {
-        angular.forEach($scope.selection, function(value, key){
-            alert(key+ " = " + value);
-        });
-    };
-
-    $scope.remove= function (id) {
-        // console.log( $scope.xiuUser )
-
-        $http.delete('/business/api/v2/vaccinereg/' + id).success(function(data, index, array){
-            commons.danger("删除成功");
-        }).error(function (data) {
-            commons.danger("删除失败");
-        });
-
-        // angular.forEach($scope.vaccinereg, function(data,index,array){
-        //
-        //     if(data.id == id)
-        //     {
-        //     }
-        //
-        // });
-
-    };
-
+    $scope.invaccineportal.list();
 
 });

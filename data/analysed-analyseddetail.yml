@@ -1,0 +1,51 @@
+module:
+  name: 化验管理
+  id: analyseddetail
+  data: fosterhealths
+
+listFields:
+  - fieldName: 名称
+
+  - fieldName: 物种
+
+  - fieldName: 年龄段
+
+  - fieldName: 检验值
+
+  - fieldName: 正常值
+
+  - fieldName: 结论
+
+
+searchFields:
+  - fieldName: 会员编号
+  - fieldName: 开单日期
+
+fields: #可定义多个中文名称指向同一个字段
+
+  名称: name
+
+  物种: name
+
+  年龄段: name
+
+  检验值: name
+
+  正常值: name
+
+  结论: name
+
+  # 系统信息
+  主键: id
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate
+
+

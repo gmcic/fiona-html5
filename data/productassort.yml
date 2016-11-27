@@ -1,4 +1,8 @@
-# 商品与服务管理
+
+module:
+  name: 商品与服务管理
+  id: products
+  data: fosterhealths
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
 
   - fieldName: 名称

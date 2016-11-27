@@ -1,37 +1,25 @@
 module:
   name: 驱虫疫苗
-  id: invaccine
+  id: invaccinedetail
   data: medicvaccines
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 宠物昵称
-
-  - fieldName: 会员姓名
-
-  - fieldName: 名称
-
-  - fieldName: 生产商
-
-  - fieldName: 批号
-
-  - fieldName: 有效期至
 
   - fieldName: 执行时间
 
   - fieldName: 下次执行时间
 
-  - fieldName: 进程
+  - fieldName: 名称
 
-  - fieldName: 付款状态
+  - fieldName: 数量
 
-  - fieldName: 提醒状态
+  - fieldName: 单位
 
-  - fieldName: 执行状态
+  - fieldName: 单价
+    filter: currency:"￥"
 
-  - fieldName: 执行人
-
-  - fieldName: 助理医生
-
+  - fieldName: 小计
+    filter: currency:"￥"
 
 searchFields:
   - fieldName: 员工姓名
