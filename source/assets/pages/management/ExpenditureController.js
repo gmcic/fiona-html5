@@ -5,29 +5,22 @@ angular.module('fiona').controller('ExpenditureController', function ($scope, $c
     $controller('BaseController', {$scope: $scope}); //继承
 
     /**
-     * 目录树数据加载地址
+     * 支出分类
      * ---------------------------
      * */
-    $scope.expendituretypeportal = {
+    $scope.expendituretypeportal= {
+
         id: "expendituretype",
 
         name: "支出分类",
 
-        server: "/api/v2/expensescates",
-
-        callback: {
-            switched: function () {
-                $scope.expenditureportal.search();
-            }
-        }
+        server: "/api/v2/expensescates"
     };
 
     $controller('SidePanelController', {$scope: $scope, component: $scope.expendituretypeportal}); //继承
 
-    $scope.expendituretypeportal.init();
-
     /**
-     * 主数据加载地址
+     * 宠物品种
      * ---------------------------
      * */
     $scope.expenditureportal= {
@@ -43,7 +36,7 @@ angular.module('fiona').controller('ExpenditureController', function ($scope, $c
         server: "/api/v2/expensesexpends"
     };
 
-    $controller('TablePaginationPanelController', {$scope: $scope, component: $scope.expenditureportal}); //继承
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.expenditureportal}); //继承
 
-    // $scope.init();
+    $scope.expendituretypeportal.init();
 });

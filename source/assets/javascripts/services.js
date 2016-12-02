@@ -26,6 +26,7 @@ angular.module('fiona.services', [])
         return num;
     };
     return {
+
         setAuthorization: function (auth) {
             // console.log( "保存用户凭证" + auth );
 

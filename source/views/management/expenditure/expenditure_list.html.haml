@@ -1,39 +1,25 @@
 ---
-layout: "cols2_listgroup"
+layout: "page"
 ---
+
 - page '支出管理', 'expenditure'
 
--# Side
+.row
+  .col-md-3
+    - portal "横版类型", "expendituretype"
+    = partial 'layouts/widget/side', :locals => {:name => "费用类别", :id=> 'expendituretype', :fieldName => "cateName"}
 
-- content_for :outline_toolbar do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'expendituretypeportal.insert()'}
-  = partial :'layouts/buttons/remove', :locals => {:click => 'expendituretypeportal.remove()'}
-
-
-= partial 'views/commons/tree/panel_side', :locals => {:name => "支出类型", :id=> 'expendituretype', :fieldName => "cateName"}
-
--# Table
-
-- content_for :toolbar do
-  = partial :'layouts/buttons/insert', :locals => {:click => 'expenditureportal.insert()'}
-  = partial :'layouts/buttons/remove', :locals => {:click => 'expenditureportal.remove()'}
-
-- content_for :theader do
-  - @page.listFields.each do |field|
-    %th #{field.aliasName || field.fieldName}
-
-- content_for :tbody do
-  - @page.listFields.each do |column|
-    %td
-      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
+  .col-md-9
+    - portal '支出管理', 'expenditure'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none"}
 
 / 编辑
+
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'modify'
 
 / 服务商品分类
 - modal "支出分类", "expendituretype"
-
 = partial :'layouts/partials/_modal-portal-lg' do
   = partial 'expendituretype'
 
