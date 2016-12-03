@@ -3,9 +3,9 @@
   .col-md-3
     - portal "医生处方", "doctorprescript"
     = partial 'layouts/widget/side', :locals => {:name => "分类", :id=> 'doctorprescript', :fieldName => "prescriptionCode", :modal_caption => "none", "light" => "none"} do
-      = partial :'layouts/buttons/remove', :locals => {:click => 'doctorprescriptportal.remove()', :disabled => "!doctorprescriptportal.selectedId"}
-      = partial :'layouts/buttons/insert', :locals => {:click => 'doctorprescriptportal.insert()'}
-      = partial :'layouts/buttons/update', :locals => {:click => 'doctorprescriptportal.update(doctorprescriptportal.selectedId)', :disabled => "!doctorprescriptportal.selectedId"}
+      = partial :'layouts/buttons/remove', :locals => {:click => 'doctorprescriptportal.remove()', :disabled => "!doctorprescriptportal.selectedId || curemanager.status.dictDetailCode == 'SM00037'"}
+      = partial :'layouts/buttons/insert', :locals => {:click => 'doctorprescriptportal.insert()', :disabled => "curemanager.status.dictDetailCode == 'SM00037'"}
+      = partial :'layouts/buttons/update', :locals => {:click => 'doctorprescriptportal.update(doctorprescriptportal.selectedId)', :disabled => "!doctorprescriptportal.selectedId || curemanager.status.dictDetailCode == 'SM00037'"}
 
   .col-md-9
     -# 处置处方

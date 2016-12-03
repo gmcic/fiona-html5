@@ -110,7 +110,7 @@ Array.prototype.removeObject = function(obj) {
     if(obj)
     {
         for (var i = 0; i < this.length; i++) {
-            if (this == obj)
+            if (this[i] == obj)
             {
                 this.splice(i, 1);
             }
@@ -733,6 +733,15 @@ angular.module('fiona')
             }
         }).error(function (data, status, headers, config) { //     错误
 
+            commons.modaldanger(component.id, "保存失败")
+        });
+    };
+
+    component.saveWithEntity = function (entity) {
+
+        $http.post(commons.getBusinessHostname() + component.server, entity).success(function (data, status, headers, config) {
+
+        }).error(function (data, status, headers, config) { //     错误
             commons.modaldanger(component.id, "保存失败")
         });
     };

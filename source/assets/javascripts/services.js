@@ -45,10 +45,10 @@ angular.module('fiona.services', [])
             return sessionStorage.getItem("authorization");
         },
         getBusinessHostname : function () {
-            return "http://localhost:8080/business";
+            return "http://192.168.0.108:8080/business";
         },
         getAccountHostname : function () {
-            return "http://localhost:8080/account";
+            return "http://192.168.0.108:8080/account";
         },
         modaldanger: function (alert_id, msg) {
             App.alert({

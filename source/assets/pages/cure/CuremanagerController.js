@@ -4,7 +4,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
-        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", doctorStatusSet : "就诊状态"},
+        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", doctorStatusSet : "就诊状态", paidStatusSet: "付款状态"},
         userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"},
         callback : {
             userdicts : function () {
@@ -319,6 +319,8 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
                 $scope.doctorprescript.doctor = $scope.curemanager.doctor;
 
+                $scope.doctorprescript.sickFileCode = $scope.pet.sickFileCode;
+
                 // 处方编号
                 // $scope.doctorprescript.prescriptionCode = '';
 
@@ -335,10 +337,9 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             submit: function () {
                 angular.forEach($scope.doctorprescriptdetails, function (data) {
 
-                    $scope.doctorprescriptdetail =data;
-                    $scope.doctorprescriptdetail.prescriptionId = $scope.doctorprescript.id;
+                    data.prescriptionId = $scope.doctorprescript.id;
 
-                    $scope.doctorprescriptdetailportal.save();
+                    $scope.doctorprescriptdetailportal.saveWithEntity(data);
                 });
 
                 $scope.doctorprescriptdetail = {};
@@ -350,11 +351,32 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
             switched: function () {
                 $scope.doctorprescriptdetailportal.search();
+            },
+
+            update: function () {
+                $scope.doctorprescriptdetails = [];
+                $scope.doctorprescriptdetailportal.search();
             }
         }
     };
 
     $controller('SidePanelController', {$scope: $scope, component: $scope.doctorprescriptportal}); //继承
+
+//    $scope.doctorprescriptportal.update = function (id){
+//
+//
+//        $scope[this.id + 'form'].submitted = false;
+//
+//        $scope[this.id] = $scope[this.id + 's'].getObjectWithIdValue(id);
+//
+//        if (!!this.callback && !!this.callback.update) {
+//            this.callback.update();
+//        }
+//
+//        $('#' + this.id).modal('toggle');
+//
+//       $scope.doctorprescriptdetailportal.search();
+//    }
 
     /**
     * 医生处方明细
@@ -516,6 +538,12 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
             // 个数
             doctorprescriptdetail.itemNum = 1;
+
+            // 分组序号自增
+//            doctorprescriptdetail.groupName = $scope.doctorprescriptdetails.length + 1;
+            doctorprescriptdetail.groupName = (($scope.doctorprescriptdetails[$scope.doctorprescriptdetails.length -1]) || {groupName: 1} ).groupName;
+
+            doctorprescriptdetail.createDate = Date.parse(new Date());
 
 //            $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
 
