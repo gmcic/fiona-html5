@@ -104,6 +104,20 @@ Array.prototype.removeById = function(val) {
     }
 };
 
+// 根据ID 删除数据指定的对象
+Array.prototype.removeObject = function(obj) {
+
+    if(obj)
+    {
+        for (var i = 0; i < this.length; i++) {
+            if (this == obj)
+            {
+                this.splice(i, 1);
+            }
+        }
+    }
+};
+
 angular.module('fiona')
 // 拦截器(验证用户是否登录)
 .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons, Auth) {
@@ -780,7 +794,7 @@ angular.module('fiona')
         }
         else
         {
-            $scope[component.id + "s"].removeById(obj);
+            $scope[component.id + "s"].removeObject(obj);
 
             if (!!component.callback && !!component.callback.delete) {
                 component.callback.delete();
