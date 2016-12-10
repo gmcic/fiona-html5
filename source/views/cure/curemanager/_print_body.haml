@@ -128,7 +128,9 @@
         %th{:style => "width: 90px"}  助理医生
         %td{:style => "width: 180px"}
 
-        %td.text-right.h4 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}
+        %td.text-right
+          %b
+            费用: {{doctorprescript.prescriptionCost | currency:"￥"}}
 
       %tr
         %th{:colspan => "5"}
