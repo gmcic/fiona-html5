@@ -514,11 +514,11 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         }
 
 //        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
-        if($scope.doctorprescriptdetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
-
-            commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
-        }
-        else {
+//         if($scope.doctorprescriptdetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+//
+//             commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
+//         }
+//         else {
             // 未选择新添加
 
             var doctorprescriptdetail= {};
@@ -550,7 +550,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             $scope.doctorprescriptdetails.push(doctorprescriptdetail);
 
             commons.modalsuccess("doctorprescript", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
-        }
+        // }
 
     };
 
