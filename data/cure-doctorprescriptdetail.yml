@@ -87,7 +87,7 @@ printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
   - fieldName: 分组
 
   - fieldName: 用法
-    fieldKey: nothingnfield
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useWaySet
 
   - fieldName: 备注
 
