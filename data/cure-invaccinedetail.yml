@@ -6,12 +6,15 @@ module:
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
 
   - fieldName: 执行时间
+    input: date
 
   - fieldName: 下次执行时间
+    input: date
 
   - fieldName: 名称
 
   - fieldName: 数量
+    input: number
 
   - fieldName: 单位
 

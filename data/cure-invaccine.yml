@@ -4,29 +4,35 @@ module:
   data: medicvaccines
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 组号
+
   - fieldName: 宠物昵称
 
   - fieldName: 会员姓名
 
   - fieldName: 名称
 
-  - fieldName: 生产商
+  - fieldName: 数量
 
-  - fieldName: 批号
-
-  - fieldName: 有效期至
+#  - fieldName: 生产商
+#
+#  - fieldName: 批号
+#
+#  - fieldName: 有效期至
 
   - fieldName: 执行时间
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 下次执行时间
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 进程
 
-  - fieldName: 付款状态
-
-  - fieldName: 提醒状态
-
-  - fieldName: 执行状态
+#  - fieldName: 付款状态
+#
+#  - fieldName: 提醒状态
+#
+#  - fieldName: 执行状态
 
   - fieldName: 执行人
 

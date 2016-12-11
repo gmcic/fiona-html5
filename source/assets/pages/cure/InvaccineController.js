@@ -32,6 +32,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
             // 本对象字段名, 选择对象的字段名
             angular.forEach($scope.dropdowns[inputName  + 'Set'], function (selectObj) {
+
                 if($scope.invaccine[inputName] == selectObj[fieldName])
                 {
                     if(inputName == 'doctorId')
@@ -43,13 +44,11 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
                         $scope.invaccine.assistantDoctorName = selectObj.personName;
                     }
                 }
+
             });
         },
 
         callback: {
-            save: function(data){
-                $scope["invaccines"].unshift(data);
-            },
 
             insert: function () {
                 $scope.setSelectDefault("invaccine", ["doctorId", "assistantDoctorId"]);
@@ -75,21 +74,32 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
                 $scope.invaccinedetail = _invaccinedetail;
 
-                angular.forEach(["gestId","gestCode","gestName","mobilePhone","id","petName", "vaccineGroupCode", "doctorId", "doctorName", "assistantDoctorId", "assistantDoctorName"], function(name){
+                angular.forEach(["gestId","gestCode","gestName","mobilePhone", "id", "petId", "petName", "vaccineGroupCode", "doctorId", "doctorName", "assistantDoctorId", "assistantDoctorName"], function(name){
                     $scope.invaccinedetail[name] = $scope.invaccine[name];
                 });
+
+                if($scope.invaccinedetail.doctorId)
+                {
+                    $scope.invaccinedetail.doctorName = $scope.dropdowns.doctorIdSet.getObjectWithId({id: $scope.invaccinedetail.doctorId}).personName;
+                }
+
+                if($scope.invaccinedetail.assistantDoctorId)
+                {
+                    $scope.invaccinedetail.assistantDoctorName = $scope.dropdowns.assistantDoctorIdSet.getObjectWithId({id: $scope.invaccinedetail.assistantDoctorId}).personName;
+                }
 
                 $scope.invaccinedetailportal.save();
             });
 
             $scope.invaccinedetail = {};
+
+            $scope.invaccineportal.list();
+
+            commons.success("保存成功");
+
+            $('#' + this.id).modal('toggle');
         }
 
-        $scope.invaccineportal.list();
-
-        commons.success("保存成功");
-
-        $('#' + this.id).modal('toggle');
     };
 
     /**
@@ -106,7 +116,13 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
         name: "驱虫疫苗",
 
-        server: "/api/v2/medicvaccines"
+        server: "/api/v2/medicvaccines",
+
+        callback : {
+            save: function(data){
+                $scope.invaccines.unshift(data);
+            }
+        }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.invaccinedetailportal}); //继承

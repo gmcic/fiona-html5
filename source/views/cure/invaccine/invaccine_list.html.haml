@@ -3,7 +3,7 @@ layout: "page"
 ---
 - page '疫苗登记', "invaccine"
 
-= partial 'layouts/widget/portal' do
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'remove'}  do
   = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
   = partial :'layouts/buttons/removes', :locals => {:click => "#{@portal_id}portal.removes()", :disabled => "#{@portal_id}portal.isRemoves"}
 

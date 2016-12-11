@@ -16,11 +16,12 @@
           .col-md-3
             = partial :'layouts/inputs/textview', :locals => { :fieldName => '组号', :maxlength => '16'}
 
-          .col-md-3
-            = partial :'layouts/inputs/select', :locals => {:fieldName => '主治医生', :options => "type.id as type.personName for type in dropdowns.doctorIdSet", :change => "invaccineportal.selectchange('doctorId', 'id')"}
 
           .col-md-3
-            = partial :'layouts/inputs/select', :locals => {:fieldName => '助理医生', :options => "type.id as type.personName for type in dropdowns.assistantDoctorIdSet", :change => "invaccineportal.selectchange('assistantDoctorId', 'id')"}
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '主治医生', :options => "type.id as type.personName for type in dropdowns.doctorIdSet"}
+
+          .col-md-3
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '助理医生', :options => "type.id as type.personName for type in dropdowns.assistantDoctorIdSet"}
 
           .col-md-3
             = partial :'layouts/inputs/textview', :locals => { :fieldName => '合计金额', :maxlength => '16'}

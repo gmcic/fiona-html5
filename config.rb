@@ -82,6 +82,8 @@ helpers do
     def bindText(inputType, key, fieldName)
         if fieldName == 'error'
             return "<span class='label label-danger'>Danger</span>"
+        elsif inputType == 'date'
+            return "<input type='date' maxlength='32' ng-model='" << key << "." << fieldName << "' >";
         else
             return "<input type='" << inputType << "' class='form-control form-filter input-sm' ng-model='" << key << "." << fieldName << "'>";
         end
