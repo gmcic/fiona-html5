@@ -128,7 +128,6 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
         }
     };
 
-
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.paymentportal}); //继承
 
     $scope.paymentportal.print = function () {

@@ -729,10 +729,9 @@ angular.module('fiona')
             $scope[component.id] = data.data;
 
             if (!!component.callback && !!component.callback.save) {
-                component.callback.save();
+                component.callback.save(data.data);
             }
         }).error(function (data, status, headers, config) { //     错误
-
             commons.modaldanger(component.id, "保存失败")
         });
     };

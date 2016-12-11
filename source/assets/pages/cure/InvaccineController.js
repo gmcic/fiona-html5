@@ -31,18 +31,26 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
         selectchange : function (inputName, fieldName) {
 
             // 本对象字段名, 选择对象的字段名
-            angular.forEach($scope.dropdowns[inputName  + 'Set'], function (data) {
-                if($scope.register[inputName] == data[fieldName])
+            angular.forEach($scope.dropdowns[inputName  + 'Set'], function (selectObj) {
+                if($scope.invaccine[inputName] == selectObj[fieldName])
                 {
-                    if($scope.registerfastportal.selectsync)
+                    if(inputName == 'doctorId')
                     {
-                        $scope.registerfastportal.selectsync(inputName, data);
+                        $scope.invaccine.doctorName = selectObj.personName;
+                    }
+                    else if(inputName == 'assistantDoctorId')
+                    {
+                        $scope.invaccine.assistantDoctorName = selectObj.personName;
                     }
                 }
             });
         },
 
         callback: {
+            save: function(data){
+                $scope["invaccines"].unshift(data);
+            },
+
             insert: function () {
                 $scope.setSelectDefault("invaccine", ["doctorId", "assistantDoctorId"]);
 
