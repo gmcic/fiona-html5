@@ -28,6 +28,20 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
         server: "/api/v2/medicvaccines",
 
+        selectchange : function (inputName, fieldName) {
+
+            // 本对象字段名, 选择对象的字段名
+            angular.forEach($scope.dropdowns[inputName  + 'Set'], function (data) {
+                if($scope.register[inputName] == data[fieldName])
+                {
+                    if($scope.registerfastportal.selectsync)
+                    {
+                        $scope.registerfastportal.selectsync(inputName, data);
+                    }
+                }
+            });
+        },
+
         callback: {
             insert: function () {
                 $scope.setSelectDefault("invaccine", ["doctorId", "assistantDoctorId"]);
@@ -53,7 +67,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
                 $scope.invaccinedetail = _invaccinedetail;
 
-                angular.forEach(["gestId","gestCode","gestName","mobilePhone","id","petName"], function(name){
+                angular.forEach(["gestId","gestCode","gestName","mobilePhone","id","petName", "vaccineGroupCode", "doctorId", "doctorName", "assistantDoctorId", "assistantDoctorName"], function(name){
                     $scope.invaccinedetail[name] = $scope.invaccine[name];
                 });
 
@@ -66,6 +80,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
         $scope.invaccineportal.list();
 
         commons.success("保存成功");
+
         $('#' + this.id).modal('toggle');
     };
 

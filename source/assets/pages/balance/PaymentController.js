@@ -204,14 +204,14 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
             _totalSize++;
 
-            _totalPrice += _paymentdetail.sumprice
+            _totalPrice += _paymentdetail.sumprice;
         });
 
         console.log("折扣: " + $scope.paymentpractical.isVipDiscount);
 
         if($scope.paymentpractical.isVipDiscount)
         {
-            _price = _totalPrice * $scope.paymentpractical.isVipDiscount;
+            _price = Math.round(Math.floor(parseFloat(_price*100 * $scope.paymentpractical.isVipDiscount))/100);
         }
 
         $scope.paymentpractical.totalSize = _totalSize;
