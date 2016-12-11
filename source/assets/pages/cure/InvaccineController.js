@@ -28,26 +28,6 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
         server: "/api/v2/medicvaccines",
 
-        selectchange : function (inputName, fieldName) {
-
-            // 本对象字段名, 选择对象的字段名
-            angular.forEach($scope.dropdowns[inputName  + 'Set'], function (selectObj) {
-
-                if($scope.invaccine[inputName] == selectObj[fieldName])
-                {
-                    if(inputName == 'doctorId')
-                    {
-                        $scope.invaccine.doctorName = selectObj.personName;
-                    }
-                    else if(inputName == 'assistantDoctorId')
-                    {
-                        $scope.invaccine.assistantDoctorName = selectObj.personName;
-                    }
-                }
-
-            });
-        },
-
         callback: {
 
             insert: function () {
@@ -78,14 +58,14 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
                     $scope.invaccinedetail[name] = $scope.invaccine[name];
                 });
 
-                if($scope.invaccinedetail.doctorId)
+                if($scope.invaccine.doctorId)
                 {
-                    $scope.invaccinedetail.doctorName = $scope.dropdowns.doctorIdSet.getObjectWithId({id: $scope.invaccinedetail.doctorId}).personName;
+                    $scope.invaccinedetail.doctorName = $scope.dropdowns.doctorIdSet.getObjectWithId({id: $scope.invaccine.doctorId}).personName;
                 }
 
-                if($scope.invaccinedetail.assistantDoctorId)
+                if($scope.invaccine.assistantDoctorId)
                 {
-                    $scope.invaccinedetail.assistantDoctorName = $scope.dropdowns.assistantDoctorIdSet.getObjectWithId({id: $scope.invaccinedetail.assistantDoctorId}).personName;
+                    $scope.invaccinedetail.assistantDoctorName = $scope.dropdowns.assistantDoctorIdSet.getObjectWithId({id: $scope.invaccine.assistantDoctorId}).personName;
                 }
 
                 $scope.invaccinedetailportal.save();
@@ -120,6 +100,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
         callback : {
             save: function(data){
+                console.log(data);
                 $scope.invaccines.unshift(data);
             }
         }

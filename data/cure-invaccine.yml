@@ -26,7 +26,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 下次执行时间
     filter: date:"yyyy年MM月dd日"
 
-  - fieldName: 进程
+#  - fieldName: 进程
 
 #  - fieldName: 付款状态
 #
@@ -34,9 +34,10 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 #
 #  - fieldName: 执行状态
 
-  - fieldName: 执行人
+#  - fieldName: 执行人
 
   - fieldName: 助理医生
+    fieldKey: assistantDoctorName
 
 
 searchFields:
@@ -79,10 +80,10 @@ fields: #可定义多个中文名称指向同一个字段
 
   批号: batchNumber
 
-  主治医生ID: doctorId
-  主治医生: doctorName
-  助理医生ID: assistantDoctorId
-  助理医生: assistantDoctorName
+  主治医生: doctorId
+  主治医生姓名: doctorName
+  助理医生: assistantDoctorId
+  助理医生姓名: assistantDoctorName
 
   标示: sign
 

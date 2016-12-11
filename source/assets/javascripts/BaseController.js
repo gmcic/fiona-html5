@@ -732,6 +732,7 @@ angular.module('fiona')
                 component.callback.save(data.data);
             }
         }).error(function (data, status, headers, config) { //     错误
+
             commons.modaldanger(component.id, "保存失败")
         });
     };
