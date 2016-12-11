@@ -194,7 +194,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         server: "/api/v2/medicmedictreatrecords",
 
         history: function(){
-           $scope.curemanagerportal.searchByWhere({"petId" : $scope.pet.id});
+           $scope.curemanagerportal.searchByWhere({"sickFileCode" : $scope.pet.sickFileCode});
 
            $scope.historyview = "view";
         },
