@@ -12,7 +12,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 名称
 
-  - fieldName: 数量
+#  - fieldName: 数量
 
 #  - fieldName: 生产商
 #
