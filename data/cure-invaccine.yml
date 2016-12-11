@@ -43,7 +43,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 searchFields:
   - fieldName: 员工姓名
 
-  - fieldName: ---
+  - fieldName: 宠物昵称
 
 
 fields: #可定义多个中文名称指向同一个字段

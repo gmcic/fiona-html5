@@ -24,7 +24,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
         name: "驱虫疫苗",
 
-        defilters: { "code": "自动编号"},
+        defilters: {"gestName": "会员姓名", "petName": "宠物昵称"},
 
         server: "/api/v2/medicvaccines",
 
@@ -95,6 +95,8 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
         id: "invaccinedetail",
 
         name: "驱虫疫苗",
+
+        defilters: {"gestName": "会员姓名", "petName": "宠物昵称"},
 
         server: "/api/v2/medicvaccines",
 
