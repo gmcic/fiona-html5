@@ -206,4 +206,8 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
     $scope.invaccineportal.list();
 
+    $.notific8("zindex",11500),
+
+    // 提示信息
+    $.notific8("This is a body",{ theme: "teal", sticky: false, horizontalEdge: "top", verticalEdge: "right", life: 1000 });
 });

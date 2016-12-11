@@ -115,6 +115,33 @@ angular.module('fiona.services', [])
                 closeInSeconds: 2,
                 icon: "info"
             });
-        }
+        },
+         loadDB : function() {
+
+             var db=new localdb("fiona");
+
+             // Create Table
+ //            db.createTable('dict');
+ //
+ //            // Delete a Table
+ //            db.dropTable('table name');
+ //
+ //            // Insert Data
+ //            db.insert('table_name',data object);
+ //
+ //            // Updating database
+ //            db.update(table_name,data_object,where_object)
+ //            db.updateById(table_name,data_object,id);
+ //
+ //            // Checking Database or table Exists
+ //
+ //             Var res=db.tableExists('table_name');
+ //             Var res=db.tableExists('users');
+ //
+ //            // Exporting Database
+ //
+ //            Var json=db.exportData();
+ //            Var json=db.exportData('table_name');
+         }
     };
 });
