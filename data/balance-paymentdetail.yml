@@ -43,7 +43,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   业务类型: businessType
 
-  优惠: isVipDiscount
+  折扣: isVipDiscount
 
   单位: itemUnit
 

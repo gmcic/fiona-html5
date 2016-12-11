@@ -17,6 +17,10 @@
           = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '总消费额', :required => "true", :maxlength => '16'}
 
       .row
+        .col-md-12
+          = partial :'layouts/inputs/number', :locals => {:keyword => "paymentpractical", :fieldName => '折扣', :required => "true", :maxlength => '16', :change => "paymentdetailportal.selectChange()"}
+
+      .row
         .col-md-6
           = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '请支付金额', :required => "true", :maxlength => '16'}
 

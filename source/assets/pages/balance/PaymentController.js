@@ -27,6 +27,8 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
                 delete _paymentdetail.sumprice;
 
+                _paymentdetail.isVipDiscount = $scope.paymentpractical.isVipDiscount;
+
                 payobject.settleAccountsViews.push(_paymentdetail);
             }
         });
@@ -47,26 +49,42 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
             $('#payment').modal('toggle');
 
+            $scope.payments = [];
+
+            $scope.paymentportal.list();
+
             $scope.paymentportal.print();
 
         }).error(function (data, status, headers, config) { //     错误
             commons.modaldanger("payment", "保存失败")
         });
+
     }
 
     $scope.allowpay = false;
 
     $scope.allowmessage = "";
 
+    /** 计算支付金额 */
     $scope.pay = function()
     {
+
 //        alert($scope.paymentpractical.price + ",  " + $scope.paymentpractical.operateContent);
 
-        if($scope.paymentpractical.price <= 0)
+//        if($scope.paymentpractical.price <= 0)
+//        {
+//            $scope.allowmessage = "请支付金额为空,请要选择结算的项目!";
+//        }
+
+        if($.isEmptyObject($scope.paymentdetailportal.selection))
         {
-            $scope.allowmessage = "请支付金额为空,请要结算的项目!";
+            $scope.allowmessage = "请选择要支付的项目";
         }
-        else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent  <= $scope.paymentpractical.price)
+        else if(!$scope.paymentpractical.operateContent)
+        {
+            $scope.allowmessage = "请输入支付金额";
+        }
+        else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
         {
             $scope.allowmessage = "支付金额不足";
         }
@@ -75,7 +93,8 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
             $scope.allowmessage = "";
         }
 
-        if($scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  && $scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
+        // $scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  &&
+        if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
         {
            $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
 
@@ -188,17 +207,12 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
             _totalPrice += _paymentdetail.sumprice
         });
 
-//
-//        angular.forEach($scope.paymentdetailportal.selection, function (value, key) {
-//            if(value == true)
-//            {
-//                var _paymentdetail = $scope["paymentdetails"].getObjectWithIdValue(key);
-//
-//                _totalSize++;
-//
-//                _totalPrice += _paymentdetail.sumprice
-//            }
-//        });
+        console.log("折扣: " + $scope.paymentpractical.isVipDiscount);
+
+        if($scope.paymentpractical.isVipDiscount)
+        {
+            _price = _totalPrice * $scope.paymentpractical.isVipDiscount;
+        }
 
         $scope.paymentpractical.totalSize = _totalSize;
 

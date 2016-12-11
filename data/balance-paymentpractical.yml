@@ -22,6 +22,8 @@ fields: #可定义多个中文名称指向同一个字段
 
   找零: backprice
 
+  折扣: isVipDiscount
+
 #  优惠总额:
 
 #  已支付金额:
