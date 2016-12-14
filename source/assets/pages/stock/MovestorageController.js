@@ -2,14 +2,12 @@
 // 移库记录
 angular.module('fiona').controller('MovestorageController', function($scope, $http,  $controller, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
-
     $scope.dropdowns= {};
 
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
 
+    // 仓库
     $scope.dropdownWithTable({id: "fromWarehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});
 
     $scope.dropdownWithTable({id: "toWarehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});

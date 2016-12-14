@@ -110,7 +110,7 @@ angular.module('fiona')
             }
         });
 
-        $('#large').modal('toggle');
+        $('#large').modal({backdrop: 'static', keyboard: false});
     };
 
     // 删除功能
@@ -321,7 +321,7 @@ angular.module('fiona')
             }
         });
 
-        $('#large').modal('toggle');
+        $('#large').modal({backdrop: 'static', keyboard: false});
     };
 
     // 删除功能

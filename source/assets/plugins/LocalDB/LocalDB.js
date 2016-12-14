@@ -1,428 +1,383 @@
 /*
-*   LocalDB.js v1.0
-*   (c) 2013 Gilberto Avalos Osuna
-*   avalosagnostic@gmail.com
+  localDB © 2012 Michael Donaldson
+  Simple localStorage Database
+  Version: 0.2.1
+  
+  License: MIT (http://opensource.org/licenses/MIT)
 */
 
-(function(root){
-
-  /* LocalDB */
-  var LDB = function(obj) {
-    if (obj instanceof LDB) return obj;
-    if (!(this instanceof LDB)) return new LDB(obj);
-  };
-
-  if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = LDB;
-    }
-    exports.LDB = LDB;
-  } else {
-    root.LDB = LDB;
+function localdb(db)
+{
+  //Check if database already exists, if it doesn't create it
+  if(localStorage[db] === undefined){
+    localStorage[db] = JSON.stringify({});
   }
-
-  var collections = localStorage.getItem('LocalDB');
-  if(!collections){
-    LDB.collections = [];
-    localStorage.setItem('LocalDB', JSON.stringify(collections));
-  } else {
-    LDB.collections = JSON.parse(collections);
-  }
-
-  LDB.version = '1.0';
-
-  /* Utils */
-  var breaker = {};
-  var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
-
-  var push             = ArrayProto.push,
-      slice            = ArrayProto.slice,
-      concat           = ArrayProto.concat,
-      toString         = ObjProto.toString,
-      hasOwnProperty   = ObjProto.hasOwnProperty;
-
-  var
-    nativeForEach      = ArrayProto.forEach,
-    nativeMap          = ArrayProto.map,
-    nativeReduce       = ArrayProto.reduce,
-    nativeReduceRight  = ArrayProto.reduceRight,
-    nativeFilter       = ArrayProto.filter,
-    nativeEvery        = ArrayProto.every,
-    nativeSome         = ArrayProto.some,
-    nativeIndexOf      = ArrayProto.indexOf,
-    nativeLastIndexOf  = ArrayProto.lastIndexOf,
-    nativeIsArray      = Array.isArray,
-    nativeKeys         = Object.keys,
-    nativeBind         = FuncProto.bind;
-
-  var each = LDB.each = LDB.forEach = function(obj, iterator, context) {
-    if (obj == null) return;
-    if (nativeForEach && obj.forEach === nativeForEach) {
-      obj.forEach(iterator, context);
-    } else if (obj.length === +obj.length) {
-      for (var i = 0, l = obj.length; i < l; i++) {
-        if (iterator.call(context, obj[i], i, obj) === breaker) return;
-      }
-    } else {
-      for (var key in obj) {
-        if (LDB.has(obj, key)) {
-          if (iterator.call(context, obj[key], key, obj) === breaker) return;
-        }
-      }
-    }
-  };
-
-  LDB.s4 = function(){
-    return Math.floor((1 + Math.random()) * 0x10000)
-               .toString(16)
-               .substring(1);
-  };
-
-  LDB.uuid = function(){
-    return LDB.s4() + LDB.s4() + new Date().getTime() + LDB.s4();
-  };
-
-  LDB.indexOf = function(array, item, isSorted) {
-    if (array == null) return -1;
-    var i = 0, l = array.length;
-    if (isSorted) {
-      if (typeof isSorted == 'number') {
-        i = (isSorted < 0 ? Math.max(0, l + isSorted) : isSorted);
-      } else {
-        i = LDB.sortedIndex(array, item);
-        return array[i] === item ? i : -1;
-      }
-    }
-    if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
-    for (; i < l; i++) if (array[i] === item) return i;
-    return -1;
-  };
-
-  LDB.identity = function(value) {
-    return value;
-  };
-
-  LDB.sortedIndex = function(array, obj, iterator, context) {
-    iterator = iterator == null ? LDB.identity : lookupIterator(iterator);
-    var value = iterator.call(context, obj);
-    var low = 0, high = array.length;
-    while (low < high) {
-      var mid = (low + high) >>> 1;
-      iterator.call(context, array[mid]) < value ? low = mid + 1 : high = mid;
-    }
-    return low;
-  };
-
-  var any = LDB.some = LDB.any = function(obj, iterator, context) {
-    iterator || (iterator = LDB.identity);
-    var result = false;
-    if (obj == null) return result;
-    if (nativeSome && obj.some === nativeSome) return obj.some(iterator, context);
-    each(obj, function(value, index, list) {
-      if (result || (result = iterator.call(context, value, index, list))) return breaker;
-    });
-    return !!result;
-  };
-
-  LDB.filter = LDB.select = function(obj, iterator, context) {
-    var results = [];
-    if (obj == null) return results;
-    if (nativeFilter && obj.filter === nativeFilter) return obj.filter(iterator, context);
-    each(obj, function(value, index, list) {
-      if (iterator.call(context, value, index, list)) results[results.length] = value;
-    });
-    return results;
-  };
-
-  LDB.where = function(obj, attrs, first) {
-    if (LDB.isEmpty(attrs)) return first ? null : [];
-    return LDB[first ? 'find' : 'filter'](obj, function(value) {
-      for (var key in attrs) {
-        if (attrs[key] !== value[key]) return false;
-      }
-      return true;
-    });
-  };
-
-  LDB.find = LDB.detect = function(obj, iterator, context) {
-    var result;
-    any(obj, function(value, index, list) {
-      if (iterator.call(context, value, index, list)) {
-        result = value;
-        return true;
-      }
-    });
-    return result;
-  };
-
-  LDB.has = function(obj, key) {
-    return hasOwnProperty.call(obj, key);
-  };
-
-  LDB.extend = function(obj) {
-    each(slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
-  };
-
-  LDB.map = LDB.collect = function(obj, iterator, context) {
-    var results = [];
-    if (obj == null) return results;
-    if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
-    each(obj, function(value, index, list) {
-      results[results.length] = iterator.call(context, value, index, list);
-    });
-    return results;
-  };
-
-  LDB.size = function(obj) {
-    if (obj == null) return 0;
-    return (obj.length === +obj.length) ? obj.length : LDB.keys(obj).length;
-  };
-
-  LDB.keys = nativeKeys || function(obj) {
-    if (obj !== Object(obj)) throw new TypeError('Invalid object');
-    var keys = [];
-    for (var key in obj) if (LDB.has(obj, key)) keys[keys.length] = key;
-    return keys;
-  };
-
-  LDB.max = function(obj, iterator, context) {
-    if (!iterator && LDB.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
-      return Math.max.apply(Math, obj);
-    }
-    if (!iterator && LDB.isEmpty(obj)) return -Infinity;
-    var result = {computed : -Infinity, value: -Infinity};
-    each(obj, function(value, index, list) {
-      var computed = iterator ? iterator.call(context, value, index, list) : value;
-      computed >= result.computed && (result = {value : value, computed : computed});
-    });
-    return result.value;
-  };
-
-  LDB.isEmpty = function(obj) {
-    if (obj == null) return true;
-    if (LDB.isArray(obj) || LDB.isString(obj)) return obj.length === 0;
-    for (var key in obj) if (LDB.has(obj, key)) return false;
+  
+  //Load database
+  var database = JSON.parse(localStorage[db]);
+  
+  //Define a save function that will save changes made to the database
+  var save = function(database){
+    localStorage[db] = JSON.stringify(database);
     return true;
   };
+  
+  var localdb = {
 
-  LDB.isArray = nativeIsArray || function(obj) {
-    return toString.call(obj) == '[object Array]';
-  };
+    /*
+      Delete Database
+    */
+    deleteDatabase: function(dbname){
+      
+      if(localStorage[dbname] !== undefined){
+        delete localStorage[dbname];
+        return true;
+      } else {
+        console.error('A database with the name "'+dbname+'" could not be found');
+        return false;
+      }
 
-  LDB.isString = function (obj) {
-    return toString.call(obj) == '[object String]';
-  };
-
-  /* Reset Database */
-  LDB.reset = LDB.clear = function(){
-    var localdb = localStorage.getItem('LocalDB');
-    if( localdb ){
-      localdb = JSON.parse(localdb);
-      LDB.each(localdb, function(collection){
-        localStorage.removeItem('LocalDB_'+collection);
-      });
-      localStorage.setItem('LocalDB', '[]');
-    }
-    LDB.collections = [];
-  };
-
-  LDB.showCollections = function(){
-    return LDB.collections;
-  };
-
-  /* Documents */
-  var Item = LDB.Item = function (collectionName, fields) {
-    var self         = this;
-    self.__collection = collectionName;
-    LDB.extend(self, fields);
-  };
-
-  Item.prototype.save = function () {
-    var self = this, items, db;
-
-    items = localStorage.getItem('LocalDB_'+self.__collection);
-
-    if(items){
-      items = JSON.parse(items);
-    } else {
-      items = [];
-    }
-
-    if(self._id){
-      if( items.length ){
-        var updateItem = LDB.find(items, function(item){
-          return item._id == self._id;
-        });
-        if(updateItem){
-          LDB.each(self, function(thisItem, key){
-            if(key !== '__collection'){
-              if(self[key] !== undefined){
-                updateItem[key] = self[key];
+    },
+    
+    /*
+      Create Table
+    */
+    createTable: function(table){
+      
+      if(database[table] === undefined){
+        database[table] = {
+          'totalrows': 0,
+          'autoinc': 1,
+          'rows': {}
+        };
+        save(database);
+      } else {
+        console.error('A table with the name "'+table+'" already exists');
+        return false;
+      }
+      
+    },
+    
+    /*
+      Delete Table
+    */
+    dropTable: function(table){
+      
+      if(database[table] !== undefined){
+        delete database[table];
+        save(database);
+      } else {
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
+      }
+      
+    },
+    
+    /*
+      Get Table Meta
+    */
+    tableMeta: function(table){
+      
+      if(database[table] !== undefined){
+        var meta = {
+          totalrows: database[table].totalrows,
+          autoinc: database[table].autoinc
+        };
+        return meta;
+      } else {
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
+      }
+      
+    },
+    
+    /*
+      Insert Data
+    */
+    insert: function(table, data){
+      
+      if(database[table] === undefined){
+        localdb.createTable(table);
+      }
+      
+      autoinc = database[table].autoinc;
+      data.ID = autoinc;
+      database[table].rows[autoinc] = data;
+      database[table].autoinc += 1;
+      database[table].totalrows += 1;
+      save(database);
+      
+    },
+    
+    /*
+      Update Data
+    */
+    update: function(table, data, where){
+      
+      if(database[table] !== undefined){
+        var rows = database[table].rows;
+        for(row in rows){
+          if(rows[row] !== null){
+            //Default value for stop change
+            var stopchange = 0;
+            
+            //Runs through where criteria to see if the current row is a match
+            //if it isn't it changes stopchange to 1 to prevent the update 
+            //running on this row
+            for(i in where){
+              if(database[table].rows[row][i] != where[i]){
+                stopchange = 1;
               }
             }
-          });
+            
+            //If stopchange is still 0, update the row
+            if(stopchange == 0){
+              for(i in data){
+                database[table].rows[row][i] = data[i];
+              }
+              //Updates are finished, save changes
+              save(database);
+            }
+          }
         }
-      }
-    } else {
-      self._id = LDB.uuid();
-      items.push(self);
-    }
-
-    localStorage.setItem( 'LocalDB_'+self.__collection, JSON.stringify(items) );
-
-    LDB.each(arguments, function(arg){
-      if(typeof arg === 'function'){
-        return arg();
-      }
-    });
-  };
-
-  Item.prototype.delete = function () {
-    var self = this;
-    var items = localStorage.getItem('LocalDB_'+self.__collection);
-
-    if(items){
-      items         = JSON.parse(items);
-      var new_items = LDB.filter(items, function(item){ return item._id !== self._id; });
-      localStorage.setItem('LocalDB_'+self.__collection, JSON.stringify(new_items));
-    }
-
-    LDB.each(arguments, function(arg){
-      if(typeof arg === 'function'){
-        return arg();
-      }
-    });
-  };
-
-  /* Collections */
-  var Collection = LDB.Collection = function (name) {
-    var self  = this, collection, db;
-    self.name = name;
-
-    collection = localStorage.getItem('LocalDB_'+name);
-
-    if(collection){
-      self.items = JSON.parse(collection);
-    } else {
-      self.items = [];
-      localStorage.setItem('LocalDB_'+name, '[]');
-    }
-    var _exists = LDB.find(LDB.collections, function(item){ return item === name; });
-    if(!_exists){
-      LDB.collections = LDB.collections || [];
-      LDB.collections.push(name);
-      localStorage.setItem('LocalDB', JSON.stringify(LDB.collections));
-    }
-  };
-
-  Collection.prototype.find = function () {
-    var self = this,
-    results  = [];
-    self.items = JSON.parse(localStorage.getItem('LocalDB_'+self.name));
-
-    if( self.items.length && typeof arguments[0] === 'object' && LDB.size(arguments[0]) ) {
-      var items  = LDB.where(self.items, arguments[0]);
-      if(items.length){
-        results = LDB.map(items, function(item){
-          return new Item(self.name, item);
-        });
-      }
-    } else {
-      results = LDB.map(self.items, function(item){
-        return new Item(self.name, item);
-      });
-    }
-    LDB.each(arguments, function(arg){
-      if(typeof arg === 'function'){
-        return arg(results);
-      }
-    });
-  };
-
-  Collection.prototype.save = function () {
-    var self = this, db;
-
-    if(!arguments[0]){
-      localStorage.setItem( 'LocalDB_'+self.name, JSON.stringify(self.items) );
-    } else {
-      if(arguments[0].length){
-        LDB.each(arguments[0], function(_item){
-          var item         = {};
-          _item._id        = LDB.uuid();
-          item             = new Item(self.name, _item);
-          self.items.push(item);
-        });
       } else {
-        var item         = {};
-        arguments[0]._id = LDB.uuid();
-        item             = new Item(self.name, arguments[0]);
-        self.items.push(item);
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
       }
-
-      localStorage.setItem( 'LocalDB_'+self.name, JSON.stringify(self.items) );
-
-      LDB.each(arguments, function(arg){
-        if(typeof arg === 'function'){
-          return arg(item);
+      
+    },
+    
+    /*
+      Update Data By ID
+    */
+    updateById: function(table, data, id){
+      
+      if(database[table] !== undefined){
+        for(i in data){
+          database[table].rows[id][i] = data[i];
         }
-      });
-    }
-  };
-
-  Collection.prototype.update = function () {
-    var self = this;
-    var upsert = LDB.find(arguments, function(arg){ return arg.upsert; });
-
-    self.items = JSON.parse(localStorage.getItem( 'LocalDB_'+self.name));
-
-    var find = arguments[0],
-    update   = arguments[1];
-
-    var items = LDB.where(self.items, find);
-    if(LDB.size(items)){
-      LDB.each(items, function(item){
-        LDB.each(update, function(val, key){
-          item[key]         = val;
-        });
-        item = new Item(self.name, item);
-      });
-      self.save();
-    } else if(upsert){
-      self.save( update );
-    }
-
-    LDB.each(arguments, function(arg){
-      if(typeof arg === 'function'){
-        return arg(items || []);
+        save(database);
+      } else {
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
       }
-    });
-  };
-
-  Collection.prototype.delete = function () {
-    var self = this;
-    var items = LDB.where(self.items, arguments[0]);
-    LDB.each(items, function(item){
-      self.items.splice( LDB.indexOf(self.items, item), 1);
-    });
-    self.save();
-    LDB.each(arguments, function(arg){
-      if(typeof arg === 'function'){
-        return arg();
+      
+    },
+    
+    /*
+      Delete Data
+    */
+    remove: function(table, where){
+      
+      if(database[table] !== undefined){
+        var rows = database[table].rows;
+        for(row in rows){
+          if(rows[row] != null){
+            //Default value for stop delete
+            var stopdelete = 0;
+            
+            //Runs through where criteria to see if the current row is a match
+            //if it isn't it changes stopdelete to 1 to prevent the row from 
+            //being deleted
+            for(i in where){
+              if(database[table].rows[row][i] != where[i]){
+                stopdelete = 1;
+              }
+            }
+            
+            //If stopdelete is still 0, delete the row
+            if(stopdelete == 0){
+              delete database[table].rows[row];
+              save(database);
+            }
+          }
+        }
+      } else {
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
       }
-    });
-  };
+      
+    },
+    
+    /*
+      Delete Data By ID
+    */
+    removeById: function(table, id){
+      
+      if(database[table] !== undefined){
+        if(database[table].rows[id] !== null){
+          delete database[table].rows[id];
+          save(database);
+        } else {
+          console.error('The specified row could not be found');
+          return false;
+        }
+      } else {
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
+      }
+      
+    },
+    
+    /*
+      Find Data
+    */
+    find: function(table, where, limit, offset, type){
+      
+      if(!type){
+        var type = 'AND';
+      }
+      
+      if(database[table] !== undefined){
+        var rows = database[table].rows;
+        var results = [];
+        
+        //Check if there are any where parameters
+        var noparams = 1;
+        for(p in where){
+          noparams = 0;
+          break;
+        }
+        
+        //Decide what to do based on if there are any parameters or not
+        if(noparams == 0)
+        {
+          for(row in rows){
+            //Is a match?
+            var ismatch = 0;
+            
+            //Decide which method is used, AND or OR
+            if(type.toUpperCase() == 'AND'){
+              for(i in where){
+                if(database[table].rows[row][i] == where[i]){
+                  ismatch = 1;
+                } else {
+                  ismatch = 0;
+                  break;
+                }
+              }
+            } else if(type.toUpperCase() == 'OR') {
+              for(i in where){
+                if(database[table].rows[row][i] == where[i]){
+                  ismatch = 1;
+                  break;
+                }
+              }
+            }
+            
+            if(ismatch == 1){
+              results.push(database[table].rows[row]);
+            }
+          }
+        } else {  
+          for(row in rows){
+            results.push(database[table].rows[row]);
+          }
+        }
+        
+        if(!offset){
+          var offset = 0;
+        } else if(typeof(offset) != 'number'){
+          offset = 0;
+        }
+        
+        if(typeof(limit) == 'number'){
+          if(limit > parseInt(0)){
+            return results.slice(offset, limit+offset);
+          } else {
+            return results.slice(offset);
+          }
+        } else {
+          return results;
+        }
+      } else {
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
+      }
+      
+    },
+    
+    /*
+      Find Data By ID
+    */
+    findById: function(table, id){
+      
+      if(database[table] !== undefined){
+        if(database[table].rows[id] !== undefined){
+          return database[table].rows[id];
+        } else {
+          console.error('The requested record could not be found');
+          return false;
+        }
+      } else {
+        console.error('A table with the name "'+table+'" could not be found');
+        return false;
+      }
+      
+    },
+    
+    /*
+      Database Exists
+    */
+    dbExists: function(thedb){
+      
+      if(localStorage[thedb] !== undefined){
+        return true;
+      } else {
+        return false;
+      }
+      
+    },
+    
+    /*
+      Table Exists
+    */
+    tableExists: function(table){
+      
+      if(database[table] !== undefined){
+        return true;
+      } else {
+        return false;
+      }
+      
+    },
+    
+    /*
+      Export JSON
+    */
+    exportData: function(table){
+      
+      if(table){
+        if(database[table] !== undefined){
+          return JSON.stringify(database[table]);
+        } else {
+          console.error('Table not found');
+          return false;
+        }
+      } else {
+        return JSON.stringify(database);
+      }
+      
+    },
 
-  Collection.prototype.drop = function() {
-    var self = this;
-    this.items = [];
-    localStorage.setItem( 'LocalDB_'+self.name, '[]' );
-  };
+    /*
+      Export JSON
+    */
+    list: function(table){
 
-})(window);
+      if(table){
+        if(database[table] !== undefined){
+          return database[table];
+        } else {
+          console.error('Table not found');
+          return false;
+        }
+      } else {
+        return database;
+      }
+    }
+
+  };
+  
+  return localdb;
+}

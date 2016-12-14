@@ -1,17 +1,11 @@
 // 美容服务
 angular.module('fiona').controller('BeautyController', function($scope, $controller) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = { };
-
     $scope.dropdowns = { };
 
+    commons.findDict($scope.dropdowns, {assistantIdSet: "服务助理", hairdresserIdSet: "服务师"});
+
     $controller('BaseController', {$scope: $scope}); //继承
-
-//    $scope.dropboxinit($scope.dropboxargs);
-
-    $scope.dropdownWithTable({id: "assistantId", server: "/api/v2/personss"}); //服务助理
-    $scope.dropdownWithTable({id: "hairdresserId", server: "/api/v2/personss"}); // 服务师
 
     /**
      * 美容服务
@@ -171,7 +165,7 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
         // 宠物名称
         $scope.beauty.petName = _pet.petName;
 
-        $("#petselect").modal('toggle');
+        $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
     // 实始化

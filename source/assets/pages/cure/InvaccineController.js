@@ -2,17 +2,11 @@
 // 宠物管理
 angular.module('fiona').controller('InvaccineController', function($scope, $controller, $http, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
+    $scope.dropdowns= { };
 
-    $scope.dropdowns= {companyTypeSet: [{id: "1", valueNameCn: "经销商"}, {id: "2", valueNameCn: "生产商"}, {id: "3", valueNameCn: "经销商和生产商"}]};
+    commons.findDict($scope.dropdowns, {companyTypeSet: "厂家类型", doctorIdSet: "主治医生", assistantDoctorIdSet: "助理医师"});
 
     $controller('BaseController', {$scope: $scope}); //继承
-
-//    $scope.dropboxinit($scope.dropboxargs);
-
-    $scope.dropdownWithTable({id: "doctorId", server: "/api/v2/personss"}); // 主治医生
-    $scope.dropdownWithTable({id: "assistantDoctorId", server: "/api/v2/personss"}); // 助理医师
 
     /**
      * 驱虫疫苗
@@ -77,7 +71,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
             commons.success("保存成功");
 
-            $('#' + this.id).modal('toggle');
+            $('#' + this.id).modal({backdrop: 'static', keyboard: false});
         }
 
     };
@@ -199,15 +193,10 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
         // 宠物名称
         $scope.invaccine.petName = _pet.petName;
 
-        $("#petselect").modal('toggle');
+        $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $scope.productportal.autocompletedata();
 
     $scope.invaccineportal.list();
-
-    $.notific8("zindex",11500),
-
-    // 提示信息
-    $.notific8("This is a body",{ theme: "teal", sticky: false, horizontalEdge: "top", verticalEdge: "right", life: 1000 });
 });

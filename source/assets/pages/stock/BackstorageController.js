@@ -1,9 +1,6 @@
 // 退回记录
 angular.module('fiona').controller('BackstorageController', function($scope, $controller, $http, commons, $timeout) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
-
     $scope.dropdowns= {};
 
     // 继承能用代码
@@ -116,14 +113,14 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
 
             $scope.dealerportal.list();
 
-            $("#dealerselect").modal('toggle');
+            $("#dealerselect").modal({backdrop: 'static', keyboard: false});
         },
 
         checked: function (dealer) {
             $scope.instorage.dealerCode = dealer.code;
             $scope.instorage.dealerName = dealer.name;
 
-            $("#dealerselect").modal('toggle');
+            $("#dealerselect").modal({backdrop: 'static', keyboard: false});
         }
     };
 

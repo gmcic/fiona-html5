@@ -1,28 +1,12 @@
 // 挂号查询
 angular.module('fiona').controller('RegisterController', function($scope, $controller, $http, commons) {
 
-
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = {
-        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", paidStatusSet: "付款状态"},
-        userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色"}
-    };
-
     $scope.dropdowns= {};
+
+    commons.findDict($scope.dropdowns, {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", paidStatusSet: "付款状态", gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色", gestStyleSet: "用户级别", raceTypeSet: "种类", petRaceSet: "品种", doctorIdSet: "主治医生", operatorManSet: "业务员", assistantDoctorIdSet: "服务助理"});
 
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
-
-    // 会员等级, 会员状态
-    $scope.dropboxinit($scope.dropboxargs);
-
-    $scope.dropdownWithTable({id: "gestStyle", server: "/api/v2/gestlevels"}); // 会员级别
-    $scope.dropdownWithTable({id: "raceType", server: "/api/v2/petraces"}); // 种类
-    $scope.dropdownWithTable({id: "petRace", server: "/api/v2/varieties"});// 品种
-
-    $scope.dropdownWithTable({id: "doctorId", server: "/api/v2/personss"}); // 医生
-    $scope.dropdownWithTable({id: "operatorMan", server: "/api/v2/personss"}); // 业务员
-    $scope.dropdownWithTable({id: "assistantDoctorId", server: "/api/v2/personss"}); // 服务助理
 
     // 挂号服务类型
     $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "2d8d75d7-c7af-4ceb-901b-22a7141c87bc"}});
@@ -150,7 +134,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
             $scope.setSelectDefault("pet", ["petBreed"]);
 
-            $("#registerfast").modal('toggle');
+            $("#registerfast").modal({backdrop: 'static', keyboard: false});
             //
             // alert($("#registerfast").find('#gestSex').find('option[value="0"]').length);
             // // $("#registerfast").find('#gestSex').val(0);
@@ -166,7 +150,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
                 commons.success("保存成功")
 
-                $("#registerfast").modal('toggle');
+                $("#registerfast").modal({backdrop: 'static', keyboard: false});
             }
         }
     };

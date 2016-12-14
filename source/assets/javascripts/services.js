@@ -16,17 +16,7 @@ angular.module('fiona.services', [])
         return value;
     };
 }).factory('commons', function() {
-
-    function formatnumber(num) {
-        if(num <= 9)
-        {
-            return "0" + num
-        }
-
-        return num;
-    };
     return {
-
         setAuthorization: function (auth) {
             // console.log( "保存用户凭证" + auth );
 
@@ -116,32 +106,150 @@ angular.module('fiona.services', [])
                 icon: "info"
             });
         },
-         loadDB : function() {
 
-             var db=new localdb("fiona");
+        dropdowns: {onoff:[{id: "是", valueNameCn: "是"}, {id: "否", valueNameCn: "否"}], onoffWithBoolean: [{id: false, valueNameCn: "否"}, {id: true, valueNameCn: "是"}]},
 
-             // Create Table
- //            db.createTable('dict');
- //
- //            // Delete a Table
- //            db.dropTable('table name');
- //
- //            // Insert Data
- //            db.insert('table_name',data object);
- //
- //            // Updating database
- //            db.update(table_name,data_object,where_object)
- //            db.updateById(table_name,data_object,id);
- //
- //            // Checking Database or table Exists
- //
- //             Var res=db.tableExists('table_name');
- //             Var res=db.tableExists('users');
- //
- //            // Exporting Database
- //
- //            Var json=db.exportData();
- //            Var json=db.exportData('table_name');
+        db: null,
+
+        getLocalDB: function(){
+           if(!this.db)
+           {
+              this.db = new localdb("fiona");
+           }
+
+           return this.db;
+        },
+
+        getLocalTable: function(tableName){
+            return this.getLocalDB().find(tableName);
+        },
+        findDict: function(dropdowns, keys){
+
+            var _db = this.getLocalDB();
+
+            var _dict = _db.find("dict");
+
+            angular.forEach(keys, function(_name, _key){
+
+                if(_name == '用户等级')
+                {
+                    dropdowns[_key] = _db.find('grade');
+                }
+                else if(_name == '宠物种类')
+                {
+                    dropdowns[_key] = _db.find('varietietype');
+                }
+                else if(_name == '宠物品种')
+                {
+                    dropdowns[_key] = _db.find('varietie');
+                }
+                else if(_name == '主治医生' || _name == '助理医师' || _name == '服务助理' || _name == '服务师' || _name == '主管人员' || _name == '业务员')
+                {
+                    dropdowns[_key] = _db.find('persons');
+                }
+                else
+                {
+                    dropdowns[_key] = _dict[_name];
+                }
+            });
+
+//            console.log(dropdowns);
+        },
+
+        loadDB : function($http) {
+
+            var _db = this.getLocalDB();
+
+            var baseURL = "http://192.168.0.108:8080/business/api/v2/";
+
+            // 重新创建表
+            angular.forEach(["dicttypedetails", "userdictdetails", 'itemcates', 'itemtypes'], function(name){
+                if(!_db.tableExists(name))
+                {
+                    _db.createTable(name);// Create Table
+                }
+                else
+                {
+                    _db.dropTable(name);// Drop Table
+                }
+            });
+
+            // 数据字典, 用户字典
+            var dict = {
+                "厂家类型": [{id: "1", valueNameCn: "经销商"}, {id: "2", valueNameCn: "生产商"}, {id: "3", valueNameCn: "经销商和生产商"}],
+
+                onoff:[{id: "是", valueNameCn: "是"}, {id: "否", valueNameCn: "否"}],
+
+                onoffWithBoolean: [{id: false, valueNameCn: "否"}, {id: true, valueNameCn: "是"}]
+             };
+
+            angular.forEach([{id: "dicttypedetails", moduleName: "字典", type: 'dicttypes', typeName: '字典分类', foreign: "dictTypeId"}, {id: "userdictdetails", moduleName: "用户字典", type: 'userdicts', typeName: '用户字典分类', foreign: "dictTypeId"}], function(obj){
+                // 分类
+                $http.get(baseURL + obj.type).success(function (datatypes, status, headers, config) {
+
+                    var index = {};
+
+                    angular.forEach(datatypes.data, function(dataType){
+                       dict[dataType.dictName] = [];
+                       index[dataType.id] = dataType.dictName;
+                    });
+
+                    $http.get(baseURL + obj.id).success(function (data, status, headers, config) {
+
+                        angular.forEach(data.data, function(value){
+                            var key = index[value[obj.foreign]];
+
+                            dict[key].push(value);
+                        });
+
+                    });
+                });
+
+            });
+
+//            console.log("数据字典");
+//            console.log(dict);
+            _db.insert("dict", dict);
+
+            // 缓存商品
+
+            // 缓存商品分类
+            $http.get(baseURL + "itemcates").success(function (data, status, headers, config) {
+
+//                console.log("商品与服务分类");
+//                console.log(data.data);
+
+                _db.insert("producttype", data.data);
+            });
+
+            // 缓存商品明细
+            $http.get(baseURL + "itemtypes").success(function (data, status, headers, config) {
+
+//                console.log("商品信息");
+//                console.log(data.data);
+
+                _db.insert("product", data.data);
+            });
+
+            // 缓存用户等级
+            $http.get(baseURL + "gestlevels").success(function (data, status, headers, config) {
+                _db.insert("grade", data.data);
+            });
+
+            // 缓存种类
+            $http.get(baseURL + "petraces").success(function (data, status, headers, config) {
+                _db.insert("varietietype", data.data);
+            });
+
+            // 缓存品种
+            $http.get(baseURL + "varieties").success(function (data, status, headers, config) {
+                _db.insert("varietie", data.data);
+            });
+
+            // 医生
+            $http.get(baseURL + "personss").success(function (data, status, headers, config) {
+                _db.insert("persons", data.data);
+            });
          }
     };
 });

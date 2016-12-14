@@ -2,13 +2,11 @@
 // 宠物管理
 angular.module('fiona').controller('MedicalrecordController', function($scope, $controller, $http, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
+    $scope.dropdowns= { };
 
-    $scope.dropdowns= {companyTypeSet: [{id: "1", valueNameCn: "经销商"}, {id: "2", valueNameCn: "生产商"}, {id: "3", valueNameCn: "经销商和生产商"}]};
+    commons.findDict($scope.dropdowns, {companyTypeSet: "厂家类型"});
 
     $controller('BaseController', {$scope: $scope}); //继承
-
 
     /**
      * 驱虫疫苗

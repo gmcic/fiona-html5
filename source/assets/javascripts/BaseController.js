@@ -152,19 +152,26 @@ angular.module('fiona')
 
     // alert(sessionStorage.getItem("authorization"));
 
+    // 本地存储
+    commons.loadDB($http);
+
+    // 用户凭证
     if(sessionStorage.getItem("authorization")) {
         $http.get(commons.getAccountHostname() + "/api/v2/auth", {headers: {'authorization': sessionStorage.getItem("authorization")}}).success(function (data, status, headers, config ) {
+
             sessionStorage.setItem("userName", data.data.name);
             $scope.userName = sessionStorage.getItem("userName");
+
+            // 加载用户目录
+            $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
+                $scope.menus = data.data;
+            }).error(function (data, status, headers, config) {
+                alert('加载目录树失败');
+            });
         }).error(function (data, status, headers, config) {
             console.log('加载用户信息失败');
         });
 
-        $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
-            $scope.menus = data.data;
-        }).error(function (data, status, headers, config) {
-            alert('加载目录树失败');
-        });
     }
 })
 .controller('BaseController', function ($scope, $http, commons) {
@@ -236,7 +243,6 @@ angular.module('fiona')
             }
         });
     };
-
 
     /**
      * 设置下拉选项默认值
@@ -599,7 +605,7 @@ angular.module('fiona')
             component.callback.insert();
         }
 
-        $('#' + component.id).modal('toggle');
+        $('#' + component.id).modal({backdrop: 'static', keyboard: false});
     };
 
     component.selectchange = function (inputName, fieldName) {
@@ -639,7 +645,7 @@ angular.module('fiona')
             component.callback.update();
         }
 
-        $('#' + component.id).modal('toggle');
+        $('#' + component.id).modal({backdrop: 'static', keyboard: false});
     };
 
     /**
@@ -658,7 +664,7 @@ angular.module('fiona')
             component.callback.view();
         }
 
-        $("#" + component.id + "view").modal('toggle');
+        $("#" + component.id + "view").modal({backdrop: 'static', keyboard: false});
     };
 
     /**
@@ -697,7 +703,7 @@ angular.module('fiona')
 
             $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
 
-                $('#' + component.id).modal('toggle');
+                $('#' + component.id).modal({backdrop: 'static', keyboard: false});
 
                 $scope[component.id] = data.data;
 
@@ -1169,7 +1175,7 @@ angular.module('fiona')
             component.callback.insert();
         }
 
-        $('#' + component.id).modal('toggle');
+        $('#' + component.id).modal({backdrop: 'static', keyboard: false});
     };
 
     /**
@@ -1198,7 +1204,7 @@ angular.module('fiona')
             component.callback.update();
         }
 
-        $('#' + component.id).modal('toggle');
+        $('#' + component.id).modal({backdrop: 'static', keyboard: false});
     };
 
     /**
@@ -1223,7 +1229,7 @@ angular.module('fiona')
 
             $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
 
-                $('#' + component.id).modal('toggle');
+                $('#' + component.id).modal({backdrop: 'static', keyboard: false});
 
                 $scope[component.id] = data.data;
 
@@ -1415,7 +1421,7 @@ angular.module('fiona')
 
         $scope.productportal.selection = {};
 
-        $("#productselect").modal('toggle');
+        $("#productselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承
@@ -1476,9 +1482,7 @@ angular.module('fiona')
 
     // 自动补全
     $scope.productportal.autocompletedata = function () {
-        $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/search").success(function (data, status, headers, config) {
-            $scope[$scope.productportal.id + 's'] = data;
-        });
+        $scope[$scope.productportal.id + 's'] = commons.getLocalTable('product');
     };
 
     // 弹出选择
@@ -1490,7 +1494,7 @@ angular.module('fiona')
 
         $scope.productportal.selection = {};
 
-        $("#productselect").modal('toggle');
+        $("#productselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承
@@ -1536,7 +1540,7 @@ angular.module('fiona')
 
         $scope.petportal.search();
 
-        $("#petselect").modal('toggle');
+        $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $scope.petportal.checked = function (pet) {
@@ -1545,7 +1549,7 @@ angular.module('fiona')
 
         $scope.vipportal.unique($scope.pet.gestId);
 
-        $("#petselect").modal('toggle');
+        $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
 
@@ -1603,7 +1607,7 @@ angular.module('fiona')
 
         $scope.vipportal.search();
 
-        $("#vipselect").modal('toggle');
+        $("#vipselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $scope.vipportal.checked = function (vip) {
@@ -1619,7 +1623,7 @@ angular.module('fiona')
         // 主人名称
         $scope.pet.gestName = vip.gestName;
 
-        $("#vipselect").modal('toggle');
+        $("#vipselect").modal({backdrop: 'static', keyboard: false});
     };
 
     // $scope.init = function () {

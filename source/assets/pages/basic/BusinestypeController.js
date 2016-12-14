@@ -2,9 +2,6 @@
 // 业务类型
 angular.module('fiona').controller('BusinestypeController', function($scope, $controller, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
-
     $scope.dropdowns= {};
 
     $controller('BaseController', {$scope: $scope}); //继承
@@ -21,17 +18,10 @@ angular.module('fiona').controller('BusinestypeController', function($scope, $co
 
         defilters: { "code": "自动编号" , "name": "经销商名称" , "contractMan": "联系人" , "mobilePhone": "手机" , "businestypeAddress": "地址"  },
 
-        server: "/api/v2/businescates",
-
-        callback: {
-            insert: function () {
-            }
-        }
+        server: "/api/v2/businescates"
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.businestypeportal}); //继承
 
     $scope.businestypeportal.list();
-    
-    
 });

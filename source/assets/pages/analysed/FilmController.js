@@ -2,9 +2,6 @@
 // 宠物管理
 angular.module('fiona').controller('FilmController', function($scope, $controller, $http, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
-
     $scope.dropdowns= {};
 
     $controller('BaseController', {$scope: $scope}); //继承
@@ -62,7 +59,7 @@ angular.module('fiona').controller('FilmController', function($scope, $controlle
         // 宠物名称
         $scope.invaccine.petName = _pet.petName;
 
-        $("#petselect").modal('toggle');
+        $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $scope.filmportal.list();

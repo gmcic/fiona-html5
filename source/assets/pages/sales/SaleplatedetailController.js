@@ -1,16 +1,11 @@
 // 销售查询
 angular.module('fiona').controller('SaleplatedetailController', function($scope, $controller, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = {
-        userdicts: {sellUnitSet: "物品单位"}
-    };
-
     $scope.dropdowns = {};
 
-    $controller('BaseController', {$scope: $scope}); //继承
+    commons.findDict($scope.dropdowns, {sellUnitSet: "物品单位"});
 
-    $scope.dropboxinit($scope.dropboxargs);
+    $controller('BaseController', {$scope: $scope}); //继承
 
     /**
      * 直接销售
@@ -215,7 +210,7 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
         $scope.petportal.setProperty(_pet);
 
-      $("#petselect").modal('toggle');
+      $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $scope.petportal.purchaserType = 1;

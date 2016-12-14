@@ -194,7 +194,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         server: "/api/v2/medicmedictreatrecords",
 
         history: function(){
-           $scope.curemanagerportal.searchByWhere({"sickFileCode" : $scope.pet.sickFileCode});
+           $scope.curemanagerportal.searchByWhere({"petId" : $scope.pet.id});
 
            $scope.historyview = "view";
         },
@@ -373,7 +373,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 //            this.callback.update();
 //        }
 //
-//        $('#' + this.id).modal('toggle');
+//        $('#' + this.id).modal({backdrop: 'static', keyboard: false});
 //
 //       $scope.doctorprescriptdetailportal.search();
 //    }
@@ -447,7 +447,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
         // $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
 
-        $('#doctorprescriptprint').modal('toggle');
+        $('#doctorprescriptprint').modal({backdrop: 'static', keyboard: false});
     };
 
     /**
@@ -456,7 +456,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
      * */
     $scope.doctorprescriptportal.search = function () {
 
-        $http.post(commons.getBusinessHostname() + $scope.doctorprescriptportal.server + "/page", {'pageSize': 10000,'pageNumber': '1','filters': [{"fieldName": "medicRecordId", "operator": "EQ", "value": $scope.curemanager.id}]}).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + $scope.doctorprescriptportal.server + "/page", {'pageSize': 10000,'pageNumber': '1','filters': [{"fieldName": "medicRecordCode", "operator": "EQ", "value": $scope.curemanager.mediTreatmentCode}]}).success(function (data, status, headers, config) {
             $scope.doctorprescripts = data.data.content;
 
             if($scope.doctorprescripts.length > 0) {
@@ -478,7 +478,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
         $scope.serialNumber({id: "doctorprescript", fieldName : "prescriptionCode", numberName : "处方流水"});
 
-        $("#doctorprescript").modal('toggle');
+        $("#doctorprescript").modal({backdrop: 'static', keyboard: false});
     };
 
     /**
@@ -563,7 +563,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
             }
         });
 
-        $('#' + $scope.productportal.id + "select").modal('toggle');
+        $('#' + $scope.productportal.id + "select").modal({backdrop: 'static', keyboard: false});
     };
 
     $scope.productportal.autocompletedata();
@@ -587,7 +587,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = html;
         document.getElementById('printiframe').contentWindow.print();
 
-        $('#doctorprescriptprint').modal('toggle');
+        $('#doctorprescriptprint').modal({backdrop: 'static', keyboard: false});
     }
 
     /**

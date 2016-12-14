@@ -1,14 +1,12 @@
 // 出库管理
 angular.module('fiona').controller('OutstorageController', function($scope, $http, $controller, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
-
     $scope.dropdowns= {};
 
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
 
+    // 仓库
     $scope.dropdownWithTable({id: "warehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});
 
     /**

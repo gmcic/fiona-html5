@@ -1,26 +1,14 @@
 // 入库管理
 angular.module('fiona').controller('InstorageController', function($scope, $controller, $http, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = {
-        userdicts: {frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"},
-        callback : {
-            userdicts : function () {
-                // 处方单位
-                $scope.dropdowns.recipeUnitSet = $scope.dropdowns.useUnitSet;
-            }
-        }
-    };
-
     $scope.dropdowns= {};
+
+    commons.findDict($scope.dropdowns, {frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位", recipeUnitSet: "物品单位"});
 
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
 
-    // 会员等级, 会员状态
-    $scope.dropboxinit($scope.dropboxargs);
-
-    // 供应商
+    // 仓库
     $scope.dropdownWithTable({id: "warehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});
 
     /** 审核 */
@@ -32,7 +20,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
             commons.success("审核成功");
 
-            $("#instorage").modal('toggle');
+            $("#instorage").modal({backdrop: 'static', keyboard: false});
         }).error(function (data, status, headers, config) { //     错误
             commons.modaldanger(instorage.id, "保存失败");
         });
@@ -40,7 +28,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     };
 
     /**
-     * 住院管理
+     * 入库管理
      * ---------------------------
      * */
     $scope.instorageportal= {
@@ -158,14 +146,14 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
             $scope.dealerportal.list();
 
-            $("#dealerselect").modal('toggle');
+            $("#dealerselect").modal({backdrop: 'static', keyboard: false});
         },
 
         checked: function (dealer) {
             $scope.instorage.dealerCode = dealer.code;
             $scope.instorage.dealerName = dealer.name;
 
-            $("#dealerselect").modal('toggle');
+            $("#dealerselect").modal({backdrop: 'static', keyboard: false});
         }
     };
 
@@ -251,7 +239,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 //            }
 //        });
 //
-//        $("#productselect").modal('toggle');
+//        $("#productselect").modal({backdrop: 'static', keyboard: false});
 //    };
 
     // 初始化列表

@@ -2,17 +2,11 @@
 // 寄养管理
 angular.module('fiona').controller('FosterageController', function($scope, $controller, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = { };
-
     $scope.dropdowns = {};
 
+    commons.findDict($scope.dropdowns, {managerIdSet: "主管人员"});
+
     $controller('BaseController', {$scope: $scope}); //继承
-
-//    $scope.dropboxinit($scope.dropboxargs);
-
-    $scope.dropdownWithTable({id: "managerId", server: "/api/v2/personss"}); // 主管人员
-//    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
 
     // 挂号服务类型
     $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "d7079dde-f3b0-4db6-b693-a78ddb33d02d"}});
@@ -215,7 +209,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         $scope.fosterage.petName = _pet.petName;
 
 
-        $("#petselect").modal('toggle');
+        $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
     // 实始化

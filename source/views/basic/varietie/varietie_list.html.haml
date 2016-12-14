@@ -11,7 +11,7 @@ layout: "page"
 
   .col-md-9
     - portal '宠物品种管理', 'varietie'
-    = partial 'layouts/widget/portal', :locals => {:pagefilter => "varietietypeportal.selectedId", :filterbar => "none", :pagingbar => "none"}
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none"}
 
 / 宠物品种
 - modal "宠物品种", "varietie"

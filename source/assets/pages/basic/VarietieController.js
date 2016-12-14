@@ -34,7 +34,7 @@ angular.module('fiona').controller('VarietieController', function($scope, $contr
 
         callback: {
             switched: function () {
-                $scope.varietieportal.list();
+                $scope.varietieportal.search();
             }
         }
     };

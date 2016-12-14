@@ -1,19 +1,11 @@
 // 住院管理
 angular.module('fiona').controller('InhospitalController', function ($scope, $controller, $http, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = { };
+    $scope.dropdowns = { };
 
-    $scope.dropdowns = {
-//        typesSet: [{id: "1", va'': "经销商"}, {id: "2", va'': "生产商"}, {id: "3", va'': "经销商和生产商"}]
-    };
+    commons.findDict($scope.dropdowns, {managerIdSet: "主管人员"});
 
     $controller('BaseController', {$scope: $scope}); //继承
-
-//    $scope.dropboxinit($scope.dropboxargs);
-
-    $scope.dropdownWithTable({id: "managerId", server: "/api/v2/personss"}); // 主管人员
-//    $scope.dropdownWithTable({id: "manufacturerId", server: "/api/v2/personss"}); // 业务员
 
     // 挂号服务类型
     $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
@@ -219,7 +211,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         $scope.serialNumber({id: "inhospitalprescription", fieldName : "prescriptionCode", numberName : "处方流水"});
 
-        $("#inhospitalprescription").modal('toggle');
+        $("#inhospitalprescription").modal({backdrop: 'static', keyboard: false});
     };
 
     /**
@@ -383,7 +375,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         // 宠物名称
         $scope.inhospital.petName = _pet.petName;
 
-        $("#petselect").modal('toggle');
+        $("#petselect").modal({backdrop: 'static', keyboard: false});
     };
 
     $scope.productportal.autocompletedata();

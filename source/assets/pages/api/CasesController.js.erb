@@ -17,7 +17,7 @@ angular.module('fiona')
 
         console.log($scope.books);
 
-        $('#dictmodal').modal('toggle');
+        $('#dictmodal').modal({backdrop: 'static', keyboard: false});
     }
 
     $scope.modules = <%= data.module2.to_json %>;

@@ -1,9 +1,6 @@
 // 库存查询
 angular.module('fiona').controller('StockController', function($scope, $controller) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
-
     $scope.dropdowns= {};
 
     // 继承能用代码

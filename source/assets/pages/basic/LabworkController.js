@@ -1,18 +1,11 @@
 // 化验项目管理
 angular.module('fiona').controller('LabworkController', function ($scope, $controller, $http, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = {
-        userdicts: {petRaceNameSet: "医疗类型", cheTestUnitSet: "化验单位"}
-    };
+    $scope.dropdowns= { indexTypeSet: [{id: "1", valueNameCn: "定量"}, {id: "2", valueNameCn: "定性"}] };
 
-    $scope.dropdowns= {
-        indexTypeSet: [{id: "1", valueNameCn: "定量"}, {id: "2", valueNameCn: "定性"}]
-    };
+    commons.findDict($scope.dropdowns, {petRaceNameSet: "医疗类型", cheTestUnitSet: "化验单位"});
 
     $controller('BaseController', {$scope: $scope}); //继承
-
-    $scope.dropboxinit($scope.dropboxargs);
 
     /**
      * 化验项目分类
@@ -22,7 +15,7 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
 
         text: "cateName", // 树标签-字段名
 
-        parent: "parent", // 父引用-字段名
+        parent: "parent_id", // 父引用-字段名
 
         foreign: "labworktype",
 
@@ -122,7 +115,7 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
 
     $scope.labworkdetailportal.submit = function() {
         $scope.labworkdetails.unshift($scope.labworkdetail);
-        $('#labworkdetail').modal('toggle');
+        $('#labworkdetail').modal({backdrop: 'static', keyboard: false});
     }
 
     $scope.labworktypeportal.search();

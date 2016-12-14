@@ -1,6 +1,6 @@
 
 // 数据字典管理
-angular.module('fiona').controller('DictionaryController', function($scope, $controller) {
+angular.module('fiona').controller('DictionaryController', function($scope, $controller, commons) {
 
     /**
      * 数据字典

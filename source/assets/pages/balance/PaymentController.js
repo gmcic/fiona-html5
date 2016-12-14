@@ -1,16 +1,9 @@
 // 收费管理
 angular.module('fiona').controller('PaymentController', function($scope, $http, commons, $controller) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = { };
-
-    $scope.dropdowns = {
-        paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}]
-    };
+    $scope.dropdowns = { paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}] };
 
     $controller('BaseController', {$scope: $scope}); //继承
-
-    $scope.dropboxinit($scope.dropboxargs);
 
     /**
      * 结算
@@ -47,7 +40,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
             });
 
-            $('#payment').modal('toggle');
+            $('#payment').modal({backdrop: 'static', keyboard: false});
 
             $scope.payments = [];
 
@@ -134,14 +127,14 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
         $scope.nowtime = new Date();
 
-        $('#paymentprint').modal('toggle');
+        $('#paymentprint').modal({backdrop: 'static', keyboard: false});
     };
 
     // 打印页面
     $scope.print = function () {
         document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = $('#paymentprintbody').html();
         document.getElementById('printiframe').contentWindow.print();
-        // $('#doctorprescriptprint').modal('toggle');
+        // $('#doctorprescriptprint').modal({backdrop: 'static', keyboard: false});
     }
 
     /**

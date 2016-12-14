@@ -1,5 +1,20 @@
 {
-  "name": "application-name",
+  "name": "Fiona",
   "version": "0.0.1",
-  "main": "index.html"
+  "description": "福莱动物医院",
+  "main": "index.html",
+  "single-instance": true, // 是否只允许启动单个实例，true为只允许一个软件实例运行。
+  "window": {
+    "title": "福莱动物医院",
+    "icon": "logo.png",
+    "toolbar": true,
+    "frame": true,
+    "fullscreen": false,
+    "show_in_taskbar": true,
+    "position": "center",
+    "width": 1440,
+    "height": 900,
+    "min_width": 400,
+    "min_height": 200
+  }
 }

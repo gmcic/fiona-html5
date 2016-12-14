@@ -2,14 +2,12 @@
 // 销售退货
 angular.module('fiona').controller('ItbackController', function($scope, $controller, $http, commons) {
 
-    // 声明要使用的下拉选项
-    $scope.dropboxargs = [
-        {name: "assistantIdSet", server: "personss"},  // 服务助理ID
-        {name: "hairdresserIdSet", server: "personss"} // 服务师ID
-    ];
-
     $scope.dropdowns= {};
 
+    commons.findDict($scope.dropdowns, {assistantIdSet: "服务助理", hairdresserIdSet: "服务师"});
+
+    // 继承能用代码
+    $controller('BaseController', {$scope: $scope}); //继承
 
     /**
      * 直接销售

@@ -1,14 +1,9 @@
 
 angular.module('fiona').controller('StorageController', function($scope, $controller, $http, commons) {
 
+    $scope.dropdowns = {};
 
-    // 声明要使用的下拉选项
-    $scope.dropboxlist = [];
-
-    $scope.dropdowns= {
-        drugStoreSet: [{id: false, valueNameCn: "否"}, {id: true, valueNameCn: "是"}],
-        sellStoreSet: [{id: false, valueNameCn: "否"}, {id: true, valueNameCn: "是"}]
-    };
+    commons.findDict($scope.dropdowns, {petRaceNameSet: "厂家类型", drugStoreSet: "onoffWithBoolean", sellStoreSet: "onoffWithBoolean"});
 
     $controller('BaseController', {$scope: $scope}); //继承
 

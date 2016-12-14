@@ -302,7 +302,7 @@
           template: /hospital/hospital_list.html
 
         - name: 角色管理
-          icon: icon-eyeglasses
+          icon: fa fa-hospital-o
           uri: /role/list
           controller: RoleController
           template: /role/list.html
