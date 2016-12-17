@@ -115,6 +115,10 @@ fields: #可定义多个中文名称指向同一个字段
   #宠物类型: 娃娃,博美犬.:
   宠物品种: petRace
 
+  品种: petRace
+
+  种类: petRace.petRace.name
+
   绝育状态: petBreed
 
   体重: petWeight

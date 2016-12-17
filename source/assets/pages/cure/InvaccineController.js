@@ -46,23 +46,21 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
             angular.forEach($scope.invaccinedetails, function (_invaccinedetail) {
 
-                $scope.invaccinedetail = _invaccinedetail;
-
                 angular.forEach(["gestId","gestCode","gestName","mobilePhone", "id", "petId", "petName", "vaccineGroupCode", "doctorId", "doctorName", "assistantDoctorId", "assistantDoctorName"], function(name){
-                    $scope.invaccinedetail[name] = $scope.invaccine[name];
+                    _invaccinedetail[name] = $scope.invaccine[name];
                 });
 
                 if($scope.invaccine.doctorId)
                 {
-                    $scope.invaccinedetail.doctorName = $scope.dropdowns.doctorIdSet.getObjectWithId({id: $scope.invaccine.doctorId}).personName;
+                    _invaccinedetail.doctorName = $scope.dropdowns.doctorIdSet.getObjectWithId({id: $scope.invaccine.doctorId}).personName;
                 }
 
                 if($scope.invaccine.assistantDoctorId)
                 {
-                    $scope.invaccinedetail.assistantDoctorName = $scope.dropdowns.assistantDoctorIdSet.getObjectWithId({id: $scope.invaccine.assistantDoctorId}).personName;
+                    _invaccinedetail.assistantDoctorName = $scope.dropdowns.assistantDoctorIdSet.getObjectWithId({id: $scope.invaccine.assistantDoctorId}).personName;
                 }
 
-                $scope.invaccinedetailportal.save();
+                $scope.invaccinedetailportal.saveWithEntity(_invaccinedetail);
             });
 
             $scope.invaccinedetail = {};
@@ -71,7 +69,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
             commons.success("保存成功");
 
-            $('#' + this.id).modal({backdrop: 'static', keyboard: false});
+            $('#' + this.id).modal('hide');
         }
 
     };
@@ -193,7 +191,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
         // 宠物名称
         $scope.invaccine.petName = _pet.petName;
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        $("#petselect").modal('hide');
     };
 
     $scope.productportal.autocompletedata();

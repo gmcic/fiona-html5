@@ -587,7 +587,7 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = html;
         document.getElementById('printiframe').contentWindow.print();
 
-        $('#doctorprescriptprint').modal({backdrop: 'static', keyboard: false});
+        $('#doctorprescriptprint').modal('hide');
     }
 
     /**

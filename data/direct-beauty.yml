@@ -13,35 +13,30 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 总金额
 
   - fieldName: 服务师
+    fieldKey: hairdresserName
 
   - fieldName: 服务助理
+    fieldKey: assistantName
 
   - fieldName: 状态
     fieldKey: status.valueNameCn
 
 searchFields:
-  - fieldName: 单号
+  - fieldName: 服务单号
 
   - fieldName: ---
 
   - fieldName: 会员编号
 
-  - fieldName: 主人姓名
+  - fieldName: 会员姓名
 
   - fieldName: 宠物昵称
 
   - fieldName: ---
 
-
   - fieldName: 服务师
 
-  - fieldName: 助理
-
-  - fieldName: ---
-
-  - fieldName: 服务时间
-
-  - fieldName: 状态
+  - fieldName: 服务助理
 
 fields: #可定义多个中文名称指向同一个字段
   服务单号: serviceCode

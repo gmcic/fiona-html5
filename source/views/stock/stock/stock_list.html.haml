@@ -13,7 +13,7 @@ layout: "page"
 
   .col-md-9
     - portal '库存查询', 'stock'
-    = partial 'layouts/widget/portal' do
+    = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'none'}  do
       = partial :'layouts/buttons/insert', :locals => {:click => "#{@portal_id}portal.insert()"}
       = partial :'layouts/buttons/btn', :locals => {:label => "导入数据", :icon => "fa-file-excel-o", :click => "void()"}
       = partial :'layouts/buttons/btn', :locals => {:label => "导出数据", :icon => "fa-cloud-download", :click => "void()"}

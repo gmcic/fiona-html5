@@ -4,12 +4,10 @@ layout: "page"
 
 - page "销售查询", "saleplate"
 
-= partial 'layouts/widget/portal'
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view' } do
+  / 不输出按钮
 
-= partial :'layouts/partials/modal-portal-lg' do
-  = partial 'modify'
 
-/ 选择商品
-- modal "选择商品", "product"
-= partial :'layouts/partials/modal-portal-select-full' do
-  = partial 'layouts/widget/service_product_select'
+/  查看页面
+= partial :'layouts/partials/modal-portal-view-full', :locals => {:modal_toolbar => 'close' } do
+  = partial 'view'

@@ -39,7 +39,7 @@ angular.module('fiona').controller('ProductController', function ($scope, $contr
             $scope.product.dealerCode = dealer.code;
             $scope.product.dealerName = dealer.name;
 
-            $("#dealerselect").modal({backdrop: 'static', keyboard: false});
+            $("#dealerselect").modal('hide');
         }
     };
 

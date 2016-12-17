@@ -1,7 +1,7 @@
 // 销售查询
-angular.module('fiona').controller('SaleplatedetailController', function($scope, $controller, commons) {
+angular.module('fiona').controller('SaleplatedetailController', function($scope, $http, $controller, commons) {
 
-    $scope.dropdowns = {};
+    $scope.dropdowns = {paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}] };
 
     commons.findDict($scope.dropdowns, {sellUnitSet: "物品单位"});
 
@@ -33,14 +33,16 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
                       // 业务类型ID
                       // _saleplatedetail.busiTypeId = $scope.saleplate.id;
 
-                      $scope.saleplatedetail = _saleplatedetail;
-
-                      $scope.saleplatedetailportal.save();
+                      $scope.saleplatedetailportal.saveWithEntity(_saleplatedetail);
                 });
 
+                $scope.paymentpractical = {"operateAction": "现金", "totalSize":$scope.saleplate.totalNum, totalPrice: $scope.saleplate.totalCost, price: $scope.saleplate.totalCost};
+
+                $('#payment').modal({backdrop: 'static', keyboard: false});
+
                 // 清除
-                commons.success("结算成功, 销售单号[ " + $scope.saleplate.directSellCode + " ]");
-                $scope.saleplateportal.cleanup();
+//                commons.success("结算成功, 销售单号[ " + $scope.saleplate.directSellCode + " ]");
+//                $scope.saleplateportal.cleanup();
             }
         }
     };
@@ -68,9 +70,102 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
         else
         {
             $scope.saleplateportal.save();
-
         }
     };
+
+    /**
+     * 结算
+     * ---------------------------
+     * */
+    $scope.balance = function()
+    {
+        var payobject = {gestPaidRecord: {operateAction: $scope.paymentpractical.operateAction, operateContent: $scope.paymentpractical.operateContent}, settleAccountsViews: []};
+
+        angular.forEach($scope.saleplatedetails, function (_saleplatedetail) {
+
+            var _data = {
+                "id": "string",
+                "gestId": $scope.saleplate.gestId,
+                "itemCode": _saleplatedetail.itemCode,
+                "itemName": _saleplatedetail.itemName,
+                "itemNum": _saleplatedetail.itemNum,
+                "itemCost": _saleplatedetail.sellPrice,
+//                "busiTypeId": "string",
+//                "businessType": "string",
+//                "relationId": _saleplatedetail.sellUnit,
+//                "isVipDiscount": "string",
+                "itemUnit": _saleplatedetail.sellUnit
+//                "relationDetailId": "string"
+                }
+
+            payobject.settleAccountsViews.push(_data);
+        });
+
+        $http.post(commons.getBusinessHostname() + "/api/v2/gestpaidrecords/pay", payobject).success(function (data, status, headers, config) {
+
+            $scope.statement = data.data;
+
+            $('#payment').modal('hide');
+
+            $scope.saleplateportal.cleanup();
+
+            $scope.saleplateportal.print();
+
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger("payment", "保存失败")
+        });
+    }
+
+    /** 计算支付金额 */
+    $scope.pay = function()
+    {
+        console.log("折扣: " + $scope.paymentpractical.isVipDiscount);
+
+        if($scope.paymentpractical.isVipDiscount)
+        {
+            $scope.paymentpractical.price = Math.round(Math.floor(parseFloat($scope.paymentpractical.price*100 * $scope.paymentpractical.isVipDiscount))/100);
+        }
+
+        if(!$scope.paymentpractical.operateContent)
+        {
+            $scope.allowmessage = "请输入支付金额";
+        }
+        else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
+        {
+            $scope.allowmessage = "支付金额不足";
+        }
+        else
+        {
+            $scope.allowmessage = "";
+        }
+
+        // $scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  &&
+        if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
+        {
+           $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
+
+            $scope.allowmessage = "";
+           $scope.allowpay = true;
+        }
+        else
+        {
+            $scope.allowpay = false;
+        }
+    };
+
+    $scope.saleplateportal.print = function () {
+
+        $scope.nowtime = new Date();
+
+        $('#saleplateprint').modal({backdrop: 'static', keyboard: false});
+    };
+
+    // 打印页面
+    $scope.print = function () {
+        document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = $('#saleplateprintbody').html();
+        document.getElementById('printiframe').contentWindow.print();
+        // $('#doctorprescriptprint').modal({backdrop: 'static', keyboard: false});
+    }
 
     $scope.saleplateportal.cleanup = function() {
         $scope.saleplateportal.initial();
@@ -109,7 +204,7 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
     }
 
     /**
-     * 弹出选择商品
+     * 选择商品
      * ---------------------------
      * */
     $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
@@ -180,6 +275,22 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
      * 选择会员
      * ---------------------------
      * */
+
+    /**
+     * 弹出选择会员
+     * ---------------------------
+     * */
+    $scope.vipportal= {
+
+        id: "vip",
+
+        name: "选择会员",
+
+        server: "/api/v2/gests"
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipportal}); //继承
+
     $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
     $scope.petportal.setProperty = function (_pet) {
@@ -188,6 +299,15 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
       // 会员ID
       $scope.saleplate.gestId = _pet.gestId;
+
+      if(_pet.gestId)
+      {
+        $scope.vipportal.unique(_pet.gestId);
+      }
+      else
+      {
+        $scope.vip = {gestName: '散客', gestCode: _pet.gestCode, gestSex: {dictDetailCode: 'DM00001'}, gestStyle: {levelName: '无'}, prepayMoney: 0};
+      }
 
       // 会员编号
       $scope.saleplate.gestCode = _pet.gestCode;
@@ -210,7 +330,7 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
         $scope.petportal.setProperty(_pet);
 
-      $("#petselect").modal({backdrop: 'static', keyboard: false});
+      $("#petselect").modal('hide');
     };
 
     $scope.petportal.purchaserType = 1;
@@ -219,13 +339,13 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
 //        alert("purchaserType: " + $scope.petportal.purchaserType);
 
-        if($scope.petportal.purchaserType == 1)
+        if($scope.petportal.purchaserType == 1) // 会员
         {
             $scope.petportal.setProperty({});
         }
-        else if($scope.petportal.purchaserType == 2)
+        else if($scope.petportal.purchaserType == 2) //  散客
         {
-            $scope.petportal.setProperty({ gestId: 0, gestCode: '', gestName: '', mobilePhone: '', petId: '', petName: '' });
+            $scope.petportal.setProperty({ gestId: 0, gestCode: '', gestName: '散客', mobilePhone: '', petId: '', petName: '' });
         }
     };
 

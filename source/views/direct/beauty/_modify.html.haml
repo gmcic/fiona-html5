@@ -1,18 +1,20 @@
 / BEGIN SAMPLE FORM PORTLET
 .row
   .col-md-3
-    = partial :'views/commons/pet/portal_pet_view'
+    = partial 'layouts/widget/service_pet'
 
   .col-md-9
+    = partial :'layouts/inputs/hidden', :locals => { :fieldName => '宠物ID', :maxlength => '32', :required => 'true', "msg" => "宠物信息"}
+
     .row
       .col-md-3
-        = partial :'layouts/inputs/textview', :locals => { :fieldName => '服务单号', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '服务单号', :maxlength => '32'}
 
       .col-md-3
-        = partial :'layouts/inputs/textview', :locals => { :fieldName => '总项', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '总项', :maxlength => '32'}
 
       .col-md-3
-        = partial :'layouts/inputs/textview', :locals => { :fieldName => '总金额', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '总金额', :maxlength => '32'}
 
       .col-md-3
         = partial :'layouts/inputs/select', :locals => {:fieldName => '服务师', :options => "type.id as type.personName for type in dropdowns.hairdresserIdSet"}
@@ -22,7 +24,7 @@
         = partial :'layouts/inputs/select', :locals => {:fieldName => '服务助理', :options => "type.id as type.personName for type in dropdowns.assistantIdSet"}
 
       .col-md-9
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '备注', :maxlength => '16'}
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '备注', :maxlength => '2048'}
 
     .row
       .col-md-12

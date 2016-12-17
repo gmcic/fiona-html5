@@ -32,6 +32,32 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 支付状态
     filter: dropdown
 
+medicFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+#  - fieldName: 处方单位
+#    filter: dropdown
+
+  - fieldName: 数量
+
+  - fieldName: 售价
+    filter: currency:"￥"
+
+  - fieldName: 用药频次
+
+  - fieldName: 单次用量
+
+  - fieldName: 投药单位
+
+  - fieldName: 用法
+
+  - fieldName: 分组
+
+  - fieldName: 执行人
+
+  - fieldName: 支付状态
+    filter: dropdown
+
 portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
 

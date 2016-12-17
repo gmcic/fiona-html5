@@ -11,12 +11,15 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 宠物昵称
 
   - fieldName: 开始日期
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 预付金
+    filter: currency:"￥"
 
   - fieldName: 预计天数
 
   - fieldName: 寄养类型
+    fieldKey: itemName
 
   - fieldName: 状态
     fieldKey: status.valueNameCn
@@ -31,14 +34,6 @@ searchFields:
   - fieldName: 宠物昵称
 
   - fieldName: 会员姓名
-
-  - fieldName: 主人手机
-
-  - fieldName: ---
-
-  - fieldName: 类型
-
-  - fieldName: 状态
 
   - fieldName: ---
 
@@ -71,6 +66,8 @@ fields: #可定义多个中文名称指向同一个字段
   业务员姓名: manufacturerName
   业务员: manufacturerId
 
+  寄养日期: startTime
+
   开始日期: startTime
   结束日期: endTime
   预付金: inputMoney
@@ -78,10 +75,11 @@ fields: #可定义多个中文名称指向同一个字段
   实际天数: realDays
 
   笼舍编号: cageNo
+
   实际价格: price
   价格: realPrice
-
   总价: totalMoney
+
   备注: remark
 
   支付状态: paidStatus

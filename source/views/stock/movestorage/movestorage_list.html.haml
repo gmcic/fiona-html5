@@ -9,3 +9,7 @@ layout: "page"
 /  编辑页面
 = partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|submit|auditing' } do
   = partial 'modify'
+
+/  查看页面
+= partial :'layouts/partials/modal-portal-view-full', :locals => {:modal_toolbar => 'close' } do
+  = partial 'view'

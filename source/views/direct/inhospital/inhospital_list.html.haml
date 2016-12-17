@@ -36,3 +36,8 @@ layout: "page"
 - modal "添加宠物", "pet"
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'views/commons/pet/portal_pet_form'
+
+/ 打印处方
+- modal "打印处方", "inhospitalprescription"
+= partial :'layouts/widget/modal_print' do
+  = partial 'print_body'

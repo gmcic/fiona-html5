@@ -40,7 +40,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
             });
 
-            $('#payment').modal({backdrop: 'static', keyboard: false});
+            $('#payment').modal('hide');
 
             $scope.payments = [];
 
@@ -51,7 +51,6 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
         }).error(function (data, status, headers, config) { //     错误
             commons.modaldanger("payment", "保存失败")
         });
-
     }
 
     $scope.allowpay = false;

@@ -11,10 +11,6 @@ layout: "page"
 
 .row
   .col-md-12
-    = partial 'views/commons/product/product_autocomplete'
-
-.row
-  .col-md-12
     .portlet
       .portlet-title
         .caption
@@ -27,10 +23,14 @@ layout: "page"
 
         .actions
           %button.btn.btn-success{:type => "button", "ng-click" => "saleplateportal.balance()"}
-            %i.fa.fa-remove
+            %i.fa.fa-credit-card
             结算
 
       .portlet-body.portlet-empty
+        .row
+          .col-md-12
+            = partial 'views/commons/product/product_autocomplete'
+
         -#表格
         - portal '直接销售', 'saleplatedetail'
         = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false", :selection => "none" } do
@@ -39,6 +39,16 @@ layout: "page"
 / 编辑界面
 = partial :'layouts/partials/modal-lg' do
   = partial 'modify'
+
+/ 结算
+- modal "结算", "payment"
+= partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|balance'}  do
+  = partial 'payment'
+
+/ 打印处方
+- modal "收银小票", "saleplate"
+= partial :'layouts/widget/modal_print_xs' do
+  = partial 'print_body'
 
 / 选择会员
 - portal "选择宠物", "pet"

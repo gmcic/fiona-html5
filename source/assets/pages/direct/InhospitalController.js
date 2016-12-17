@@ -3,7 +3,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     $scope.dropdowns = { };
 
-    commons.findDict($scope.dropdowns, {managerIdSet: "主管人员"});
+    commons.findDict($scope.dropdowns, {manufacturerIdSet: "业务员", managerIdSet: "主管人员", recipeUnitSet: "物品单位", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"});
 
     $controller('BaseController', {$scope: $scope}); //继承
 
@@ -22,37 +22,68 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         server: "/api/v2/inhospitalrecords",
 
-        defilters: { },
+        defilters: {inHospitalNo: "住院号", gestCode: "会员编号", gestName: "会员姓名", petName: "宠物姓名"},
 
         callback: {
             update: function () {
                 $scope.petportal.unique($scope.inhospital.petId);
 
-                $scope.inhospitaldetailportal.search();
+                $scope.vipportal.unique($scope.inhospital.gestId);
+
+                $scope.inhospitaldetailportal.searchAll();
+
+                $scope.vipprepayportal.search();
 
                 $scope.inhospitalprescriptionportal.search();
 
                 $scope.vipprepayportal.search();
             },
             insert: function() {
+                $scope.pet = {};
+
+                $scope.vip = {};
+
+                $scope.inhospitaldetails = [];
+
+                $scope.inhospitalprescriptions = [];
+
+                $scope.inhospitalprescriptiondetails = [];
+
                 $scope.inhospital.totalMoney = 0;
 
                 $scope.serialNumber({id: "inhospital", fieldName : "inHospitalNo", numberName : "住院编号"});
 
                 $scope.setSelectDefault("inhospital", ["itemCode", "managerId", "manufacturerId"]);
             },
+            submitbefore: function(){
+
+                if($scope.inhospital.itemCode)
+                {
+                    $scope.inhospital.itemName = $scope.dropdowns.itemCodeSet.findObjectWithProperty("itemCode", $scope.inhospital.itemCode).itemName;
+                }
+
+                if($scope.inhospital.managerId)
+                {
+                    $scope.inhospital.managerBy = $scope.dropdowns.managerIdSet.getObjectWithId({id: $scope.inhospital.managerId}).personName;
+                }
+
+                if($scope.inhospital.manufacturerId)
+                {
+                    $scope.inhospital.manufacturerName = $scope.dropdowns.manufacturerIdSet.getObjectWithId({id: $scope.inhospital.manufacturerId}).personName;
+                }
+
+                delete $scope.inhospital.totalCount;
+            },
             submit : function () {
                 // 遍历保存所有子项
                 angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
-                    $scope.inhospitaldetail = _inhospitaldetail;
-
                     // 寄养ID
-                    $scope.inhospitaldetail.inHospitalId = $scope.inhospital.id;
+                    _inhospitaldetail.inHospitalId = $scope.inhospital.id;
 
                     // 寄养编号
-                    $scope.inhospitaldetail.inHospitalNo = $scope.inhospital.inHospitalNo;
+                    _inhospitaldetail.inHospitalNo = $scope.inhospital.inHospitalNo;
 
-                    $scope.inhospitaldetailportal.save();
+                    $scope.inhospitaldetailportal.saveWithEntity(_inhospitaldetail);
                 });
             }
         }
@@ -79,6 +110,9 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         defilters: { },
 
         callback: {
+            search: function(){
+                $scope.inhospitaldetailportal.resize();
+            }
         }
     };
 
@@ -162,10 +196,9 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
             submit: function () {
                 angular.forEach($scope.inhospitalprescriptiondetails, function (_inhospitalprescriptiondetail) {
 
-                    $scope.inhospitalprescriptiondetail = _inhospitalprescriptiondetail;
-                    $scope.inhospitalprescriptiondetail.prescriptionId = $scope.inhospitalprescription.id;
+                    _inhospitalprescriptiondetail.prescriptionId = $scope.inhospitalprescription.id;
 
-                    $scope.inhospitalprescriptiondetailportal.save();
+                    $scope.inhospitalprescriptiondetailportal.saveWithEntity(_inhospitalprescriptiondetail);
                 });
 
                 $scope.inhospitalprescriptiondetail = {};
@@ -182,6 +215,57 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     };
 
     $controller('SidePanelController', {$scope: $scope, component: $scope.inhospitalprescriptionportal}); //继承
+
+    $scope.inhospitalprescriptionportal.print = function () {
+
+        $scope.nowtime = new Date();
+
+        var $first = 18; // 首页行数
+
+        var $middle = 24; // 中间页行数
+
+        var $last = 24; // 最后页行数
+
+        $scope.inhospitalprescriptiondetail2ds = [];
+
+        var size = $scope.inhospitalprescriptiondetails.length;
+
+        // 首页
+        $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice(0, size > $first ? $first : size));
+
+        if(size > $first)
+        {
+            var $index = $first;
+
+            var size = size - $first;
+
+            // 中间页
+            while(size > $middle)
+            {
+               $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice($index, $index + $middle));
+
+               $index = $index + $middle;
+
+               size = size - $middle;
+            }
+
+            // 尾页
+            if(size > 0)
+            {
+                $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice($index));
+
+                $scope.lastpagebreak = size > $last;
+            }
+            else
+            {
+                $scope.lastpagebreak = true;
+            }
+        }
+
+        // $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
+
+        $('#inhospitalprescriptionprint').modal({backdrop: 'static', keyboard: false});
+    };
 
     /**
     * 住院处方明细
@@ -230,10 +314,10 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
             $scope.inhospitalprescriptiondetails = [];
         }
 
-        if($scope.inhospitalprescriptiondetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
-            commons.modaldanger("inhospitalprescriptiondetails", "[ 商品" +_product.itemName+ " ]已存在");
-        }
-        else {
+//        if($scope.inhospitalprescriptiondetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+//            commons.modaldanger("inhospitalprescriptiondetails", "[ 商品" +_product.itemName+ " ]已存在");
+//        }
+//        else {
             // 未选择新添加
 
             var inhospitalprescriptiondetail= {};
@@ -255,8 +339,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
             $scope.inhospitalprescriptiondetails.push(inhospitalprescriptiondetail);
 
-            commons.modalsuccess("inhospitalprescriptiondetails", "成功添加[ " +inhospitalprescriptiondetail.itemName+ " ]商品");
-        }
+            commons.modalsuccess("inhospitalprescription", "成功添加[ " +inhospitalprescriptiondetail.itemName+ " ]商品");
+//        }
 
         $scope.productportal.resize();
     };
@@ -312,40 +396,52 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         else {
             // 未选择新添加
 
-            var inhospitaldetail= {};
+            var _inhospitaldetail= {};
 
             //  "inputCount",
 
             angular.forEach(["itemCode", "itemName", "recipeUnit", "useUnit", "frequency", "dose", "sellPrice",  "useWay", "itemStandard"], function (name) {
-                inhospitaldetail[name] = _product[name];
+                _inhospitaldetail[name] = _product[name];
             });
 
-            inhospitaldetail.manufacturerCode = _product.dealerCode;
-            inhospitaldetail.manufacturerName = _product.dealerName;
+            _inhospitaldetail.manufacturerCode = _product.dealerCode;
+            _inhospitaldetail.manufacturerName = _product.dealerName;
 
             // 个数
-            inhospitaldetail.itemNum = 1;
+            _inhospitaldetail.itemNum = 1;
 
-            inhospitaldetail.totalCost = inhospitaldetail.itemNum * inhospitaldetail.sellPrice;
+            _inhospitaldetail.totalCost = _inhospitaldetail.itemNum * _inhospitaldetail.sellPrice;
 
-            $scope.inhospitaldetails.push(inhospitaldetail);
+            $scope.inhospitaldetails.push(_inhospitaldetail);
 
-            commons.modalsuccess("doctorprescript", "成功添加[ " +inhospitaldetail.itemName+ " ]商品");
+            commons.modalsuccess("inhospitaldetail", "成功添加[ " +inhospitaldetail.itemName+ " ]商品");
         }
+
+        $scope.inhospitaldetailportal.resize();
     };
 
     $scope.inhospitaldetailportal.resize = function () {
 
         $scope.inhospital.totalMoney = 0;
 
+        $scope.inhospital.totalCount = 0;
+
         angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
             // 小计
             _inhospitaldetail.totalCost = _inhospitaldetail.sellPrice * _inhospitaldetail.itemNum;
+
+            $scope.inhospital.totalCount += _inhospitaldetail.itemNum;
 
             // 总金额
             $scope.inhospital.totalMoney += _inhospitaldetail.totalCost;
         });
     }
+
+    /**
+     * 会员管理
+     * ---------------------------
+     * */
+    $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
 
     /**
      * 宠物管理
@@ -359,6 +455,9 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         // 会员ID
         $scope.inhospital.gestId = _pet.gestId;
+
+        // 查询会员
+        $scope.vipportal.unique(_pet.gestId);
 
         // 会员编号
         $scope.inhospital.gestCode = _pet.gestCode;
@@ -375,7 +474,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         // 宠物名称
         $scope.inhospital.petName = _pet.petName;
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        $("#petselect").modal('hide');
     };
 
     $scope.productportal.autocompletedata();

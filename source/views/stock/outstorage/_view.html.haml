@@ -1,0 +1,28 @@
+.form-body
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '出库单号', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '出库仓库', :fieldKey => 'outWarehouse'}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '审核日期', :filter => "date:'yyyy年MM月dd日'"}
+
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '审核人', :maxlength => '32'}
+
+    .col-md-6
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '备注', :maxlength => '32'}
+
+/ Portal
+- portal "出库商品清单", "outstoragedetail"
+
+= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :bordered => "false", :inline_toolbar => 'remove', :selection => "none"}

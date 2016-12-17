@@ -598,7 +598,7 @@ angular.module('fiona')
 
         if(!!component.foreignkey && !!$scope[component.foreign])
         {
-            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
+            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id'];
         }
 
         if (!!component.callback && !!component.callback.insert) {
@@ -703,8 +703,6 @@ angular.module('fiona')
 
             $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
 
-                $('#' + component.id).modal({backdrop: 'static', keyboard: false});
-
                 $scope[component.id] = data.data;
 
                 if (!!component.callback && !!component.callback.submit) {
@@ -715,6 +713,8 @@ angular.module('fiona')
                 {
                     $scope[component.id + "s"].unshift(data.data);
                 }
+
+                $('#' + component.id).modal('hide');
 
                 commons.success("保存成功")
             }).error(function (data, status, headers, config) { //     错误
@@ -923,12 +923,12 @@ angular.module('fiona')
 
         if (!_filter) {
 
-            _filter = {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id']};
+            _filter = {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id']};
 
             component.filters.push(_filter);
         }
         else {
-            _filter.value = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
+            _filter.value = $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id'];
         }
 
         return _filter;
@@ -952,7 +952,7 @@ angular.module('fiona')
 
             if(invoke)
             {
-                invoke.call();
+                invoke.call(this, data.data.content);
             }
         });
     };
@@ -961,9 +961,31 @@ angular.module('fiona')
      * 分页搜索
      * ---------------------------
      * */
+    component.searchAll = function () {
+
+        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id']) {
+            component.doForeignFilter();
+        }
+
+        $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': component.filters }).success(function (data, status, headers, config) {
+
+            $scope[component.id + 's'] = data.data.content;
+
+            if(!!component.callback && !!component.callback.search)
+            {
+                component.callback.search();
+            }
+        });
+    };
+
+
+    /**
+     * 分页搜索
+     * ---------------------------
+     * */
     component.search = function () {
 
-        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id']) {
+        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id']) {
             component.doForeignFilter();
         }
 
@@ -1158,7 +1180,7 @@ angular.module('fiona')
 
         if(!!component.foreignkey && !!$scope[component.foreign])
         {
-            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignKey || 'id'];
+            $scope[component.id][component.foreignkey] = $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id'];
         }
 
         // 加载
@@ -1229,8 +1251,6 @@ angular.module('fiona')
 
             $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
 
-                $('#' + component.id).modal({backdrop: 'static', keyboard: false});
-
                 $scope[component.id] = data.data;
 
                 if (!!component.callback && !!component.callback.submit) {
@@ -1240,6 +1260,8 @@ angular.module('fiona')
                 $scope[component.id + "s"].unshift(data.data);
 
                 component.refresh();
+
+                $('#' + component.id).modal('hide');
 
                 commons.success("保存成功")
             }).error(function (data, status, headers, config) { //     错误
@@ -1549,7 +1571,7 @@ angular.module('fiona')
 
         $scope.vipportal.unique($scope.pet.gestId);
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        $("#petselect").modal('hide');
     };
 
 
@@ -1623,7 +1645,7 @@ angular.module('fiona')
         // 主人名称
         $scope.pet.gestName = vip.gestName;
 
-        $("#vipselect").modal({backdrop: 'static', keyboard: false});
+        $("#vipselect").modal('hide');
     };
 
     // $scope.init = function () {

@@ -15,7 +15,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
      * */
     $scope.outstorageportal= {
 
-        foreignKey : 'outWarehouseCode',
+        foreignkey : 'outWarehouseCode',
 
         id: "outstorage",
 
@@ -23,7 +23,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
 
         server: "/api/v2/warehouseoutrecords",
 
-        defilters: {"petCode": "宠物昵称", "petName": "宠物昵称", "gestCode": "会员编号", "gestName": "会员名称"},
+        defilters: {"outWarehouseCode": "出库单号", "checkMan": "审核人"},
 
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (data) {
@@ -57,10 +57,9 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
 
             submit : function () {
                 // 遍历保存所有子项
-                angular.forEach($scope.outstoragedetails, function (data, index, array) {
-                    $scope.outstoragedetail = data;
-                    $scope.outstoragedetail.outWarehouseCode = $scope.outstorage.outWarehouseCode;
-                    $scope.outstoragedetailportal.save();
+                angular.forEach($scope.outstoragedetails, function (_outstoragedetail, index, array) {
+                    _outstoragedetail.outWarehouseCode = $scope.outstorage.outWarehouseCode;
+                    $scope.outstoragedetailportal.saveWithEntity(_outstoragedetail);
                 });
             }
         }
@@ -71,6 +70,20 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
         $scope.outstorageportal.auditingoperate = true;
 
         $scope.outstorageportal.update(id);
+    };
+
+    /** 出库审核 */
+    $scope.auditing  = function () {
+        $http.get(commons.getBusinessHostname() + $scope.outstorageportal.server + "/audit/" + $scope.outstorage.id).success(function (data, status, headers, config) {
+
+            $scope.outstorages.replaceById(data.data);
+
+            commons.success("审核成功");
+
+            $("#outstorage").modal('hide');
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger(outstorage.id, data.message);
+        });
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.outstorageportal}); //继承

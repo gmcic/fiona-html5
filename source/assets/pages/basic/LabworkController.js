@@ -71,12 +71,11 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
             },
             submit: function () {
                 // 遍历保存所有子项
-                angular.forEach($scope.labworkdetails, function (data, index, array) {
+                angular.forEach($scope.labworkdetails, function (labworkdetail, index, array) {
 
-                    $scope.labworkdetail= data;
-                    $scope.labworkdetail.cheTestTypdId = $scope.labwork.id;
+                    labworkdetail.cheTestTypdId = $scope.labwork.id;
 
-                    $scope.labworkdetailportal.save();
+                    $scope.labworkdetailportal.saveWithEntity(labworkdetail);
                 });
 
             },
@@ -115,7 +114,7 @@ angular.module('fiona').controller('LabworkController', function ($scope, $contr
 
     $scope.labworkdetailportal.submit = function() {
         $scope.labworkdetails.unshift($scope.labworkdetail);
-        $('#labworkdetail').modal({backdrop: 'static', keyboard: false});
+        $('#labworkdetail').modal('hide');
     }
 
     $scope.labworktypeportal.search();

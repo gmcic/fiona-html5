@@ -1,0 +1,124 @@
+
+%div.print-body-html
+
+  -#.page-header{:style => 'padding-top: 0;margin-top: 0px'}
+  -#  %img{:src => '/assets/images/logo-fiona.png'}
+
+  %center
+    %h1 福莱宠物医院病历单
+
+  %table.table-print-noborder
+    %tbody
+      %tr
+        %th{:style => "width: 70px"} 会员姓名
+        %td {{vip.gestName}}
+
+        %th{:style => "width: 70px"} 会员电话
+        %td {{vip.mobilePhone}}
+
+        %th{:style => "width: 70px"} 病历号
+        %td{:colspan => "7"} {{pet.sickFileCode}}
+
+      %tr
+        %th{:style => "width: 70px"} 宠物昵称
+        %td {{pet.petName}}
+
+        %th{:style => "width: 70px"} 年龄
+        %td {{pet.age}} 岁
+
+        %th{:style => "width: 70px"} 宠物性别
+        %td {{pet.petSex.valueNameCn}}
+
+        %th{:style => "width: 50px"} 体重
+        %td {{pet.petWeight}} kg
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th.info 就诊信息
+
+  %tbody
+    %tr
+      %td
+        %table.table-print-noborder
+          %tbody
+            %tr
+            %tr
+              %th{:style => "width: 50px"} 体温
+              %td {{medicalrecord.temperature}}
+
+              %th{:style => "width: 50px"} 心跳
+              %td {{medicalrecord.heartbeat}}
+
+              %th{:style => "width: 50px"} 呼吸
+              %td {{medicalrecord.breath}}
+
+              %th{:style => "width: 50px"} 血压
+              %td {{medicalrecord.bloodPressure}}
+
+            %tr
+              %th{:style => "width: 70px"} 主述
+              %td{"colspan" => "9"} {{medicalrecord.rheme}}
+
+            %tr
+              %th{:style => "width: 70px"} 临床检查
+              %td{"colspan" => "9"} {{medicalrecord.examination}}
+
+            %tr
+              %th{:style => "width: 70px"} 医生诊断
+              %td{"colspan" => "9"} {{medicalrecord.diagnosed}}
+
+            %tr
+              %th{:style => "width: 70px"} 医嘱
+              %td{"colspan" => "9"} {{medicalrecord.doctorAdvice}}
+
+// 处方
+
+%table.table.table-bordered{ "ng-repeat" => "_doctorprescript in doctorprescripts"}
+  %thead
+    %tr
+      %th.info  处方 {{_doctorprescript.prescriptionCode}}
+
+  %tbody
+    %tr
+      %td
+        -# 嵌套模块
+        - @localPortal = data["cure-doctorprescriptdetail"]
+
+        %table.table.table-bordered
+          %thead
+            %tr
+              - @localPortal['medicFields'].each do |field|
+                %th #{field.aliasName || field.fieldName}
+
+          %tbody
+            %tr{ "ng-repeat" => "doctorprescriptdetail in _doctorprescript.details"}
+              - @localPortal["medicFields"].each do |column|
+                %td
+                  - if column.filter?
+                    = bindFilter "doctorprescriptdetail", (column.fieldKey || @localPortal.fields[column.fieldName] || 'error'), column.filter
+                  - else
+                    = bind "doctorprescriptdetail", (column.fieldKey || @localPortal.fields[column.fieldName] || 'error')
+
+
+%table.table-print-noborder
+  %tbody
+    %tr
+      %th{:style => "width: 90px"} 诊疗医生
+      %td{:style => "width: 180px"} {{medicalrecord.doctor}}
+
+      %th{:style => "width: 90px"}  助理医生
+      %td{:style => "width: 180px"} {{medicalrecord.assistantDoctorName}}
+
+      %td.text-right.h4{"ng-if" => "$last"} 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}&nbsp;&nbsp;&nbsp;&nbsp;
+
+    %tr
+      %th{:colspan => "5"}
+
+.text-right
+  医院电话: {{hospital.telPhone}}
+  医院地址: {{hospital.areaCode}}
+
+%h5
+  .text-right
+    {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}

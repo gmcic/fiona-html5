@@ -22,6 +22,8 @@
   - if $required == 'false'
     %input.form-control{:type => "text", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}" }/
 
+  -#- puts "主键: " << @module[$keyword] << "..." << $keyword << "..." << fieldName
+
   - if $required == 'true'
     %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.
 

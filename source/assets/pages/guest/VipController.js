@@ -55,17 +55,15 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
 
             submit : function () {
                 // 遍历保存所有子项
-                angular.forEach($scope.pets, function (data, index, array) {
-                    $scope.pet = data;
-
+                angular.forEach($scope.pets, function (pet, index, array) {
                     // 会员ID: gestId 会员编号: gestCode 会员姓名: gestName
-                    $scope.pet.gestId = $scope.vip.id;
+                    pet.gestId = $scope.vip.id;
 
-                    $scope.pet.gestCode = $scope.vip.gestCode;
+                    pet.gestCode = $scope.vip.gestCode;
 
-                    $scope.pet.gestName = $scope.vip.gestName;
+                    pet.gestName = $scope.vip.gestName;
 
-                    $scope.petportal.save();
+                    $scope.petportal.saveWithEntity(pet);
                 });
             }
         }
@@ -94,7 +92,7 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
             $scope["pets"].unshift($scope.pet);
         }
 
-        $('#' + this.id).modal({backdrop: 'static', keyboard: false});
+        $('#' + this.id).modal('hide');
     }
 
     $scope.vipportal.filter();

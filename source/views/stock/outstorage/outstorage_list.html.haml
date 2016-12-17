@@ -4,8 +4,12 @@ layout: "page"
 
 - page '出库管理', 'outstorage'
 
-= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'update|remove|auditing' }
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view|update|remove|auditing' }
 
 /  编辑页面
 = partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|submit|auditing' }  do
   = partial 'modify'
+
+/  查看页面
+= partial :'layouts/partials/modal-portal-view-full', :locals => {:modal_toolbar => 'close' } do
+  = partial 'view'

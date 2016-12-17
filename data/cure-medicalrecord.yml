@@ -4,34 +4,61 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 会员姓名
 
   - fieldName: 宠物病历号
+    fieldKey: mediTreatmentCode
 
   - fieldName: 宠物昵称
 
+  - fieldName: 医生
+
+  - fieldName: 助理医生
+
   - fieldName: 医生诊断
+
+  - fieldName: 就诊时间
+    filter: date:"yyyy年MM月dd日"
 
 searchFields:
   - fieldName: 会员编号
   - fieldName: 会员姓名
-  - fieldName: 主人手机
 
   - fieldName: ---
 
-  - fieldName: 宠物病历号
+  - fieldName: 就诊编号
   - fieldName: 宠物昵称
 
-  - fieldName: ---
-
-  - fieldName: 诊疗日期
-
-
 fields: #可定义多个中文名称指向同一个字段
+
+  宠物ID: petId
+
+  宠物昵称: petName
+
+  会员姓名: gestName
+
+  注册编号: registerNo
+
+  医生: doctor
+
+  助理医生: assistantDoctorName
+  助理ID: assistantDoctorId
+
+  就诊编号: mediTreatmentCode
+
+  体温: temperature
+  心跳: heartbeat
+  呼吸: breath
+  血压: bloodPressure
+
+  主述: rheme
+  临床检查: examination
+  医生诊断: diagnosed
+  医嘱: doctorAdvice
+
+  支付状态: paidStatus
+
   主键: id
-
-  会员姓名: XX
-
-  宠物病历号: XX
-
-  宠物昵称: XX
-
-  会员姓名医生诊断: XX
-
+  状态: status
+  创建人: createUserId
+  创建时间: createDate
+  就诊时间: createDate
+  修改人: updateUserId
+  修改时间: updateDate

@@ -1,9 +1,9 @@
 // 美容服务
-angular.module('fiona').controller('BeautyController', function($scope, $controller) {
+angular.module('fiona').controller('BeautyController', function($scope, $controller, commons) {
 
     $scope.dropdowns = { };
 
-    commons.findDict($scope.dropdowns, {assistantIdSet: "服务助理", hairdresserIdSet: "服务师"});
+    commons.findDict($scope.dropdowns, {assistantIdSet: "服务助理", hairdresserIdSet: "服务师", packageUnitSet: "物品单位"});
 
     $controller('BaseController', {$scope: $scope}); //继承
 
@@ -19,7 +19,7 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 
         server: "/api/v2/services",
 
-        defilters: { },
+        defilters: {serviceCode: "服务单号", gestCode: "会员编号", gestName: "会员姓名", petName: "宠物昵称", assistantName: "服务助理", hairdresserName: "服务师" },
 
         callback: {
             update: function(){
@@ -36,15 +36,25 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 
                  $scope.setSelectDefault("beauty", ["itemCode", "hairdresserId", "assistantId"]);
             },
+            submitbefore: function(){
+
+                if($scope.beauty.assistantId)
+                {
+                    $scope.beauty.assistantName = $scope.dropdowns.assistantIdSet.getObjectWithId({id: $scope.beauty.assistantId}).personName;
+                }
+
+                if($scope.beauty.hairdresserId)
+                {
+                    $scope.beauty.hairdresserName = $scope.dropdowns.hairdresserIdSet.getObjectWithId({id: $scope.beauty.hairdresserId}).personName;
+                }
+            },
              submit : function () {
                  // 遍历保存所有子项
                  angular.forEach($scope.beautydetails, function (_beautydetail) {
-                     $scope.beautydetail = _beautydetail;
-
                      // 寄养ID
-                     $scope.beautydetail.serviceId = $scope.beauty.id;
+                     _beautydetail.serviceId = $scope.beauty.id;
 
-                     $scope.beautydetailportal.save();
+                     $scope.beautydetailportal.saveWithEntity(_beautydetail);
                  });
              }
         }
@@ -115,6 +125,8 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 
 //            commons.modalsuccess("beauty", "成功添加[ " +beautydetail.itemName+ " ]商品");
         }
+
+        $scope.productportal.resize();
     };
 
     $scope.productportal.resize = function () {
@@ -165,7 +177,7 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
         // 宠物名称
         $scope.beauty.petName = _pet.petName;
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        $("#petselect").modal('hide');
     };
 
     // 实始化

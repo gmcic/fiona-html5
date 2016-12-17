@@ -1,7 +1,9 @@
 // 库存查询
-angular.module('fiona').controller('StockController', function($scope, $controller) {
+angular.module('fiona').controller('StockController', function($scope, $controller, commons) {
 
     $scope.dropdowns= {};
+
+    commons.findDict($scope.dropdowns, {drugFormSet: "物品单位", packageUnitSet: "物品单位"});
 
     // 继承能用代码
     $controller('BaseController', {$scope: $scope}); //继承
@@ -19,6 +21,8 @@ angular.module('fiona').controller('StockController', function($scope, $controll
         id: "stock",
 
         name: "库存查询",
+
+        defilters: {"itemName": "名称",  "itemCode": "编号",  "barCode": "条码", "manufacturerName": "生产商"},
 
         server: "/api/v2/itemcounts"
     };

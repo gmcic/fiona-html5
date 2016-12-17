@@ -27,10 +27,6 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
     filter: date:"yyyy年MM月dd日"
 
 searchFields:
-  - fieldName: 商品名称
-
-  - fieldName: ---
-
   - fieldName: 单号
   - fieldName: 制单时间
   - fieldName: 审核时间

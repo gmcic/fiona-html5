@@ -35,9 +35,14 @@ angular.module('fiona.services', [])
             return sessionStorage.getItem("authorization");
         },
         getBusinessHostname : function () {
+//            return "http://192.168.0.254:8080/business";
+
             return "http://192.168.0.108:8080/business";
         },
         getAccountHostname : function () {
+
+//            return "http://192.168.0.254:8080/account";
+
             return "http://192.168.0.108:8080/account";
         },
         modaldanger: function (alert_id, msg) {
@@ -160,6 +165,7 @@ angular.module('fiona.services', [])
 
             var _db = this.getLocalDB();
 
+//            var baseURL = "http://192.168.0.254:8080/business/api/v2/";
             var baseURL = "http://192.168.0.108:8080/business/api/v2/";
 
             // 重新创建表

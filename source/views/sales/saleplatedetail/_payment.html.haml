@@ -1,0 +1,37 @@
+.row
+  .col-md-8
+    = partial :'views/commons/vip_header_small'
+
+    - portal '收费管理', 'saleplatedetail'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :listdataKey => "balanceFields", :pagingbar => "none", :inline_toolbar => 'none', :bordered => "false", :selection => "none" } do
+      / 不输出 outline 按钮
+
+  .col-md-4
+    %p.help-block.font-red-thunderbird{"ng-show" => "allowmessage" } {{allowmessage}}
+    .form-body
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '总项数', :required => "true", :maxlength => '16'}
+
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '总消费额', :required => "true", :maxlength => '16'}
+
+      .row
+        .col-md-12
+          = partial :'layouts/inputs/number', :locals => {:keyword => "paymentpractical", :fieldName => '折扣', :required => "true", :maxlength => '16', :change => "pay()"}
+
+      .row
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '请支付金额', :required => "true", :maxlength => '16'}
+
+        .col-md-6
+          = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '找零', :required => "true", :maxlength => '16'}
+
+    .form-body
+      .row
+        .col-md-4
+          = partial :'layouts/inputs/select', :locals => {:keyword => "paymentpractical", :fieldName => '支付方式', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in dropdowns.paymentTypeSet"}
+
+        .col-md-8
+          = partial :'layouts/inputs/number', :locals => {:keyword => "paymentpractical", :fieldName => '支付金额', :maxlength => '32', :required => "true", :change => "pay()"}
+

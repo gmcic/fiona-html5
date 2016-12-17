@@ -61,7 +61,7 @@ angular.module('fiona').controller('AnalysedController', function($scope, $contr
         // 宠物名称
         $scope.invaccine.petName = _pet.petName;
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        $("#petselect").modal('hide');
     };
 
     $scope.analysedportal.list();

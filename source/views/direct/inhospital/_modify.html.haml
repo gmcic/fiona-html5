@@ -1,10 +1,12 @@
 / BEGIN SAMPLE FORM PORTLET
 .row
   .col-md-3
-    = partial :'views/commons/pet/portal_pet_view'
+    = partial 'layouts/widget/service_pet'
 
   .col-md-9
     -#住院登记表单
+    = partial :'layouts/inputs/hidden', :locals => { :fieldName => '宠物ID', :maxlength => '32', :required => 'true', "msg" => "宠物信息"}
+
     .row
       .col-md-3
         = partial :'layouts/inputs/textview', :locals => { :fieldName => '住院号', :maxlength => '16'}
@@ -44,13 +46,13 @@
     .tabbable-line
       %ul.nav.nav-tabs
         %li.active
-          %a{"data-toggle" => "tab", :href => "//#inhospital_consume"} 寄养期间消费
+          %a{"data-toggle" => "tab", :href => "//#inhospital_consume"} 住院期间消费
 
         %li
           %a{"data-toggle" => "tab", :href => "//#inhospital_prepay"} 预付金记录
 
-        %li
-          %a{"data-toggle" => "tab", :href => "//#inhospital_health"} 健康状态记录
+        -#%li
+        -#  %a{"data-toggle" => "tab", :href => "//#inhospital_health"} 健康状态记录
 
         %li
           %a{"data-toggle" => "tab", :href => "//#inhospital_recipe"} 住院处方
@@ -58,6 +60,10 @@
       .tab-content
         -#住院期间消费
         #inhospital_consume.tab-pane.active
+          .row
+            .col-md-12
+              总金额: {{inhospital.totalMoney | currency:"￥"}}, 总项数: {{inhospital.totalCount}}
+
           .row
             .col-md-12
               -#= partial 'views/commons/product/product_autocomplete'
@@ -68,20 +74,17 @@
 
         -#预付金记录
         #inhospital_prepay.tab-pane
-          .well
-            总金额:, 总项数:
-
           - portal "预付金额记录", "vipprepay"
 
           = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' } do
             = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
 
         -#健康状态记录
-        #inhospital_health.tab-pane
-          - portal "健康状态记录", "inhospitalhealth"
-
-          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }  do
-            = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalhealthportal.insert()'}
+        -##inhospital_health.tab-pane
+        -#  - portal "健康状态记录", "inhospitalhealth"
+        -#
+        -#  = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }  do
+        -#    = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalhealthportal.insert()'}
 
         -#住院处方
         #inhospital_recipe.tab-pane

@@ -11,29 +11,13 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     // 仓库
     $scope.dropdownWithTable({id: "warehouseId", server: "/api/v2/warehouses", value: "id", text: "name"});
 
-    /** 审核 */
-    $scope.auditing  = function () {
-
-        $http.get(commons.getBusinessHostname() + $scope.instorageportal.server + "/audit/" + $scope.instorage.id).success(function (data, status, headers, config) {
-
-            $scope.instorages.replaceById(data.data);
-
-            commons.success("审核成功");
-
-            $("#instorage").modal({backdrop: 'static', keyboard: false});
-        }).error(function (data, status, headers, config) { //     错误
-            commons.modaldanger(instorage.id, "保存失败");
-        });
-
-    };
-
     /**
      * 入库管理
      * ---------------------------
      * */
     $scope.instorageportal= {
 
-        foreignKey : 'inWarehouseCode',
+        foreignkey : 'inWarehouseCode',
 
         id: "instorage",
 
@@ -41,7 +25,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         server: "/api/v2/warehouseinrecords",
 
-        defilters: {"dealerName": "经销商", "inWarehouseCode": "入库单号", "checkMan": "审核人"},
+        defilters: {"inWarehouseCode": "入库单号", "checkMan": "审核人"},
 
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (data) {
@@ -54,11 +38,11 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         callback: {
             update: function () {
-                $scope.instoragedetailportal.search();
+                $scope.instoragedetailportal.searchAll();
             },
 
             view: function () {
-                $scope.instoragedetailportal.search();
+                $scope.instoragedetailportal.searchAll();
             },
 
             insert: function () {
@@ -79,16 +63,10 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             submit : function () {
                 // 遍历保存所有子项
                 angular.forEach($scope.instoragedetails, function (_instoragedetail) {
+                      // 入库单号
+                      _instoragedetail.inWarehouseCode = $scope.instorage.inWarehouseCode;
 
-                    $scope.instoragedetail = _instoragedetail;
-
-                      // 医院ID
-                      $scope.instoragedetail.inHospitalId = instorage.id;
-
-                      // 医院编号
-                      $scope.instoragedetail.inHospitalNo = instorage.inHospitalNo;
-
-                    $scope.instoragedetailportal.save();
+                    $scope.instoragedetailportal.saveWithEntity(_instoragedetail);
                 });
             }
         }
@@ -99,6 +77,21 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         $scope.instorageportal.auditingoperate = true;
 
         $scope.instorageportal.update(id);
+    };
+
+    /** 入库审核 */
+    $scope.auditing  = function () {
+
+        $http.get(commons.getBusinessHostname() + $scope.instorageportal.server + "/audit/" + $scope.instorage.id).success(function (data, status, headers, config) {
+
+            $scope.instorages.replaceById(data.data);
+
+            commons.success("审核成功");
+
+            $("#instorage").modal('hide');
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger(instorage.id, "保存失败");
+        });
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.instorageportal}); //继承
@@ -122,7 +115,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         callback: {
             delete: function () {
                 // 总数据
-                $scope.instorage.totalCount++;
+                $scope.instorage.totalCount--;
                 $scope.instorage.resize();
             }
         }
@@ -153,7 +146,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
             $scope.instorage.dealerCode = dealer.code;
             $scope.instorage.dealerName = dealer.name;
 
-            $("#dealerselect").modal({backdrop: 'static', keyboard: false});
+            $("#dealerselect").modal('hide');
         }
     };
 

@@ -18,7 +18,7 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
      * */
     $scope.movestorageportal= {
 
-        foreignKey : 'outWarehouseCode',
+        foreignkey : 'outWarehouseCode',
 
         id: "movestorage",
 
@@ -26,7 +26,7 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
 
         server: "/api/v2/warehousemoverecords",
 
-        defilters: {"petCode": "宠物昵称", "petName": "宠物昵称", "gestCode": "会员编号", "gestName": "会员名称"},
+        defilters: {"outWarehouseCode": "移库单号", "checkMan": "审核人"},
 
         onchange: function () {
             angular.forEach($scope.dropdowns.toWarehouseIdSet, function (_warehouse) {
@@ -65,13 +65,12 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
             },
 
             submit : function () {
-
                 // 遍历保存所有子项
-                angular.forEach($scope.movestoragedetails, function (data, index, array) {
-                    console.log(data);
-                    $scope.movestoragedetail = data;
-                    $scope.movestoragedetail.outWarehouseCode = $scope.movestorage.outWarehouseCode;
-                    $scope.movestoragedetailportal.save();
+                angular.forEach($scope.movestoragedetails, function (_movestoragedetail, index, array) {
+
+                    _movestoragedetail.outWarehouseCode = $scope.movestorage.outWarehouseCode;
+
+                    $scope.movestoragedetailportal.saveWithEntity(_movestoragedetail);
                 });
             }
         }
@@ -84,6 +83,20 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
         $scope.movestorageportal.update(id);
     };
 
+    /** 出库审核 */
+    $scope.auditing  = function () {
+
+        $http.get(commons.getBusinessHostname() + $scope.movestorageportal.server + "/audit/" + $scope.movestorage.id).success(function (data, status, headers, config) {
+
+            $scope.movestorages.replaceById(data.data);
+
+            commons.success("审核成功");
+
+            $("#movestorage").modal('hide');
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger(instorage.id, data.message);
+        });
+    };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.movestorageportal}); //继承
 

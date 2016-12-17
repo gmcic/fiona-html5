@@ -13,10 +13,12 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 开始日期
 
   - fieldName: 预付金
+    filter: currency:"￥"
 
   - fieldName: 预计天数
 
   - fieldName: 住院类型
+    fieldKey: itemName
 
   - fieldName: 状态
     fieldKey: status.valueNameCn
@@ -29,14 +31,10 @@ searchFields:
 
   - fieldName: 会员编号
   - fieldName: 会员姓名
-  - fieldName: 主人手机
+  - fieldName: 宠物姓名
 
   - fieldName: ---
-
-  - fieldName: 类型
-  - fieldName: 状态
   - fieldName: 住院日期
-  - fieldName: 到期天数
 
 
 fields: #可定义多个中文名称指向同一个字段
@@ -53,20 +51,21 @@ fields: #可定义多个中文名称指向同一个字段
   宠物ID: petId
   宠物姓名: petName
 
-  主管人员ID: managerId
-  主管人员: managerBy
+  主管人员: managerId
+  主管人员姓名: managerBy
 
-  业务员Id: manufacturerId
-  业务员: manufacturerName
+  业务员: manufacturerId
+  业务员姓名: manufacturerName
 
-  住院类型Code: itemCode
-  住院类型: itemName
+  住院类型: itemCode
+  住院类型名称: itemName
 
   价格: price
   实际价格: realPrice
   总价: totalMoney
   住院诊断: remark
 
+  住院日期: startTime
   开始日期: startTime
   结束日期: endTime
 

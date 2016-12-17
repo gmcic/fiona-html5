@@ -32,12 +32,7 @@ angular.module('fiona').controller('ItbackController', function($scope, $control
                       // 直销编号
                       _itbackdetail.directSellCode = $scope.itback.directSellCode;
 
-                      // 业务类型ID
-                      // _itbackdetail.busiTypeId = $scope.itback.id;
-
-                      $scope.itbackdetail = _itbackdetail;
-
-                      $scope.itbackdetailportal.save();
+                      $scope.itbackdetailportal.saveWithEntity(_itbackdetail);
                 });
 
                 // 清除
@@ -76,9 +71,7 @@ angular.module('fiona').controller('ItbackController', function($scope, $control
                       // 业务类型ID
                       // _itbackdetaildetail.busiTypeId = $scope.itbackdetail.id;
 
-                      $scope.itbackdetaildetail = _itbackdetaildetail;
-
-                      $scope.itbackdetaildetailportal.save();
+                      $scope.itbackdetaildetailportal.saveWithEntity(_itbackdetaildetail);
                 });
 
                 // 清除

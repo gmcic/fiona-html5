@@ -15,7 +15,7 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
      * */
     $scope.backstorageportal= {
 
-        foreignKey : 'inWarehouseCode',
+        foreignkey : 'inWarehouseCode',
 
         id: "backstorage",
 
@@ -23,7 +23,7 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
 
         server: "/api/v2/warehousebackrecords",
 
-        defilters: {"petCode": "宠物昵称", "petName": "宠物昵称", "gestCode": "会员编号", "gestName": "会员名称"},
+        defilters: {"backWarehouseCode": "退货单号", "checkMan": "审核人"},
 
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (_warehouse) {
@@ -57,11 +57,11 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
 
             submit : function () {
                 // 遍历保存所有子项
-                angular.forEach($scope.backstoragedetails, function (data, index, array) {
-                    console.log(data);
-                    $scope.backstoragedetail = data;
-                    $scope.backstoragedetail.backWarehouseCode = $scope.backstorage.backWarehouseCode;
-                    $scope.backstoragedetailportal.save();
+                angular.forEach($scope.backstoragedetails, function (_backstoragedetail, index, array) {
+
+                    _backstoragedetail.backWarehouseCode = $scope.backstorage.backWarehouseCode;
+
+                    $scope.backstoragedetailportal.saveWithEntity(_backstoragedetail);
                 });
             }
 
@@ -73,6 +73,21 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
         $scope.backstorageportal.auditingoperate = true;
 
         $scope.backstorageportal.update(id);
+    };
+
+    /** 退货审核 */
+    $scope.auditing  = function () {
+
+        $http.get(commons.getBusinessHostname() + $scope.backstorageportal.server + "/audit/" + $scope.backstorage.id).success(function (data, status, headers, config) {
+
+            $scope.backstorages.replaceById(data.data);
+
+            commons.success("审核成功");
+
+            $("#backstorage").modal('hide');
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger(backstorage.id, data.message);
+        });
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.backstorageportal}); //继承
@@ -120,7 +135,7 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
             $scope.instorage.dealerCode = dealer.code;
             $scope.instorage.dealerName = dealer.name;
 
-            $("#dealerselect").modal({backdrop: 'static', keyboard: false});
+            $("#dealerselect").modal('hide');
         }
     };
 

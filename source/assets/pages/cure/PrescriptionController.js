@@ -43,6 +43,8 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         name: "处方模版",
 
+        defilters: { "templateNo" :"编号","templateName" :"名称"},
+
         server: "/api/v2/prescriptiontemplates",
 
         filters : [{"fieldName": "itemCode","operator": "EQ", "value":""} , {"fieldName": "itemName","operator": "EQ", "value":""} ],// 综合搜索项 // 品种

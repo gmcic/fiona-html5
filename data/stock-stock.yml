@@ -16,10 +16,12 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 整装数
 
   - fieldName: 整装单位
+    filter: dropdown
 
   - fieldName: 散装数
 
   - fieldName: 散装单位
+    filter: dropdown
 
   - fieldName: 零散比
 
@@ -35,7 +37,11 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
 
 searchFields:
-  - fieldName: 名称/拼音码
+  - fieldName: 物品名称
+
+  - fieldName: 物品编号
+
+  - fieldName: 拼音码
 
   - fieldName: ---
 
@@ -78,8 +84,8 @@ fields: #可定义多个中文名称指向同一个字段
 
   修改原因: remark
 
-  经销商编号: manufacturerCode
-  经销商名称: manufacturerName
+  生产商编号: manufacturerCode
+  生产商: manufacturerName
 
   批号: batchNumber
   有效期: outDateTime

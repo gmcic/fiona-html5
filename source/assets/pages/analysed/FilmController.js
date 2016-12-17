@@ -59,7 +59,7 @@ angular.module('fiona').controller('FilmController', function($scope, $controlle
         // 宠物名称
         $scope.invaccine.petName = _pet.petName;
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        $("#petselect").modal('hide');
     };
 
     $scope.filmportal.list();

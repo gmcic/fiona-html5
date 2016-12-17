@@ -7,26 +7,30 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 名称
 
   - fieldName: 处方单位
+    filter: dropdown
 
   - fieldName: 数量
 
   - fieldName: 售价
+    filter: currency:"￥"
 
   - fieldName: 用药频次
 
   - fieldName: 单次用量
 
   - fieldName: 投药单位
+    filter: dropdown
 
   - fieldName: 用法
 
   - fieldName: 生产商
 
-
-portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
+    input: text
 
-  - fieldName: 处方单位
+#  - fieldName: 处方单位
+#    filter: dropdown
 
   - fieldName: 数量
 
@@ -38,7 +42,37 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
 
   - fieldName: 投药单位
 
+  - fieldName: 分组
+
   - fieldName: 用法
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useWaySet
+
+portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 处方单位
+    filter: dropdown
+
+  - fieldName: 数量
+    input: number
+
+  - fieldName: 售价
+    filter: currency:"￥"
+
+  - fieldName: 用药频次
+    input: select
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.frequencySet
+
+  - fieldName: 单次用量
+    input: text
+
+  - fieldName: 投药单位
+    input: select
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useUnitSet
+
+  - fieldName: 用法
+    input: select
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useWaySet
 
   - fieldName: 生产商
 
@@ -63,7 +97,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   用法: useWay
 
-  组名称: groupName
+  分组: groupName
 
   生产商Code: manufacturerCode
   生产商: manufacturerName

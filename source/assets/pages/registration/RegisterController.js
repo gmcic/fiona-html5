@@ -23,7 +23,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
         server: "/api/v2/medicregisterrecords",
 
-        defilters: {"code": "自动编号", "name": "经销商名称", "contractMan": "联系人", "mobilePhone": "手机", "dealerAddress": "地址"},
+        defilters: {petName: "宠物名称", gestName: "会员姓名", doctorId: "医生", itemName: "挂号类型名称"},
 
         callback: {
             selectsync: function (inputName, selectObj) {
@@ -148,9 +148,9 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
                 $scope.vipportal.save();
 
-                commons.success("保存成功")
+                $("#registerfast").modal('hide');
 
-                $("#registerfast").modal({backdrop: 'static', keyboard: false});
+                commons.success("保存成功")
             }
         }
     };

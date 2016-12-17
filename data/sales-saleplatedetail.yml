@@ -24,6 +24,25 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 条码
 
+balanceFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 名称
+
+  - fieldName: 数量
+
+  - fieldName: 单位
+    filter: dropdown
+
+  - fieldName: 单价
+    filter: currency:"￥"
+
+  - fieldName: 规格
+
+  - fieldName: 小计
+
+  - fieldName: 生产商
+
+  - fieldName: 条码
+
 searchFields:
   - fieldName: 员工姓名
 

@@ -1,11 +1,13 @@
 / BEGIN SAMPLE FORM PORTLET
 .row
   .col-md-3
-    = partial :'views/commons/pet/portal_pet_view'
+    = partial 'layouts/widget/service_pet'
 
   .col-md-9
     -#寄养登记表单
     .row
+      = partial :'layouts/inputs/hidden', :locals => { :fieldName => '宠物ID', :maxlength => '32', :required => 'true', "msg" => "宠物信息"}
+
       .col-md-3
         = partial :'layouts/inputs/text', :locals => { :fieldName => '寄养号', :maxlength => '16'}
 
@@ -50,8 +52,8 @@
         %li
           %a{"data-toggle" => "tab", :href => "//#fosterage_prepay"} 预付金记录
 
-        %li
-          %a{"data-toggle" => "tab", :href => "//#fosterage_health"} 健康状态记录
+        -#%li
+        -#  %a{"data-toggle" => "tab", :href => "//#fosterage_health"} 健康状态记录
 
       .tab-content
         -#寄养期间消费
@@ -69,8 +71,8 @@
           - portal "预付金额记录", "vipprepay"
           = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
 
-        -#健康状态记录
-        #fosterage_health.tab-pane
-          - portal "健康状态记录", "fosteragehealth"
-          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
-
+        -#-#健康状态记录
+        -##fosterage_health.tab-pane
+        -#  - portal "健康状态记录", "fosteragehealth"
+        -#  = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
+        -#

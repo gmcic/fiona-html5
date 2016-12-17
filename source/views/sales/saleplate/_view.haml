@@ -3,16 +3,23 @@
     .caption
 
       会员姓名: {{ saleplate.gestName }}
+      &nbsp;&nbsp;&nbsp;
+
       销售单号: {{ saleplate.directSellCode }}
+      &nbsp;&nbsp;&nbsp;
 
       总项数:
       %label.label.label-success{:style => "padding-right: 10px;padding-left: 10px"}
         {{ saleplate.totalNum }}
-      , 总金额:
+      &nbsp;&nbsp;&nbsp;
+
+      总金额:
       %label.label.label-danger{:style => "padding-right: 10px;padding-left: 10px"}
         {{ saleplate.totalCost }} 元
 
   .portlet-body.portlet-empty
     -#表格
-    - modal "销售清单明细", "saleplatedetail"
-    = partial :'layouts/table/table'
+
+    - portal "销售清单明细", "saleplatedetail"
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :listdataKey => "balanceFields", :pagingbar => "none", :inline_toolbar => 'none', :selection => "none" } do
+      / 不输出按钮

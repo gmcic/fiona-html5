@@ -1,0 +1,141 @@
+
+- portal '住院处方单', 'inhospitalprescriptiondetail'
+
+- @portal_id = @portal_id || @page_id
+
+- @portal_name = @portal_name || @page_title
+
+- @portal_object = "" << @portal_id << "portal"
+
+- $pagefilter = (defined? pagefilter)? " | filter: " << pagefilter : (defined? filterbar) && filterbar == "page"? " | filter: pageFilterText": ""
+
+- @portal_prefix = @module[@portal_id]
+
+- @portal = data["" << @module[@portal_id] << "-" << @portal_id]
+
+- $listdataKey = "printFields";
+
+%div.print-body-html{ "ng-repeat" => @portal_id + "2d in " + @portal_id + "2ds" + $pagefilter}
+
+  .page-header{:style => 'padding-top: 0;margin-top: 0px'}
+    %img{:src => '/assets/images/logo-fiona.png'}
+
+  %center{"ng-if" => "$index == 0"}
+    %h1 北京福莱动物医院住院处方单
+    %h1{:style => "padding:0px;border: 1px solid #000;position:absolute;right:60px;top:80px"} 底方
+
+  %table.table-print-noborder{"ng-if" => "$index == 0"}
+    %tbody
+      %tr
+        %th{:style => "width: 70px"} 会员姓名
+        %td {{vip.gestName}}
+
+        %th{:style => "width: 70px"} 会员电话
+        %td {{vip.mobilePhone}}
+
+        %th{:style => "width: 70px"} 病历号
+        %td{:colspan => "7"} {{pet.sickFileCode}}
+
+      -#%tr
+      -#  %th{:style => "width: 70px"} 住址
+      -#  %td{:colspan => "9"} {{vip.gestAddress}}
+
+      %tr
+        %th{:style => "width: 70px"} 宠物昵称
+        %td {{pet.petName}}
+
+        %th{:style => "width: 70px"} 年龄
+        %td {{pet.age}} 岁
+
+        %th{:style => "width: 70px"} 宠物性别
+        %td {{pet.petSex.valueNameCn}}
+
+        %th{:style => "width: 50px"} 体重
+        %td {{pet.petWeight}} kg
+
+  -# 嵌套模块
+  %table.table.table-bordered
+    %tbody
+      %tr
+        - @portal[$listdataKey].each do |field|
+          %td #{field.aliasName || field.fieldName}
+
+      %tr{ "ng-repeat" => @portal_id + " in " + @portal_id + "2d" + $pagefilter + " | orderBy:'groupName':false"}
+        - @portal[$listdataKey].each do |column|
+          %td
+            - if column.filter?
+              = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
+
+            - elsif column.input? && column.input == "select"
+              = bindSelect column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.options
+
+            - elsif column.input?
+              - if column.event?
+                = bindTextEvent column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.event
+
+              - else
+                = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+
+            - else
+              = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+
+
+  %table.table-print-noborder
+    %tbody
+      %tr
+        %th{:style => "width: 90px"} 诊疗医生
+        %td{:style => "width: 180px"}
+
+        %th{:style => "width: 90px"}  助理医生
+        %td{:style => "width: 180px"}
+
+        %td.text-right.h4{"ng-if" => "$last"} 费用: {{inhospitalprescription.prescriptionCost | currency:"￥"}}&nbsp;&nbsp;&nbsp;&nbsp;
+
+      %tr
+        %th{:colspan => "5"}
+
+  .text-right
+    医院电话: {{hospital.telPhone}}
+    医院地址: {{hospital.areaCode}}
+
+  %h5
+    .text-right
+      {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
+
+    .text-left
+    (※此处方1日有效)
+    .text-left
+    [医院留存]
+
+%div.print-body-html{"ng-if" => "lastpagebreak"}
+
+  .page-header{:style => 'padding-top: 0;margin-top: 0px'}
+    %img{:src => '/assets/images/logo-fiona.png'}
+
+  %table.table-print-noborder
+    %tbody
+      %tr
+        %th{:style => "width: 90px"} 诊疗医生
+        %td{:style => "width: 180px"}
+
+        %th{:style => "width: 90px"}  助理医生
+        %td{:style => "width: 180px"}
+
+        %td.text-right
+          %b
+            费用: {{inhospitalprescription.prescriptionCost | currency:"￥"}}
+
+      %tr
+        %th{:colspan => "5"}
+
+  .text-right
+    医院电话: {{hospital.telPhone}}
+    医院地址: {{hospital.areaCode}}
+
+  %h5
+    .text-right
+      {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
+    .text-left
+    (※此处方1日有效)
+    .text-left
+    [医院留存]

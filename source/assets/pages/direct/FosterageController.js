@@ -4,7 +4,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
     $scope.dropdowns = {};
 
-    commons.findDict($scope.dropdowns, {managerIdSet: "主管人员"});
+    commons.findDict($scope.dropdowns, {managerIdSet: "主管人员", manufacturerIdSet: "业务员"});
 
     $controller('BaseController', {$scope: $scope}); //继承
 
@@ -23,13 +23,15 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
         server: "/api/v2/fosterrecords",
 
-        defilters: { },
+        defilters: {fosterNo:"寄养号", gestCode:"会员编号", gestName:"会员姓名", petName:"宠物昵称"},
 
         callback: {
             update: function () {
                 $scope.petportal.unique($scope.fosterage.petId);
 
-                $scope.fosteragedetailportal.search();
+                $scope.fosteragedetailportal.searchAll();
+
+                $scope.vipprepayportal.searchAll();
             },
             insert: function() {
                 $scope.fosterage.totalMoney = 0;
@@ -38,18 +40,34 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
                 $scope.setSelectDefault("fosterage", ["itemCode", "managerId", "manufacturerId"]);
             },
+            submitbefore: function(){
+
+                if($scope.fosterage.itemCode)
+                {
+                    $scope.fosterage.itemName = $scope.dropdowns.itemCodeSet.findObjectWithProperty("itemCode", $scope.fosterage.itemCode).itemName;
+                }
+
+                if($scope.fosterage.managerId)
+                {
+                    $scope.fosterage.managerBy = $scope.dropdowns.managerIdSet.getObjectWithId({id: $scope.fosterage.managerId}).personName;
+                }
+
+                if($scope.fosterage.manufacturerId)
+                {
+                    $scope.fosterage.manufacturerName = $scope.dropdowns.manufacturerIdSet.getObjectWithId({id: $scope.fosterage.manufacturerId}).personName;
+                }
+
+            },
             submit : function () {
                 // 遍历保存所有子项
                 angular.forEach($scope.fosteragedetails, function (_fosteragedetail) {
-                    $scope.fosteragedetail = _fosteragedetail;
-
                     // 寄养ID
-                    $scope.fosteragedetail.fosterId = $scope.fosterage.id;
+                    _fosteragedetail.fosterId = $scope.fosterage.id;
 
                     // 寄养编号
-                    $scope.fosteragedetail.fosterNo = $scope.fosterage.fosterNo;
+                    _fosteragedetail.fosterNo = $scope.fosterage.fosterNo;
 
-                    $scope.fosteragedetailportal.save();
+                    $scope.fosteragedetailportal.saveWithEntity(_fosteragedetail);
                 });
             }
         }
@@ -119,8 +137,11 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
 //            commons.modalsuccess("fosterage", "成功添加[ " +fosteragedetail.itemName+ " ]商品");
         }
+
+        $scope.productportal.resize();
     };
 
+    // 计算 数量和金额
     $scope.productportal.resize = function () {
 
         $scope.fosterage.totalMoney = 0;
@@ -209,7 +230,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         $scope.fosterage.petName = _pet.petName;
 
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        $("#petselect").modal('hide');
     };
 
     // 实始化

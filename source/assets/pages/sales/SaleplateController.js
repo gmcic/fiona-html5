@@ -12,68 +12,49 @@ angular.module('fiona').controller('SaleplateController', function($scope, $cont
      * */
     $scope.saleplateportal = {
 
+        foreign: "saleplatedetail", // 外键
+
+        foreignkey: "directSellCode",
+
         id: "saleplate",
 
         name: "销售查询",
 
         server: "/api/v2/storedirectsells",
 
-        defilters: { "personCode": "员工编号", "personName": "员工名称 "},
+        defilters: { directSellCode: "销售单号", gestCode: "会员编号", gestName: "会员姓名", petName: "宠物名称"},
 
-        callback: {}
+        callback: {
+            view: function(){
+                $scope.saleplatedetailportal.searchAll();
+            }
+        }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.saleplateportal}); //继承
 
-
     /**
-     * 弹出选择商品
+     * 直接销售明细
      * ---------------------------
      * */
-    $scope.productchecked = {}; // 已选择的商品
+    $scope.saleplatedetailportal = {
 
-    $controller('ProductPopupCheckedPanelController', {$scope: $scope}); //继承
+        foreign: "saleplate", // 外键
 
-    $scope.productportal.submit = function () {
+        foreignkey: "directSellCode",
 
-        if (!$scope.doctorprescriptdetails) {
-            $scope.doctorprescriptdetails = [];
-        }
+        id: "saleplatedetail",
 
-        angular.forEach($scope[$scope.productportal.id + "s"], function (product) {
-            if($scope.productportal.selection[product.id])
-            {
-                if($scope.productchecked[product.itemCode]) {    // 是否已选择
+        name: "直接销售明细",
 
-                }
-                else {
-                    // 未选择新添加
+        server: "/api/v2/storedirectselldetails",
 
-                    var doctorprescriptdetail= {};
-
-                    //  "inputCount",
-
-                    angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                        doctorprescriptdetail[name] = product[name];
-                    });
-
-                    doctorprescriptdetail.itemCost = product.recipePrice;
-
-                    // 个数
-                    doctorprescriptdetail.itemNum = 1;
-
-                    $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
-
-                    $scope.doctorprescriptdetails.push(doctorprescriptdetail);
-                }
-            }
-        });
-
-        $('#' + $scope.productportal.id + "select").modal({backdrop: 'static', keyboard: false});
+        callback: {}
     };
 
-    $scope.producttypeportal.init();
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.saleplatedetailportal}); //继承
 
-    $scope.productportal.filter();
+
+    $scope.saleplateportal.filter();
 
 });

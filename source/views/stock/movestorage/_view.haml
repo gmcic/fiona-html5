@@ -1,0 +1,31 @@
+.form-body
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '调拨单号'}
+
+    .col-md-2
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项'}
+
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '调拨金额'}
+
+    .col-md-2
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '拨出仓库', :fieldKey => 'fromWarehouse'}
+
+    .col-md-2
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '拨入仓库', :fieldKey => 'toWarehouse'}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '审核人'}
+
+    .col-md-3
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '审核日期', :filter => "date:'yyyy年MM月dd日'"}
+
+    .col-md-6
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '备注'}
+
+  / Portal
+- portal "入库商品清单", "movestoragedetail"
+
+= partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false", :inline_toolbar => 'remove', :selection => "none"}
