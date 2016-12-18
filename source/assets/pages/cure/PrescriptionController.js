@@ -99,26 +99,26 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
         else {
             // 未选择新添加
 
-            var prescripttemplatedetail= {};
+            var _prescripttemplatedetail= {};
 
             //  "inputCount",
 
             angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                prescripttemplatedetail[name] = _product[name];
+                _prescripttemplatedetail[name] = _product[name];
             });
 
-            prescripttemplatedetail.manufacturerCode = _product.dealerCode;
-            prescripttemplatedetail.manufacturerName = _product.dealerName;
+            _prescripttemplatedetail.manufacturerCode = _product.dealerCode;
+            _prescripttemplatedetail.manufacturerName = _product.dealerName;
 
             // 售价
-            prescripttemplatedetail.itemCost = _product.sellPrice;
+            _prescripttemplatedetail.itemCost = _product.recipePrice;
 
             // 个数
-            prescripttemplatedetail.itemNum = 1;
+            _prescripttemplatedetail.itemNum = 1;
 
-            $scope.prescripttemplatedetails.push(prescripttemplatedetail);
+            $scope.prescripttemplatedetails.push(_prescripttemplatedetail);
 
-            commons.modalsuccess("prescripttemplatedetails", "成功添加[ " +prescripttemplatedetail.itemName+ " ]商品");
+            commons.modalsuccess("prescripttemplatedetails", "成功添加[ " +_prescripttemplatedetail.itemName+ " ]商品");
         }
 
         $scope.productportal.resize();

@@ -18,11 +18,11 @@ fields: #可定义多个中文名称指向同一个字段
 
   模板编号: templateNo
 
-  itemCode: itemCode
+  编号: itemCode
 
-  itemName: itemName
+  名称: itemName
 
-  itemNum: itemNum
+  数量: itemNum
 
   sellPrice: sellPrice
 

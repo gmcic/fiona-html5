@@ -236,9 +236,12 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
             var saleplatedetail= {};
 
-            angular.forEach(["itemCode", "itemName", "barCode", "sellPrice", "itemStandard"], function (name) {
+            angular.forEach(["itemCode", "itemName", "barCode", "itemStandard"], function (name) {
                 saleplatedetail[name] = _product[name];
             });
+
+            // 处方价格
+            saleplatedetail.sellPrice = _product.recipePrice;
 
             // 单位
             saleplatedetail.sellUnit = _product.recipeUnit;
