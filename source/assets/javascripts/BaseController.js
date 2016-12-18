@@ -743,9 +743,14 @@ angular.module('fiona')
         });
     };
 
-    component.saveWithEntity = function (entity) {
+    component.saveWithEntity = function (entity, cb) {
 
         $http.post(commons.getBusinessHostname() + component.server, entity).success(function (data, status, headers, config) {
+
+            if(cb)
+            {
+                cb.call(this, data.data);
+            }
 
         }).error(function (data, status, headers, config) { //     错误
             commons.modaldanger(component.id, "保存失败")
