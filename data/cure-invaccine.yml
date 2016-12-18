@@ -36,8 +36,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
 #  - fieldName: 执行人
 
-  - fieldName: 助理医生
-    fieldKey: assistantDoctorName
+  - fieldName: 主治医生
+    fieldKey: doctorName
 
 
 searchFields:

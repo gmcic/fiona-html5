@@ -60,12 +60,12 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
                     _invaccinedetail.assistantDoctorName = $scope.dropdowns.assistantDoctorIdSet.getObjectWithId({id: $scope.invaccine.assistantDoctorId}).personName;
                 }
 
-                $scope.invaccinedetailportal.saveWithEntity(_invaccinedetail);
+                $scope.invaccinedetailportal.saveWithEntity(_invaccinedetail, function (_invaccinedetail) {
+                    $scope["invaccines"].unshift(_invaccinedetail);
+                });
             });
 
             $scope.invaccinedetail = {};
-
-            $scope.invaccineportal.list();
 
             commons.success("保存成功");
 
