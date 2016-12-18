@@ -35,7 +35,7 @@ layout: "page"
           -#%br
           %div.list-group
             %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in plays", "class": '{active: register.id == node.id}'}}
-              %img{"ng" => {"src": "/assets/images/pet{{$index+1}}.png"}, :width => "45px"}
+              %img{"src" => "assets/images/pet{{$index+1}}.png", :width => "45px"}
               %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}
 
         -# 暂停列表
@@ -46,7 +46,7 @@ layout: "page"
           -#%br
           %div.list-group
             %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in pauses", "class": '{active: register.id == node.id}' }}
-              %img{"ng" => {"src": "/assets/images/pet{{$index+1}}.png"}, :width => "45px"}
+              %img{"ng" => {"src": "assets/images/pet{{$index+1}}.png"}, :width => "45px"}
               %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}
 
         #cure_pet.tab-pane

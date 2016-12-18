@@ -1,6 +1,7 @@
 
 // 宠物管理
-angular.module('fiona').controller('CuremanagerController', function($scope, $controller, $http, commons) {
+angular.module('fiona')
+.controller('CuremanagerController', function($scope, $controller, $http, commons) {
 
     // 声明要使用的下拉选项
     $scope.dropboxargs = {
