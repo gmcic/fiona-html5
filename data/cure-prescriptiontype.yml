@@ -8,7 +8,6 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 名称
 
-
 searchFields:
   - fieldName: 名称
 
@@ -16,7 +15,7 @@ searchFields:
 
 fields: #可定义多个中文名称指向同一个字段
   子类编号: typeNo
-  子类名称: typeName
+  所属类型: typeName
   父节点: parentId
   gestId: gestId
 

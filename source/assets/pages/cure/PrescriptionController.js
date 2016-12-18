@@ -18,11 +18,7 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         name: "模板类型",
 
-        server: "/api/v2/prescriptiontemplatetypes",
-
-        selectNode: function () {
-            alert("selectNode");
-        }
+        server: "/api/v2/prescriptiontemplatetypes"
     };
 
     $controller('TreeSidePanelController', {$scope: $scope, component: $scope.prescriptiontypeportal}); //继承
@@ -49,7 +45,14 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         filters : [{"fieldName": "itemCode","operator": "EQ", "value":""} , {"fieldName": "itemName","operator": "EQ", "value":""} ],// 综合搜索项 // 品种
 
-        placeholder : "请输入品种"
+        placeholder : "请输入品种",
+
+        callback: {
+            insert: function () {
+                $scope.prescripttemplate.typeId = $scope.prescriptiontype.id;
+                $scope.prescripttemplate.typeNo = $scope.prescriptiontype.typeNo;
+            }
+        }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.prescripttemplateportal}); //继承
