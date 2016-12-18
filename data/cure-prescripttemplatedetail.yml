@@ -10,6 +10,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 名称
 
   - fieldName: 数量
+    input: number
 
   - fieldName: 处方价格
     filter: currency:"￥"

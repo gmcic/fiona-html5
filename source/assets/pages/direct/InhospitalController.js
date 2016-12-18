@@ -308,11 +308,47 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
      * 添加处方明细
      * ---------------------------
      * */
-    $scope.productportal.checked = function (_product) {
+    $scope.productportal.checked = function (_selectObject) {
+
+        var _products;
+
+        if(_selectObject.dataType == 'template')
+        {
+            _products = commons.findTemplateDetails(_selectObject.templateNo);
+        }
+        else
+        {
+            _products = [_selectObject];
+        }
 
         if (!$scope.inhospitalprescriptiondetails) {
             $scope.inhospitalprescriptiondetails = [];
         }
+
+        angular.forEach(_products, function (_product) {
+
+            var _inhospitalprescriptiondetail= {};
+
+            //  "inputCount",
+
+            angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
+                _inhospitalprescriptiondetail[name] = _product[name];
+            });
+
+            _inhospitalprescriptiondetail.manufacturerCode = _product.dealerCode;
+            _inhospitalprescriptiondetail.manufacturerName = _product.dealerName;
+
+            // 售价
+            _inhospitalprescriptiondetail.itemCost = _product.recipePrice;
+
+            // 个数
+            _inhospitalprescriptiondetail.itemNum = _product.$itemNum || 1;
+
+            delete _product.$itemNum;
+
+            $scope.inhospitalprescriptiondetails.push(_inhospitalprescriptiondetail);
+
+        });
 
 //        if($scope.inhospitalprescriptiondetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 //            commons.modaldanger("inhospitalprescriptiondetails", "[ 商品" +_product.itemName+ " ]已存在");
@@ -320,26 +356,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 //        else {
             // 未选择新添加
 
-            var inhospitalprescriptiondetail= {};
-
-            //  "inputCount",
-
-            angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                inhospitalprescriptiondetail[name] = _product[name];
-            });
-
-            inhospitalprescriptiondetail.manufacturerCode = _product.dealerCode;
-            inhospitalprescriptiondetail.manufacturerName = _product.dealerName;
-
-            // 售价
-            inhospitalprescriptiondetail.itemCost = _product.sellPrice;
-
-            // 个数
-            inhospitalprescriptiondetail.itemNum = 1;
-
-            $scope.inhospitalprescriptiondetails.push(inhospitalprescriptiondetail);
-
-            commons.modalsuccess("inhospitalprescription", "成功添加[ " +inhospitalprescriptiondetail.itemName+ " ]商品");
+            // commons.modalsuccess("inhospitalprescription", "成功添加[ " +inhospitalprescriptiondetail.itemName+ " ]商品");
 //        }
 
         $scope.productportal.resize();
@@ -410,6 +427,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
             // 个数
             _inhospitaldetail.itemNum = 1;
 
+            _inhospitaldetail.sellPrice = _product.recipePrice;
+
             _inhospitaldetail.totalCost = _inhospitaldetail.itemNum * _inhospitaldetail.sellPrice;
 
             $scope.inhospitaldetails.push(_inhospitaldetail);
@@ -477,7 +496,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
         $("#petselect").modal('hide');
     };
 
-    $scope.productportal.autocompletedata();
+    // 初始化查找商品
+    $scope.productportal.autocompletetemplatedata();
 
     $scope.inhospitalportal.filter();
 });

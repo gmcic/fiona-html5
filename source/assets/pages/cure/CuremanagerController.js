@@ -507,23 +507,26 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
      * */
     $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
 
-    $scope.productportal.checked = function (_product) {
+    $scope.productportal.checked = function (_selectObject) {
+
+        var _products;
+
+        if(_selectObject.dataType == 'template')
+        {
+            _products = commons.findTemplateDetails(_selectObject.templateNo);
+        }
+        else
+        {
+            _products = [_selectObject];
+        }
 
         if (!$scope.doctorprescriptdetails) {
             $scope.doctorprescriptdetails = [];
         }
 
-//        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
-//         if($scope.doctorprescriptdetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
-//
-//             commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
-//         }
-//         else {
-            // 未选择新添加
+        angular.forEach(_products, function (_product) {
 
             var doctorprescriptdetail= {};
-
-            //  "inputCount",
 
             angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
                 doctorprescriptdetail[name] = _product[name];
@@ -536,8 +539,9 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 
             doctorprescriptdetail.itemCost = _product.recipePrice;
 
-            // 个数
-            doctorprescriptdetail.itemNum = 1;
+            doctorprescriptdetail.itemNum = _product.$itemNum || 1;
+
+            delete _product.$itemNum;
 
             // 分组序号自增
 //            doctorprescriptdetail.groupName = $scope.doctorprescriptdetails.length + 1;
@@ -548,8 +552,27 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
 //            $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
 
             $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+        });
 
-            commons.modalsuccess("doctorprescript", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
+        // if(_selectObject.dataType == 'template')
+        // {
+        //     _products = commons.findTemplateDetails(_selectObject.templateNo);
+        // }
+        // else
+        // {
+        //     _products = [_selectObject];
+        // }
+
+        // commons.modalsuccess("doctorprescript", "成功添加[ " +doctorprescriptdetail.itemName+ " ]商品");
+
+//        if($scope.productchecked[_product.itemCode]) {   // 是否已选择
+//         if($scope.doctorprescriptdetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+//
+//             commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
+//         }
+//         else {
+            // 未选择新添加
+
         // }
 
     };
@@ -566,7 +589,8 @@ angular.module('fiona').controller('CuremanagerController', function($scope, $co
         $('#' + $scope.productportal.id + "select").modal({backdrop: 'static', keyboard: false});
     };
 
-    $scope.productportal.autocompletedata();
+    // 初始化查找商品
+    $scope.productportal.autocompletetemplatedata();
 
     // 打印页面
     $scope.print = function () {

@@ -125,6 +125,27 @@ angular.module('fiona.services', [])
         getLocalTable: function(tableName){
             return this.getLocalDB().find(tableName);
         },
+
+        findTemplateDetails : function (templateNo) {
+
+            var _db = this.getLocalDB();
+
+            var details = [];
+
+            var products = _db.find('product');
+
+            angular.forEach(_db.find("templatedetails")[templateNo], function (_detail) {
+
+                var _product = products.findObjectWithProperty('itemCode', _detail.itemCode);
+
+                _product.$itemNum = _detail.itemNum;
+
+                details.push(_product);
+            });
+
+            return details;
+        },
+
         findDict: function(dropdowns, keys){
 
             var _db = this.getLocalDB();
@@ -252,6 +273,39 @@ angular.module('fiona.services', [])
             // 医生
             $http.get(baseURL + "personss").success(function (data, status, headers, config) {
                 _db.insert("persons", data.data);
+            });
+
+            // 缓存处方模板
+            $http.get(baseURL + "prescriptiontemplates").success(function (data, status, headers, config) {
+
+                var templatedetail = {};
+
+                angular.forEach(data.data, function (_template) {
+                    _template.dataType = 'template';
+
+                    _template.itemStyle = "处方模板";
+
+                    _template.itemName = _template.templateName;
+
+                    templatedetail[_template.templateNo] = [];
+                });
+
+                // 查询模板明细
+                $http.get(baseURL + "prescriptiontemplatedetails").success(function (data, status, headers, config) {
+                    angular.forEach(data.data, function (_detail) {
+
+                        if (templatedetail[_detail.templateNo])
+                        {
+                            _detail.itemNum = parseInt(_detail.itemNum | 1);
+
+                            templatedetail[_detail.templateNo].push(_detail);
+                        }
+                    });
+                });
+
+                _db.insert("templates", data.data);
+
+                _db.insert("templatedetails", templatedetail);
             });
          }
     };

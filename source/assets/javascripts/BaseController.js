@@ -1512,13 +1512,18 @@ angular.module('fiona')
     // 商品选择
     $scope.onselectobject = function() {
 
-        $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id).success(function (data, status, headers, config) {
+        // console.log($scope.selectedProduct.originalObject);
 
-            $scope.productportal.checked(data.data);
+        $scope.productportal.checked($scope.selectedProduct.originalObject);
 
-        }).error(function (data, status, headers, config) {
-            commons.modaldanger($scope.productportal.id, "加载惟一的记录失败")
-        });
+        //
+        // $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id).success(function (data, status, headers, config) {
+        //
+        //     $scope.productportal.checked(data.data);
+        //
+        // }).error(function (data, status, headers, config) {
+        //     commons.modaldanger($scope.productportal.id, "加载惟一的记录失败")
+        // });
 
         // 清除选中
         $scope.selectedProduct = {};
@@ -1531,6 +1536,11 @@ angular.module('fiona')
     // 自动补全
     $scope.productportal.autocompletedata = function () {
         $scope[$scope.productportal.id + 's'] = commons.getLocalTable('product');
+    };
+
+    // 自动补全
+    $scope.productportal.autocompletetemplatedata = function () {
+        $scope[$scope.productportal.id + 's'] = commons.getLocalTable('product').concat(commons.getLocalTable('templates'));
     };
 
     // 弹出选择

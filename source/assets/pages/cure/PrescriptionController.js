@@ -58,7 +58,11 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         callback: {
             update: function () {
-                $scope.prescripttemplatedetailportal.searchByWhere({templateNo: $scope.prescripttemplate.templateNo});
+                $scope.prescripttemplatedetailportal.searchByWhere({templateNo: $scope.prescripttemplate.templateNo}, function (_details) {
+                    angular.forEach(_details, function (_detail) {
+                        _detail.itemNum = parseInt(_detail.itemNum | 1);
+                    });
+                });
 
                 $scope.prescriptiontypeportal.unique($scope.prescripttemplate.typeId);
             },
