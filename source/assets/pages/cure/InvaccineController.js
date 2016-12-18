@@ -90,14 +90,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
         defilters: {"gestName": "会员姓名", "petName": "宠物昵称"},
 
-        server: "/api/v2/medicvaccines",
-
-        callback : {
-            save: function(data){
-                console.log(data);
-                $scope.invaccines.unshift(data);
-            }
-        }
+        server: "/api/v2/medicvaccines"
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.invaccinedetailportal}); //继承
@@ -136,7 +129,7 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
             invaccinedetail.manufacturerName = _product.dealerName;
 
             // 售价
-            invaccinedetail.itemCost = _product.sellPrice;
+            invaccinedetail.itemCost = _product.recipePrice;
 
             // 个数
             invaccinedetail.itemNum = 1;
