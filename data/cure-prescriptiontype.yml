@@ -14,8 +14,11 @@ searchFields:
   - fieldName: ---
 
 fields: #可定义多个中文名称指向同一个字段
-  子类编号: typeNo
+  类型编号: typeNo
+
   所属类型: typeName
+  类型名称: typeName
+
   父节点: parentId
   gestId: gestId
 

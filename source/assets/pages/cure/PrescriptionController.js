@@ -2,6 +2,13 @@
 // 处方模板管理
 angular.module('fiona').controller('PrescriptionController', function ($scope, $controller, $http, commons) {
 
+    // 是否打折: isVipDiscount, 是否销售: isSell, 是否记库: isCount
+    $scope.dropdowns = {};
+
+    commons.findDict($scope.dropdowns, {recipeUnitSet: "物品单位"});
+
+    $controller('BaseController', {$scope: $scope}); //继承
+
     /**
      * 目录树（处方分类）
      * ---------------------------
@@ -18,7 +25,13 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         name: "模板类型",
 
-        server: "/api/v2/prescriptiontemplatetypes"
+        server: "/api/v2/prescriptiontemplatetypes",
+
+        callback: {
+            insert: function () {
+                $scope.serialNumber({id: "prescriptiontype", fieldName : "typeNo", numberName : "个人处方模板"});
+            }
+        }
     };
 
     $controller('TreeSidePanelController', {$scope: $scope, component: $scope.prescriptiontypeportal}); //继承
@@ -39,18 +52,29 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         name: "处方模版",
 
-        defilters: { "templateNo" :"编号","templateName" :"名称"},
+        defilters: {templateNo:"模板编号",templateName:"模板名称"},
 
         server: "/api/v2/prescriptiontemplates",
 
-        filters : [{"fieldName": "itemCode","operator": "EQ", "value":""} , {"fieldName": "itemName","operator": "EQ", "value":""} ],// 综合搜索项 // 品种
-
-        placeholder : "请输入品种",
-
         callback: {
+            update: function () {
+                $scope.prescripttemplatedetailportal.searchByWhere({templateNo: $scope.prescripttemplate.templateNo});
+
+                $scope.prescriptiontypeportal.unique($scope.prescripttemplate.typeId);
+            },
             insert: function () {
                 $scope.prescripttemplate.typeId = $scope.prescriptiontype.id;
                 $scope.prescripttemplate.typeNo = $scope.prescriptiontype.typeNo;
+
+                $scope.serialNumber({id: "prescripttemplate", fieldName : "templateNo", numberName : "个人处方"});
+            },
+            submit : function () {
+                angular.forEach($scope.prescripttemplatedetails, function (_prescripttemplatedetail) {
+                    _prescripttemplatedetail.templateId = $scope.prescripttemplate.id;
+                    _prescripttemplatedetail.templateNo = $scope.prescripttemplate.templateNo;
+
+                    $scope.prescripttemplatedetailportal.saveWithEntity(_prescripttemplatedetail);
+                })
             }
         }
     };
@@ -69,13 +93,10 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         server: "/api/v2/prescriptiontemplatedetails",
 
-        filters : [{"fieldName": "itemCode","operator": "EQ", "value":""} , {"fieldName": "itemName","operator": "EQ", "value":""} ],// 综合搜索项 // 品种
-
         placeholder : "请输入品种"
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.prescripttemplatedetailportal}); //继承
-
 
     /**
      * 自动补全选择商品
@@ -98,20 +119,14 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
         }
         else {
             // 未选择新添加
-
             var _prescripttemplatedetail= {};
-
-            //  "inputCount",
 
             angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
                 _prescripttemplatedetail[name] = _product[name];
             });
 
-            _prescripttemplatedetail.manufacturerCode = _product.dealerCode;
-            _prescripttemplatedetail.manufacturerName = _product.dealerName;
-
             // 售价
-            _prescripttemplatedetail.itemCost = _product.recipePrice;
+            _prescripttemplatedetail.sellPrice = _product.recipePrice;
 
             // 个数
             _prescripttemplatedetail.itemNum = 1;
@@ -120,27 +135,14 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
             commons.modalsuccess("prescripttemplatedetails", "成功添加[ " +_prescripttemplatedetail.itemName+ " ]商品");
         }
-
-        $scope.productportal.resize();
     };
 
-    // 重新计算
-    $scope.productportal.resize = function () {
-
-        $scope.inhospitalprescription.prescriptionCost = 0;
-
-        angular.forEach($scope.prescripttemplatedetaildetails, function (_prescripttemplatedetail) {
-            // 小计
-            var _totalCost = _prescripttemplatedetail.itemCost * _prescripttemplatedetail.itemNum;
-
-            // 总金额
-            $scope.inhospitalprescription.prescriptionCost += _totalCost;
-        });
-    }
 
     // 初始化商品数据
     $scope.productportal.autocompletedata();
 
     // 初始化
     $scope.prescriptiontypeportal.init();
+
+    $scope.prescripttemplateportal.filter();
 });

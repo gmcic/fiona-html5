@@ -6,4 +6,8 @@
 
   .row
     .col-md-12
-      = partial :'layouts/inputs/text', :locals => {:keyword => 'prescriptiontype', :fieldName => '子类名称', :maxlength => '32'}
+      = partial :'layouts/inputs/textview', :locals => {:keyword => 'prescriptiontype', :fieldName => '类型编号', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:keyword => 'prescriptiontype', :fieldName => '所属类型', :maxlength => '32'}

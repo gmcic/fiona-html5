@@ -5,7 +5,9 @@ module:
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
 
-  - fieldName: 名称
+  - fieldName: 模板编号
+
+  - fieldName: 模板名称
 
 searchFields:
   - fieldName: 名称

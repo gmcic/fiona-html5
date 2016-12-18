@@ -1076,8 +1076,6 @@ angular.module('fiona')
 
     $http.defaults.headers.post['Content-Type'] = 'application/json';
 
-    // $controller('BaseCUDController', {$scope: $scope, component: component}); //继承
-
     /**
      * 目录树配置
      * ---------------------------
@@ -1204,6 +1202,26 @@ angular.module('fiona')
 
         $('#' + component.id).modal({backdrop: 'static', keyboard: false});
     };
+
+
+    /**
+     * 获取惟一的记录
+     * ---------------------------
+     * */
+    component.unique = function (id) {
+
+        $http.get(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, status, headers, config) {
+
+            $scope[component.id] = data.data;
+
+            if (!!component.callback && !!component.callback.unique) {
+                component.callback.unique();
+            }
+        }).error(function (data, status, headers, config) {
+            commons.modaldanger(component.id, "加载惟一的记录失败")
+        });
+    };
+
 
     /**
      * 变更

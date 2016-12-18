@@ -5,7 +5,17 @@ module:
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
 
+  - fieldName: 编号
+
   - fieldName: 名称
+
+  - fieldName: 数量
+
+  - fieldName: 处方价格
+    filter: currency:"￥"
+
+  - fieldName: 处方单位
+    filter: dropdown
 
 searchFields:
   - fieldName: 名称
@@ -13,6 +23,8 @@ searchFields:
   - fieldName: ---
 
 fields: #可定义多个中文名称指向同一个字段
+
+  所属分类: itemStyle
 
   模板ID: templateId
 
@@ -24,15 +36,13 @@ fields: #可定义多个中文名称指向同一个字段
 
   数量: itemNum
 
-  sellPrice: sellPrice
+  处方价格: sellPrice
 
-  recipeUnit: recipeUnit
+  处方单位: recipeUnit
 
-  useWay: useWay
+  用法: useWay
 
-  gestId: gestId
-
-  itemStyle: itemStyle
+  会员ID: gestId
 
   主键: id
   状态: status
