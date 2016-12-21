@@ -1,0 +1,66 @@
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 员工姓名
+
+  - fieldName: 员工电话
+
+  - fieldName: 宠物名字
+
+  - fieldName: 宠物年龄
+
+  - fieldName: 预约人
+
+  - fieldName: 预约人手机
+
+  - fieldName: 预约会诊日期
+
+  - fieldName: 登记日期
+    filter: date:"yyyy年MM月dd日"
+
+  - fieldName: 状态
+    fieldKey: status.valueNameCn
+
+searchFields:
+  - fieldName: 员工姓名
+
+  - fieldName: 员工电话
+
+  - fieldName: ---
+
+  - fieldName: 预约人
+
+  - fieldName: 预约人手机
+
+  - fieldName: 预约状态
+
+
+fields: #可定义多个中文名称指向同一个字段
+  宠物名字: petName
+
+  宠物年龄: petAge
+
+  症状: symptom
+
+  期望的帮助: wantHelp
+
+  预约人: XX
+
+  预约人手机: XX
+
+  预约会诊日期: XX
+
+  主键: id
+
+  当前状态: status
+
+  状态: status
+
+  创建人: createUserId
+
+  创建时间: createDate
+
+  登记日期: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate

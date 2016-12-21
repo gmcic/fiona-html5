@@ -3,7 +3,7 @@ module:
   id: itback
   data: returncommoditys
 
-# 经销商与生产商
+# 销售退缩
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 退货单号
 
@@ -12,14 +12,14 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 会员电话
 
   - fieldName: 退款金额
+    filter: currency:"￥"
 
   - fieldName: 总项
 
   - fieldName: 业务员
 
-  - fieldName: 经手人
-
   - fieldName: 申请日期
+    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 结算单号
 
@@ -38,16 +38,19 @@ fields: #可定义多个中文名称指向同一个字段
   会员ID: gestId
   会员姓名: gestName
   会员电话: gestPhone
+
   业务员ID: handlerId
   业务员: handlerName
 
   总项: countNum
-  总金额: totalCost
+  退款金额: totalCost
 
   时间: handOn
-  影像状态: paidStatus
-  影像名称: paidTime
+  支付状态: paidStatus
+  支付时间: paidTime
   备注: remark
+
+  申请日期: createDate
 
   主键: id
   状态: status

@@ -12,6 +12,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 规格
 
   - fieldName: 销售单位
+    filter: dropdown
 
   - fieldName: 单价
 
@@ -20,8 +21,6 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 金额
 
   - fieldName: 批号
-
-  - fieldName: 有效期至
 
   - fieldName: 生产商
 
@@ -35,32 +34,36 @@ fields: #可定义多个中文名称指向同一个字段
   退货单ID: rcId
 
   业务类型ID: busiTypeId
-  销售细节ID: sellDetailId
+  销售明细ID: sellDetailId
 
   编码: itemCode
   名称: itemName
   规格: itemStandard
   条码: barCode
-  生产编号: manufacturerCode
-  生产名称: manufacturerName
+
+  生产商CODE: manufacturerCode
+  生产商: manufacturerName
+
   批号: batchNumber
 
   销售日期: outDateTime
+
   销售单位: packageUnit
-  销售价格: sellPrice
-  实际付费: realPay
+
   数量: sellCountNum
+  单价: sellPrice
+
+  实际付费: realPay
 
   返回价格: returnPrice
   返回数量: returnCountNum
-
   总价格: returnTotalCost
 
   仓库ID: warehouseId
   仓库名称: warehouseName
 
-  影像状态: paidStatus
-  影像名称: paidTime
+  支付状态: paidStatus
+  支付名称: paidTime
   备注: remark
 
   主键: id

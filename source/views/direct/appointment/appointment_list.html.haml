@@ -1,0 +1,71 @@
+---
+layout: "page"
+---
+
+- page '预约管理', 'appointment'
+
+= partial 'layouts/widget/portal'
+
+/ 编辑
+- modal '预约管理', 'appointment'
+
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'
+
+-#
+-#= partial 'layouts/widget/portal'
+-#
+
+  -#%a.btn.btn-outline.btn-circle.btn-sm.purple{:href => "javascript:;", 'ng': {'click' => 'confirm(appointment.id)'}}
+  -#  %i.fa.fa-edit
+  -#  确认
+  -#%a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'cancel(appointment.id)'}}
+  -#  %i.fa.fa-trash-o
+  -#  取消
+  -#%a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'resend(appointment.id)'}}
+  -#  %i.fa.fa-trash-o
+  -#  重发短信
+  -#%a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'registervipmodal(appointment.id)'}}
+  -#  %i.fa.fa-trash-o
+  -#  挂号
+  -#%a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'fosteragemodal(appointment.id)'}}
+  -#  %i.fa.fa-trash-o
+  -#  寄养
+  -#%a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'inhospitalmodal(appointment.id)'}}
+  -#  %i.fa.fa-trash-o
+  -#  住院
+  -#%a.btn.btn-outline.btn-circle.dark.btn-sm.black{:href => "javascript:;", 'ng': {'click':'update(appointment.id)'}}
+  -#  %i.fa.fa-trash-o
+  -#  查看
+
+-#
+-#= partial :'layouts/partials/modal' do
+-#  = partial 'modify'
+-#
+-#/ Modal
+-#- modal "重发短信", "resend"
+-#
+-#= partial :'layouts/partials/modal' do
+-#  = partial 'resend'
+-#
+-#- modal "预约明细", "detail"
+-#
+-#= partial :'layouts/partials/modal' do
+-#  = partial 'detail'
+-#
+-#
+-#- modal "住院登记", "inhospital"
+-#
+-#= partial :'layouts/partials/modal-full' do
+-#  = partial 'inhospital'
+-#
+-#
+-#- modal "寄养登记", "fosterage"
+-#
+-#= partial :'layouts/partials/modal-full' do
+-#  = partial 'fosterage'
+-#
+-#- modal "会员挂号", "registervip"
+-#
+-#= partial :'layouts/partials/modal-full' do
+-#  = partial 'registervip'

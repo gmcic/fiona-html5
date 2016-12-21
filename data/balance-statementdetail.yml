@@ -8,16 +8,21 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 名称
 
   - fieldName: 原价
+    filter: currency:"￥"
 
   - fieldName: 实价
+    filter: currency:"￥"
 
   - fieldName: 优惠
+    filter: currency:"￥"
 
   - fieldName: 数量
 
   - fieldName: 单位
+    filter: dropdown
 
   - fieldName: 小计
+    filter: currency:"￥"
 
 printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
 
@@ -42,7 +47,7 @@ searchFields:
   - fieldName: 结算日期
 
 fields: #可定义多个中文名称指向同一个字段
-  settleAccountsDetailId: settleAccountsDetailId
+  结算明细ID: settleAccountsDetailId
 
   关联细节ID: relationDetailId
 
@@ -54,24 +59,25 @@ fields: #可定义多个中文名称指向同一个字段
 
   单位: packageUnit
 
+  规格: itemStandard
+
+  零散比: itemBulk
+
   数量: totalNum
+
+  实价: infactPrice
+
+  优惠: discountMoney
+
+  单价: sellPrice
 
   价格: totalCost
 
   小计: sumprice
 
+  优惠: sumDiscountMoney
 
-  规格: itemStandard
-
-  零散比: itemBulk
-
-  售价: sellPrice
-
-  实际价格: infactPrice
-
-  折后价: discountMoney
-
-  业务类型ID: busiTypeId
+  原价: sumOriginalMoney
 
   关联ID: relationId
 
@@ -81,9 +87,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   支付时间: paidTime
 
-  折后总价: sumDiscountMoney
-
-  原始价格: sumOriginalMoney
+  业务类型ID: busiTypeId
 
   主键: id
 

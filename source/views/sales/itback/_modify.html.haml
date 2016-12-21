@@ -1,8 +1,20 @@
+-# vipheader
+.div{"ng-if": '!itback.id'}
+  = partial 'views/commons/vip/_sale_vipheader'
+.div{"ng-if": 'itback.id'}
+  .row
+    .col-md-4
+      = partial :'layouts/inputs/textview', :locals => { :fieldName => '会员姓名', :maxlength => '32'}
 
--#商品服务分类
-= partial 'views/commons/vip/sale_vipheader'
+    .col-md-4
+      = partial :'layouts/inputs/textview', :locals => { :fieldName => '会员电话', :maxlength => '32'}
+
 
 .form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/hidden', :locals => { :fieldName => '会员ID', :maxlength => '32', :required => 'true', "msg" => "会员信息"}
+
   .row
     .col-md-4
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '退货单号', :maxlength => '32', :required => 'true'}
@@ -11,17 +23,17 @@
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '总项', :maxlength => '32'}
 
     .col-md-4
-      = partial :'layouts/inputs/textview', :locals => {:fieldName => '总金额', :maxlength => '32'}
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '退款金额', :maxlength => '32'}
 
   .row
     .col-md-4
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '业务员', :maxlength => '32', :required => 'true'}
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '业务员', :maxlength => '32'}
 
     .col-md-4
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '备注', :maxlength => '32'}
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '备注', :maxlength => '2048'}
 
     .col-md-4
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '结算单号', :maxlength => '32'}
+      = partial :'layouts/inputs/text_btn', :locals => {:fieldName => '结算单号', :maxlength => '32', :btnname => '选择', :btnclick => 'saleplateportal.pupupselect()'}
 
   .row
     .col-md-12

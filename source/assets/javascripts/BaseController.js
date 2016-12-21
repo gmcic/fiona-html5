@@ -121,6 +121,7 @@ Array.prototype.removeObject = function(obj) {
 angular.module('fiona')
 .config( function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|chrome-extension):/);
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|chrome-extension):/);
 })
 // 拦截器(验证用户是否登录)
 .factory('UserInterceptor', ["$q", "$window", "commons",function ($q, $window, commons, Auth) {

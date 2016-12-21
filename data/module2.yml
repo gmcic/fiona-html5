@@ -214,9 +214,9 @@ direct:
     name: 销售退货明细
     server: returncommoditydetails
 
-  - id: bespeak
-    name: MM
-    server: MM
+  - id: appointment
+    name: 预约管理
+    server: personsappointments
 
   - id: beauty
     name: 美容服务

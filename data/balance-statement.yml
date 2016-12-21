@@ -5,7 +5,7 @@ module:
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
 
-  - fieldName: 结费单号
+  - fieldName: 结算单号
 
   - fieldName: 会员编号
 
@@ -30,6 +30,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
     filter: currency:"￥"
 
   - fieldName: 结算日期
+    filter: date:"yyyy年MM月dd日"
 
 
 searchFields:
@@ -44,7 +45,7 @@ searchFields:
 
 fields: #可定义多个中文名称指向同一个字段
 
-  编号: settleCode
+  结算单号: settleCode
 
   会员ID: gestId
 
@@ -64,15 +65,15 @@ fields: #可定义多个中文名称指向同一个字段
 
   实付金额: factPaidMoney
 
-  返回金额: backMoney
-
-  返回原因: backReason
+  找零金额: changeMoney
 
   支付状态: paidStatus
 
   支付时间: paidTime
 
-  退款金额: changeMoney
+  退款金额: backMoney
+
+  返回原因: backReason
 
   主键: id
 

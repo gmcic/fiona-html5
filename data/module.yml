@@ -62,9 +62,7 @@ prescriptiondetail: cure
 
 # 直接连
 beauty: direct
-itback: direct
-itbackdetail: direct
-bespeak: direct
+appointment: direct
 beautydetail: direct
 fosterage: direct
 fosteragedetail: direct
@@ -96,6 +94,8 @@ register: registration
 amchartdashboard: report
 
 # 销售
+itback: sales
+itbackdetail: sales
 saleplate: sales
 saleplatedetail: sales
 

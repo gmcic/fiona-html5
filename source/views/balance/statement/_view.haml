@@ -1,0 +1,45 @@
+
+.row
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '结算单号', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '会员姓名', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '宠物昵称', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '消费金额', :required => "true", :maxlength => '16'}
+
+.row
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '优惠金额', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '应收金额', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '实付金额', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '找零金额', :required => "true", :maxlength => '16'}
+
+.row
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '支付状态', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '支付时间', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '退款金额', :required => "true", :maxlength => '16'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '返回原因', :required => "true", :maxlength => '16'}
+
+.row
+  .col-md-12
+    - portal '收费单明细', 'statementdetail'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none', :bordered => "false", :selection => "none" } do
+      / 不输出 outline 按钮

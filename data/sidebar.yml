@@ -171,10 +171,10 @@
       uri: javascript:;
       menus:
         - name: 预约管理
-          uri: /bespeak/list
+          uri: /appointment/list
           icon: fa fa-th-large
-          controller: BespeakController
-          template: /bespeak/bespeak_list.html
+          controller: AppointmentController
+          template: /appointment/appointment_list.html
 
         - name: 美容服务
           uri: /beauty/list

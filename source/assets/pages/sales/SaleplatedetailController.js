@@ -278,11 +278,6 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
      * 选择会员
      * ---------------------------
      * */
-
-    /**
-     * 弹出选择会员
-     * ---------------------------
-     * */
     $scope.vipportal= {
 
         id: "vip",

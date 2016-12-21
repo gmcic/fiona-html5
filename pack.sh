@@ -11,3 +11,5 @@ mv app.nw /Users/tim/workspace/build/fiona-deubg/nwjs.app/Contents/Resources/app
 cd ..
 
 rm -R build
+
+open -a /Users/tim/workspace/build/fiona-deubg/nwjs.app
