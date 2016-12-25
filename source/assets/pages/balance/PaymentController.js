@@ -156,6 +156,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
     $scope.paymentdetailportal.list = function() {
 
         $http.get(commons.getBusinessHostname() + this.server + "/" + $scope.payment.gestId).success(function (data, status, headers, config) {
+          $scope.paymentdetailportal.selectionReset();
             $scope['paymentdetails'] = data.data;
 
             angular.forEach($scope['paymentdetails'], function(_paymentdetail){

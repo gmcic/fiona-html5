@@ -2,6 +2,10 @@
 // 数据字典管理
 angular.module('fiona').controller('UserdictController', function($scope, $controller) {
 
+  $scope.dropdowns = {};
+
+  $controller('BaseController', {$scope: $scope}); //继承
+
     /**
      * 数据字典
      * ---------------------------
@@ -16,7 +20,15 @@ angular.module('fiona').controller('UserdictController', function($scope, $contr
 
         name: "用户数据字典",
 
-        server: "/api/v2/userdictdetails"
+        server: "/api/v2/userdictdetails",
+
+        callback: {
+
+            insert: function () {
+              $scope.serialNumber({id: "userdict", fieldName : "dictDetailCode", numberName : "字典编号"});
+            }
+
+        }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.userdictportal}); //继承

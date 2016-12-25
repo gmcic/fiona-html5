@@ -11,7 +11,8 @@ layout: "page"
 
   .col-md-9
     - portal '数据字典', 'dictionary'
-    = partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none"}
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none", :inline_toolbar => 'update'} do
+      / 不显示工具条
 
 / Modal
 = partial :'layouts/partials/modal-portal-lg' do

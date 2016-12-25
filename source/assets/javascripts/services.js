@@ -287,6 +287,8 @@ angular.module('fiona.services', [])
 
                     _template.itemName = _template.templateName;
 
+                    _template.inputCode = _template.barCode;
+
                     templatedetail[_template.templateNo] = [];
                 });
 

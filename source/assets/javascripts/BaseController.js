@@ -128,7 +128,7 @@ angular.module('fiona')
     return {
         request:function(config){
 
-               sessionStorage.setItem("authorization", "fc5db3b3-4063-4a12-a511-880ba19e4b58");
+//                sessionStorage.setItem("authorization", "fc5db3b3-4063-4a12-a511-880ba19e4b58");
 
             // config.headers["authorization"] = "fc5db3b3-4063-4a12-a511-880ba19e4b58";
 
@@ -902,13 +902,29 @@ angular.module('fiona')
         component.isRemoves = !component.selectedall
     };
 
+
+    component.selectionReset = function () {
+
+      component.selectedall = false;
+
+      component.isRemoves = true;
+
+      component.selection = {};
+
+    };
+
+
+
     /**
      * 搜索不分页
      * ---------------------------
      * */
     component.list = function () {
         $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
-            $scope[component.id + 's'] = data.data;
+
+          component.selectionReset();
+
+          $scope[component.id + 's'] = data.data;
 
             if(!!component.callback && !!component.callback.list)
             {
@@ -977,6 +993,7 @@ angular.module('fiona')
         }
 
         $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': component.filters }).success(function (data, status, headers, config) {
+            component.selectionReset();
 
             $scope[component.id + 's'] = data.data.content;
 
@@ -1003,6 +1020,8 @@ angular.module('fiona')
             'pageNumber': component.pagination.pageNumber,
             'filters': component.filters
         }).success(function (data, status, headers, config) {
+
+            component.selectionReset();
 
             $scope[component.id + 's'] = data.data.content;
 
