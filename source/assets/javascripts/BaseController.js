@@ -168,7 +168,6 @@ angular.module('fiona')
 
             // 加载用户目录
             $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
-                console.log(data.data);
                 $scope.menus = data.data;
             }).error(function (data, status, headers, config) {
                 alert('加载目录树失败');
@@ -1618,7 +1617,8 @@ angular.module('fiona')
 
         $scope.petportal.search();
 
-        $("#petselect").modal({backdrop: 'static', keyboard: false});
+        // $("#petselect").modal({backdrop: 'static', keyboard: false});
+      $("#petselect").modal('show');
     };
 
     $scope.petportal.checked = function (pet) {

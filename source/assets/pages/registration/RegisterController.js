@@ -188,6 +188,34 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
         $scope.registerportal.save();
     };
 
+      $scope.petportal.checked = function (pet) {
+
+        var _wheres = [{"fieldName": "petId", "operator": "EQ", "value": pet.id}];
+
+        var _filters = [{"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00034"}, {"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00035"}, {"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00036"}];
+
+        $http.post(commons.getBusinessHostname() + $scope.registerportal.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, "filters": _filters, 'andFilters': _wheres})
+        .success(function (data, status, headers, config) {
+
+            console.log(data.data.content)
+
+            if(data.data.content.length == 0 )
+            {
+              $scope.pet = pet;
+
+              $scope.vipportal.unique($scope.pet.gestId);
+
+              $("#petselect").modal('hide');
+            }
+            else
+            {
+              var _reg = data.data.content[0];
+
+              commons.modaldanger("petselect", "宠物 " +_reg.petName+ "(" +_reg.gestName+ ") 正在就诊中，不允许重复挂号，登记编号: " + _reg.registerNo);
+            }
+        });
+      };
+
     /**
      * 直接保存
      * ---------------------------

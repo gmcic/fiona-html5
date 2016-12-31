@@ -14,6 +14,9 @@
       .portlet-body.form
         .form-body
           .row
+            = partial :'layouts/inputs/hidden', :locals => { :fieldName => '宠物ID', :maxlength => '32', :required => 'true', "msg" => "宠物信息"}
+
+          .row
             .col-md-12
               = partial :'layouts/inputs/textview', :locals => {:fieldName => '登记编号', :maxlength => '16', :required => "true"}
 
