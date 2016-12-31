@@ -58,9 +58,11 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
 
         callback: {
             update: function () {
+                $scope.prescripttemplatedetails = [];
+
                 $scope.prescripttemplatedetailportal.searchByWhere({templateNo: $scope.prescripttemplate.templateNo}, function (_details) {
                     angular.forEach(_details, function (_detail) {
-                        _detail.itemNum = parseInt(_detail.itemNum | 1);
+                        _detail.itemNum = parseInt(_detail.itemNum);
                     });
                 });
 
@@ -69,6 +71,8 @@ angular.module('fiona').controller('PrescriptionController', function ($scope, $
             insert: function () {
                 $scope.prescripttemplate.typeId = $scope.prescriptiontype.id;
                 $scope.prescripttemplate.typeNo = $scope.prescriptiontype.typeNo;
+
+                $scope.prescripttemplatedetails = [];
 
                 $scope.serialNumber({id: "prescripttemplate", fieldName : "templateNo", numberName : "个人处方"});
             },

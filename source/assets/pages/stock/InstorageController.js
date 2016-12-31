@@ -59,7 +59,12 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
                 $scope.setSelectDefault("instorage", ["warehouseId.id"]);
             },
-
+            submitbefore: function () {
+              if($scope.instorage.warehouseId)
+              {
+                $scope.instorage.inWarehouse = $scope.dropdowns.warehouseIdSet.getObjectWithId({id: $scope.instorage.warehouseId}).valueNameCn;
+              }
+            },
             submit : function () {
                 // 遍历保存所有子项
                 angular.forEach($scope.instoragedetails, function (_instoragedetail) {

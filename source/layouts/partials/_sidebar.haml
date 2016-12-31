@@ -5,34 +5,34 @@
       %li.sidebar-toggler-wrapper.hide
         .sidebar-toggler
           %span
-
-      - data.sidebar.each do |header|
-        %li.heading
-          %h3.uppercase #{header.name}
-
-        - header.menus.each do |fun|
-          %li.nav-item.start
-            %a.nav-link.nav-toggle{:href => "javascript:;"}
-              %i{:class => "#{fun.icon || 'icon-bar-chart'}" }
-              %span.title #{fun.name}
-              %span.arrow
-            %ul.sub-menu
-              - fun.menus.each do |menu|
-                %li.nav-item.start
-                  %a.nav-link{:href => "##{menu.uri}"}
-                    %i{:class => "#{menu.icon || 'icon-bar-chart'}" }
-                    %span.title #{menu.name}
-                    %span.selected
       -#
-      -#%li.nav-item.start{ "ng-repeat"=>"header in menus " }
-      -#  %a.nav-link.nav-toggle{:href => "javascript:;"}
-      -#    %i{:class => "{{ header.iconClass }}" }
-      -#    %span.title{"ng-bind":"header.name"}
-      -#    %span.arrow
+      -#- data.sidebar.each do |header|
+      -#  %li.heading
+      -#    %h3.uppercase #{header.name}
       -#
-      -#  %ul.sub-menu
-      -#    %li.nav-item.start{ "ng-repeat"=>"menu in header.subMenu" }
-      -#      %a.nav-link{"ng-href" => "{{menu.uri}}"}
-      -#        %i{:class => "{{ menu.iconClass }}" }
-      -#        %span.title{"ng-bind":"menu.name"}
-      -#        %span.selected
+      -#  - header.menus.each do |fun|
+      -#    %li.nav-item.start
+      -#      %a.nav-link.nav-toggle{:href => "javascript:;"}
+      -#        %i{:class => "#{fun.icon || 'icon-bar-chart'}" }
+      -#        %span.title #{fun.name}
+      -#        %span.arrow
+      -#      %ul.sub-menu
+      -#        - fun.menus.each do |menu|
+      -#          %li.nav-item.start
+      -#            %a.nav-link{:href => "##{menu.uri}"}
+      -#              %i{:class => "#{menu.icon || 'icon-bar-chart'}" }
+      -#              %span.title #{menu.name}
+      -#              %span.selected
+
+      %li.nav-item.start{ "ng-repeat"=>"header in menus " }
+        %a.nav-link.nav-toggle{:href => "javascript:;"}
+          %i{:class => "{{ header.iconClass }}" }
+          %span.title{"ng-bind":"header.name"}
+          %span.arrow
+
+        %ul.sub-menu
+          %li.nav-item.start{ "ng-repeat"=>"menu in header.subMenu" }
+            %a.nav-link{"ng-href" => "{{menu.uri}}"}
+              %i{:class => "{{ menu.iconClass }}" }
+              %span.title{"ng-bind":"menu.name"}
+              %span.selected

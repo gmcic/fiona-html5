@@ -1,0 +1,33 @@
+{
+  "pageSize": 20,
+  "pageNumber": 1,
+  "filters": [
+    {
+      "fieldName": "itemName",
+      "operator": "LIKE",
+      "value": ""
+    },
+    {
+      "fieldName": "itemCode",
+      "operator": "LIKE",
+      "value": ""
+    },
+    {
+      "fieldName": "barCode",
+      "operator": "LIKE",
+      "value": ""
+    },
+    {
+      "fieldName": "manufacturerName",
+      "operator": "LIKE",
+      "value": ""
+    }
+  ],
+  "andFilters": [
+    {
+      "fieldName": "warehouseId",
+      "operator": "EQ",
+      "value": "5574bbac-9824-11e6-adb2-4ccc6a1bc949"
+    }
+  ]
+}

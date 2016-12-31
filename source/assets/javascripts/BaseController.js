@@ -168,6 +168,7 @@ angular.module('fiona')
 
             // 加载用户目录
             $http.get(commons.getAccountHostname() + "/api/v2/menus").success(function (data, status, headers, config) {
+                console.log(data.data);
                 $scope.menus = data.data;
             }).error(function (data, status, headers, config) {
                 alert('加载目录树失败');
@@ -353,8 +354,6 @@ angular.module('fiona')
         }
 
     };
-
-
 
     /**
      * 生成编号
@@ -933,30 +932,64 @@ angular.module('fiona')
         });
     };
 
+    component.wheres = [];
+
     /**
      * 添加外键过滤条件
      * ---------------------------
      * */
     component.doForeignFilter = function () {
-        var _filter;
+        var _where;
 
-        angular.forEach(component.filters, function (filter) {
-            if (filter.fieldName == component.foreignkey) {
-                _filter = filter;
+        angular.forEach(component.wheres, function (where) {
+            if (where.fieldName == component.foreignkey) {
+                _where = where;
             }
         });
 
-        if (!_filter) {
+        if (!_where) {
 
-            _filter = {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id']};
+            _where= {"fieldName": component.foreignkey, "operator": "EQ", "value": $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id']};
 
-            component.filters.push(_filter);
+            component.wheres.push(_where);
         }
         else {
-            _filter.value = $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id'];
+            _where.value = $scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id'];
         }
 
-        return _filter;
+        return _where;
+    };
+
+    /**
+    * 分页搜索
+    * ---------------------------
+    * */
+    component.search = function () {
+
+        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id']) {
+          component.doForeignFilter();
+        }
+
+        $http.post(commons.getBusinessHostname() + component.server + "/page", {
+          'pageSize': component.pagination.pageSize,
+          'pageNumber': component.pagination.pageNumber,
+          'filters': component.filters, "andFilters": component.wheres
+        }).success(function (data, status, headers, config) {
+
+          component.selectionReset();
+
+          $scope[component.id + 's'] = data.data.content;
+
+          // // console.log($scope[component.id + 's']);
+
+          // 搜索+分页
+          component.pagination.pageNumber = data.data.number + 1;
+
+          component.pagination.last = data.data.last;
+          component.pagination.first = data.data.first;
+          component.pagination.totalPages = data.data.totalPages;
+          component.pagination.totalElements = data.data.totalElements;
+        });
     };
 
     /**
@@ -992,7 +1025,7 @@ angular.module('fiona')
             component.doForeignFilter();
         }
 
-        $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': component.filters }).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': component.filters, "andFilters": component.wheres}).success(function (data, status, headers, config) {
             component.selectionReset();
 
             $scope[component.id + 's'] = data.data.content;
@@ -1001,39 +1034,6 @@ angular.module('fiona')
             {
                 component.callback.search();
             }
-        });
-    };
-
-
-    /**
-     * 分页搜索
-     * ---------------------------
-     * */
-    component.search = function () {
-
-        if (!!component.foreign && !!$scope[component.foreign] && !!$scope[component.foreign][$scope[component.foreign + "portal"].foreignkey || 'id']) {
-            component.doForeignFilter();
-        }
-
-        $http.post(commons.getBusinessHostname() + component.server + "/page", {
-            'pageSize': component.pagination.pageSize,
-            'pageNumber': component.pagination.pageNumber,
-            'filters': component.filters
-        }).success(function (data, status, headers, config) {
-
-            component.selectionReset();
-
-            $scope[component.id + 's'] = data.data.content;
-
-            // // console.log($scope[component.id + 's']);
-
-            // 搜索+分页
-            component.pagination.pageNumber = data.data.number + 1;
-
-            component.pagination.last = data.data.last;
-            component.pagination.first = data.data.first;
-            component.pagination.totalPages = data.data.totalPages;
-            component.pagination.totalElements = data.data.totalElements;
         });
     };
 
