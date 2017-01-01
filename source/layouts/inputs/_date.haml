@@ -17,12 +17,12 @@
   - if $required == 'true'
     .input-icon.right
       %i.fa.fa-calendar
-      %input.form-control.date-picker{:type => "text", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", :readonly => 'true'  }/
+      %input.form-control.date-picker{:type => "text", :maxlength => "#{$maxlength}", :required => "#{$required}" ,:name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "date-format":"", :readonly => 'true'  }/
 
   - if $required == 'false'
     .input-icon.right
       %i.fa.fa-calendar
-      %input.form-control.date-picker{:type => "text", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", :readonly => 'true'  }/
+      %input.form-control.date-picker{:type => "text", :maxlength => "#{$maxlength}", :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "date-format":"", :readonly => 'true'  }/
 
   - if $required == 'true'
     %p.help-block.font-red-thunderbird{"ng-show" => "#{validrequired($keyword, (fields[fieldName] || 'error'))}"} #{fieldName}不能为空.

@@ -45,7 +45,6 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
             },
 
             update: function () {
-
                 $scope.petportal.searchByWhere({gestId: $scope.vip.id});
 
                 $scope.local.recount();

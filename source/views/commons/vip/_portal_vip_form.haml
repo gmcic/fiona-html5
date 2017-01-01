@@ -32,20 +32,25 @@
     .col-md-3
       = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '积分', :maxlength => '32'}
 
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '联系地址', :maxlength => '1024'}
+
+  .row
+
     .col-md-3
       .form-group
-        = partial :'layouts/inputs/select', :locals => {:keyword => "vip", :fieldName => '会员等级', :maxlength => '32', :required => "true", :options => "type as type.levelName for type in dropdowns.gestStyleSet"}
+        = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '会员卡号', :maxlength => '32'}
+
+    .col-md-3
+      .form-group
+        = partial :'layouts/inputs/select', :locals => {:keyword => "vip", :fieldName => '会员等级', :maxlength => '32', :options => "type as type.levelName for type in dropdowns.gestStyleSet"}
 
     .col-md-3
       = partial :'layouts/inputs/select', :locals => {:keyword => "vip", :fieldName => '会员状态', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.statusSet"}
-
-  .row
-    .col-md-9
-      = partial :'layouts/inputs/text', :locals => {:keyword => "vip", :fieldName => '联系地址', :maxlength => '32'}
 
     .col-md-3
       = partial :'layouts/inputs/date', :locals => {:keyword => "vip", :fieldName => '登记日期', :maxlength => '32'}
 
   .row
     .col-md-12
-      = partial :'layouts/inputs/textarea', :locals => {:keyword => "vip", :fieldName => '备注', :maxlength => '32'}
+      = partial :'layouts/inputs/textarea', :locals => {:keyword => "vip", :fieldName => '备注', :maxlength => '2048'}

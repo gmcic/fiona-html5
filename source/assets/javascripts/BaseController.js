@@ -178,7 +178,7 @@ angular.module('fiona')
 
     }
 })
-.controller('BaseController', function ($scope, $http, commons) {
+.controller('BaseController', function ($scope, $http, $filter, commons) {
 
     $scope.error = "未找到定义";
 

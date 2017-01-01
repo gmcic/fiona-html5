@@ -77,14 +77,14 @@ fields:
 
   联系地址: gestAddress
 
-  #宠物字典类型明细
-  是否会员: isVip
-
-  会员号 : vipNo
-
   账号: vipAccount
 
   最后消费日期: lastPaidTime
+
+  #宠物字典类型明细
+  是否会员: isVip
+
+  会员卡号: vipNo
 
   #会员等级管理
   会员等级: gestStyle
