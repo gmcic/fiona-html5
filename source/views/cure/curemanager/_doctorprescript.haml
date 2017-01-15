@@ -12,5 +12,5 @@
     - portal '医生处方明细', 'doctorprescriptdetail'
     = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none', :selection => "none", :pagefilter => "orderBy:'groupName':false" }  do
 
-      = partial :'layouts/buttons/btn', :locals => {:label => "复制处方", :icon => "fa-copy", :click => "void()", :disabled => "!doctorprescriptportal.selectedId"}
-      = partial :'layouts/buttons/print', :locals => {:click => 'doctorprescriptportal.clonedoctorprescript()', :disabled => "!doctorprescriptportal.selectedId"}
+      = partial :'layouts/buttons/btn', :locals => {:label => "复制处方", :icon => "fa-copy", :click => "doctorprescriptportal.clonedoctorprescript()", :disabled => "!doctorprescriptportal.selectedId"}
+      = partial :'layouts/buttons/print', :locals => {:click => 'doctorprescriptportal.print()', :disabled => "!doctorprescriptportal.selectedId"}
