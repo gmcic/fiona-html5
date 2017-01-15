@@ -346,6 +346,8 @@ angular.module('fiona')
                 $scope.doctorprescriptdetail = {};
             },
 
+
+
             delete: function () {
                 $scope.doctorprescriptdetails = [];
             },
@@ -467,6 +469,17 @@ angular.module('fiona')
                     $scope.doctorprescriptportal.callback.search();
                 }
             }
+        });
+    };
+
+    /**
+     * 复制处方单
+     * ---------------------------
+     * */
+    $scope.doctorprescriptportal.clonedoctorprescript = function () {
+
+        $http.get(commons.getBusinessHostname() + $scope.doctorprescriptportal.server + "/copy/" +$scope.doctorprescript.prescriptionCode+ "?medicRecordCode=" + $scope.doctorprescript.medicRecordCode).success(function (data, status, headers, config) {
+          $scope.curemanagerportal.switched($scope.curemanager);
         });
     };
 
