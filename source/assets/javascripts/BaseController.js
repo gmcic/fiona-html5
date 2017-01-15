@@ -1015,7 +1015,7 @@ angular.module('fiona')
     };
 
     /**
-     * 分页搜索
+     * 不分页搜索
      * ---------------------------
      * */
     component.searchAll = function () {

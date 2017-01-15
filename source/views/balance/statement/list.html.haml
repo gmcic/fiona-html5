@@ -4,8 +4,13 @@ layout: "page"
 
 - page "结算单管理", "statement"
 
-= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view' }
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view|print1|print2' }
 
 /  查看页面
 = partial :'layouts/partials/modal-portal-view-full', :locals => {:modal_toolbar => 'close' } do
   = partial 'view'
+
+/ 打印处方
+- modal "收银小票", "statement"
+= partial :'layouts/widget/modal_print_xs' do
+  = partial 'print_body'

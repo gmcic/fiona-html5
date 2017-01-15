@@ -134,7 +134,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
         document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = $('#paymentprintbody').html();
         document.getElementById('printiframe').contentWindow.print();
         // $('#doctorprescriptprint').modal({backdrop: 'static', keyboard: false});
-    }
+    };
 
     /**
      * 收费明细
