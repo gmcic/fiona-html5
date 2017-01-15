@@ -22,7 +22,7 @@ angular.module('fiona').controller('StockController', function($scope, $controll
 
         name: "库存查询",
 
-        defilters: {"itemName": "名称",  "itemCode": "编号",  "barCode": "条码", "manufacturerName": "生产商"},
+        defilters: {"itemName": "名称",  "itemCode": "编号",  "barCode": "条码", "manufacturerName": "生产商", "inputCode": "拼音码"},
 
         server: "/api/v2/itemcounts"
     };
