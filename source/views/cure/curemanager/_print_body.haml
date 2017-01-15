@@ -61,7 +61,7 @@
         %td{"colspan" => "9"} {{curemanager.diagnosed}}
 
   -# 嵌套模块
-  %table.table.table-bordered
+  %table.small-border
     %tbody
       %tr
         - @portal[$listdataKey].each do |field|
@@ -69,7 +69,7 @@
 
       %tr{ "ng-repeat" => @portal_id + " in " + @portal_id + "2d" + $pagefilter + " | orderBy:'groupName':false"}
         - @portal[$listdataKey].each do |column|
-          %td
+          %td{:stye => "padding-top: 0px;padding-bottom: 0px;border: 1px solid red;"}
             - if column.filter?
               = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
 
