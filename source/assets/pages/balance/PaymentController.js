@@ -1,7 +1,7 @@
 // 收费管理
 angular.module('fiona').controller('PaymentController', function($scope, $http, commons, $controller) {
 
-    $scope.dropdowns = { paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}] };
+    $scope.dropdowns = { paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "会员", valueNameCn: "会员"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}] };
 
     $controller('BaseController', {$scope: $scope}); //继承
 
@@ -60,43 +60,42 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
     /** 计算支付金额 */
     $scope.pay = function()
     {
-
-//        alert($scope.paymentpractical.price + ",  " + $scope.paymentpractical.operateContent);
-
-//        if($scope.paymentpractical.price <= 0)
-//        {
-//            $scope.allowmessage = "请支付金额为空,请要选择结算的项目!";
-//        }
-
         if($.isEmptyObject($scope.paymentdetailportal.selection))
         {
             $scope.allowmessage = "请选择要支付的项目";
         }
-        else if(!$scope.paymentpractical.operateContent)
+        else if($scope.paymentpractical.operateAction == "会员")
         {
-            $scope.allowmessage = "请输入支付金额";
+            if(!$scope.vip.prepayMoney || $scope.vip.prepayMoney <= $scope.paymentpractical.price)
+            {
+                $scope.allowmessage = "会员余额不足";
+            }
+            else {
+
+                $scope.paymentpractical.operateContent = $scope.paymentpractical.price;
+
+                $scope.allowmessage = "";
+                $scope.allowpay = true;
+            }
         }
-        else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
-        {
-            $scope.allowmessage = "支付金额不足";
-        }
-        else
-        {
-            $scope.allowmessage = "";
+        else {
+            if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
+            {
+                $scope.allowmessage = "支付金额不足";
+            }
+            else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
+            {
+                $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
+
+                $scope.allowmessage = "";
+                $scope.allowpay = true;
+            }
+            else
+            {
+                $scope.allowpay = false;
+            }
         }
 
-        // $scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  &&
-        if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
-        {
-           $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
-
-            $scope.allowmessage = "";
-           $scope.allowpay = true;
-        }
-        else
-        {
-            $scope.allowpay = false;
-        }
     };
 
     /**
@@ -159,7 +158,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
           $scope.paymentdetailportal.selectionReset();
             $scope['paymentdetails'] = data.data;
 
-            angular.forEach($scope['paymentdetails'], function(_paymentdetail){
+            angular.forEach($scope['paymentdetails'], function(_paymentdetail) {
                 _paymentdetail.sumprice = _paymentdetail.itemCost * _paymentdetail.itemNum;
             });
 

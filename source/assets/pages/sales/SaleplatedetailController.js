@@ -1,7 +1,7 @@
 // 销售查询
 angular.module('fiona').controller('SaleplatedetailController', function($scope, $http, $controller, commons) {
 
-    $scope.dropdowns = {paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}] };
+    $scope.dropdowns = {paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "会员", valueNameCn: "会员"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}] };
 
     commons.findDict($scope.dropdowns, {sellUnitSet: "物品单位"});
 
@@ -93,10 +93,10 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 //                "busiTypeId": "string",
 //                "businessType": "string",
 //                "relationId": _saleplatedetail.sellUnit,
-//                "isVipDiscount": "string",
+                "isVipDiscount": $scope.paymentpractical.isVipDiscount,
                 "itemUnit": _saleplatedetail.sellUnit
 //                "relationDetailId": "string"
-                }
+                };
 
             payobject.settleAccountsViews.push(_data);
         });
@@ -123,34 +123,67 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
         if($scope.paymentpractical.isVipDiscount)
         {
-            $scope.paymentpractical.price = Math.round(Math.floor(parseFloat($scope.paymentpractical.price*100 * $scope.paymentpractical.isVipDiscount))/100);
+
+
+            $scope.paymentpractical.price = Math.round(Math.floor(parseFloat($scope.saleplate.totalCost*100 * $scope.paymentpractical.isVipDiscount))/100);
+        }
+        if($scope.paymentpractical.operateAction == "会员")
+        {
+            if(!$scope.vip.prepayMoney || $scope.vip.prepayMoney <= $scope.paymentpractical.price)
+            {
+                $scope.allowmessage = "会员余额不足";
+            }
+            else {
+
+                $scope.paymentpractical.operateContent = $scope.paymentpractical.price;
+
+                $scope.allowmessage = "";
+                $scope.allowpay = true;
+            }
+        }
+        else {
+            if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
+            {
+                $scope.allowmessage = "支付金额不足";
+            }
+            else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
+            {
+                $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
+
+                $scope.allowmessage = "";
+                $scope.allowpay = true;
+            }
+            else
+            {
+                $scope.allowpay = false;
+            }
         }
 
-        if(!$scope.paymentpractical.operateContent)
-        {
-            $scope.allowmessage = "请输入支付金额";
-        }
-        else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
-        {
-            $scope.allowmessage = "支付金额不足";
-        }
-        else
-        {
-            $scope.allowmessage = "";
-        }
-
-        // $scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  &&
-        if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
-        {
-           $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
-
-            $scope.allowmessage = "";
-           $scope.allowpay = true;
-        }
-        else
-        {
-            $scope.allowpay = false;
-        }
+        // if(!$scope.paymentpractical.operateContent)
+        // {
+        //     $scope.allowmessage = "请输入支付金额";
+        // }
+        // else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
+        // {
+        //     $scope.allowmessage = "支付金额不足";
+        // }
+        // else
+        // {
+        //     $scope.allowmessage = "";
+        // }
+        //
+        // // $scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  &&
+        // if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
+        // {
+        //    $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
+        //
+        //     $scope.allowmessage = "";
+        //    $scope.allowpay = true;
+        // }
+        // else
+        // {
+        //     $scope.allowpay = false;
+        // }
     };
 
     $scope.saleplateportal.print = function () {

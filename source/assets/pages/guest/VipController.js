@@ -92,7 +92,48 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
         }
 
         $('#' + this.id).modal('hide');
-    }
+    };
+
+
+    // 充值
+    $scope.vipportal.recharge  = function (_vip) {
+        $scope.vip = _vip;
+
+        $scope.vipprepay  = {gestId: _vip.id};
+
+        $('#vipprepay').modal({backdrop: 'static', keyboard: false});
+    };
+
+    $scope.vipprepayportal = {
+        submit: function () {
+            $http.get(commons.getBusinessHostname() + "/api/v2/gests/" +$scope.vipprepay.gestId+ "/recharge?money="+ $scope.vipprepay.inputMoney).success(function (data, status, headers, config) {
+                console.log(data.data);
+
+                $scope.vipprepaydata = data.data;
+
+                $scope.vipprepayportal.print();
+
+                $('#vipprepay').modal('hide');
+
+            }).error(function (data, status, headers, config) {
+                commons.modaldanger("vipprepay", "充值失败!!!")
+            });
+        }
+    };
+
+    $scope.vipprepayportal.print = function () {
+
+        $scope.nowtime = new Date();
+
+        $('#vipprepayprint').modal({backdrop: 'static', keyboard: false});
+    };
+
+    // 打印页面
+    $scope.print = function () {
+        document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = $('#vipprepayprintbody').html();
+        document.getElementById('printiframe').contentWindow.print();
+        // $('#doctorprescriptprint').modal({backdrop: 'static', keyboard: false});
+    };
 
     $scope.vipportal.filter();
 });

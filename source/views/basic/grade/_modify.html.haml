@@ -1,6 +1,10 @@
 .form-body
   .row
     .col-md-12
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '等级编号', :maxlength => '32', :required => 'true'}
+
+  .row
+    .col-md-12
       = partial :'layouts/inputs/text', :locals => {:fieldName => '等级名称', :maxlength => '32', :required => 'true'}
 
   .row

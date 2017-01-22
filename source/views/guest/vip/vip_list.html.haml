@@ -4,7 +4,8 @@ layout: "page"
 
 - page '会员管理', 'vip'
 
-= partial 'layouts/widget/portal'
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'recharge|remove|update'}
+
 
 / 编辑
 = partial :'layouts/partials/modal-portal-full' do
@@ -14,3 +15,15 @@ layout: "page"
 - modal "添加宠物", "pet"
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'pet_form'
+
+/ 充值预付金
+- modal "增加&减少金额", "vipprepay"
+
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'views/guest/vip/vipprepay'
+
+
+/ 打印处方
+- modal "充值小票", "vipprepay"
+= partial :'layouts/widget/modal_print_xs' do
+  = partial 'print_body'
