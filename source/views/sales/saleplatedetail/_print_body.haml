@@ -41,7 +41,11 @@
       %th{:style => "width: 60px"} 实收
       %td {{statement.factPaidMoney | currency:"￥"}}
 
-    %tr
+    %tr{"ng-if" => "paymentpractical.operateAction == '会员'"}
+      %th{:style => "width: 60px"} 账户余额
+      %td{:colspan => "3" } {{statement.changeMoney | currency:"￥"}}
+
+    %tr{"ng-if" => "paymentpractical.operateAction != '会员'"}
       %th{:style => "width: 60px"} 找零
       %td{:colspan => "3" } {{statement.changeMoney | currency:"￥"}}
 

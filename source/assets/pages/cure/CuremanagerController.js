@@ -477,10 +477,14 @@ angular.module('fiona')
      * ---------------------------
      * */
     $scope.doctorprescriptportal.clonedoctorprescript = function () {
-
-        $http.get(commons.getBusinessHostname() + $scope.doctorprescriptportal.server + "/copy/" +$scope.doctorprescript.prescriptionCode+ "?medicRecordCode=" + $scope.doctorprescript.medicRecordCode).success(function (data, status, headers, config) {
-          $scope.curemanagerportal.switched($scope.curemanager);
+        // 查询就诊信息
+        $http.post(commons.getBusinessHostname() + $scope.curemanagerportal.server, {registerNo: $scope.register.registerNo}).success(function (data, status, headers, config) {
+            var _curemanager = data.data;
+            $http.get(commons.getBusinessHostname() + $scope.doctorprescriptportal.server + "/copy/" +$scope.doctorprescript.prescriptionCode+ "?medicRecordCode=" + _curemanager.mediTreatmentCode).success(function (data, status, headers, config) {
+                $scope.curemanagerportal.switched($scope.curemanager);
+            });
         });
+
     };
 
     $scope.doctorprescriptportal.insert = function () {

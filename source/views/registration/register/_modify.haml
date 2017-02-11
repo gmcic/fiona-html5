@@ -34,7 +34,7 @@
 
           .row
             .col-md-12
-              = partial :'layouts/inputs/select', :locals => {:fieldName => '医生', :options => "type.id as type.personName for type in dropdowns.doctorIdSet", :change => "registerportal.selectchange('doctorId', 'id')"}
+              = partial :'layouts/inputs/select', :locals => {:fieldName => '医生', :required => "true" , :options => "type.id as type.personName for type in dropdowns.doctorIdSet", :change => "registerportal.selectchange('doctorId', 'id')"}
 
           .row
             .col-md-12

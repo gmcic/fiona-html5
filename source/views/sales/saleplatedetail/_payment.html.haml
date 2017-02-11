@@ -30,7 +30,7 @@
     .form-body
       .row
         .col-md-4
-          = partial :'layouts/inputs/select', :locals => {:keyword => "paymentpractical", :fieldName => '支付方式', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in dropdowns.paymentTypeSet"}
+          = partial :'layouts/inputs/select', :locals => {:keyword => "paymentpractical", :fieldName => '支付方式', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in dropdowns.paymentTypeSet", :change => "pay()"}
 
         .col-md-8
           = partial :'layouts/inputs/number', :locals => {:keyword => "paymentpractical", :fieldName => '支付金额', :maxlength => '32', :required => "true", :change => "pay()"}

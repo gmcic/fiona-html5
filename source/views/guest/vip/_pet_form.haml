@@ -12,10 +12,10 @@
 
   .row
     .col-md-4
-      = partial :'layouts/inputs/date', :locals => { :keyword => "pet", :fieldName => '出生日期', :maxlength => '16' }
+      = partial :'layouts/inputs/date', :locals => { :keyword => "pet", :fieldName => '出生日期', :maxlength => '16' , :required => "true"}
 
     .col-md-4
-      = partial :'layouts/inputs/textview', :locals => { :keyword => "pet", :fieldName => '宠物年龄', :maxlength => '16'}
+      = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '宠物年龄', :maxlength => '16', :required => "true"}
 
     .col-md-4
       .form-group
@@ -43,10 +43,10 @@
 
   .row
     .col-md-3
-      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '身高(cm)', :maxlength => '16'}
+      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '体重(kg)', :maxlength => '16', :required => "true"}
 
     .col-md-3
-      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '体重(kg)', :maxlength => '16'}
+      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '身高(cm)', :maxlength => '16'}
 
     .col-md-3
       = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '肩宽(cm)', :maxlength => '16'}

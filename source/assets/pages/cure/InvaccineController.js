@@ -189,5 +189,5 @@ angular.module('fiona').controller('InvaccineController', function($scope, $cont
 
     $scope.productportal.autocompletedata();
 
-    $scope.invaccineportal.list();
+    $scope.invaccineportal.search();
 });
