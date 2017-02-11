@@ -194,7 +194,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
         var _filters = [{"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00034"}, {"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00035"}, {"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00036"}];
 
-        $http.post(commons.getBusinessHostname() + $scope.registerportal.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, "filters": _filters, 'andFilters': _wheres})
+        $http.post(commons.getBusinessHostname() + $scope.registerportal.server + "/page" + commons.getTimestampStr(), { 'pageSize': 10000, 'pageNumber': 1, "filters": _filters, 'andFilters': _wheres})
         .success(function (data, status, headers, config) {
 
             console.log(data.data.content)
@@ -226,7 +226,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
         $scope.register.petName = $scope.pet.petName;
         $scope.register.petId = $scope.pet.id;
 
-        $http.post(commons.getBusinessHostname() + $scope.registerportal.server, $scope.register).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + $scope.registerportal.server + commons.getTimestampStr(), $scope.register).success(function (data, status, headers, config) {
 
             $scope.register = data.data;
 

@@ -28,7 +28,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
         console.log(payobject.settleAccountsViews);
 
-        $http.post(commons.getBusinessHostname() + "/api/v2/gestpaidrecords/pay", payobject).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + "/api/v2/gestpaidrecords/pay" + commons.getTimestampStr(), payobject).success(function (data, status, headers, config) {
 
             $scope.statement = data.data;
 
@@ -155,7 +155,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
 
     $scope.paymentdetailportal.list = function() {
 
-        $http.get(commons.getBusinessHostname() + this.server + "/" + $scope.payment.gestId).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + this.server + "/" + $scope.payment.gestId + commons.getTimestampStr()).success(function (data, status, headers, config) {
           $scope.paymentdetailportal.selectionReset();
             $scope['paymentdetails'] = data.data;
 

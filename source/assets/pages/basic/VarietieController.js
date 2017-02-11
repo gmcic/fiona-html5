@@ -27,7 +27,7 @@ angular.module('fiona').controller('VarietieController', function($scope, $contr
      * */
     $scope.varietieportal.search = function () {
 
-      $http.post(commons.getBusinessHostname() + this.server + "/page", { 'pageSize': 10000, 'pageNumber': 1,"filters":[],"andFilters":[{"fieldName":"petRaceObject.id","operator":"EQ","value"
+      $http.post(commons.getBusinessHostname() + this.server + "/page" + commons.getTimestampStr(), { 'pageSize': 10000, 'pageNumber': 1,"filters":[],"andFilters":[{"fieldName":"petRaceObject.id","operator":"EQ","value"
         :$scope.varietietype.id}]}).success(function (data, status, headers, config) {
 
         $scope['varieties'] = data.data.content;

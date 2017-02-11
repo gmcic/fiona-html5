@@ -78,7 +78,7 @@ angular.module('fiona').controller('BackstorageController', function($scope, $co
     /** 退货审核 */
     $scope.auditing  = function () {
 
-        $http.get(commons.getBusinessHostname() + $scope.backstorageportal.server + "/audit/" + $scope.backstorage.id).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + $scope.backstorageportal.server + "/audit/" + $scope.backstorage.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             $scope.backstorages.replaceById(data.data);
 

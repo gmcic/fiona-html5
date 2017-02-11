@@ -86,7 +86,7 @@ angular.module('fiona').controller('MovestorageController', function($scope, $ht
     /** 出库审核 */
     $scope.auditing  = function () {
 
-        $http.get(commons.getBusinessHostname() + $scope.movestorageportal.server + "/audit/" + $scope.movestorage.id).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + $scope.movestorageportal.server + "/audit/" + $scope.movestorage.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             $scope.movestorages.replaceById(data.data);
 

@@ -77,7 +77,7 @@ angular.module('fiona').controller('MedicalrecordController', function($scope, $
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.doctorprescriptdetailportal}); //继承
 
     // 查询医院信息
-    $http.get(commons.getBusinessHostname() + "/api/v2/enterprises").success(function (data, status, headers, config) {
+    $http.get(commons.getBusinessHostname() + "/api/v2/enterprises" + commons.getTimestampStr()).success(function (data, status, headers, config) {
         angular.forEach(data.data, function (item) {
             $scope.hospital = item;
         });

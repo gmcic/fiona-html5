@@ -34,6 +34,11 @@ angular.module('fiona.services', [])
 //            return  'fc5db3b3-4063-4a12-a511-880ba19e4b58';
             return sessionStorage.getItem("authorization");
         },
+
+        getTimestampStr: function () {
+          return "?_timestamp=" + new Date().getTime();
+        },
+
         getBusinessHostname : function () {
            return "http://192.168.0.108:8080/business";
             // return "http://192.168.0.108:8080/business";

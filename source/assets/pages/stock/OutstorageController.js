@@ -74,7 +74,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
 
     /** 出库审核 */
     $scope.auditing  = function () {
-        $http.get(commons.getBusinessHostname() + $scope.outstorageportal.server + "/audit/" + $scope.outstorage.id).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + $scope.outstorageportal.server + "/audit/" + $scope.outstorage.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             $scope.outstorages.replaceById(data.data);
 

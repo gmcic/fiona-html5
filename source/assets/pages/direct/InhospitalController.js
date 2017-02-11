@@ -384,7 +384,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     // 商品选择
     $scope.onselectinhospital = function() {
 
-        $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             $scope.inhospitaldetailportal.checked(data.data);
 

@@ -69,7 +69,7 @@ angular.module('fiona')
         $scope.petportal.unique($scope.register.petId);
 
         // 查询就诊信息
-        $http.post(commons.getBusinessHostname() + $scope.curemanagerportal.server, {registerNo: $scope.register.registerNo}).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + $scope.curemanagerportal.server + commons.getTimestampStr(), {registerNo: $scope.register.registerNo}).success(function (data, status, headers, config) {
             $scope.curemanager = data.data;
             $scope.doctorprescriptportal.search();
 
@@ -459,7 +459,7 @@ angular.module('fiona')
      * */
     $scope.doctorprescriptportal.search = function () {
 
-        $http.post(commons.getBusinessHostname() + $scope.doctorprescriptportal.server + "/page", {'pageSize': 10000,'pageNumber': '1','filters': [{"fieldName": "medicRecordCode", "operator": "EQ", "value": $scope.curemanager.mediTreatmentCode}]}).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + $scope.doctorprescriptportal.server + "/page" + commons.getTimestampStr(), {'pageSize': 10000,'pageNumber': '1','filters': [{"fieldName": "medicRecordCode", "operator": "EQ", "value": $scope.curemanager.mediTreatmentCode}]}).success(function (data, status, headers, config) {
             $scope.doctorprescripts = data.data.content;
 
             if($scope.doctorprescripts.length > 0) {
@@ -639,7 +639,7 @@ angular.module('fiona')
 
     $scope.themap = {};
 
-    $http.get(commons.getBusinessHostname() + $scope.registerportal.server).success(function (data, status, headers, config) {
+    $http.get(commons.getBusinessHostname() + $scope.registerportal.server + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
         if(!$scope.plays)
         {
@@ -680,7 +680,7 @@ angular.module('fiona')
     });
 
     // 查询医院信息
-    $http.get(commons.getBusinessHostname() + "/api/v2/enterprises").success(function (data, status, headers, config) {
+    $http.get(commons.getBusinessHostname() + "/api/v2/enterprises" + commons.getTimestampStr()).success(function (data, status, headers, config) {
         angular.forEach(data.data, function (item) {
             $scope.hospital = item;
         });

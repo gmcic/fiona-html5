@@ -87,7 +87,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     /** 入库审核 */
     $scope.auditing  = function () {
 
-        $http.get(commons.getBusinessHostname() + $scope.instorageportal.server + "/audit/" + $scope.instorage.id).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + $scope.instorageportal.server + "/audit/" + $scope.instorage.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             $scope.instorages.replaceById(data.data);
 

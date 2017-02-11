@@ -101,7 +101,7 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
             payobject.settleAccountsViews.push(_data);
         });
 
-        $http.post(commons.getBusinessHostname() + "/api/v2/gestpaidrecords/pay", payobject).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + "/api/v2/gestpaidrecords/pay" + commons.getTimestampStr(), payobject).success(function (data, status, headers, config) {
 
             $scope.statement = data.data;
 

@@ -237,7 +237,7 @@ angular.module('fiona')
     };
 
     $scope.selectDicts = function (uri, invoke, data) {
-        $http.post(commons.getBusinessHostname() + "/api/v2/" + uri + "/selects", data).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + "/api/v2/" + uri + "/selects" + commons.getTimestampStr(), data).success(function (data, status, headers, config) {
 
             $.extend($scope.dropdowns, data.data);
 
@@ -312,7 +312,7 @@ angular.module('fiona')
                 filters.push({"fieldName": key, "operator": "EQ", "value": data});
             });
 
-            $http.post(commons.getBusinessHostname() + component.server+ "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': filters})
+            $http.post(commons.getBusinessHostname() + component.server+ "/page" + commons.getTimestampStr(), { 'pageSize': 10000, 'pageNumber': 1, 'filters': filters})
 
             .success(function (data, status, headers, config) {
                 var dropdown = [];
@@ -333,7 +333,7 @@ angular.module('fiona')
         }
         else
         {
-            $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
+            $http.get(commons.getBusinessHostname() + component.server + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
                 var dropdown = [];
 
@@ -675,7 +675,7 @@ angular.module('fiona')
      * */
     component.unique = function (id) {
 
-        $http.get(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + component.server + "/" + id + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             $scope[component.id] = data.data;
 
@@ -703,7 +703,7 @@ angular.module('fiona')
 
             var isappend = !$scope[component.id].id;
 
-            $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
+            $http.post(commons.getBusinessHostname() + component.server + commons.getTimestampStr(), $scope[component.id]).success(function (data, status, headers, config) {
 
                 $scope[component.id] = data.data;
 
@@ -732,7 +732,7 @@ angular.module('fiona')
      * */
     component.save = function () {
 
-        $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + component.server + commons.getTimestampStr(), $scope[component.id]).success(function (data, status, headers, config) {
 
             $scope[component.id] = data.data;
 
@@ -747,7 +747,7 @@ angular.module('fiona')
 
     component.saveWithEntity = function (entity, cb) {
 
-        $http.post(commons.getBusinessHostname() + component.server, entity).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + component.server + commons.getTimestampStr(), entity).success(function (data, status, headers, config) {
 
             if(cb)
             {
@@ -800,7 +800,7 @@ angular.module('fiona')
 
         if(obj.id)
         {
-            $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id).success(function (data, index, array) {
+            $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id + commons.getTimestampStr()).success(function (data, index, array) {
 
                 $scope[component.id + "s"].removeById(obj);
 
@@ -918,7 +918,7 @@ angular.module('fiona')
      * ---------------------------
      * */
     component.list = function () {
-        $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + component.server + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
           component.selectionReset();
 
@@ -969,7 +969,7 @@ angular.module('fiona')
           component.doForeignFilter();
         }
 
-        $http.post(commons.getBusinessHostname() + component.server + "/page", {
+        $http.post(commons.getBusinessHostname() + component.server + "/page" + commons.getTimestampStr(), {
           'pageSize': component.pagination.pageSize,
           'pageNumber': component.pagination.pageNumber,
           'filters': component.filters, "andFilters": component.wheres
@@ -1003,7 +1003,7 @@ angular.module('fiona')
             filters.push({"fieldName": key, "operator": "EQ", "value": data});
         });
 
-        $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': filters})
+        $http.post(commons.getBusinessHostname() + component.server + "/page" + commons.getTimestampStr(), { 'pageSize': 10000, 'pageNumber': 1, 'filters': filters})
         .success(function (data, status, headers, config) {
             $scope[component.id + 's'] = data.data.content;
 
@@ -1024,7 +1024,7 @@ angular.module('fiona')
             component.doForeignFilter();
         }
 
-        $http.post(commons.getBusinessHostname() + component.server + "/page", { 'pageSize': 10000, 'pageNumber': 1, 'filters': component.filters, "andFilters": component.wheres}).success(function (data, status, headers, config) {
+        $http.post(commons.getBusinessHostname() + component.server + "/page" + commons.getTimestampStr(), { 'pageSize': 10000, 'pageNumber': 1, 'filters': component.filters, "andFilters": component.wheres}).success(function (data, status, headers, config) {
             component.selectionReset();
 
             $scope[component.id + 's'] = data.data.content;
@@ -1072,7 +1072,7 @@ angular.module('fiona')
      * */
     component.search = function () {
         // 分类
-        $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + component.server + commons.getTimestampStr()).success(function (data, status, headers, config) {
             $scope[component.id + "s"]= data.data;
 
             component.switched($scope[component.id + "s"][0].id);
@@ -1172,7 +1172,7 @@ angular.module('fiona')
      * */
     component.search = function () {
 
-        $http.get(commons.getBusinessHostname() + component.server).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + component.server + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             angular.forEach(data.data, function (item) {
                 item.text = item[component.text];
@@ -1232,7 +1232,7 @@ angular.module('fiona')
      * */
     component.unique = function (id) {
 
-        $http.get(commons.getBusinessHostname() + component.server + "/" + id).success(function (data, status, headers, config) {
+        $http.get(commons.getBusinessHostname() + component.server + "/" + id + commons.getTimestampStr()).success(function (data, status, headers, config) {
 
             $scope[component.id] = data.data;
 
@@ -1294,7 +1294,7 @@ angular.module('fiona')
             delete $scope[component.id].text;
             delete $scope[component.id].parent;
 
-            $http.post(commons.getBusinessHostname() + component.server, $scope[component.id]).success(function (data, status, headers, config) {
+            $http.post(commons.getBusinessHostname() + component.server + commons.getTimestampStr(), $scope[component.id]).success(function (data, status, headers, config) {
 
                 $scope[component.id] = data.data;
 
@@ -1357,7 +1357,7 @@ angular.module('fiona')
 
         if(obj.id)
         {
-            $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id).success(function (data, index, array) {
+            $http.delete(commons.getBusinessHostname() + component.server + "/" + obj.id + commons.getTimestampStr()).success(function (data, index, array) {
 
                 $scope[component.id + "s"].removeById(obj);
 
