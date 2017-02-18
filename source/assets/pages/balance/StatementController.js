@@ -19,7 +19,7 @@ angular.module('fiona').controller('StatementController', function ($scope, $con
 
     server: "/api/v2/financesettleaccountss",
 
-    defilters: {"personCode": "员工编号", "personName": "员工名称 "},
+    defilters: {"gestName": "会员名称 "},
 
     callback: {
       view: function () {
