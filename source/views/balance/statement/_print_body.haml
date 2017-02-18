@@ -21,7 +21,7 @@
       %th 单号
       %td {{statement.settleCode}}
 
-%div{"ng-show" => "detailhide"}
+%div{"ng-if" => "detailhide"}
   - portal '结算清单', 'statementdetail'
   = partial :'layouts/widget/print_table', :locals => {:listdataKey => "printFields"}
 
