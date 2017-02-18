@@ -11,8 +11,7 @@
         = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '宠物性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.petSexSet"}
 
   .row
-    .col-md-4
-      = partial :'layouts/inputs/date', :locals => { :keyword => "pet", :fieldName => '出生日期', :maxlength => '16' , :required => "true"}
+    -#.col-md-al :'layouts/inputs/date', :locals => { :keyword => "pet", :fieldName => '出生日期', :maxlength => '16' , :required => "true"}
 
     .col-md-4
       = partial :'layouts/inputs/text', :locals => { :keyword => "pet", :fieldName => '宠物年龄', :maxlength => '16', :required => "true"}
@@ -43,7 +42,7 @@
 
   .row
     .col-md-3
-      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '体重(kg)', :maxlength => '16', :required => "true"}
+      = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '体重(kg)', :maxlength => '16'}
 
     .col-md-3
       = partial :'layouts/inputs/double', :locals => { :keyword => "pet", :fieldName => '身高(cm)', :maxlength => '16'}

@@ -69,6 +69,10 @@
             = partial :'layouts/buttons/btn', :locals => {:label => "审核", :icon => "fa-gavel", :click => @portal_id + 'portal.auditing(' + @portal_id + '.id)', :disabled => "#{inline_attr_disabled}"}
 
           // 打印按钮
+          - if (defined? inline_toolbar) && ( inline_toolbar.include? "print1" )
+            = partial :'layouts/buttons/btn', :locals => {:label => "打印", :icon => "fa-print", :click => @portal_id + 'portal.print1(' + @portal_id + ')', :disabled => "#{inline_attr_disabled}"}
+
+          // 打印按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "print2" )
             = partial :'layouts/buttons/btn', :locals => {:label => "打印(明细)", :icon => "fa-print", :click => @portal_id + 'portal.print2(' + @portal_id + ')', :disabled => "#{inline_attr_disabled}"}
 
