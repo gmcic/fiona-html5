@@ -66,7 +66,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
         }
         else if($scope.paymentpractical.operateAction == "会员")
         {
-            if(!$scope.vip.prepayMoney || $scope.vip.prepayMoney <= $scope.paymentpractical.price)
+            if(!$scope.vip.prepayMoney || $scope.vip.prepayMoney < $scope.paymentpractical.price)
             {
                 $scope.allowmessage = "会员余额不足";
             }
@@ -79,7 +79,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
             }
         }
         else {
-            if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
+            if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent < $scope.paymentpractical.price)
             {
                 $scope.allowmessage = "支付金额不足";
             }
