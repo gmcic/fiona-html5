@@ -51,10 +51,7 @@
         %td {{pet.petSex.valueNameCn}}
 
         %th{:style => "width: 50px"} 体重
-        %td {{pet.petWeight}} kg
-
-        %th{:style => "width: 50px"} 体温
-        %td {{curemanager.temperature}}
+        %td{"colspan" => "3"} {{pet.petWeight}} kg
 
       %tr
         %th{:style => "width: 70px"} 临床诊断

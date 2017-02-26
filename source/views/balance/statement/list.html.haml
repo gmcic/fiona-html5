@@ -4,7 +4,8 @@ layout: "page"
 
 - page "结算单管理", "statement"
 
-= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view|print1|print2' }
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view|print1|print2' } do
+  / 不输出outline
 
 /  查看页面
 = partial :'layouts/partials/modal-portal-view-full', :locals => {:modal_toolbar => 'close' } do

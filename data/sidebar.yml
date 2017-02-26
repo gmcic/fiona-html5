@@ -29,6 +29,35 @@
   menus:
   #Reception - BEGIN
 
+    - name: 前台服务
+      icon: fa fa-ambulance
+      prefix: /direct
+      uri: javascript:;
+      menus:
+#        - name: 预约管理
+#          uri: /appointment/list
+#          icon: fa fa-th-large
+#          controller: AppointmentController
+#          template: /appointment/appointment_list.html
+#
+#        - name: 美容服务
+#          uri: /beauty/list
+#          icon: fa fa-th-large
+#          controller: BeautyController
+#          template: /beauty/beauty_list.html
+
+        - name: 寄养管理
+          uri: /fosterage/list
+          icon: fa fa-th-large
+          controller: FosterageController
+          template: /fosterage/fosterage_list.html
+
+        - name: 住院管理
+          uri: /inhospital/list
+          icon: fa fa-hospital-o
+          controller: InhospitalController
+          template: /inhospital/inhospital_list.html
+
     - name: 诊疗服务
       icon: fa fa-medkit
       prefix: /cure
@@ -164,35 +193,6 @@
           icon: fa fa-th-large
           controller: ItbackController
           template: /itback/itback_list.html
-
-    - name: 直达通道
-      icon: fa fa-ambulance
-      prefix: /direct
-      uri: javascript:;
-      menus:
-        - name: 预约管理
-          uri: /appointment/list
-          icon: fa fa-th-large
-          controller: AppointmentController
-          template: /appointment/appointment_list.html
-
-        - name: 美容服务
-          uri: /beauty/list
-          icon: fa fa-th-large
-          controller: BeautyController
-          template: /beauty/beauty_list.html
-
-        - name: 寄养管理
-          uri: /fosterage/list
-          icon: fa fa-th-large
-          controller: FosterageController
-          template: /fosterage/fosterage_list.html
-
-        - name: 住院管理
-          uri: /inhospital/list
-          icon: fa fa-hospital-o
-          controller: InhospitalController
-          template: /inhospital/inhospital_list.html
 
     - name: 挂号
       icon: fa fa-file-text

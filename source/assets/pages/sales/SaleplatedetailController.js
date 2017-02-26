@@ -67,6 +67,11 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
         {
             commons.danger("没有添加销售的商品, 不能结算!");
         }
+        else if(!$scope.saleplate.directSellCode || $scope.saleplate.directSellCode.length <= 0)
+        {
+            commons.danger("结算单号不能为空, 请重新提交!");
+            $scope.serialNumber({id: "saleplate", fieldName : "directSellCode", numberName : "销售单号"});
+        }
         else
         {
             $scope.saleplateportal.save();
