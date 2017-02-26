@@ -11,6 +11,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 会员姓名
 
+  - fieldName: 宠物昵称
+
   - fieldName: 消费金额
     filter: currency:"￥"
 
