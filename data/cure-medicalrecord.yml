@@ -15,7 +15,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 医生诊断
 
   - fieldName: 就诊时间
-    filter: date:"yyyy年MM月dd日 hh时mm分"
+    filter: date:"yyyy年MM月dd日 HH时mm分"
 
 searchFields:
   - fieldName: 会员编号
