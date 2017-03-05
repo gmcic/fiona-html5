@@ -84,6 +84,10 @@ helpers do
             return "<span class='label label-danger'>Danger</span>"
         elsif inputType == 'date'
             return "<input type='date' maxlength='32' ng-model='" << key << "." << fieldName << "' >";
+        elsif inputType == 'integer'
+            _input = "<input type='number'  min='1' step='1' class='form-control form-filter input-sm' ng-model='" << key << "." << fieldName << "' onkeyup=\"if(this.value && this.value.indexOf('.') != -1){alert('只能输入整数');this.value='';}\" >";
+
+            return _input;
         else
             return "<input type='" << inputType << "' class='form-control form-filter input-sm' ng-model='" << key << "." << fieldName << "'>";
         end

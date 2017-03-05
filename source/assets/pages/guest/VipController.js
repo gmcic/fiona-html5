@@ -1,5 +1,8 @@
 // 会员管理
-angular.module('fiona').controller('VipController', function ($scope, $controller, $http, commons) {
+angular.module('fiona').controller('VipController', function ($scope,$filter, $controller, $http, commons) {
+
+
+    $scope.date = '2016-10-01';
 
     $scope.dropdowns = {};
 
@@ -47,11 +50,13 @@ angular.module('fiona').controller('VipController', function ($scope, $controlle
             update: function () {
                 $scope.petportal.searchByWhere({gestId: $scope.vip.id});
 
+                $scope.vip.gestBirthday = $filter('date')($scope.vip.gestBirthday, 'yyyy-MM-dd'); //format
+                $scope.vip.createDate = $filter('date')($scope.vip.createDate, 'yyyy-MM-dd'); //format
+
                 $scope.local.recount();
 
                 $scope.replaceLocalObject("vip", ["gestSex", "gestStyle", "status"]);
             },
-
             submit : function () {
                 // 遍历保存所有子项
                 angular.forEach($scope.pets, function (pet, index, array) {

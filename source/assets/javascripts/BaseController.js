@@ -199,6 +199,8 @@ angular.module('fiona')
         format: 'yyyy-mm-dd',
         orientation: "left",
         autoclose: !0
+    }).on("changeDate", function () {
+        $(this).trigger('change');
     });
 
     $scope.dropboxinit = function (args) {
