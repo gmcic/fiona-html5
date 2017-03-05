@@ -32,7 +32,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
     filter: currency:"￥"
 
   - fieldName: 结算日期
-    filter: date:"yyyy年MM月dd日 hh24时mm分"
+    filter: date:"yyyy年MM月dd日 HH时mm分"
 
 
 searchFields:
