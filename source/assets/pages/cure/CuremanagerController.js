@@ -406,11 +406,11 @@ angular.module('fiona')
 
         $scope.nowtime = new Date();
 
-        var $first = 18; // 首页行数
+        var $first = 28; // 首页行数
 
-        var $middle = 24; // 中间页行数
+        var $middle = 34; // 中间页行数
 
-        var $last = 24; // 最后页行数
+        var $last = 34; // 最后页行数
 
         $scope.doctorprescriptdetail2ds = [];
 
