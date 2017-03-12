@@ -123,8 +123,11 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
   // 出院
   $scope.inhospitalportal.outhospital = function () {
+    if ($scope.inhospital.inputMoney ==  undefined){
+      $scope.inhospital.inputMoney = 0;
+    }
 
-    if ($scope.inhospital.inputMoney && $scope.inhospital.inputMoney == 0) {
+    if ($scope.inhospital.inputMoney === 0) {
       $http.get(commons.getBusinessHostname() + $scope.inhospitalportal.server + "/over/" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
         $('#' + $scope.inhospitalportal.id).modal('hide');
         $scope.inhospitalportal.filter();
@@ -135,7 +138,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     {
       commons.modaldanger($scope.inhospitalportal.id, "清零后再出院");
     }
-    else {
+    else if($scope.inhospital.inputMoney && $scope.inhospital.inputMoney < 0){
       commons.modaldanger($scope.inhospitalportal.id, "通过押金补齐");
     }
   };
