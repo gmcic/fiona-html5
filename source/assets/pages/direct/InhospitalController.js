@@ -1,261 +1,267 @@
 // 住院管理
 angular.module('fiona').controller('InhospitalController', function ($scope, $controller, $http, commons) {
 
-    $scope.dropdowns = { };
+  $scope.dropdowns = {};
 
-    commons.findDict($scope.dropdowns, {manufacturerIdSet: "业务员", managerIdSet: "主管人员", recipeUnitSet: "物品单位", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"});
+  commons.findDict($scope.dropdowns, {
+    manufacturerIdSet: "业务员",
+    managerIdSet: "主管人员",
+    recipeUnitSet: "物品单位",
+    frequencySet: "用药频次",
+    useWaySet: "药品使用方法",
+    useUnitSet: "物品单位"
+  });
 
-    $controller('BaseController', {$scope: $scope}); //继承
+  $controller('BaseController', {$scope: $scope}); //继承
 
-    // 住院类型
-    // $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
+  // 住院类型
+  // $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
 
-    /**
-     * 住院管理
-     * ---------------------------
-     * */
-    $scope.inhospitalportal = {
+  /**
+   * 住院管理
+   * ---------------------------
+   * */
+  $scope.inhospitalportal = {
 
-        id: "inhospital",
+    id: "inhospital",
 
-        name: "住院管理",
+    name: "住院管理",
 
-        server: "/api/v2/inhospitalrecords",
+    server: "/api/v2/inhospitalrecords",
 
-        defilters: {inHospitalNo: "住院号", gestCode: "会员编号", gestName: "会员姓名", petName: "宠物姓名"},
+    defilters: {inHospitalNo: "住院号", gestCode: "会员编号", gestName: "会员姓名", petName: "宠物姓名"},
 
-        callback: {
-            update: function () {
-                $scope.petportal.unique($scope.inhospital.petId);
+    callback: {
+      update: function () {
+        $scope.petportal.unique($scope.inhospital.petId);
 
-                $scope.vipportal.unique($scope.inhospital.gestId);
+        $scope.vipportal.unique($scope.inhospital.gestId);
 
-                // $scope.inhospitalportal.searchAll();
-                // $scope.inhospitaldetailportal.searchAll();
+        // $scope.inhospitalportal.searchAll();
+        // $scope.inhospitaldetailportal.searchAll();
 
-                $scope.vipprepayportal.search();
+        $scope.vipprepayportal.search();
 
-                $scope.inhospitalprescriptionportal.search();
+        $scope.inhospitalprescriptionportal.search();
 
-                $scope.vipprepayportal.search();
-            },
+        $scope.vipprepayportal.search();
+      },
 
-              view: function () {
+      unique: function () {
+        $scope.inhospitalportal.filter();
+      },
 
-                $scope.petportal.unique($scope.inhospital.petId);
+      view: function () {
 
-                $scope.vipportal.unique($scope.inhospital.gestId);
+        $scope.petportal.unique($scope.inhospital.petId);
 
-                // $scope.inhospitalportal.searchAll();
-                // $scope.inhospitaldetailportal.searchAll();
+        $scope.vipportal.unique($scope.inhospital.gestId);
 
-                $scope.vipprepayportal.search();
+        // $scope.inhospitalportal.searchAll();
+        // $scope.inhospitaldetailportal.searchAll();
 
-                $scope.inhospitalprescriptionportal.search();
+        $scope.vipprepayportal.search();
 
-                $scope.vipprepayportal.search();
-              },
-            insert: function() {
-                $scope.pet = {};
+        $scope.inhospitalprescriptionportal.search();
 
-                $scope.vip = {};
+        $scope.vipprepayportal.search();
+      },
+      insert: function () {
+        $scope.pet = {};
 
-                $scope.inhospitaldetails = [];
+        $scope.vip = {};
 
-                $scope.inhospitalprescriptions = [];
+        $scope.inhospitaldetails = [];
 
-                $scope.inhospitalprescriptiondetails = [];
+        $scope.inhospitalprescriptions = [];
 
-                $scope.inhospital.totalMoney = 0;
+        $scope.inhospitalprescriptiondetails = [];
 
-                $scope.serialNumber({id: "inhospital", fieldName : "inHospitalNo", numberName : "住院编号"});
+        $scope.inhospital.totalMoney = 0;
 
-                $scope.setSelectDefault("inhospital", ["itemCode", "managerId", "manufacturerId"]);
-            },
-            submitbefore: function(){
+        $scope.serialNumber({id: "inhospital", fieldName: "inHospitalNo", numberName: "住院编号"});
 
-                delete $scope.inhospital.inputMoney;
+        $scope.setSelectDefault("inhospital", ["itemCode", "managerId", "manufacturerId"]);
+      },
+      submitbefore: function () {
 
-                // if($scope.inhospital.itemCode)
-                // {
-                //     $scope.inhospital.itemName = $scope.dropdowns.itemCodeSet.findObjectWithProperty("itemCode", $scope.inhospital.itemCode).itemName;
-                // }
+        delete $scope.inhospital.inputMoney;
 
-                if($scope.inhospital.managerId)
-                {
-                    $scope.inhospital.managerBy = $scope.dropdowns.managerIdSet.getObjectWithId({id: $scope.inhospital.managerId}).personName;
-                }
+        // if($scope.inhospital.itemCode)
+        // {
+        //     $scope.inhospital.itemName = $scope.dropdowns.itemCodeSet.findObjectWithProperty("itemCode", $scope.inhospital.itemCode).itemName;
+        // }
 
-                if($scope.inhospital.manufacturerId)
-                {
-                    $scope.inhospital.manufacturerName = $scope.dropdowns.manufacturerIdSet.getObjectWithId({id: $scope.inhospital.manufacturerId}).personName;
-                }
-
-                delete $scope.inhospital.totalCount;
-            },
-            submit : function () {
-                // 遍历保存所有子项
-                angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
-                    // 寄养ID
-                    _inhospitaldetail.inHospitalId = $scope.inhospital.id;
-
-                    // 寄养编号
-                    _inhospitaldetail.inHospitalNo = $scope.inhospital.inHospitalNo;
-
-                    $scope.inhospitaldetailportal.saveWithEntity(_inhospitaldetail);
-                });
-
-                $scope.inhospitalportal.filter();
-            }
+        if ($scope.inhospital.managerId) {
+          $scope.inhospital.managerBy = $scope.dropdowns.managerIdSet.getObjectWithId({id: $scope.inhospital.managerId}).personName;
         }
-    };
 
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalportal}); //继承
+        if ($scope.inhospital.manufacturerId) {
+          $scope.inhospital.manufacturerName = $scope.dropdowns.manufacturerIdSet.getObjectWithId({id: $scope.inhospital.manufacturerId}).personName;
+        }
 
-    // 出院
-    $scope.inhospitalportal.outhospital = function () {
+        delete $scope.inhospital.totalCount;
+      },
+      submit: function () {
+        // 遍历保存所有子项
+        angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
+          // 寄养ID
+          _inhospitaldetail.inHospitalId = $scope.inhospital.id;
 
-      if($scope.inhospital.inputMoney)
-      {
-        $http.get(commons.getBusinessHostname() + $scope.inhospitalportal.server + "/over/" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
-          $('#' + $scope.inhospitalportal.id).modal('hide');
-          $scope.inhospitalportal.filter();
-          commons.success("出院成功");
+          // 寄养编号
+          _inhospitaldetail.inHospitalNo = $scope.inhospital.inHospitalNo;
+
+          $scope.inhospitaldetailportal.saveWithEntity(_inhospitaldetail);
         });
+
+        $scope.inhospitalportal.filter();
       }
-      else
-      {
-        commons.modaldanger($scope.inhospitalportal.id, "通过押金补齐");
+    }
+  };
+
+  $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalportal}); //继承
+
+  // 出院
+  $scope.inhospitalportal.outhospital = function () {
+
+    if ($scope.inhospital.inputMoney && $scope.inhospital.inputMoney > 0) {
+      $http.get(commons.getBusinessHostname() + $scope.inhospitalportal.server + "/over/" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
+        $('#' + $scope.inhospitalportal.id).modal('hide');
+        $scope.inhospitalportal.filter();
+        commons.success("出院成功");
+      });
+    }
+    else {
+      commons.modaldanger($scope.inhospitalportal.id, "通过押金补齐");
+    }
+  };
+
+  // /**
+  //  * 寄养期间消费
+  //  * ---------------------------
+  //  * */
+  // $scope.inhospitaldetailportal = {
+  //
+  //     foreign: "inhospital", // 外键
+  //
+  //     foreignkey: "inHospitalId", // 外键
+  //
+  //     id: "inhospitaldetail",
+  //
+  //     name: "寄养期间消费",
+  //
+  //     server: "/api/v2/inhospitalrecorddetails",
+  //
+  //     defilters: { },
+  //
+  //     callback: {
+  //         search: function(){
+  //             $scope.inhospitaldetailportal.resize();
+  //         }
+  //     }
+  // };
+  //
+  // $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitaldetailportal}); //继承
+
+  /**
+   * 预付金额
+   * ---------------------------
+   * */
+  $scope.vipprepayportal = {
+
+    foreign: "inhospital", // 外键
+
+    foreignkey: "relationId", // 外键
+
+    id: "vipprepay",
+
+    name: "预付金额",
+
+    server: "/api/v2/prepaymoneys",
+
+    defilters: {},
+
+    callback: {
+      submit: function () {
+        $scope.inhospitalportal.unique($scope.inhospital.id);
       }
-    };
+    }
+  };
 
-    // /**
-    //  * 寄养期间消费
-    //  * ---------------------------
-    //  * */
-    // $scope.inhospitaldetailportal = {
-    //
-    //     foreign: "inhospital", // 外键
-    //
-    //     foreignkey: "inHospitalId", // 外键
-    //
-    //     id: "inhospitaldetail",
-    //
-    //     name: "寄养期间消费",
-    //
-    //     server: "/api/v2/inhospitalrecorddetails",
-    //
-    //     defilters: { },
-    //
-    //     callback: {
-    //         search: function(){
-    //             $scope.inhospitaldetailportal.resize();
-    //         }
-    //     }
-    // };
-    //
-    // $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitaldetailportal}); //继承
+  $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipprepayportal}); //继承
 
-    /**
-     * 预付金额
-     * ---------------------------
-     * */
-    $scope.vipprepayportal = {
+  /**
+   * 健康状态记录
+   * ---------------------------
+   * */
+  $scope.inhospitalhealthportal = {
 
-        foreign: "inhospital", // 外键
+    foreign: "inhospital", // 外键
 
-        foreignkey: "relationId", // 外键
+    foreignkey: "relationId", // 外键
 
-        id: "vipprepay",
+    id: "inhospitalhealth",
 
-        name: "预付金额",
+    name: "健康状态记录",
 
-        server: "/api/v2/prepaymoneys",
+    server: "/api/v2/inhospitalhealths",
 
-        defilters: { },
+    defilters: {},
 
-        callback: {
-          submit : function () {
-            $scope.inhospitalportal.unique($scope.inhospital.id);
-          }
-        }
-    };
+    callback: {}
+  };
 
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.vipprepayportal}); //继承
+  $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalhealthportal}); //继承
 
-    /**
-     * 健康状态记录
-     * ---------------------------
-     * */
-    $scope.inhospitalhealthportal = {
+  /**
+   * 住院处方
+   * ---------------------------
+   * */
+  $scope.inhospitalprescriptionportal = {
 
-        foreign: "inhospital", // 外键
+    id: "inhospitalprescription",
 
-        foreignkey: "relationId", // 外键
+    name: "住院处方",
 
-        id: "inhospitalhealth",
+    server: "/api/v2/inhospitalprescriptions",
 
-        name: "健康状态记录",
+    callback: {
+      submitbefore: function () {
 
-        server: "/api/v2/inhospitalhealths",
+        $scope.inhospitalprescription.inHospitalNo = $scope.inhospital.inHospitalNo;
 
-        defilters: { },
+        $scope.inhospitalprescription.inHospitalId = $scope.inhospital.id;
 
-        callback: {
-        }
-    };
+        // 病例号
+        $scope.inhospitalprescription.sickFileCode = $scope.inhospital.id;
 
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalhealthportal}); //继承
+        $scope.inhospitalprescription.gestName = $scope.inhospital.gestName;
 
-    /**
-    * 住院处方
-    * ---------------------------
-    * */
-    $scope.inhospitalprescriptionportal = {
+        $scope.inhospitalprescription.petName = $scope.inhospital.petName;
+      },
 
-        id: "inhospitalprescription",
+      submit: function () {
+        angular.forEach($scope.inhospitalprescriptiondetails, function (_inhospitalprescriptiondetail) {
 
-        name: "住院处方",
+          _inhospitalprescriptiondetail.prescriptionId = $scope.inhospitalprescription.id;
 
-        server: "/api/v2/inhospitalprescriptions",
+          $scope.inhospitalprescriptiondetailportal.saveWithEntity(_inhospitalprescriptiondetail);
+        });
 
-        callback: {
-            submitbefore: function () {
+        $scope.inhospitalprescriptiondetail = {};
+      },
 
-                $scope.inhospitalprescription.inHospitalNo = $scope.inhospital.inHospitalNo;
+      delete: function () {
+        $scope.inhospitalprescriptiondetails = [];
+      },
 
-                $scope.inhospitalprescription.inHospitalId = $scope.inhospital.id;
+      switched: function () {
+        $scope.inhospitalprescriptiondetailportal.search();
+      }
+    }
+  };
 
-                // 病例号
-                $scope.inhospitalprescription.sickFileCode = $scope.inhospital.id;
-
-                $scope.inhospitalprescription.gestName = $scope.inhospital.gestName;
-
-                $scope.inhospitalprescription.petName = $scope.inhospital.petName;
-            },
-
-            submit: function () {
-                angular.forEach($scope.inhospitalprescriptiondetails, function (_inhospitalprescriptiondetail) {
-
-                    _inhospitalprescriptiondetail.prescriptionId = $scope.inhospitalprescription.id;
-
-                    $scope.inhospitalprescriptiondetailportal.saveWithEntity(_inhospitalprescriptiondetail);
-                });
-
-                $scope.inhospitalprescriptiondetail = {};
-            },
-
-            delete: function () {
-                $scope.inhospitalprescriptiondetails = [];
-            },
-
-            switched: function () {
-                $scope.inhospitalprescriptiondetailportal.search();
-            }
-        }
-    };
-
-    $controller('SidePanelController', {$scope: $scope, component: $scope.inhospitalprescriptionportal}); //继承
+  $controller('SidePanelController', {$scope: $scope, component: $scope.inhospitalprescriptionportal}); //继承
 
 
   /**
@@ -264,10 +270,14 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
    * */
   $scope.inhospitalprescriptionportal.search = function () {
 
-    $http.post(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/page" + commons.getTimestampStr(), {'pageSize': 10000,'pageNumber': '1','filters': [{"fieldName": "inHospitalNo", "operator": "EQ", "value": $scope.inhospital.inHospitalNo}]}).success(function (data, status, headers, config) {
+    $http.post(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/page" + commons.getTimestampStr(), {
+      'pageSize': 10000,
+      'pageNumber': '1',
+      'filters': [{"fieldName": "inHospitalNo", "operator": "EQ", "value": $scope.inhospital.inHospitalNo}]
+    }).success(function (data, status, headers, config) {
       $scope.inhospitalprescriptions = data.data.content;
 
-      if($scope.inhospitalprescriptions.length > 0) {
+      if ($scope.inhospitalprescriptions.length > 0) {
         $scope.inhospitalprescriptionportal.switched($scope.inhospitalprescriptions[0].id);
 
         if (!!$scope.inhospitalprescriptionportal.callback && !!$scope.inhospitalprescriptionportal.callback.search) {
@@ -281,293 +291,287 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
    * ---------------------------
    * */
   $scope.inhospitalprescriptionportal.clonedoctorprescript = function () {
-    $http.get(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/copy/" +$scope.inhospitalprescription.prescriptionCode+ "?inHospitalRecordCode=" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
+    $http.get(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/copy/" + $scope.inhospitalprescription.prescriptionCode + "?inHospitalRecordCode=" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
       $scope.inhospitalprescriptionportal.switched();
     });
   };
 
   $scope.inhospitalprescriptionportal.print = function () {
 
-        $scope.nowtime = new Date();
+    $scope.nowtime = new Date();
 
-        var $first = 18; // 首页行数
+    var $first = 18; // 首页行数
 
-        var $middle = 24; // 中间页行数
+    var $middle = 24; // 中间页行数
 
-        var $last = 24; // 最后页行数
+    var $last = 24; // 最后页行数
 
-        $scope.inhospitalprescriptiondetail2ds = [];
+    $scope.inhospitalprescriptiondetail2ds = [];
 
-        var size = $scope.inhospitalprescriptiondetails.length;
+    var size = $scope.inhospitalprescriptiondetails.length;
 
-        // 首页
-        $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice(0, size > $first ? $first : size));
+    // 首页
+    $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice(0, size > $first ? $first : size));
 
-        if(size > $first)
-        {
-            var $index = $first;
+    if (size > $first) {
+      var $index = $first;
 
-            var size = size - $first;
+      var size = size - $first;
 
-            // 中间页
-            while(size > $middle)
-            {
-               $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice($index, $index + $middle));
+      // 中间页
+      while (size > $middle) {
+        $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice($index, $index + $middle));
 
-               $index = $index + $middle;
+        $index = $index + $middle;
 
-               size = size - $middle;
-            }
+        size = size - $middle;
+      }
 
-            // 尾页
-            if(size > 0)
-            {
-                $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice($index));
+      // 尾页
+      if (size > 0) {
+        $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice($index));
 
-                $scope.lastpagebreak = size > $last;
-            }
-            else
-            {
-                $scope.lastpagebreak = true;
-            }
-        }
+        $scope.lastpagebreak = size > $last;
+      }
+      else {
+        $scope.lastpagebreak = true;
+      }
+    }
 
-        // $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
+    // $scope.pet.age = $scope.getAgeByBirthday($scope.pet.petBirthday);
 
-        $('#inhospitalprescriptionprint').modal({backdrop: 'static', keyboard: false});
-    };
+    $('#inhospitalprescriptionprint').modal({backdrop: 'static', keyboard: false});
+  };
 
-    /**
-    * 住院处方明细
-    * ---------------------------
-    * */
-    $scope.inhospitalprescriptiondetailportal = {
+  /**
+   * 住院处方明细
+   * ---------------------------
+   * */
+  $scope.inhospitalprescriptiondetailportal = {
 
-        foreign: "inhospitalprescription", // 外键
+    foreign: "inhospitalprescription", // 外键
 
-        foreignkey: "prescriptionId",
+    foreignkey: "prescriptionId",
 
-        id: "inhospitalprescriptiondetail",
+    id: "inhospitalprescriptiondetail",
 
-        name: "住院处方明细",
+    name: "住院处方明细",
 
-        server: "/api/v2/inhospitalprescriptiondetails"
-    };
+    server: "/api/v2/inhospitalprescriptiondetails"
+  };
 
-    $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalprescriptiondetailportal}); //继承
+  $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalprescriptiondetailportal}); //继承
 
-    $scope.inhospitalprescriptionportal.insert = function () {
+  $scope.inhospitalprescriptionportal.insert = function () {
 
-        $scope.inhospitalprescriptionportal.selectedId = null;
+    $scope.inhospitalprescriptionportal.selectedId = null;
 
-        $scope.inhospitalprescription = {};
-        $scope.inhospitalprescriptiondetails = [];
+    $scope.inhospitalprescription = {};
+    $scope.inhospitalprescriptiondetails = [];
 
-        $scope.serialNumber({id: "inhospitalprescription", fieldName : "prescriptionCode", numberName : "处方流水"});
+    $scope.serialNumber({id: "inhospitalprescription", fieldName: "prescriptionCode", numberName: "处方流水"});
 
-        $("#inhospitalprescription").modal({backdrop: 'static', keyboard: false});
-    };
+    $("#inhospitalprescription").modal({backdrop: 'static', keyboard: false});
+  };
 
-    /**
-     * 自动补全选择商品
-     * ---------------------------
-     * */
-    $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
+  /**
+   * 自动补全选择商品
+   * ---------------------------
+   * */
+  $controller('ProductAutoCompleteController', {$scope: $scope}); //继承
 
-    /**
-     * 添加处方明细
-     * ---------------------------
-     * */
-    $scope.productportal.checked = function (_selectObject) {
+  /**
+   * 添加处方明细
+   * ---------------------------
+   * */
+  $scope.productportal.checked = function (_selectObject) {
 
-        var _products;
+    var _products;
 
-        if(_selectObject.dataType == 'template')
-        {
-            _products = commons.findTemplateDetails(_selectObject.templateNo);
-        }
-        else
-        {
-            _products = [_selectObject];
-        }
+    if (_selectObject.dataType == 'template') {
+      _products = commons.findTemplateDetails(_selectObject.templateNo);
+    }
+    else {
+      _products = [_selectObject];
+    }
 
-        if (!$scope.inhospitalprescriptiondetails) {
-            $scope.inhospitalprescriptiondetails = [];
-        }
+    if (!$scope.inhospitalprescriptiondetails) {
+      $scope.inhospitalprescriptiondetails = [];
+    }
 
-        angular.forEach(_products, function (_product) {
+    angular.forEach(_products, function (_product) {
 
-            var _inhospitalprescriptiondetail= {};
+      var _inhospitalprescriptiondetail = {};
 
-            //  "inputCount",
+      //  "inputCount",
 
-            angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
-                _inhospitalprescriptiondetail[name] = _product[name];
-            });
+      angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay"], function (name) {
+        _inhospitalprescriptiondetail[name] = _product[name];
+      });
 
-            _inhospitalprescriptiondetail.manufacturerCode = _product.dealerCode;
-            _inhospitalprescriptiondetail.manufacturerName = _product.dealerName;
+      _inhospitalprescriptiondetail.manufacturerCode = _product.dealerCode;
+      _inhospitalprescriptiondetail.manufacturerName = _product.dealerName;
 
-            // 售价
-            _inhospitalprescriptiondetail.itemCost = _product.recipePrice;
+      // 售价
+      _inhospitalprescriptiondetail.itemCost = _product.recipePrice;
 
-            // 个数
-            _inhospitalprescriptiondetail.itemNum = _product.$itemNum || 1;
+      // 个数
+      _inhospitalprescriptiondetail.itemNum = _product.$itemNum || 1;
 
-            delete _product.$itemNum;
+      delete _product.$itemNum;
 
-            $scope.inhospitalprescriptiondetails.push(_inhospitalprescriptiondetail);
+      $scope.inhospitalprescriptiondetails.push(_inhospitalprescriptiondetail);
 
-        });
+    });
 
 //        if($scope.inhospitalprescriptiondetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 //            commons.modaldanger("inhospitalprescriptiondetails", "[ 商品" +_product.itemName+ " ]已存在");
 //        }
 //        else {
-            // 未选择新添加
+    // 未选择新添加
 
-            // commons.modalsuccess("inhospitalprescription", "成功添加[ " +inhospitalprescriptiondetail.itemName+ " ]商品");
+    // commons.modalsuccess("inhospitalprescription", "成功添加[ " +inhospitalprescriptiondetail.itemName+ " ]商品");
 //        }
 
-        $scope.productportal.resize();
-    };
+    $scope.productportal.resize();
+  };
 
-    // 重新计算
-    $scope.productportal.resize = function () {
+  // 重新计算
+  $scope.productportal.resize = function () {
 
-        $scope.inhospitalprescription.prescriptionCost = 0;
+    $scope.inhospitalprescription.prescriptionCost = 0;
 
-        angular.forEach($scope.inhospitalprescriptiondetaildetails, function (_inhospitalprescriptiondetail) {
-            // 小计
-            var _totalCost = _inhospitalprescriptiondetail.itemCost * _inhospitalprescriptiondetail.itemNum;
+    angular.forEach($scope.inhospitalprescriptiondetaildetails, function (_inhospitalprescriptiondetail) {
+      // 小计
+      var _totalCost = _inhospitalprescriptiondetail.itemCost * _inhospitalprescriptiondetail.itemNum;
 
-            // 总金额
-            $scope.inhospitalprescription.prescriptionCost += _totalCost;
-        });
-    }
+      // 总金额
+      $scope.inhospitalprescription.prescriptionCost += _totalCost;
+    });
+  }
 
-    // /**
-    //  * 住院期间消费
-    //  * ---------------------------
-    //  * */
-    //
-    // // 商品选择
-    // $scope.onselectinhospital = function() {
-    //
-    //     $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
-    //
-    //         $scope.inhospitaldetailportal.checked(data.data);
-    //
-    //     }).error(function (data, status, headers, config) {
-    //         commons.modaldanger($scope.productportal.id, "加载惟一的记录失败")
-    //     });
-    //
-    //     // 清除选中
-    //     $scope.selectedProduct = {};
-    //
-    //     $scope.searchStr = "";
-    //
-    //     $('#inhospitalautocomplete_value').val("");
-    // };
+  // /**
+  //  * 住院期间消费
+  //  * ---------------------------
+  //  * */
+  //
+  // // 商品选择
+  // $scope.onselectinhospital = function() {
+  //
+  //     $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
+  //
+  //         $scope.inhospitaldetailportal.checked(data.data);
+  //
+  //     }).error(function (data, status, headers, config) {
+  //         commons.modaldanger($scope.productportal.id, "加载惟一的记录失败")
+  //     });
+  //
+  //     // 清除选中
+  //     $scope.selectedProduct = {};
+  //
+  //     $scope.searchStr = "";
+  //
+  //     $('#inhospitalautocomplete_value').val("");
+  // };
 
 
-    // $scope.inhospitaldetailportal.checked = function (_product) {
-    //
-    //     if (!$scope.inhospitaldetails) {
-    //         $scope.inhospitaldetails = [];
-    //     }
-    //
-    //     if($scope.inhospitaldetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
-    //         commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
-    //     }
-    //     else {
-    //         // 未选择新添加
-    //
-    //         var _inhospitaldetail= {};
-    //
-    //         //  "inputCount",
-    //
-    //         angular.forEach(["itemCode", "itemName", "recipeUnit", "useUnit", "frequency", "dose", "sellPrice",  "useWay", "itemStandard"], function (name) {
-    //             _inhospitaldetail[name] = _product[name];
-    //         });
-    //
-    //         _inhospitaldetail.manufacturerCode = _product.dealerCode;
-    //         _inhospitaldetail.manufacturerName = _product.dealerName;
-    //
-    //         // 个数
-    //         _inhospitaldetail.itemNum = 1;
-    //
-    //         _inhospitaldetail.sellPrice = _product.recipePrice;
-    //
-    //         _inhospitaldetail.totalCost = _inhospitaldetail.itemNum * _inhospitaldetail.sellPrice;
-    //
-    //         $scope.inhospitaldetails.push(_inhospitaldetail);
-    //
-    //         commons.modalsuccess("inhospitaldetail", "成功添加[ " +inhospitaldetail.itemName+ " ]商品");
-    //     }
-    //
-    //     $scope.inhospitaldetailportal.resize();
-    // };
-    //
-    // $scope.inhospitaldetailportal.resize = function () {
-    //
-    //     $scope.inhospital.totalMoney = 0;
-    //
-    //     $scope.inhospital.totalCount = 0;
-    //
-    //     angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
-    //         // 小计
-    //         _inhospitaldetail.totalCost = _inhospitaldetail.sellPrice * _inhospitaldetail.itemNum;
-    //
-    //         $scope.inhospital.totalCount += _inhospitaldetail.itemNum;
-    //
-    //         // 总金额
-    //         $scope.inhospital.totalMoney += _inhospitaldetail.totalCost;
-    //     });
-    // }
+  // $scope.inhospitaldetailportal.checked = function (_product) {
+  //
+  //     if (!$scope.inhospitaldetails) {
+  //         $scope.inhospitaldetails = [];
+  //     }
+  //
+  //     if($scope.inhospitaldetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+  //         commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
+  //     }
+  //     else {
+  //         // 未选择新添加
+  //
+  //         var _inhospitaldetail= {};
+  //
+  //         //  "inputCount",
+  //
+  //         angular.forEach(["itemCode", "itemName", "recipeUnit", "useUnit", "frequency", "dose", "sellPrice",  "useWay", "itemStandard"], function (name) {
+  //             _inhospitaldetail[name] = _product[name];
+  //         });
+  //
+  //         _inhospitaldetail.manufacturerCode = _product.dealerCode;
+  //         _inhospitaldetail.manufacturerName = _product.dealerName;
+  //
+  //         // 个数
+  //         _inhospitaldetail.itemNum = 1;
+  //
+  //         _inhospitaldetail.sellPrice = _product.recipePrice;
+  //
+  //         _inhospitaldetail.totalCost = _inhospitaldetail.itemNum * _inhospitaldetail.sellPrice;
+  //
+  //         $scope.inhospitaldetails.push(_inhospitaldetail);
+  //
+  //         commons.modalsuccess("inhospitaldetail", "成功添加[ " +inhospitaldetail.itemName+ " ]商品");
+  //     }
+  //
+  //     $scope.inhospitaldetailportal.resize();
+  // };
+  //
+  // $scope.inhospitaldetailportal.resize = function () {
+  //
+  //     $scope.inhospital.totalMoney = 0;
+  //
+  //     $scope.inhospital.totalCount = 0;
+  //
+  //     angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
+  //         // 小计
+  //         _inhospitaldetail.totalCost = _inhospitaldetail.sellPrice * _inhospitaldetail.itemNum;
+  //
+  //         $scope.inhospital.totalCount += _inhospitaldetail.itemNum;
+  //
+  //         // 总金额
+  //         $scope.inhospital.totalMoney += _inhospitaldetail.totalCost;
+  //     });
+  // }
 
-    /**
-     * 会员管理
-     * ---------------------------
-     * */
-    $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
+  /**
+   * 会员管理
+   * ---------------------------
+   * */
+  $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
 
-    /**
-     * 宠物管理
-     * ---------------------------
-     * */
-    $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
+  /**
+   * 宠物管理
+   * ---------------------------
+   * */
+  $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
-    $scope.petportal.checked = function (_pet) {
+  $scope.petportal.checked = function (_pet) {
 
-        $scope.pet = _pet;
+    $scope.pet = _pet;
 
-        // 会员ID
-        $scope.inhospital.gestId = _pet.gestId;
+    // 会员ID
+    $scope.inhospital.gestId = _pet.gestId;
 
-        // 查询会员
-        $scope.vipportal.unique(_pet.gestId);
+    // 查询会员
+    $scope.vipportal.unique(_pet.gestId);
 
-        // 会员编号
-        $scope.inhospital.gestCode = _pet.gestCode;
+    // 会员编号
+    $scope.inhospital.gestCode = _pet.gestCode;
 
-        // 会员姓名
-        $scope.inhospital.gestName = _pet.gestName;
+    // 会员姓名
+    $scope.inhospital.gestName = _pet.gestName;
 
-        // 会员手机
-        $scope.inhospital.mobilePhone = "";
+    // 会员手机
+    $scope.inhospital.mobilePhone = "";
 
-        // 宠物ID
-        $scope.inhospital.petId = _pet.id;
+    // 宠物ID
+    $scope.inhospital.petId = _pet.id;
 
-        // 宠物名称
-        $scope.inhospital.petName = _pet.petName;
+    // 宠物名称
+    $scope.inhospital.petName = _pet.petName;
 
-        $("#petselect").modal('hide');
-    };
+    $("#petselect").modal('hide');
+  };
 
-    // 初始化查找商品
-    $scope.productportal.autocompletetemplatedata();
+  // 初始化查找商品
+  $scope.productportal.autocompletetemplatedata();
 
-    $scope.inhospitalportal.filter();
+  $scope.inhospitalportal.filter();
 });
