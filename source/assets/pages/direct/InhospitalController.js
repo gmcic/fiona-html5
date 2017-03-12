@@ -104,6 +104,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
                     $scope.inhospitaldetailportal.saveWithEntity(_inhospitaldetail);
                 });
+
+                $scope.inhospitalportal.filter();
             }
         }
     };
