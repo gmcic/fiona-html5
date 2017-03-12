@@ -1,7 +1,8 @@
 / BEGIN SAMPLE FORM PORTLET
 .row
   .col-md-3
-    = partial 'layouts/widget/service_pet'
+    = partial 'layouts/widget/service_pet' do
+      // 不输出
 
   .col-md-9
     -#住院登记表单
@@ -15,17 +16,17 @@
         -#= partial :'layouts/inputs/select', :locals => {:fieldName => '住院类型', :options => "type.itemCode as type.itemName for type in dropdowns.itemCodeSet"}
 
       .col-md-2
-        = partial :'layouts/inputs/date', :locals => { :fieldName => '开始日期', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '开始日期', :maxlength => '16'}
 
       .col-md-2
-        = partial :'layouts/inputs/date', :locals => { :fieldName => '结束日期', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '结束日期', :maxlength => '16'}
 
       .col-md-3
-        = partial :'layouts/inputs/number', :locals => { :fieldName => '预计天数', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '预计天数', :maxlength => '16'}
 
     .row
       .col-md-4
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '笼舍编号', :maxlength => '16', :required => "true"}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '笼舍编号', :maxlength => '16', :required => "true"}
 
       -#.col-md-3
       -#  = partial :'layouts/inputs/number', :locals => { :fieldName => '价格', :maxlength => '16'}
@@ -34,22 +35,22 @@
         = partial :'layouts/inputs/textview', :locals => { :fieldName => '预付金', :maxlength => '16'}
 
       .col-md-2
-        = partial :'layouts/inputs/select', :locals => {:fieldName => '主管人员', :options => "type.id as type.personName for type in dropdowns.managerIdSet"}
+        = partial :'layouts/inputs/textview', :locals => {:fieldName => '主管人员', :fieldKey => 'managerBy'}
 
       .col-md-3
-        = partial :'layouts/inputs/select', :locals => {:fieldName => '业务员', :options => "type.id as type.personName for type in dropdowns.manufacturerIdSet"}
+        = partial :'layouts/inputs/textview', :locals => {:fieldName => '业务员', :fieldKey => 'manufacturerName'}
 
     .row
       .col-md-12
-        = partial :'layouts/inputs/textarea', :locals => { :fieldName => '住院诊断', :maxlength => '16'}
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '住院诊断', :maxlength => '16'}
 
     .tabbable-line
       %ul.nav.nav-tabs
         %li.active
-          %a{"data-toggle" => "tab", :href => "//#inhospital_recipe"} 住院处方
+          %a{"data-toggle" => "tab", :href => "//#inhospital_recipeview"} 住院处方
 
         %li
-          %a{"data-toggle" => "tab", :href => "//#inhospital_prepay"} 预付金记录
+          %a{"data-toggle" => "tab", :href => "//#inhospital_prepayview"} 预付金记录
 
         -#%li.active
         -#  %a{"data-toggle" => "tab", :href => "//#inhospital_consume"} 住院期间消费
@@ -73,15 +74,15 @@
         -#  = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false" }
 
         -#住院处方
-        #inhospital_recipe.tab-pane.active
-          = partial :'inhospitalprescription'
+        #inhospital_recipeview.tab-pane.active
+          = partial :'inhospitalprescriptionview'
 
         -#预付金记录
-        #inhospital_prepay.tab-pane
+        #inhospital_prepayview.tab-pane
           - portal "预付金额记录", "vipprepay"
 
-          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' } do
-            = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
+          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none' } do
+            // 不输出
 
         -#健康状态记录
         -##inhospital_health.tab-pane

@@ -668,7 +668,8 @@ angular.module('fiona')
             component.callback.view();
         }
 
-        $("#" + component.id + "view").modal({backdrop: 'static', keyboard: false});
+      // {backdrop: 'static', keyboard: false}
+        $("#" + component.id + "view").modal();
     };
 
     /**

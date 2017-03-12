@@ -3,13 +3,10 @@
   .col-md-3
     - portal "住院处方", "inhospitalprescription"
     = partial 'layouts/widget/side', :locals => {:name => "分类", :id=> 'inhospitalprescription', :fieldName => "prescriptionCode", :modal_caption => "none", "light" => "none"} do
-      = partial :'layouts/buttons/remove', :locals => {:click => 'inhospitalprescriptionportal.remove()', :disabled => "!inhospitalprescriptionportal.selectedId"}
-      = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalprescriptionportal.insert()'}
-      = partial :'layouts/buttons/update', :locals => {:click => 'inhospitalprescriptionportal.update(inhospitalprescriptionportal.selectedId)', :disabled => "!inhospitalprescriptionportal.selectedId"}
+      // 不输出
 
   .col-md-9
     -# 处置处方
     - portal '住院处方明细', 'inhospitalprescriptiondetail'
     = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none', :selection => "none", :pagefilter => "orderBy:'groupName':false" }  do
-      = partial :'layouts/buttons/btn', :locals => {:label => "复制处方", :icon => "fa-copy", :click => "inhospitalprescriptionportal.clonedoctorprescript()", :disabled => "!inhospitalprescriptionportal.selectedId"}
       = partial :'layouts/buttons/print', :locals => {:click => 'inhospitalprescriptionportal.print()', :disabled => "!inhospitalprescriptionportal.selectedId"}

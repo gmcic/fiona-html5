@@ -7,8 +7,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     $controller('BaseController', {$scope: $scope}); //继承
 
-    // 挂号服务类型
-    $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
+    // 住院类型
+    // $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
 
     /**
      * 住院管理
@@ -38,6 +38,20 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
                 $scope.vipprepayportal.search();
             },
+
+              view: function () {
+                $scope.petportal.unique($scope.inhospital.petId);
+
+                $scope.vipportal.unique($scope.inhospital.gestId);
+
+                $scope.inhospitaldetailportal.searchAll();
+
+                $scope.vipprepayportal.search();
+
+                $scope.inhospitalprescriptionportal.search();
+
+                $scope.vipprepayportal.search();
+              },
             insert: function() {
                 $scope.pet = {};
 
@@ -57,10 +71,12 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
             },
             submitbefore: function(){
 
-                if($scope.inhospital.itemCode)
-                {
-                    $scope.inhospital.itemName = $scope.dropdowns.itemCodeSet.findObjectWithProperty("itemCode", $scope.inhospital.itemCode).itemName;
-                }
+                delete $scope.inhospital.inputMoney;
+
+                // if($scope.inhospital.itemCode)
+                // {
+                //     $scope.inhospital.itemName = $scope.dropdowns.itemCodeSet.findObjectWithProperty("itemCode", $scope.inhospital.itemCode).itemName;
+                // }
 
                 if($scope.inhospital.managerId)
                 {
@@ -90,6 +106,21 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalportal}); //继承
+
+    // 出院
+    $scope.inhospitalportal.outhospital = function () {
+      if(!$scope.inhospital.inputMoney && $scope.inhospital.inputMoney > 0)
+      {
+        $http.get(commons.getBusinessHostname() + $scope.inhospitalportal.server + "/over/" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
+          $('#' + $scope.inhospitalportal.id).modal('hide');
+          commons.success("出院成功");
+        });
+      }
+      else
+      {
+        commons.modaldanger($scope.inhospitalportal.id, "通过押金补齐");
+      }
+    };
 
     /**
      * 寄养期间消费
@@ -216,7 +247,18 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     $controller('SidePanelController', {$scope: $scope, component: $scope.inhospitalprescriptionportal}); //继承
 
-    $scope.inhospitalprescriptionportal.print = function () {
+
+  /**
+   * 复制处方单
+   * ---------------------------
+   * */
+  $scope.inhospitalprescriptionportal.clonedoctorprescript = function () {
+    $http.get(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/copy/" +$scope.inhospitalprescription.prescriptionCode+ "?inHospitalRecordCode=" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
+      $scope.inhospitalprescriptionportal.switched();
+    });
+  };
+
+  $scope.inhospitalprescriptionportal.print = function () {
 
         $scope.nowtime = new Date();
 
