@@ -80,7 +80,7 @@
         #inhospital_prepay.tab-pane
           - portal "预付金额记录", "vipprepay"
 
-          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' } do
+          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none' } do
             = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
 
         -#健康状态记录
