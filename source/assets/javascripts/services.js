@@ -57,6 +57,8 @@ angular.module('fiona.services', [])
                 closeInSeconds: 2,
                 icon: "remove"
             });
+
+          return $('.modal').scrollTop(0);
         },
         modalsuccess: function (alert_id, msg) {
             App.alert({

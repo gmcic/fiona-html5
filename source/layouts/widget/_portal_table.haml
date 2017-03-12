@@ -38,7 +38,8 @@
 
       - if (!defined? inline_toolbar ) || inline_toolbar != 'none'
         %td
-          - inline_attr_disabled = (defined? inline_toolbar) && (inline_toolbar.include? "auditing") ? (@portal_id + ".status.dictDetailCode == 'SM00043'") : ""
+          - if (!defined? inline_attr_disabled)
+            - inline_attr_disabled = (defined? inline_toolbar) && (inline_toolbar.include? "auditing") ? (@portal_id + ".status.dictDetailCode == 'SM00043'") : ""
 
           // 查看按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "view" )
