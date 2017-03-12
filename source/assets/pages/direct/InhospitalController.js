@@ -112,10 +112,12 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     // 出院
     $scope.inhospitalportal.outhospital = function () {
-      if(!$scope.inhospital.inputMoney && $scope.inhospital.inputMoney > 0)
+
+      if($scope.inhospital.inputMoney)
       {
         $http.get(commons.getBusinessHostname() + $scope.inhospitalportal.server + "/over/" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
           $('#' + $scope.inhospitalportal.id).modal('hide');
+          $scope.inhospitalportal.filter();
           commons.success("出院成功");
         });
       }
@@ -261,10 +263,10 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
   $scope.inhospitalprescriptionportal.search = function () {
 
     $http.post(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/page" + commons.getTimestampStr(), {'pageSize': 10000,'pageNumber': '1','filters': [{"fieldName": "inHospitalNo", "operator": "EQ", "value": $scope.inhospital.inHospitalNo}]}).success(function (data, status, headers, config) {
-      $scope.inhospitalprescriptionportals = data.data.content;
+      $scope.inhospitalprescriptions = data.data.content;
 
-      if($scope.inhospitalprescriptionportals.length > 0) {
-        $scope.inhospitalprescriptionportal.switched($scope.inhospitalprescriptionportals[0].id);
+      if($scope.inhospitalprescriptions.length > 0) {
+        $scope.inhospitalprescriptionportal.switched($scope.inhospitalprescriptions[0].id);
 
         if (!!$scope.inhospitalprescriptionportal.callback && !!$scope.inhospitalprescriptionportal.callback.search) {
           $scope.inhospitalprescriptionportal.callback.search();
