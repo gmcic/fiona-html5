@@ -10,13 +10,13 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 宠物姓名
 
-  - fieldName: 开始日期
-    filter: date:"yyyy年MM月dd日"
+#  - fieldName: 开始日期
+#    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 预付金
     filter: currency:"￥"
 
-  - fieldName: 预计天数
+#  - fieldName: 预计天数
 
 #  - fieldName: 住院类型
 #    fieldKey: itemName
