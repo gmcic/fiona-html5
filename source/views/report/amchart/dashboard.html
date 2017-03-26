@@ -36,5 +36,49 @@
     </div>
     <!-- END CHART PORTLET -->
     <!-- END ROW -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light portlet-fit portlet-datatable bordered" id="form_wizard_1">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class=" icon-layers font-green"></i>
+              <span class="caption-subject font-green sbold uppercase">商品销售明细</span>
+            </div>
+            <div class="actions">
+
+            </div>
+          </div>
+          <div class="portlet-body">
+            <table class="table table-bordered table-hover dataTable no-footer" id="sample_2">
+              <thead>
+              <tr>
+                <th > 名称 </th>
+                <th> 销售数量 </th>
+                <th> 销售均价 </th>
+                <th> 销售金额 </th>
+                <th> 平均进价 </th>
+                <th> 总成本 </th>
+                <th> 库存 </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="odd gradeX" ng-repeat="item in items" repeat-finish>
+                <td> {{item.itemName}} </td>
+                <td> {{item.totalNum}} </td>
+                <td> {{item.avgPrice| number:2}} </td>
+                <td> {{item.total| number:2}} </td>
+                <td> {{item.avgInputPrice| number:2}} </td>
+                <td> {{item.totalCost| number:2}} </td>
+                <td> {{item.inventory}} </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+      </div>
+
+    </div>
   </body>
 </html>
