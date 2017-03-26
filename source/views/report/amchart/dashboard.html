@@ -4,10 +4,37 @@
   <body>
     <div id='operate_msg_box'></div>
     <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+      <ul class="page-breadcrumb">
+        <li>
+          <a href="index.html">首页</a>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>报表</span>
+        </li>
+      </ul>
+      <div class="page-toolbar">
+        <div class="btn-group pull-right">
+          <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> {{currentMonth}}月份
+            <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu pull-right" role="menu">
+            <li ng-repeat="month in [1,2,3,4,5,6,7,8,9,10,11,12]">
+              <a href="javascript:void(0)" ng-click="changeMonth(month)">
+                <i class="icon-bell"></i> {{month}} </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- END PAGE BAR -->
     <!-- BEGIN PAGE TITLE -->
     <h3 class='page-title'>
       报表
       <small>销售报表</small>
+
     </h3>
     <!-- BEGIN ROW -->
     <div class='row'>
@@ -50,29 +77,8 @@
             </div>
           </div>
           <div class="portlet-body">
-            <table class="table table-bordered table-hover dataTable no-footer" id="sample_2">
-              <thead>
-              <tr>
-                <th > 名称 </th>
-                <th> 销售数量 </th>
-                <th> 销售均价 </th>
-                <th> 销售金额 </th>
-                <th> 平均进价 </th>
-                <th> 总成本 </th>
-                <th> 库存 </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr class="odd gradeX" ng-repeat="item in items" repeat-finish>
-                <td> {{item.itemName}} </td>
-                <td> {{item.totalNum}} </td>
-                <td> {{item.avgPrice| number:2}} </td>
-                <td> {{item.total| number:2}} </td>
-                <td> {{item.avgInputPrice| number:2}} </td>
-                <td> {{item.totalCost| number:2}} </td>
-                <td> {{item.inventory}} </td>
-              </tr>
-              </tbody>
+            <table class="table table-bordered table-hover no-footer" id="sample_2">
+
             </table>
           </div>
         </div>
