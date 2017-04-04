@@ -54,14 +54,19 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
     $http.get(commons.getBusinessHostname() + "/api/v2/reports/person?month="+month).success(function (data, status, headers, config) {
       $scope.legend = [];
       $scope.data = [];
+      $scope.allTotal = 0;
       // 遍历保存所有子项
       angular.forEach(data.data, function (item) {
+        var total = Number(item.total).toFixed(2);
+        $scope.allTotal += Number(total);
         console.log(item);
-        var name = item.name + "(" + item.type + ")" + "[" + item.total + "]";
+        var name = item.name + "(" + item.type + ")" + "[" + total + "]";
 
         $scope.legend[$scope.legend.length] = name;
-        $scope.data[$scope.data.length] = {value:item.total, name:name};
+        $scope.data[$scope.data.length] = {value:total, name:name};
       });
+
+      $scope.allTotal = Number($scope.allTotal).toFixed(2);
 
       // 基于准备好的dom，初始化echarts图表
       var pie = echarts.init(document.getElementById('pie'));
