@@ -1,7 +1,7 @@
 // 宠物管理
 angular.module('fiona').controller('AmchartController', function ($scope, $http, commons) {
-  var initReport=function(month){
-    $http.get(commons.getBusinessHostname() + "/api/v2/reports/item?month="+month).success(function (data, status, headers, config) {
+  var initReport=function(month, day){
+    $http.get(commons.getBusinessHostname() + "/api/v2/reports/item?month="+month+"&day=" + day).success(function (data, status, headers, config) {
       // $scope.items = data.data;
       var table = $('#sample_2');
 
@@ -36,6 +36,7 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
           { title: "平均进价",data: 'avgInputPrice' },
           { title: "总成本",data: 'totalCost' },
           { title: "库存",data: 'inventory' },
+          { title: "时间",data: 'createDate' },
         ],columnDefs:[
           {
             targets:[2,3,4,5],
@@ -51,7 +52,7 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
     });
 
     // 查询模板明细
-    $http.get(commons.getBusinessHostname() + "/api/v2/reports/person?month="+month).success(function (data, status, headers, config) {
+    $http.get(commons.getBusinessHostname() + "/api/v2/reports/person?month="+month+"&day=" + day).success(function (data, status, headers, config) {
       $scope.legend = [];
       $scope.data = [];
       $scope.allTotal = 0;
@@ -122,12 +123,34 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
     });
   }
 
-  $scope.currentMonth = new Date().getMonth() + 1;
+  var daysNumOfMonth = function(){
+    var days = ['-'];
+    var date = new Date();
+    date.setMonth($scope.selectMonth);
+    if ($scope.currentMonth != $scope.selectMonth){
+      date.setDate(0);
+    }
 
-  $scope.changeMonth = function(month){
-    $scope.currentMonth = month;
-    initReport($scope.currentMonth);
+    for (var i = 1; i < date.getDate() + 1; i++)
+      days.push(i);
+    return days;
   }
 
-  initReport($scope.currentMonth);
+  $scope.currentDay = '-';
+  $scope.currentMonth = new Date().getMonth() + 1;
+  $scope.selectMonth = $scope.currentMonth;
+  $scope.maxDays=daysNumOfMonth();
+
+
+  $scope.changeMonth = function(){
+    initReport($scope.selectMonth,$scope.currentDay);
+    $scope.maxDays=daysNumOfMonth();
+  }
+
+  $scope.selectDay=function(){
+    console.log($scope.currentDay);
+    initReport($scope.selectMonth,$scope.currentDay);
+  }
+
+  initReport($scope.selectMonth,$scope.currentDay);
 });
