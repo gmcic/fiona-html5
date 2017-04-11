@@ -121,6 +121,78 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
         ]
       });
     });
+
+
+  // 查询模板明细
+  $http.get(commons.getBusinessHostname() + "/api/v2/reports/gest/paid/action?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+      $scope.paiLegend = [];
+      $scope.paidData = [];
+      $scope.paidAllTotal = 0;
+      // 遍历保存所有子项
+      angular.forEach(data.data, function (item) {
+        var total = Number(item[0]).toFixed(2);
+        $scope.paidAllTotal += Number(total);
+        console.log(item);
+        var name = item[1] ;
+
+        $scope.paiLegend[$scope.paiLegend.length] = name;
+        $scope.paidData[$scope.paidData.length] = {value:total, name:name};
+      });
+
+      $scope.paidAllTotal = Number($scope.paidAllTotal).toFixed(2);
+
+      // 基于准备好的dom，初始化echarts图表
+      var paidDiv = echarts.init(document.getElementById('paidDiv'));
+
+      // 为echarts对象加载数据
+      paidDiv.setOption({
+        title : {
+          text: '支付统计',
+          subtext: '',
+          x:'center'
+        },
+        tooltip : {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          orient : 'vertical',
+          x : 'left',
+          data:$scope.paiLegend
+        },
+        toolbox: {
+          show : false,
+          feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {
+              show: true,
+              type: ['pie', 'funnel'],
+              option: {
+                funnel: {
+                  x: '25%',
+                  width: '50%',
+                  funnelAlign: 'left',
+                  max: 1548
+                }
+              }
+            },
+            restore : {show: true},
+            saveAsImage : {show: true}
+          }
+        },
+        calculable : true,
+        series : [
+          {
+            name:'支付统计',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:$scope.paidData
+          }
+        ]
+      });
+    });
   }
 
   var daysNumOfMonth = function(){
