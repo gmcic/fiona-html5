@@ -25,7 +25,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
 
         server: "/api/v2/warehouseinrecords",
 
-        defilters: {"inWarehouseCode": "入库单号", "checkMan": "审核人"},
+        defilters: {"remark": "备注"},
 
         onchange: function () {
             angular.forEach($scope.dropdowns.warehousesSet, function (data) {

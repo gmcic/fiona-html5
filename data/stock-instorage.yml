@@ -7,6 +7,8 @@ module:
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 入库单号
 
+  - fieldName: 备注
+
   - fieldName: 入库仓库
     fieldKey: inWarehouse
 
@@ -24,11 +26,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
     filter: date:"yyyy年MM月dd日"
 
 searchFields:
-  - fieldName: 单号
-  - fieldName: 制单时间
-  - fieldName: 审核时间
-  - fieldName: 审核人
-  - fieldName: 单据状态
+  - fieldName: 备注
 
 fields: #可定义多个中文名称指向同一个字段
 
