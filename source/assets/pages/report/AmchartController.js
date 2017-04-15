@@ -193,6 +193,81 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
         ]
       });
     });
+
+    // 查询模板明细-挂号
+    $http.get(commons.getBusinessHostname() + "/api/v2/reports/medic/register/record?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+        $scope.registerRecordLegend = [];
+        $scope.registerRecordData = [];
+        $scope.registerRecordAllTotal = 0;
+        $scope.registerRecordCount = 0;
+        // 遍历保存所有子项
+        angular.forEach(data.data, function (item) {
+          var total = Number(item[0]).toFixed(2);
+          $scope.registerRecordAllTotal += Number(total);
+          $scope.registerRecordCount += item[2];
+          console.log(item);
+          var name = item[1]+"("+item[2]+")" ;
+
+          $scope.registerRecordLegend[$scope.registerRecordLegend.length] = name;
+          $scope.registerRecordData[$scope.registerRecordData.length] = {value:total, name:name};
+        });
+
+        $scope.registerRecordAllTotal = Number($scope.registerRecordAllTotal).toFixed(2);
+
+        // 基于准备好的dom，初始化echarts图表
+        var registerRecordPie = echarts.init(document.getElementById('RegisterRecordPie'));
+
+        // 为echarts对象加载数据
+        registerRecordPie.setOption({
+          title : {
+            text: '挂号统计('+$scope.registerRecordCount + ")",
+            subtext: '',
+            x:'center'
+          },
+          tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+          legend: {
+            orient : 'vertical',
+            x : 'left',
+            data:$scope.registerRecordLegend
+          },
+          toolbox: {
+            show : false,
+            feature : {
+              mark : {show: true},
+              dataView : {show: true, readOnly: false},
+              magicType : {
+                show: true,
+                type: ['pie', 'funnel'],
+                option: {
+                  funnel: {
+                    x: '25%',
+                    width: '50%',
+                    funnelAlign: 'left',
+                    max: 1548
+                  }
+                }
+              },
+              restore : {show: true},
+              saveAsImage : {show: true}
+            }
+          },
+          calculable : true,
+          series : [
+            {
+              name:'挂号统计',
+              type:'pie',
+              radius : '55%',
+              center: ['50%', '60%'],
+              data:$scope.registerRecordData
+            }
+          ]
+        });
+      });
+
+
   }
 
   var daysNumOfMonth = function(){

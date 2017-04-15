@@ -43,6 +43,27 @@
     </h3>
     <!-- BEGIN ROW -->
     <div class='row'>
+      <div class='col-md-12'>
+        <!-- BEGIN CHART PORTLET -->
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption'>
+              <i class='fa fa-bar-chart'></i>
+              <span class='caption-subject bold uppercase font-green-haze'>支付统计报表&nbsp;&nbsp;[{{paidAllTotal}}]</span>
+            </div>
+            <div class='tools'>
+
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div id='paidDiv' style="height:400px" ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END CHART PORTLET -->
+    <!-- BEGIN ROW -->
+    <div class='row'>
       <div class='col-md-6'>
         <!-- BEGIN CHART PORTLET -->
         <div class='portlet light bordered'>
@@ -60,24 +81,23 @@
           </div>
         </div>
       </div>
+
       <div class='col-md-6'>
         <!-- BEGIN CHART PORTLET -->
         <div class='portlet light bordered'>
           <div class='portlet-title'>
             <div class='caption'>
               <i class='fa fa-bar-chart'></i>
-              <span class='caption-subject bold uppercase font-green-haze'>支付统计报表&nbsp;&nbsp;[{{paidAllTotal}}]</span>
+              <span class='caption-subject bold uppercase font-green-haze'>挂号费统计&nbsp;&nbsp;[{{registerRecordAllTotal}}],[{{registerRecordCount}}]</span>
             </div>
             <div class='tools'>
-
             </div>
           </div>
           <div class='portlet-body'>
-            <div id='paidDiv' style="height:400px" ></div>
+            <div id='RegisterRecordPie' style="height:400px" ></div>
           </div>
         </div>
       </div>
-
     </div>
     <!-- END CHART PORTLET -->
     <!-- END ROW -->
