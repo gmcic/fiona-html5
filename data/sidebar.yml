@@ -40,11 +40,11 @@
 #          controller: AppointmentController
 #          template: /appointment/appointment_list.html
 #
-#        - name: 美容服务
-#          uri: /beauty/list
-#          icon: fa fa-th-large
-#          controller: BeautyController
-#          template: /beauty/beauty_list.html
+        - name: 美容服务
+          uri: /beauty/list
+          icon: fa fa-th-large
+          controller: BeautyController
+          template: /beauty/beauty_list.html
 
         - name: 寄养管理
           uri: /fosterage/list

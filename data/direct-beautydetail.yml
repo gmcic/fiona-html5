@@ -10,7 +10,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 数量
     input: number
-    event: ng-change='productportal.resize()'
+    event: ng-change='rearith()'
 
   - fieldName: 销售单位
     filter: dropdown

@@ -364,7 +364,15 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     name: "住院处方明细",
 
-    server: "/api/v2/inhospitalprescriptiondetails"
+    server: "/api/v2/inhospitalprescriptiondetails",
+
+    callback: {
+      delete: function(){
+
+        // 重新计算
+        $scope.rearith();
+      }
+    }
   };
 
   $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalprescriptiondetailportal}); //继承
@@ -440,102 +448,22 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     // commons.modalsuccess("inhospitalprescription", "成功添加[ " +inhospitalprescriptiondetail.itemName+ " ]商品");
 //        }
 
-    $scope.productportal.resize();
+    $scope.rearith();
   };
 
   // 重新计算
-  $scope.productportal.resize = function () {
+  $scope.rearith = function () {
 
     $scope.inhospitalprescription.prescriptionCost = 0;
 
-    angular.forEach($scope.inhospitalprescriptiondetaildetails, function (_inhospitalprescriptiondetail) {
+    angular.forEach($scope.inhospitalprescriptiondetails, function (_inhospitalprescriptiondetail) {
       // 小计
       var _totalCost = _inhospitalprescriptiondetail.itemCost * _inhospitalprescriptiondetail.itemNum;
 
       // 总金额
       $scope.inhospitalprescription.prescriptionCost += _totalCost;
     });
-  }
-
-  // /**
-  //  * 住院期间消费
-  //  * ---------------------------
-  //  * */
-  //
-  // // 商品选择
-  // $scope.onselectinhospital = function() {
-  //
-  //     $http.get(commons.getBusinessHostname() + $scope.productportal.server + "/" + $scope.selectedProduct.originalObject.id + commons.getTimestampStr()).success(function (data, status, headers, config) {
-  //
-  //         $scope.inhospitaldetailportal.checked(data.data);
-  //
-  //     }).error(function (data, status, headers, config) {
-  //         commons.modaldanger($scope.productportal.id, "加载惟一的记录失败")
-  //     });
-  //
-  //     // 清除选中
-  //     $scope.selectedProduct = {};
-  //
-  //     $scope.searchStr = "";
-  //
-  //     $('#inhospitalautocomplete_value').val("");
-  // };
-
-
-  // $scope.inhospitaldetailportal.checked = function (_product) {
-  //
-  //     if (!$scope.inhospitaldetails) {
-  //         $scope.inhospitaldetails = [];
-  //     }
-  //
-  //     if($scope.inhospitaldetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
-  //         commons.modaldanger("doctorprescript", "[ 商品" +_product.itemName+ " ]已存在");
-  //     }
-  //     else {
-  //         // 未选择新添加
-  //
-  //         var _inhospitaldetail= {};
-  //
-  //         //  "inputCount",
-  //
-  //         angular.forEach(["itemCode", "itemName", "recipeUnit", "useUnit", "frequency", "dose", "sellPrice",  "useWay", "itemStandard"], function (name) {
-  //             _inhospitaldetail[name] = _product[name];
-  //         });
-  //
-  //         _inhospitaldetail.manufacturerCode = _product.dealerCode;
-  //         _inhospitaldetail.manufacturerName = _product.dealerName;
-  //
-  //         // 个数
-  //         _inhospitaldetail.itemNum = 1;
-  //
-  //         _inhospitaldetail.sellPrice = _product.recipePrice;
-  //
-  //         _inhospitaldetail.totalCost = _inhospitaldetail.itemNum * _inhospitaldetail.sellPrice;
-  //
-  //         $scope.inhospitaldetails.push(_inhospitaldetail);
-  //
-  //         commons.modalsuccess("inhospitaldetail", "成功添加[ " +inhospitaldetail.itemName+ " ]商品");
-  //     }
-  //
-  //     $scope.inhospitaldetailportal.resize();
-  // };
-  //
-  // $scope.inhospitaldetailportal.resize = function () {
-  //
-  //     $scope.inhospital.totalMoney = 0;
-  //
-  //     $scope.inhospital.totalCount = 0;
-  //
-  //     angular.forEach($scope.inhospitaldetails, function (_inhospitaldetail) {
-  //         // 小计
-  //         _inhospitaldetail.totalCost = _inhospitaldetail.sellPrice * _inhospitaldetail.itemNum;
-  //
-  //         $scope.inhospital.totalCount += _inhospitaldetail.itemNum;
-  //
-  //         // 总金额
-  //         $scope.inhospital.totalMoney += _inhospitaldetail.totalCost;
-  //     });
-  // }
+  };
 
   /**
    * 会员管理

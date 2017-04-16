@@ -55,6 +55,7 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
 
   - fieldName: 数量
     input: number
+    event: ng-change='rearith()'
 
   - fieldName: 售价
     filter: currency:"￥"
@@ -64,6 +65,9 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
     options: type.valueNameCn as type.valueNameCn for type in dropdowns.frequencySet
 
   - fieldName: 单次用量
+    input: text
+
+  - fieldName: 分组
     input: text
 
   - fieldName: 投药单位

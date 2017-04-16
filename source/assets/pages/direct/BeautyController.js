@@ -81,8 +81,10 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
         defilters: { },
 
         callback: {
-            update: function(){
+            delete: function(){
 
+              // 重新计算
+              $scope.rearith();
             }
         }
     };
@@ -126,25 +128,9 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 //            commons.modalsuccess("beauty", "成功添加[ " +beautydetail.itemName+ " ]商品");
         }
 
-        $scope.productportal.resize();
+        // 重新计算
+        $scope.rearith();
     };
-
-    $scope.productportal.resize = function () {
-
-        $scope.beauty.totalNum = 0;
-        $scope.beauty.totalCost = 0;
-
-        angular.forEach($scope.beautydetails, function (_beautydetail) {
-
-            $scope.beauty.totalNum += _beautydetail.inputCount;
-
-            // 小计
-            _beautydetail.totalCost = _beautydetail.sellPrice * _beautydetail.inputCount;
-
-            // 总金额
-            $scope.beauty.totalCost += _beautydetail.totalCost;
-        });
-    }
 
     $scope.productportal.autocompletedata();
 
@@ -182,4 +168,22 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 
     // 实始化
     $scope.beautyportal.filter();
+
+    // 计算器
+    $scope.rearith = function () {
+
+      $scope.beauty.totalNum = 0;
+      $scope.beauty.totalCost = 0;
+
+      angular.forEach($scope.beautydetails, function (_beauty) {
+        // 小计
+        _beauty.totalCost = _beauty.sellPrice * _beauty.inputCount;
+
+        // 总数量
+        $scope.beauty.totalNum += _beauty.inputCount;
+
+        // 总金额
+        $scope.beauty.totalCost += _beauty.totalCost;
+      });
+    }
 });
