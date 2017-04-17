@@ -531,4 +531,11 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
   $scope.productportal.autocompletetemplatedata();
 
   $scope.inhospitalportal.filter();
+
+  // 查询医院信息
+  $http.get(commons.getBusinessHostname() + "/api/v2/enterprises" + commons.getTimestampStr()).success(function (data, status, headers, config) {
+    angular.forEach(data.data, function (item) {
+      $scope.hospital = item;
+    });
+  });
 });
