@@ -350,6 +350,28 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     $('#inhospitalprescriptionprint').modal({backdrop: 'static', keyboard: false});
   };
 
+  // 打印页面
+  $scope.print = function () {
+
+    $('#inhospitalprescriptionprintbody').find(':text').each(function(i, node){
+      var _text = $(node);
+      _text.parent().html(_text.val());
+    });
+
+    var html = '';
+
+    $('#inhospitalprescriptionprintbody').find('.print-body-html').each(function(i, node){
+      html += "<p></p>";
+      html += node.outerHTML;
+      html += "<p style='page-break-after:always;both: clean'>&nbsp;</p>";
+    });
+
+    document.getElementById('printiframe').contentWindow.document.getElementById('printBody').innerHTML = html;
+    document.getElementById('printiframe').contentWindow.print();
+
+    $('#inhospitalprescriptionprint').modal('hide');
+  }
+
   /**
    * 住院处方明细
    * ---------------------------
