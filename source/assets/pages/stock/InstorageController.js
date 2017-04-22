@@ -1,7 +1,9 @@
 // 入库管理
 angular.module('fiona').controller('InstorageController', function($scope, $controller, $http, commons) {
 
-    $scope.dropdowns= {};
+    $scope.dropdowns= {
+      paidStatusSet: [{id: "已付款", valueNameCn: "已付款"}, {id: "待付款", valueNameCn: "待付款"}]
+    };
 
     commons.findDict($scope.dropdowns, {frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位", recipeUnitSet: "物品单位"});
 
@@ -100,7 +102,7 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.instorageportal}); //继承
-    
+
     /**
      * 入库明细
      * ---------------------------
