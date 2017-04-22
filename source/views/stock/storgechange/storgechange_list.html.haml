@@ -1,0 +1,14 @@
+---
+layout: "page"
+---
+
+- page '库存管理', 'storgechange'
+
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'update|remove' }
+
+/  编辑页面
+= partial :'layouts/partials/modal-portal-full', :locals => {:modal_toolbar => 'close|submit' } do
+  = partial 'modify'
+
+/ 选择供应商
+= partial :'layouts/widget/service_dealer_select'

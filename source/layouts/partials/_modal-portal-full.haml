@@ -5,6 +5,6 @@
 .modal.fade.bs-modal-lg{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1", :id => "#{@modal_id}"}
   .modal-dialog.modal-full
     .modal-content
-      %form{:id => "#{@modal_id}form", :name => "#{@modal_id}form", :novalidate => "", :role => "form"}
+      %form{:id => "#{@modal_id}form", :name => "#{@modal_id}form", :novalidate => "", "ng-submit" => "#{@modal_id}portal.submit()", :role => "form"}
         = partial 'layouts/partials/modal-portal-body', :locals => locals do
           = yield

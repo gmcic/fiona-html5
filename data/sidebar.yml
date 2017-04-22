@@ -240,6 +240,12 @@
           icon: fa fa-th-large
           template: /backstorage/backstorage_list.html
 
+        - name: 库存变更
+          icon: fa fa-th-large
+          controller: StorgechangeController
+          uri: /storgechange/list
+          template: /storgechange/storgechange_list.html
+
 # 基础数据
     - name: 基础数据
       prefix: /basic

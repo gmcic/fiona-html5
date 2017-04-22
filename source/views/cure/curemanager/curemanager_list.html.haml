@@ -123,12 +123,14 @@ layout: "page"
           %form{:id => "#{@modal_id}form", :name => "#{@modal_id}form", :novalidate => "", "ng-submit" => "#{@modal_id}portal.submit()", :role => "form"}
             .form-body
               .row
+                = partial :'layouts/inputs/text', :locals => { :fieldName => '宠物ID', :maxlength => '32', :required => 'true', "msg" => "宠物信息"}
+              .row
                 .col-md-12
                   = partial :'layouts/inputs/textview', :locals => {:fieldName => '就诊编号', :maxlength => '16', :required => "true"}
 
               .row
                 .col-md-3
-                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体温', :maxlength => '32'}
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体温', :maxlength => '32', :required => "true"}
 
                 .col-md-3
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '心跳', :maxlength => '32'}
