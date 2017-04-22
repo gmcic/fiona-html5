@@ -3,7 +3,7 @@ angular.module('fiona').controller('PersonnelController', function ($scope, $htt
 
     $scope.dropdowns = {
         isSyncEasSet: [{id: "true", valueNameCn: "是"}, {id: "false", valueNameCn: "否"}],
-        roleSet: [{id: "doctor", valueNameCn: "医生"}, {id: "nurse", valueNameCn: "护士"}]
+        roleSet: [{id: "doctor", valueNameCn: "医生"}, {id: "nurse", valueNameCn: "护士"}, {id: "service", valueNameCn: "美容"}]
     };
 
     commons.findDict($scope.dropdowns, {personStatusSet: "会员状态", sexSet: "性别"});
