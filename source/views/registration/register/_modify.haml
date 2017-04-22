@@ -22,7 +22,7 @@
 
           .row
             .col-md-12
-              = partial :'layouts/inputs/select', :locals => {:fieldName => '挂号类型', :options => "type.itemCode as type.itemName for type in dropdowns.itemCodeSet", :change => "registerportal.selectchange('itemCode', 'itemCode')"}
+              = partial :'layouts/inputs/select', :locals => {:fieldName => '挂号类型', :options => "type.itemCode as type.itemName for type in dropdowns.itemCodeSet", :change => "registerportal.selectchange('itemCode', 'itemCode')",:required => 'true'}
 
           .row
             .col-md-12
