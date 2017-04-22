@@ -11,6 +11,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 入库仓库
     fieldKey: inWarehouse
+    
+  - fieldName: 付款状态
 
   - fieldName: 总项
 
@@ -65,6 +67,8 @@ fields: #可定义多个中文名称指向同一个字段
   主键: id
 
   状态: status
+
+  付款状态: paidStatus
 
   单据状态: status.valueNameCn
 
