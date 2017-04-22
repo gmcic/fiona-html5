@@ -117,6 +117,8 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
             angular.forEach(["itemCode", "itemName", "packageUnit", "sellPrice",  "itemStandard", "barCode"], function (name) {
                 beautydetail[name] = _product[name];
             });
+            beautydetail["sellPrice"] = _product["recipePrice"];
+            beautydetail["packageUnit"] = _product["recipeUnit"];
 
             // 个数
             beautydetail.inputCount = 1;
