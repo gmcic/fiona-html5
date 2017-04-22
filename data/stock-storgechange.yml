@@ -1,0 +1,68 @@
+
+module:
+  name: 健康状态记录
+  id: storgechange
+  data: itemcountchangereasons
+
+# 经销商与生产商
+listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
+  - fieldName: 仓库名称
+
+  - fieldName: 商品名称
+
+  - fieldName: 新洒落数量
+
+  - fieldName: 新批次号
+
+  - fieldName: 新过期时间
+    filter: date:"yyyy年MM月dd日"
+
+searchFields:
+  - fieldName: 仓库名称
+  - fieldName: 商品编号
+  - fieldName: 商品名称
+
+fields: #可定义多个中文名称指向同一个字段
+
+  商品编号: itemCode
+
+  商品名称: itemName
+
+  仓库: warehouseCode
+
+  仓库编号: warehouseCode
+
+  仓库名称: warehouseName
+
+  类型数量ID: itemCountId
+
+  原资源数量: sourceCount
+
+  原洒落数量: sourceScatteredCount
+
+  原批次号: sourceBatchNumber
+
+  原过期时间: sourceOutDateTime
+
+
+  新数量: newCount
+
+  新洒落数量: newScatteredCount
+
+  新批次号: newBatchNumber
+
+  新过期时间: newOutDateTime
+
+  更新原因: changeReason
+
+  主键: id
+
+  单据状态: status
+
+  创建人: createUserId
+
+  制单时间: createDate
+
+  修改人: updateUserId
+
+  修改时间: updateDate

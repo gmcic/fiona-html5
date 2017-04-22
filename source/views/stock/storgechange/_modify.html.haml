@@ -1,0 +1,48 @@
+.form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/select', :locals => {:fieldName => '仓库', :options => "type.id as type.valueNameCn for type in dropdowns.warehouseIdSet", :change => "storgechangeportal.onchange()", :required => 'true'}
+  .row
+    .col-md-12
+      = partial 'views/commons/product/product_autocomplete'
+
+  .row
+    .col-md-12nn
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '商品名称', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textview', :locals => {:fieldName => '商品名称', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/hidden', :locals => { :fieldName => '商品编号', :maxlength => '32', :required => 'true', "msg" => "商品未选择，请选择商品"}
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '原资源数量', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '原洒落数量', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '原批次号', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/date', :locals => {:fieldName => '原过期时间', :maxlength => '32'}
+
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '新数量', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '新洒落数量', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '新批次号', :maxlength => '32'}
+
+    .col-md-3
+      = partial :'layouts/inputs/date', :locals => {:fieldName => '新过期时间', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textarea', :locals => {:fieldName => '更新原因', :maxlength => '32', :required => 'true'}

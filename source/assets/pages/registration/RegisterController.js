@@ -190,6 +190,8 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
       $scope.petportal.checked = function (pet) {
 
+        $scope.register.petId = pet.id;
+
         var _wheres = [{"fieldName": "petId", "operator": "EQ", "value": pet.id}];
 
         var _filters = [{"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00034"}, {"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00035"}, {"fieldName": "status.dictDetailCode", "operator": "EQ", "value": "SM00036"}];
