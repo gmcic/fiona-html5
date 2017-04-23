@@ -74,7 +74,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   价格: totalCost
 
-  小计: sumprice
+  小计: totalCost
 
   优惠: sumDiscountMoney
 
