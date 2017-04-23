@@ -35,12 +35,114 @@
       </div>
     </div>
     <!-- END PAGE BAR -->
+
     <!-- BEGIN PAGE TITLE -->
     <h3 class='page-title'>
       报表
       <small>销售报表</small>
 
     </h3>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="dashboard-stat2 ">
+              <div class="display">
+                  <div class="number">
+                      <h3 class="font-green-sharp">
+                          <span>{{inputMoneyTotal}}</span>
+                          <small class="font-green-sharp">元</small>
+                      </h3>
+                      <small>会员充值</small>
+                  </div>
+                  <div class="icon">
+                      <i class="icon-pie-chart"></i>
+                  </div>
+              </div>
+              <div class="progress-info">
+                  <div class="progress">
+                      <span style="width: {{(inputMoneyTotal/vipMoneyTotal*100)|number:2}}%;" class="progress-bar progress-bar-success green-sharp">
+                          <span class="sr-only">{{(inputMoneyTotal/vipMoneyTotal*100)|number:2}}% 储值占比</span>
+                      </span>
+                  </div>
+                  <div class="status">
+                      <div class="status-title"> 储值占比 </div>
+                      <div class="status-number"> {{inputMoneyTotal/vipMoneyTotal*100|number:2}}% </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="dashboard-stat2 ">
+              <div class="display">
+                  <div class="number">
+                      <h3 class="font-red-haze">
+                          <span>{{outputMoneyTotal}}</span>
+                      </h3>
+                      <small>会员消费</small>
+                  </div>
+                  <div class="icon">
+                      <i class="icon-like"></i>
+                  </div>
+              </div>
+              <div class="progress-info">
+                  <div class="progress">
+                      <span style="width: {{outputMoneyTotal/vipMoneyTotal*100|number:2}}%;" class="progress-bar progress-bar-success red-haze">
+                          <span class="sr-only">{{outputMoneyTotal/vipMoneyTotal*100|number:2}}% 消费占比</span>
+                      </span>
+                  </div>
+                  <div class="status">
+                      <div class="status-title"> 消费占比 </div>
+                      <div class="status-number"> {{outputMoneyTotal/vipMoneyTotal*100|number:2}}% </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="dashboard-stat2 ">
+              <div class="display">
+                  <div class="number">
+                      <h3 class="font-blue-sharp">
+                          <span>{{vipCount}}</span>
+                      </h3>
+                      <small>会员数量</small>
+                  </div>
+                  <div class="icon">
+                      <i class="icon-basket"></i>
+                  </div>
+              </div>
+              <div class="progress-info">
+                  <div class="progress">
+                      <span style="width: {{vipCount/gestCount*100|number:2}}%;" class="progress-bar progress-bar-success blue-sharp">
+                          <span class="sr-only">{{vipCount/gestCount*100|number:2}}% 会员占比</span>
+                      </span>
+                  </div>
+                  <div class="status">
+                      <div class="status-title"> 会员占比 </div>
+                      <div class="status-number"> {{vipCount/gestCount*100|number:2}}% </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="dashboard-stat2 ">
+              <div class="display">
+                  <div class="number">
+                      <h3 class="font-purple-soft">
+                          <span>{{vipMoneyTotal}}</span>
+                      </h3>
+                      <small>储蓄总额</small>
+                  </div>
+                  <div class="icon">
+                      <i class="icon-user"></i>
+                  </div>
+              </div>
+              <div class="progress-info">
+
+              </div>
+          </div>
+      </div>
+  </div>
+
     <!-- BEGIN ROW -->
     <div class='row'>
       <div class='col-md-12'>

@@ -1,5 +1,16 @@
 // 宠物管理
 angular.module('fiona').controller('AmchartController', function ($scope, $http, commons) {
+  // Handles counterup plugin wrapper
+  var handleCounterup = function() {
+      if (!$().counterUp) {
+          return;
+      }
+
+      $("[data-counter='counterup']").counterUp({
+          delay: 10,
+          time: 1000
+      });
+  };
   var initReport=function(month, day){
     $http.get(commons.getBusinessHostname() + "/api/v2/reports/item?month="+month+"&day=" + day).success(function (data, status, headers, config) {
       // $scope.items = data.data;
@@ -267,7 +278,23 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
         });
       });
 
+      // 查询模板明细-挂号
+      $http.get(commons.getBusinessHostname() + "/api/v2/reports/gest/vip?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+          $scope.gestCount = 0;
+          $scope.vipCount = 0;
+          $scope.vipMoneyTotal = 0;
+          $scope.inputMoneyTotal = 0;
+          $scope.outputMoneyTotal = 0;
 
+          if (data.data){
+            $scope.gestCount=data.data.gestCount;
+            $scope.vipCount=data.data.vipCount
+            $scope.vipMoneyTotal=data.data.vipMoneyTotal
+            $scope.inputMoneyTotal=data.data.inputMoneyTotal
+            $scope.outputMoneyTotal=-data.data.outputMoneyTotal
+          }
+
+        });
   }
 
   var daysNumOfMonth = function(){
