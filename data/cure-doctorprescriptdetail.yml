@@ -68,7 +68,6 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
     input: integer
 
   - fieldName: 售价
-    input: number
 
   - fieldName: 用药频次
     input: select
@@ -167,4 +166,3 @@ fields: #可定义多个中文名称指向同一个字段
   创建时间: createDate
   修改人: updateUserId
   修改时间: updateDate
-
