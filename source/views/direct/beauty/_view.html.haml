@@ -1,0 +1,35 @@
+/ BEGIN SAMPLE FORM PORTLET
+.row
+  .col-md-4
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '会员编号', :maxlength => '32'}
+
+  .col-md-4
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '会员姓名', :maxlength => '32'}
+
+  .col-md-4
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '宠物昵称', :maxlength => '32'}
+
+.row
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '服务单号', :maxlength => '32'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '总项', :maxlength => '32'}
+
+  .col-md-3
+    = partial :'layouts/inputs/textview', :locals => { :fieldName => '总金额', :maxlength => '32'}
+
+  .col-md-3
+    = partial :'layouts/inputs/select', :locals => {:fieldName => '服务师', :options => "type.id as type.personName for type in dropdowns.hairdresserIdSet"}
+
+.row
+  .col-md-3
+    = partial :'layouts/inputs/select', :locals => {:fieldName => '服务助理', :options => "type.id as type.personName for type in dropdowns.assistantIdSet"}
+
+  .col-md-9
+    = partial :'layouts/inputs/text', :locals => { :fieldName => '备注', :maxlength => '2048'}
+
+- portal "寄养期间消费", "beautydetail"
+
+= partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => '', :bordered => "false", :selection => "none" } do
+  // 不输出按钮
