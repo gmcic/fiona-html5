@@ -4,7 +4,11 @@ layout: "page"
 
 - page "美容服务", "beauty"
 
-= partial 'layouts/widget/portal'
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view|update|remove', :inline_attr_disabled => "beauty.paidStatus == 'SM00051'"}
+
+/  查看页面
+= partial :'layouts/partials/modal-portal-view-full', :locals => {:modal_toolbar => 'close' } do
+  = partial 'view'
 
 = partial :'layouts/partials/modal-portal-full' do
   = partial 'modify'

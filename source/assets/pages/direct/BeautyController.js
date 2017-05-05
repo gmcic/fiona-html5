@@ -27,7 +27,9 @@ angular.module('fiona').controller('BeautyController', function($scope, $control
 
                 $scope.beautydetailportal.search();
             },
-
+            view: function () {
+                $scope.beautydetailportal.search();
+            },
             insert: function() {
                  $scope.beauty.totalNum = 0;
                  $scope.beauty.totalCost = 0;

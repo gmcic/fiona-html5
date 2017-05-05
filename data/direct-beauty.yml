@@ -18,6 +18,9 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 服务助理
     fieldKey: assistantName
 
+  - fieldName: 创建时间
+    filter: date:"yyyy年MM月dd日 HH时mm分"
+
   - fieldName: 状态
     fieldKey: status.valueNameCn
 
