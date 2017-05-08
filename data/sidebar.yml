@@ -170,7 +170,7 @@
           uri: /expenditure/list
           controller: ExpenditureController
           template: /expenditure/expenditure_list.html
-  
+
     - name: 销售服务
       icon: fa fa-tty
       prefix: /sales
@@ -347,6 +347,12 @@
           uri: /amchart/dashboard
           template: /amchart/dashboard.html
 
+        - name: DoctorDashboard
+          icon: fa fa-area-chart
+          controller: DoctorController
+          uri: /doctor/dashboard
+          template: /doctor/dashboard.html
+
 #
 #    - name: 护士工作站
 #      uri: javascript:;
@@ -388,4 +394,3 @@
 #          uri: /
 #
 #
-

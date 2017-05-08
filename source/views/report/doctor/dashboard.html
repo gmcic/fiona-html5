@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+      <ul class="page-breadcrumb">
+        <li>
+          <a href="index.html">首页</a>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>报表</span>
+        </li>
+      </ul>
+      <div class="page-toolbar">
+        <div class="form-group">
+          <select class="form-control" ng-model="selectMonth" ng-options="d as d for d in [1,2,3,4,5,6,7,8,9,11,12]" ng-change="changeMonth()">
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- END PAGE BAR -->
+
+    <!-- BEGIN PAGE TITLE -->
+    <h3 class='page-title'>
+      报表
+      <small>业绩报表</small>
+
+    </h3>
+    <!-- END CHART PORTLET -->
+    <!-- BEGIN ROW -->
+    <div class='row'>
+      <div class='col-md-12'>
+        <!-- BEGIN CHART PORTLET -->
+        <div class='portlet light bordered'>
+          <div class='portlet-title'>
+            <div class='caption'>
+              <i class='fa fa-bar-chart'></i>
+              <span class='caption-subject bold uppercase font-green-haze'>业绩统计&nbsp;&nbsp;[{{allTotal}}]</span>
+            </div>
+            <div class='tools'>
+
+            </div>
+          </div>
+          <div class='portlet-body'>
+            <div id='pie' style="height:400px" ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END CHART PORTLET -->
+    <!-- END ROW -->
+  </body>
+</html>
