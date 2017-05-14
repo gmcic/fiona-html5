@@ -181,17 +181,26 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
             }
         });
 
+        $scope.paymentpractical.vipDiscountPrice = 0;
+
         var _totalSize = 0;
 
         var _totalPrice = 0;
 
         var _price = 0;
 
+        var _vipDiscountPrice = 0;
+
         angular.forEach($scope.paymentdetails, function (_paymentdetail) {
             if($scope.paymentdetailportal.selection[_paymentdetail.id])
             {
                 _price += _paymentdetail.sumprice;
+                if(_paymentdetail.cateName == '宠物药品'){
+                  _vipDiscountPrice += _paymentdetail.sumprice * 0.2;
+                }
             }
+
+
 
             _totalSize++;
 
@@ -204,6 +213,8 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
         {
             _price = Math.round(Math.floor(parseFloat(_price*100 * $scope.paymentpractical.isVipDiscount))/100);
         }
+
+        $scope.paymentpractical.vipDiscountPrice = _vipDiscountPrice.toFixed(2);
 
         $scope.paymentpractical.totalSize = _totalSize;
 

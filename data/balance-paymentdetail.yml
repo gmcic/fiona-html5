@@ -19,6 +19,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 单位
 
+  - fieldName: 所属分类
+
   - fieldName: 业务类型
 
   - fieldName: 小计
@@ -44,6 +46,8 @@ fields: #可定义多个中文名称指向同一个字段
   业务类型ID: busiTypeId
 
   业务类型: businessType
+
+  所属分类: cateName
 
   折扣: isVipDiscount
 
