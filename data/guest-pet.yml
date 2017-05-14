@@ -10,6 +10,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 会员姓名
 
+  - fieldName: 会员电话
+
   - fieldName: 宠物卡号
 
   - fieldName: 宠物牌号
@@ -43,6 +45,8 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
   - fieldName: 会员编号
 
   - fieldName: 会员姓名
+
+  - fieldName: 会员电话
 
   - fieldName: 宠物卡号
 
@@ -95,6 +99,8 @@ fields: #可定义多个中文名称指向同一个字段
   会员编号: gestCode
 
   会员姓名: gestName
+
+  会员电话: mobilePhone
 
   宠物昵称: petName
 

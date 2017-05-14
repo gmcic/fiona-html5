@@ -235,7 +235,7 @@ angular.module('fiona')
         //     //会员等级
         //     $scope.selectDicts('gestlevels', invoke.gestLevels, args.gestLevels);
         // }
-        
+
     };
 
     $scope.selectDicts = function (uri, invoke, data) {
@@ -1304,7 +1304,7 @@ angular.module('fiona')
                 if (!!component.callback && !!component.callback.submit) {
                     component.callback.submit();
                 }
-                
+
                 $scope[component.id + "s"].unshift(data.data);
 
                 component.refresh();
@@ -1592,7 +1592,7 @@ angular.module('fiona')
 
         name: "宠物选择",
 
-        defilters: {"sickFileCode": "宠物病历号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员姓名"},
+        defilters: {"sickFileCode": "宠物病历号",  "petName": "宠物昵称",  "gestCode": "会员编号",  "gestName": "会员姓名","mobilePhone": "会员电话"},
 
 //        ,  "gestName": "会员电话"
         server: "/api/v2/pets",
