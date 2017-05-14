@@ -79,21 +79,22 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
             }
         }
         else {
-            if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent < $scope.paymentpractical.price)
-            {
-                $scope.allowmessage = "支付金额不足";
-            }
-            else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
-            {
-                $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
+          _price = $scope.paymentpractical.price;
+          if($scope.paymentpractical.operateContent && $scope.paymentpractical.operateContent < $scope.paymentpractical.price){
+              $scope.paymentpractical.isVipDiscount = $scope.paymentpractical.operateContent/_price;
+              $scope.paymentpractical.backprice = 0;
+              $scope.allowpay = true;
+              $scope.allowmessage = "折扣自动计算请留意";
+          }else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
+          {
+              $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
 
-                $scope.allowmessage = "";
-                $scope.allowpay = true;
-            }
-            else
-            {
-                $scope.allowpay = false;
-            }
+              $scope.allowmessage = "";
+              $scope.allowpay = true;
+          }else
+          {
+              $scope.allowpay = false;
+          }
         }
 
     };
