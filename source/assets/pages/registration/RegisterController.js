@@ -9,7 +9,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
     $controller('BaseController', {$scope: $scope}); //继承
 
     // 挂号服务类型
-    $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "2d8d75d7-c7af-4ceb-901b-22a7141c87bc"}});
+    $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "ICate10"}});
 
     /**
      * 挂号查询

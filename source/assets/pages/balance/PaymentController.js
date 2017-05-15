@@ -88,7 +88,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
           }else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
           {
               $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
-
+			  $scope.paymentpractical.isVipDiscount = 1;
               $scope.allowmessage = "";
               $scope.allowpay = true;
           }else
@@ -197,7 +197,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
             {
                 _price += _paymentdetail.sumprice;
                 if(_paymentdetail.cateName == '宠物药品'){
-                  _vipDiscountPrice += _paymentdetail.sumprice * 0.2;
+                  _vipDiscountPrice += _paymentdetail.sumprice * 0.1;
                 }
             }
 
