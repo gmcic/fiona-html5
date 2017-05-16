@@ -60,6 +60,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
     /** 计算支付金额 */
     $scope.pay = function()
     {
+        $scope.allowpay = false;
         if($.isEmptyObject($scope.paymentdetailportal.selection))
         {
             $scope.allowmessage = "请选择要支付的项目";
@@ -71,11 +72,14 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
                 $scope.allowmessage = "会员余额不足";
             }
             else {
+              if ($scope.paymentpractical.isVipDiscount){
+      					$scope.paymentpractical.operateContent = $scope.paymentpractical.price*$scope.paymentpractical.isVipDiscount;
+      				}else{
+      					$scope.paymentpractical.operateContent = $scope.paymentpractical.price;
+      				}
 
-                $scope.paymentpractical.operateContent = $scope.paymentpractical.price;
-
-                $scope.allowmessage = "";
-                $scope.allowpay = true;
+              $scope.allowmessage = "";
+              $scope.allowpay = true;
             }
         }
         else {
@@ -88,7 +92,7 @@ angular.module('fiona').controller('PaymentController', function($scope, $http, 
           }else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
           {
               $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
-			  $scope.paymentpractical.isVipDiscount = 1;
+			        $scope.paymentpractical.isVipDiscount = 1;
               $scope.allowmessage = "";
               $scope.allowpay = true;
           }else

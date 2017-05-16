@@ -20,7 +20,7 @@
           = partial :'layouts/inputs/textview', :locals => {:keyword => "paymentpractical", :fieldName => '药品折扣价', :required => "true", :maxlength => '16'}
       .row
         .col-md-12
-          = partial :'layouts/inputs/number', :locals => {:keyword => "paymentpractical", :fieldName => '折扣', :required => "true", :maxlength => '16'}
+          = partial :'layouts/inputs/number', :locals => {:keyword => "paymentpractical", :fieldName => '折扣', :required => "true", :maxlength => '16', :change => "pay()"}
 
       .row
         .col-md-6

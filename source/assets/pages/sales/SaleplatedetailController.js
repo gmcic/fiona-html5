@@ -126,69 +126,43 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
     {
         console.log("折扣: " + $scope.paymentpractical.isVipDiscount);
 
-        if($scope.paymentpractical.isVipDiscount)
-        {
-
-
-            $scope.paymentpractical.price = Math.round(Math.floor(parseFloat($scope.saleplate.totalCost*100 * $scope.paymentpractical.isVipDiscount))/100);
-        }
         if($scope.paymentpractical.operateAction == "会员")
         {
             if(!$scope.vip.prepayMoney || $scope.vip.prepayMoney <= $scope.paymentpractical.price)
             {
                 $scope.allowmessage = "会员余额不足";
+                $scope.allowpay = false;
             }
             else {
-
+              if ($scope.paymentpractical.isVipDiscount){
+                $scope.paymentpractical.operateContent = $scope.paymentpractical.price*$scope.paymentpractical.isVipDiscount;
+              }else{
                 $scope.paymentpractical.operateContent = $scope.paymentpractical.price;
+              }
 
                 $scope.allowmessage = "";
                 $scope.allowpay = true;
             }
         }
         else {
-            if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
-            {
-                $scope.allowmessage = "支付金额不足";
-            }
-            else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
-            {
-                $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
-
-                $scope.allowmessage = "";
-                $scope.allowpay = true;
-            }
-            else
-            {
-                $scope.allowpay = false;
-            }
+          _price = $scope.paymentpractical.price;
+          if($scope.paymentpractical.operateContent && $scope.paymentpractical.operateContent < $scope.paymentpractical.price){
+              $scope.paymentpractical.isVipDiscount = $scope.paymentpractical.operateContent/_price;
+              $scope.paymentpractical.backprice = 0;
+              $scope.allowpay = true;
+              $scope.allowmessage = "折扣自动计算请留意";
+          }else if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
+          {
+              $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
+              $scope.paymentpractical.isVipDiscount = 1;
+              $scope.allowmessage = "";
+              $scope.allowpay = true;
+          }else
+          {
+              $scope.allowpay = false;
+          }
         }
 
-        // if(!$scope.paymentpractical.operateContent)
-        // {
-        //     $scope.allowmessage = "请输入支付金额";
-        // }
-        // else if(!$scope.paymentpractical.operateContent || $scope.paymentpractical.operateContent <= $scope.paymentpractical.price)
-        // {
-        //     $scope.allowmessage = "支付金额不足";
-        // }
-        // else
-        // {
-        //     $scope.allowmessage = "";
-        // }
-        //
-        // // $scope.paymentpractical.price > 0 && $scope.paymentpractical.operateContent > 0  &&
-        // if($scope.paymentpractical.operateContent  >= $scope.paymentpractical.price)
-        // {
-        //    $scope.paymentpractical.backprice = $scope.paymentpractical.operateContent  - $scope.paymentpractical.price;
-        //
-        //     $scope.allowmessage = "";
-        //    $scope.allowpay = true;
-        // }
-        // else
-        // {
-        //     $scope.allowpay = false;
-        // }
     };
 
     $scope.saleplateportal.print = function () {
