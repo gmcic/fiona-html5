@@ -263,7 +263,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
       },
 
       switched: function () {
-        $scope.inhospitalprescriptiondetailportal.search();
+         $scope.inhospitalprescriptiondetailportal.search();
       }
     }
   };
@@ -398,6 +398,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
   };
 
   $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalprescriptiondetailportal}); //继承
+
+  $scope.inhospitalprescriptiondetailportal.pagination.pageSize = 100000;
 
   $scope.inhospitalprescriptionportal.insert = function () {
 
