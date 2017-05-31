@@ -16,7 +16,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 用药频次
 
-  - fieldName: 单次用量
+  - fieldName: 用量
 
   - fieldName: 投药单位
 
@@ -45,7 +45,7 @@ medicFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
 
   - fieldName: 用药频次
 
-  - fieldName: 单次用量
+  - fieldName: 用量
 
   - fieldName: 投药单位
 
@@ -73,7 +73,7 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
     input: select
     options: type.valueNameCn as type.valueNameCn for type in dropdowns.frequencySet
 
-  - fieldName: 单次用量
+  - fieldName: 用量
     input: text
 
   - fieldName: 投药单位
@@ -99,22 +99,20 @@ printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
 #  - fieldName: 处方单位
 #    filter: dropdown
 
+  - fieldName: 规格
+
   - fieldName: 数量
 
-  - fieldName: 售价
+  - fieldName: 用法
+    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useWaySet
 
-  - fieldName: 用药频次
-
-  - fieldName: 单次用量
+  - fieldName: 用量
 
   - fieldName: 投药单位
 
   - fieldName: 分组
 
-  - fieldName: 用法
-    options: type.valueNameCn as type.valueNameCn for type in dropdowns.useWaySet
-
-  - fieldName: 备注
+  - fieldName: 售价
 
 searchFields:
   - fieldName: 类别名称
@@ -129,6 +127,8 @@ fields: #可定义多个中文名称指向同一个字段
 
   名称: itemName
 
+  规格: itemStandard
+
   类别编号: itemCode
 
   售价: itemCost
@@ -139,7 +139,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   用药频次: frequency
 
-  单次用量: dose
+  用量: dose
 
   投药单位: useUnit
 

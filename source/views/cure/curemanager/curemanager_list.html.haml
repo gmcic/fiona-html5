@@ -179,4 +179,5 @@ layout: "page"
 / 打印处方
 - modal "打印处方", "doctorprescript"
 = partial :'layouts/widget/modal_print' do
-  = partial 'print_body'
+  = partial 'print_body', :locals => {:print_page => "第一联 由从事动物诊疗活动的单位留存"}
+  = partial 'print_body', :locals => {:print_page => "第二联 由药房或者兽药经营企业留存"}

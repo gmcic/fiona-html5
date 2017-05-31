@@ -8,6 +8,7 @@ angular.module('fiona').controller('DoctorController', function ($scope, $http, 
       xAxisData=[];
       $scope.allTotal = 0;
       var i = 1;
+      data.data[$scope.userName].splice(0, 1);
       // 遍历保存所有子项
       angular.forEach(data.data[$scope.userName], function (item) {
         var total = Number(item).toFixed(2);
@@ -48,6 +49,7 @@ angular.module('fiona').controller('DoctorController', function ($scope, $http, 
               {
                   type: 'category',
                   data: xAxisData,
+                  start: 1,
                   axisPointer: {
                       type: 'shadow'
                   }

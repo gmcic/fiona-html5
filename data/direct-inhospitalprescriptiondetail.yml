@@ -16,7 +16,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 用药频次
 
-  - fieldName: 单次用量
+  - fieldName: 用量
 
   - fieldName: 投药单位
     filter: dropdown
@@ -38,7 +38,7 @@ printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
 
   - fieldName: 用药频次
 
-  - fieldName: 单次用量
+  - fieldName: 用量
 
   - fieldName: 投药单位
 
@@ -64,7 +64,7 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
     input: select
     options: type.valueNameCn as type.valueNameCn for type in dropdowns.frequencySet
 
-  - fieldName: 单次用量
+  - fieldName: 用量
     input: text
 
   - fieldName: 分组
@@ -107,7 +107,7 @@ fields: #可定义多个中文名称指向同一个字段
   生产商: manufacturerName
 
   用药频次: frequency
-  单次用量: dose
+  用量: dose
 
   支付状态: paidStatus
   支付时间: paidTime

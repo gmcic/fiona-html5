@@ -10,7 +10,7 @@
         %h4.modal-title #{@modal_name}
 
       .modal-body
-        .div{:id => "#{@modal_id}printbody"}
+        .div{:id => "#{@modal_id}printbody", :print_page => "二"}
           =yield
 
         -#%iframe#printiframe{:frameborder => '1', :src => "/views/commons/print_template.html", :style => "width:870px;height: 800px"}
