@@ -9,7 +9,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     recipeUnitSet: "物品单位",
     frequencySet: "用药频次",
     useWaySet: "药品使用方法",
-    useUnitSet: "物品单位"
+    useUnitSet: "物品单位",
+    paidStatusSet: "付款状态"
   });
 
   $controller('BaseController', {$scope: $scope}); //继承

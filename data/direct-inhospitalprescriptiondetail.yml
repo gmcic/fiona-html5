@@ -23,6 +23,9 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 用法
 
+  - fieldName: 支付状态
+    filter: dropdown
+
 #  - fieldName: 生产商
 
 printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
