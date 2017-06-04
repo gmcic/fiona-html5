@@ -7,15 +7,12 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 会员姓名
 
+  - fieldName: 会员卡号
+
   - fieldName: 会员性别
     fieldKey: gestSex.valueNameCn
 
   - fieldName: 会员电话
-
-  - fieldName: 固定电话
-
-  - fieldName: 出生日期
-    filter: date:"yyyy年MM月dd日"
 
   - fieldName: 账户金额
     filter: currency:"￥"
@@ -49,6 +46,8 @@ searchFields:
   - fieldName: 会员姓名
 
   - fieldName: 会员电话
+
+  - fieldName: 会员卡号
 
 # 宠物
 fields:
@@ -101,6 +100,3 @@ fields:
   备注: remark
 
   积分: rewardPoint
-
-
-

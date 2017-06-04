@@ -1609,6 +1609,8 @@ angular.module('fiona')
 
                 $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
 
+                delete $scope.pet.mobilePhone;
+
                 $scope.vipportal.unique($scope.pet.gestId);
             }
         }
@@ -1665,6 +1667,8 @@ angular.module('fiona')
 
                 // 主人名称
                 $scope.pet.gestName = $scope.vip.gestName;
+
+                delete $scope.pet.mobilePhone;
             },
 
             insert: function () {

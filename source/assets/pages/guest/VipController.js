@@ -35,7 +35,7 @@ angular.module('fiona').controller('VipController', function ($scope,$filter, $c
 
         server: "/api/v2/gests",
 
-        defilters: {"gestCode": "会员编号",  "gestName": "会员名称",  "mobilePhone": "会员电话"},
+        defilters: {"gestCode": "会员编号",  "gestName": "会员名称",  "mobilePhone": "会员电话",  "vipNo": "会员卡号"},
 
         callback: {
             insert: function () {
@@ -142,6 +142,3 @@ angular.module('fiona').controller('VipController', function ($scope,$filter, $c
 
     $scope.vipportal.filter();
 });
-
-
-
