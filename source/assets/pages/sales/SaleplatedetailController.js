@@ -228,7 +228,8 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
     $scope.productportal.resize = function () {
 
-        $scope.saleplate = {'totalNum' : 0, 'totalCost': 0};
+        $scope.saleplate.totalNum=0;
+        $scope.saleplate.totalCost=0;
 
         angular.forEach($scope.saleplatedetails, function(_saleplatedetail){
 
