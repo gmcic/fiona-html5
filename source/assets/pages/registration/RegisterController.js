@@ -25,6 +25,8 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
 
         defilters: {petName: "宠物名称", gestName: "会员姓名", doctorId: "医生", itemName: "挂号类型名称"},
 
+        isRemoves:true,
+
         callback: {
             selectsync: function (inputName, selectObj) {
 
@@ -42,9 +44,11 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
                 }
             },
             submitbefore: function () {
-                $scope.register.gestName = $scope.pet.gestName;
-                $scope.register.petName = $scope.pet.petName;
-                $scope.register.petId = $scope.pet.id;
+                if (!$scope.register.gestName){
+                    $scope.register.gestName = $scope.pet.gestName;
+                    $scope.register.petName = $scope.pet.petName;
+                    $scope.register.petId = $scope.pet.id;
+                }
             },
             insert: function () {
 
@@ -184,7 +188,7 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
         $scope.register.gestName = $scope.pet.gestName;
         $scope.register.petName = $scope.pet.petName;
         $scope.register.petId = $scope.pet.id;
-
+        
         $scope.registerportal.save();
     };
 
