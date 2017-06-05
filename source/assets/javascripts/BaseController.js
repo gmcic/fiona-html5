@@ -267,7 +267,7 @@ angular.module('fiona')
                 {
                     $scope[name][keys[0]] = type[keys[1]];
                 }
-                else if(type.personName)
+                else if(!!type.personName)
                 {
                     $scope[name][keys[0]] = type.id;
                 }

@@ -1,7 +1,7 @@
 // 收费管理
 angular.module('fiona').controller('PaymentController', function($scope, $http, commons, $controller) {
 
-    $scope.dropdowns = { paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "会员", valueNameCn: "会员"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}, {id: "住院", valueNameCn: "住院"}] };
+    $scope.dropdowns = { paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "会员", valueNameCn: "会员"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}, {id: "住院", valueNameCn: "住院"}, {id: "寄养", valueNameCn: "寄养"}] };
 
     $controller('BaseController', {$scope: $scope}); //继承
 
