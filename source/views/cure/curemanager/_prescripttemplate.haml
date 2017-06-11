@@ -10,7 +10,7 @@
   -#  = partial 'layouts/widget/tree', :locals => {:sidename => "处方模版类型", :sidefieldname=> 'typeName'}
   .col-md-12
     - portal '处方明细', 'doctorprescriptdetail'
-    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :listdataKey => "portalFields", :inline_toolbar => 'remove' } do
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :listdataKey => "portalFields", :inline_toolbar => 'remove' ,:inline_attr_disabled => "doctorprescriptdetail.paidStatus == 'SM00051'"} do
       // 不输出按钮
       -#= partial :'layouts/buttons/btn', :locals => {:label => "保存为模板"}
       -#= partial :'layouts/buttons/btn', :locals => {:label => "同步建议处方"}
