@@ -25,6 +25,8 @@ angular.module('fiona').controller('StockController', function($scope, $controll
         defilters: {"itemName": "名称",  "itemCode": "编号",  "barCode": "条码", "manufacturerName": "生产商", "inputCode": "拼音码"},
 
         server: "/api/v2/itemcounts"
+
+        
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.stockportal}); //继承

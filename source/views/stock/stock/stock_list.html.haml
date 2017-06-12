@@ -13,7 +13,7 @@ layout: "page"
 
   .col-md-9
     - portal '库存查询', 'stock'
-    = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'none'}  do
+    = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'update'}  do
       / 不输出按钮
 
 = partial :'layouts/partials/modal-portal-lg' do
