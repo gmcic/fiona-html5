@@ -8,7 +8,17 @@
       = partial :'layouts/inputs/text', :locals => {:fieldName => '角色描述', :maxlength => '32'}
 
   .row
-    .col-md-12
-      %h2 相关权限
+    .col-md-6
+      %h2 用户
       %hr
-      #role_popdom.tree-demo
+      #userroles
+        - portal '用户管理', 'user'
+        = partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none", :inline_toolbar => 'none', :bordered => "false" } do
+          // 不输出
+
+    .col-md-6
+      %h2 菜单
+      %hr
+      #usermenus
+        - portal "菜单", "menus"
+        = partial 'layouts/widget/tree', :locals => {:sidename => "菜单", :sidefieldname=> 'name'}

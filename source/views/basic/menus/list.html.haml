@@ -1,0 +1,22 @@
+---
+layout: "page"
+---
+
+- page '菜单管理', 'menus'
+
+.row
+  .col-md-3
+    - portal "菜单目录", "menuside"
+    = partial 'layouts/widget/tree', :locals => {:sidename => "菜单目录", :sidefieldname=> 'name'} do
+      // 不输出
+
+  .col-md-9
+    - portal '菜单管理', 'menus'
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none", :inline_toolbar => 'remove|update' } do
+      = partial :'layouts/buttons/insert', :locals => {:click => "menusportal.insert()", :disabled => "!menusideportal.selected"}
+      = partial :'layouts/buttons/removes', :locals => {:click => "menusportal.removes()", :disabled => "menusportal.isRemoves"}
+
+/ Modal
+-#= partial :'layouts/partials/modal-lg' do
+= partial :'layouts/partials/modal-portal-lg' do
+  = partial 'modify'

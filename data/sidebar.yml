@@ -313,6 +313,12 @@
           controller: RoleController
           template: /role/list.html
 #
+        - name: 菜单
+          icon: fa fa-hospital-o
+          uri: /menus/list
+          controller: MenusController
+          template: /menus/list.html
+#
 #        - name: 应用参数配置
 #          icon: fa fa-cofs
 #          uri: /setting/list

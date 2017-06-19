@@ -1,0 +1,24 @@
+
+%h4 在 父节点 [ {{parentName}} ] 下创建 [{{menus.name||"未命名"}}] 子节点
+%p
+.form-body
+  .row
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '菜单编号', :maxlength => '32', :required => 'true'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '菜单名称', :maxlength => '32', :required => 'true'}
+
+    .col-md-3
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '排序', :maxlength => '32'}
+
+  .row
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '图标', :maxlength => '32'}
+
+    .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '链接', :maxlength => '32'}
+
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textarea', :locals => {:fieldName => '描述', :maxlength => '32'}

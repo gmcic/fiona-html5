@@ -28,6 +28,10 @@ personnel: basic
 product: basic
 producttype: basic
 role: basic
+rolemenu: basic
+user: basic
+userrole: basic
+menus: basic
 setting: basic
 storage: basic
 varietie: basic

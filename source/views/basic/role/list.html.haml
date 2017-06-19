@@ -1,33 +1,13 @@
+---
+layout: "page"
+---
+
 - page '角色管理', 'role'
 
-- @prefix = "basic/"
 
-- @dataset = data["" << (@prefix.delete "/") << "-" << @page_id];
+- portal '角色管理', 'role'
 
-- fields = @dataset.fields
-
-- listFields = @dataset.listFields
-
-- content_for :toolbar do
-  %button.btn.btn-circle.btn-default.btn-sm{:href => "javascript:;", 'ng': {'click':'update()'}}
-    %i.fa.fa-plus
-    增加
-  %button.btn.btn-circle.red-sunglo.btn-sm{:href => "javascript:;", 'ng': {'click':'removes()', 'disabled': 'isRemoves'} }
-    %i.fa.fa-remove
-    删除
-
-- content_for :theader do
-  - @page.listFields.each do |field|
-    -#挂号状态
-    %th #{field.aliasName || field.fieldName}
-
-- content_for :tbody do
-  - @page.listFields.each do |column|
-    -# #{column.fieldName}
-    %td
-      = bind @page_id, (column.fieldKey || @fields[column.fieldName] || 'error')
-
-/ Modal
+= partial 'layouts/widget/portal', :locals => {:filterbar => "page", :pagingbar => "none", :inline_toolbar => 'insert|remove|update' }
 
 / Modal
 = partial :'layouts/partials/modal-lg' do
