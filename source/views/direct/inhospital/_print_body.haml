@@ -15,127 +15,96 @@
 
 - $listdataKey = "printFields";
 
+- $print_page = ((defined? print_page) ? print_page: "一")
+
 %div.print-body-html{ "ng-repeat" => @portal_id + "2d in " + @portal_id + "2ds" + $pagefilter}
 
   .page-header{:style => 'padding-top: 0;margin-top: 0px'}
     %img{:src => '/assets/images/logo-fiona.png'}
 
   %center{"ng-if" => "$index == 0"}
-    %h1 北京福莱动物医院住院处方单
-    %h1{:style => "padding:0px;border: 1px solid #000;position:absolute;right:60px;top:80px"} 底方
+    %h1 北京福莱动物医院处方笺
 
   %table.table-print-noborder{"ng-if" => "$index == 0"}
     %tbody
       %tr
-        %th{:style => "width: 70px"} 会员姓名
-        %td {{vip.gestName}}
+        %th{:style => "width: 160px",:colspan => "2"} 动物主人/饲养单位
+        %td{:style => "border-bottom:1px #000000 solid;",:colspan => "3"} {{vip.gestName}}({{vip.mobilePhone}})[{{pet.petName}}]
 
-        %th{:style => "width: 70px"} 会员电话
-        %td {{vip.mobilePhone}}
-
-        %th{:style => "width: 70px"} 病历号
-        %td{:colspan => "7"} {{pet.sickFileCode}}
-
-      -#%tr
-      -#  %th{:style => "width: 70px"} 住址
-      -#  %td{:colspan => "9"} {{vip.gestAddress}}
+        %th{:style => "width: 70px"} 档案号
+        %td{:style => "border-bottom:1px #000000 solid;"} {{pet.sickFileCode}}
 
       %tr
-        %th{:style => "width: 70px"} 宠物昵称
-        %td {{pet.petName}}
+        %th{:style => "width: 70px"} 动物种类
+        %td{:style => "border-bottom:1px #000000 solid;",:colspan => "2"} {{pet.petRace.type}}
 
-        %th{:style => "width: 70px"} 年龄
-        %td {{pet.age}} 岁
+        %th{:style => "width: 70px"} 动物性别
+        %td{:style => "border-bottom:1px #000000 solid;"} {{pet.petSex.valueNameCn}}
 
-        %th{:style => "width: 70px"} 宠物性别
-        %td {{pet.petSex.valueNameCn}}
+        %th{:style => "width: 50px"} 体重/数量
+        %td{:style => "border-bottom:1px #000000 solid;"} {{pet.petWeight}} kg
 
-        %th{:style => "width: 50px"} 体重
-        %td {{pet.petWeight}} kg
+      %tr
+        %th{:style => "width: 70px"} 年(日)龄
+        %td{:style => "border-bottom:1px #000000 solid;"} {{pet.age}}
+
+        %th{:style => "width: 70px"} 开具日期
+        %td{:style => "border-bottom:1px #000000 solid;",:colspan => "4"} {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
+      %tr
+        %td{:colspan => "7"}
 
   -# 嵌套模块
-  %table.table.table-bordered
+  %table.table-print-noborder
     %tbody
-      %tr
-        - @portal[$listdataKey].each do |field|
-          %td #{field.aliasName || field.fieldName}
+      %tr{:style => "border-top:2px #000000 solid;"}
+        %th{:style => "width: 70px"} 诊断:
+        %td{:style => "border-right:2px #000000 solid;"}
+        %th{:style => "width: 70px"} Rp:
+        %td
+        %td{:style => "writing-mode:rl-tb;width:16px",:rowspan => "28"} #{$print_page}
 
-      %tr{ "ng-repeat" => @portal_id + " in " + @portal_id + "2d" + $pagefilter + " | orderBy:'groupName':false"}
-        - @portal[$listdataKey].each do |column|
-          %td
-            - if column.filter?
-              = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
+      %tr{:style => "border-bottom:2px #000000 solid;"}
+        %td{:colspan => "2",:style => "border-right:2px #000000 solid; vertical-align: top"} {{curemanager.diagnosed}}
+        %td{:colspan => "2"}
+          %table.small-border
+            %tbody
+              %tr
+                - @portal[$listdataKey].each do |field|
+                  %td #{field.aliasName || field.fieldName}
 
-            - elsif column.input? && column.input == "select"
-              = bindSelect column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.options
+              %tr{ "ng-repeat" => @portal_id + " in " + @portal_id + "2d" + $pagefilter + " | orderBy:'groupName':false"}
+                - @portal[$listdataKey].each do |column|
+                  %td{:stye => "padding-top: 0px;padding-bottom: 0px;border: 1px solid red;"}
+                    - if column.filter?
+                      = bindFilter @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.filter
 
-            - elsif column.input?
-              - if column.event?
-                = bindTextEvent column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.event
+                    - elsif column.input? && column.input == "select"
+                      = bindSelect column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.options
 
-              - else
-                = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+                    - elsif column.input?
+                      - if column.event?
+                        = bindTextEvent column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error'), column.event
 
-            - else
-              = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
+                      - else
+                        = bindText column.input, @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
 
+                    - else
+                      = bind @portal_id, (column.fieldKey || @portal.fields[column.fieldName] || 'error')
 
   %table.table-print-noborder
     %tbody
       %tr
-        %th{:style => "width: 90px"} 诊疗医生
-        %td{:style => "width: 180px"}
+        %th{:style => "width: 90px"} 执业兽医师
+        %td{:style => "width: 90px;border-bottom:1px #000000 solid;"}
 
-        %th{:style => "width: 90px"}  助理医生
-        %td{:style => "width: 180px"}
+        %th{:style => "width: 60px"} 注册号
+        %td{:style => "width: 90px;border-bottom:1px #000000 solid;"}
 
-        %td.text-right.h4{"ng-if" => "$last"} 费用: {{inhospitalprescription.prescriptionCost | currency:"￥"}}&nbsp;&nbsp;&nbsp;&nbsp;
+        %th{:style => "width: 60px"} 发药人
+        %td{:style => "width: 90px;border-bottom:1px #000000 solid;"}
 
-      %tr
-        %th{:colspan => "5"}
-
-  .text-right
-    医院电话: {{hospital.telPhone}}
-    医院地址: {{hospital.areaCode}}
-
-  %h5
-    .text-right
-      {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
-
-    .text-left
-    (※此处方1日有效)
-    .text-left
-    [医院留存]
-
-%div.print-body-html{"ng-if" => "lastpagebreak"}
-
-  .page-header{:style => 'padding-top: 0;margin-top: 0px'}
-    %img{:src => '/assets/images/logo-fiona.png'}
-
-  %table.table-print-noborder
-    %tbody
-      %tr
-        %th{:style => "width: 90px"} 诊疗医生
-        %td{:style => "width: 180px"}
-
-        %th{:style => "width: 90px"}  助理医生
-        %td{:style => "width: 180px"}
-
-        %td.text-right
-          %b
-            费用: {{inhospitalprescription.prescriptionCost | currency:"￥"}}
-
-      %tr
-        %th{:colspan => "5"}
+        %td.text-right.h4 费用: {{inhospitalprescription.prescriptionCost | currency:"￥"}}&nbsp;&nbsp;&nbsp;&nbsp;
 
   .text-right
     医院电话: {{hospital.telPhone}}
     医院地址: {{hospital.areaCode}}
-
-  %h5
-    .text-right
-      {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
-    .text-left
-    (※此处方1日有效)
-    .text-left
-    [医院留存]

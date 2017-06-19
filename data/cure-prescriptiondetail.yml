@@ -15,7 +15,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 用药频次
 
-  - fieldName: 单次用量
+  - fieldName: 用量
 
   - fieldName: 投药单位
 

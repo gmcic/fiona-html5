@@ -13,8 +13,13 @@ layout: "page"
 
   .col-md-9
     - portal '库存查询', 'stock'
-    = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'none'}  do
-      / 不输出按钮
+    = partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'update'}  do
+      = partial :'layouts/buttons/insert', :locals => {:label => '缺货订单', :click => "stockportal.order()"}
+
 
 = partial :'layouts/partials/modal-portal-lg' do
   = partial 'modify'
+
+- modal "缺货订单", "order"
+= partial :'layouts/partials/modal-portal-view-full' , :locals => {:modal_toolbar => "close"} do
+  = partial 'order'

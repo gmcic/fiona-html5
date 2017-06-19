@@ -145,7 +145,9 @@ angular.module('fiona.services', [])
 
                 var _product = products.findObjectWithProperty('itemCode', _detail.itemCode);
 
-                _product.$itemNum = _detail.itemNum;
+                if (_product){
+                  _product.$itemNum = _detail.itemNum;
+                }
 
                 details.push(_product);
             });

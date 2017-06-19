@@ -12,16 +12,12 @@
         = partial :'layouts/inputs/text', :locals => { :fieldName => '寄养号', :maxlength => '16'}
 
       .col-md-3
-        = partial :'layouts/inputs/select', :locals => {:fieldName => '寄养类型', :options => "type.itemCode as type.itemName for type in dropdowns.itemCodeSet"}
-        -#, :change => "registerportal.selectchange('itemCode', 'itemCode')"
+        = partial :'layouts/inputs/text', :locals => { :fieldName => '笼舍编号', :maxlength => '16', :required => "true"}
 
       .col-md-2
         = partial :'layouts/inputs/number', :locals => { :fieldName => '预计天数', :maxlength => '16', :required => "true"}
 
     .row
-      .col-md-3
-        = partial :'layouts/inputs/text', :locals => { :fieldName => '笼舍编号', :maxlength => '16', :required => "true"}
-
       .col-md-3
         = partial :'layouts/inputs/textview', :locals => { :fieldName => '预付金', :maxlength => '16'}
 
@@ -38,10 +34,10 @@
     .tabbable-line
       %ul.nav.nav-tabs
         %li.active
-          %a{"data-toggle" => "tab", :href => "//#fosterage_prepay"} 预付金记录
+          %a{"data-toggle" => "tab", :href => "//#fosterage_consume"} 寄养期间消费
 
         %li
-          %a{"data-toggle" => "tab", :href => "//#fosterage_consume"} 寄养期间消费
+          %a{"data-toggle" => "tab", :href => "//#fosterage_prepay"} 预付金记录
 
         -#%li
         -#  %a{"data-toggle" => "tab", :href => "//#fosterage_health"} 健康状态记录

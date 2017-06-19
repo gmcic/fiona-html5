@@ -8,9 +8,6 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
     $controller('BaseController', {$scope: $scope}); //继承
 
-    // 挂号服务类型
-    $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "d7079dde-f3b0-4db6-b693-a78ddb33d02d"}});
-
     /**
      * 寄养管理
      * ---------------------------
@@ -32,6 +29,9 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
                 $scope.fosteragedetailportal.searchAll();
 
                 $scope.vipprepayportal.searchAll();
+            },
+            unique: function () {
+                $scope.fosterageportal.filter();
             },
             insert: function() {
                 $scope.fosterage.totalMoney = 0;
@@ -176,6 +176,9 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         defilters: { },
 
         callback: {
+            submit: function () {
+                $scope.fosterageportal.unique($scope.fosterage.id);
+            }
         }
     };
 

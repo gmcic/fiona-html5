@@ -1,5 +1,5 @@
 // 库存查询
-angular.module('fiona').controller('StockController', function($scope, $controller, commons) {
+angular.module('fiona').controller('StockController', function($scope, $controller,  $http, commons) {
 
     $scope.dropdowns= {};
 
@@ -24,7 +24,35 @@ angular.module('fiona').controller('StockController', function($scope, $controll
 
         defilters: {"itemName": "名称",  "itemCode": "编号",  "barCode": "条码", "manufacturerName": "生产商", "inputCode": "拼音码"},
 
-        server: "/api/v2/itemcounts"
+        server: "/api/v2/itemcounts",
+        
+        order:function(){
+            $scope.orders = [];
+
+            $http.get(commons.getBusinessHostname() + this.server + "/order")
+                .success(function (data, status, headers, config) {
+                    var items = data.data;
+
+                    if (items && items.length > 0)
+                    {
+                        $scope.orders = items;
+                    }
+                });
+
+            $("#orderview").modal('show');
+        },
+        print:function () {
+            var headstr = "<html><head><title></title></head><body>";
+            var footstr = "</body>";
+            var newstr = document.all.item('orderview').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            document.body.innerHTML = oldstr;
+            return false;
+        }
+
+        
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.stockportal}); //继承

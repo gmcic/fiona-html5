@@ -297,6 +297,52 @@ angular.module('fiona')
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.testsheetdetailportal}); //继承
 
     /**
+     * 库存变更
+     * ---------------------------
+     * */
+    $scope.itemcountsportal = {
+
+        id: "itemcounts",
+
+        name: "库存变更",
+
+        server: "/api/v2/itemcounts",
+
+        callback: {
+        }
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.itemcountsportal}); //继承
+
+    /**
+     * 搜索
+     * ---------------------------
+     * */
+    $scope.itemcountsportal.searchByWhere = function(condition, source){
+
+        var filters = [];
+
+        angular.forEach(condition, function(data, key){
+            filters.push({"fieldName": key, "operator": "EQ", "value": data});
+        });
+
+        $http.post(commons.getBusinessHostname() + this.server + "/page" + commons.getTimestampStr(), { 'pageSize': 10000, 'pageNumber': 1,"filters":[], 'andFilters': filters})
+            .success(function (data, status, headers, config) {
+                var items = data.data.content;
+
+                if (items && items.length > 0)
+                {
+                    var data = items[0];
+
+                    if ((data.itemBulk > 1 ? (data.itemCountNum * data.itemBulk + data.scatteredCountNum): data.itemCountNum) - source.itemCount <= 0){
+                        commons.modaldanger("doctorprescript", "抱歉 ，[ 商品" +source.itemName + "(" + source.itemCode +")"+ " ]库存数量不足,请确认后再开方!");
+                    }
+                }
+
+            });
+    };
+
+    /**
     * 医生处方
     * ---------------------------
     * */
@@ -570,6 +616,8 @@ angular.module('fiona')
 //            $scope.productchecked[doctorprescriptdetail.itemCode] = doctorprescriptdetail;
 
             $scope.doctorprescriptdetails.push(doctorprescriptdetail);
+
+            $scope.itemcountsportal.searchByWhere({"itemCode": _product.itemCode}, doctorprescriptdetail);
         });
 
         // if(_selectObject.dataType == 'template')

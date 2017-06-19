@@ -33,7 +33,9 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
                       // 业务类型ID
                       // _saleplatedetail.busiTypeId = $scope.saleplate.id;
 
-                      $scope.saleplatedetailportal.saveWithEntity(_saleplatedetail);
+                      $scope.saleplatedetailportal.saveWithEntity(_saleplatedetail, {call:function(target, data){
+                          _saleplatedetail.id=data.id;
+                      }});
                 });
 
                 $scope.paymentpractical = {"operateAction": "现金", "totalSize":$scope.saleplate.totalNum, totalPrice: $scope.saleplate.totalCost, price: $scope.saleplate.totalCost};
@@ -96,15 +98,18 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
                 "itemNum": _saleplatedetail.itemNum,
                 "itemCost": _saleplatedetail.sellPrice,
 //                "busiTypeId": "string",
-//                "businessType": "string",
-//                "relationId": _saleplatedetail.sellUnit,
+               "businessType": "直接销售",
+                "relationId": _saleplatedetail.directSellId,
                 "isVipDiscount": $scope.paymentpractical.isVipDiscount,
-                "itemUnit": _saleplatedetail.sellUnit
-//                "relationDetailId": "string"
+                "itemUnit": _saleplatedetail.sellUnit,
+                "relationDetailId": _saleplatedetail.id
                 };
+
 
             payobject.settleAccountsViews.push(_data);
         });
+
+        console.log(payobject);
 
         $http.post(commons.getBusinessHostname() + "/api/v2/gestpaidrecords/pay" + commons.getTimestampStr(), payobject).success(function (data, status, headers, config) {
 
@@ -223,7 +228,8 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
     $scope.productportal.resize = function () {
 
-        $scope.saleplate = {'totalNum' : 0, 'totalCost': 0};
+        $scope.saleplate.totalNum=0;
+        $scope.saleplate.totalCost=0;
 
         angular.forEach($scope.saleplatedetails, function(_saleplatedetail){
 
