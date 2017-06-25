@@ -12,10 +12,10 @@ layout: "page"
             %i.fa.fa-play
             就诊
             -#%span.badge.badge-success 3
-        %li
-          %a{"data-toggle" => "tab", :href => "//#pause_pets"}
-            %i.fa.fa-pause
-            暂停
+        -# %li
+        -#   %a{"data-toggle" => "tab", :href => "//#pause_pets"}
+        -#     %i.fa.fa-pause
+        -#     暂停
             -#%span.badge.badge-danger 3
         %li
           %a{"data-toggle" => "tab", :href => "//#cure_pet", "ng" => {"show":"pet.id"}}
@@ -51,13 +51,13 @@ layout: "page"
 
         #cure_pet.tab-pane
           .clearfix.text-center{:style => "margin-bottom: 5px;"}
-            %button.btn.btn-warning{:type => "button", "ng-click" => "pause()", "ng-show" => "register.status.dictDetailCode == 'SM00035'"}
-              %i.fa.fa-pause
-              暂停
+            -# %button.btn.btn-warning{:type => "button", "ng-click" => "pause()", "ng-show" => "register.status.dictDetailCode == 'SM00035'"}
+            -#   %i.fa.fa-pause
+            -#   暂停
 
-            %button.btn.btn-success{:type => "button", "ng-click" => "replay()", "ng-show" => "register.status.dictDetailCode == 'SM00036'"}
-              %i.fa.fa-undo
-              重新
+            -# %button.btn.btn-success{:type => "button", "ng-click" => "replay()", "ng-show" => "register.status.dictDetailCode == 'SM00036'"}
+            -#   %i.fa.fa-undo
+            -#   重新
 
             %button.btn.btn-danger{:type => "button", "ng-click" => "stop()", "ng-show" => "register.status.dictDetailCode != 'SM00037'"}
               %i.fa.fa-stop
@@ -155,10 +155,9 @@ layout: "page"
                 .col-md-12
                   = partial :'layouts/inputs/textarea', :locals => {:keyword => "curemanager", :fieldName => '医嘱', :maxlength => '1024'}
 
-              .row
+              .row{"ng-show" => "historyview != 'view'"}
                 .col-md-12.text-center
-                  = partial :'layouts/buttons/submit', :locals => {:label => "保存诊断信息", :icon => "fa-save", :disabled => "!curemanager.id"}
-
+                  = partial :'layouts/buttons/submit', :locals => {:label => "保存诊断信息", :icon => "fa-save", :disabled => "!curemanager.id"} 
         -#-# 化验单
         -##pets_testing.tab-pane
         -#  = partial :'testsheet'
