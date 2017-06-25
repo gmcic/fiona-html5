@@ -12,7 +12,7 @@
       .form-body
         .row
           .col-md-4
-            = partial :'layouts/inputs/textview', :locals => {:fieldName => '所属分类', :maxlength => '32'}
+            = partial :'layouts/inputs/select', :locals => {:fieldName => '所属分类',:options => "type.cateNo as type.cateName for type in dropdowns.cateNoSet",:change => "selectchange('cateNo', 'cateNo')",:required => 'true'}
 
           .col-md-4
             = partial :'layouts/inputs/textview', :locals => {:fieldName => '编号', :maxlength => '32'}

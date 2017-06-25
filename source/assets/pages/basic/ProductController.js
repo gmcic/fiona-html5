@@ -9,6 +9,17 @@ angular.module('fiona').controller('ProductController', function ($scope, $contr
     $controller('BaseController', {$scope: $scope}); //继承
 
     $scope.dropdownWithTable({id: "busiTypeId", server: "/api/v2/businescates", value: "id", text: "cateName"});
+    $scope.dropdownWithTable({id: "cateNo", server: "/api/v2/itemcates"});
+
+    $scope.selectchange = function(inputName, fieldName) {
+            angular.forEach($scope.dropdowns[inputName  + 'Set'], function (data) {
+                if($scope.product[inputName] == data[fieldName])
+                {
+                    $scope.product.itemStyle = data.cateName;
+                }
+            });
+        }
+    
 
     /**
      * 商品管理

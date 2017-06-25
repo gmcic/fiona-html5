@@ -27,7 +27,7 @@ fields:
   所属分类ID: cateNo
 
   # 分类名称
-  所属分类: itemStyle
+  所属分类: cateNo
 
   业务类型ID: busiTypeId
 
