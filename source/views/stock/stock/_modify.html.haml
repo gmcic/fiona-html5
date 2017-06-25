@@ -8,9 +8,12 @@
       = partial :'layouts/inputs/textview', :locals => {:fieldName => '物品名称', :maxlength => '32'}
 
   .row
-    .col-md-6
+    .col-md-4
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '零散比', :maxlength => '32', :required => 'true'}
+
+    .col-md-4
       = partial :'layouts/inputs/text', :locals => {:fieldName => '整装数', :maxlength => '32', :required => 'true'}
 
-    .col-md-6
+    .col-md-4
       = partial :'layouts/inputs/text', :locals => {:fieldName => '散装数', :maxlength => '32', :required => 'true'}
 
