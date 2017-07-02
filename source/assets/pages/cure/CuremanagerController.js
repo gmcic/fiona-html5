@@ -596,6 +596,17 @@ angular.module('fiona')
                 doctorprescriptdetail[name] = _product[name];
             });
 
+            if (_product.recipeUnit){
+                var recipeUnit = $scope.dropdowns.recipeUnitSet.findObjectWithProperty('dictDetailCode',_product.recipeUnit);
+                if (!recipeUnit){
+                    recipeUnit = $scope.dropdowns.recipeUnitSet.findObjectWithProperty('id',_product.recipeUnit);
+                }
+
+                if (recipeUnit){
+                    doctorprescriptdetail.recipeUnit = recipeUnit.valueNameCn;
+                }
+            }
+
             if(_product.itemStandard)
             {
                 doctorprescriptdetail.itemName = doctorprescriptdetail.itemName + "(" +  _product.itemStandard + ")";
