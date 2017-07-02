@@ -127,16 +127,19 @@ layout: "page"
                   = partial :'layouts/inputs/textview', :locals => {:fieldName => '就诊编号', :maxlength => '16', :required => "true"}
 
               .row
-                .col-md-3
+                .col-md-2
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体重', :maxlength => '6'}
+
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体温', :maxlength => '32'}
 
-                .col-md-3
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '心跳', :maxlength => '32'}
 
-                .col-md-3
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '呼吸', :maxlength => '32'}
 
-                .col-md-3
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '血压', :maxlength => '32'}
 
               .row
