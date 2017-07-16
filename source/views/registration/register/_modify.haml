@@ -15,27 +15,21 @@
         .form-body
           .row
             = partial :'layouts/inputs/hidden', :locals => { :fieldName => '宠物ID', :maxlength => '32', :required => 'true', "msg" => "宠物信息"}
-
           .row
             .col-md-12
               = partial :'layouts/inputs/textview', :locals => {:fieldName => '登记编号', :maxlength => '16', :required => "true"}
-
           .row
             .col-md-12
               = partial :'layouts/inputs/select', :locals => {:fieldName => '挂号类型', :options => "type.itemCode as type.itemName for type in dropdowns.itemCodeSet", :change => "registerportal.selectchange('itemCode', 'itemCode')",:required => 'true'}
-
           .row
             .col-md-12
               = partial :'layouts/inputs/number', :locals => {:fieldName => '金额', :maxlength => '16', :required => "true"}
-
-          .row
-            .col-md-12
-              = partial :'layouts/inputs/select', :locals => {:fieldName => '业务员', :options => "type.personName as type.personName for type in dropdowns.operatorManSet"}
-
           .row
             .col-md-12
               = partial :'layouts/inputs/select', :locals => {:fieldName => '医生', :required => "true" , :options => "type.id as type.personName for type in dropdowns.doctorIdSet", :change => "registerportal.selectchange('doctorId', 'id')"}
-
+          .row
+            .col-md-12
+              = partial :'layouts/inputs/select', :locals => {:fieldName => '业务员', :options => "type.personName as type.personName for type in dropdowns.operatorManSet"}
           .row
             .col-md-12
               = partial :'layouts/inputs/select', :locals => {:fieldName => '助理医生', :options => "type.id as type.personName for type in dropdowns.assistantDoctorIdSet", :change => "registerportal.selectchange('assistantDoctorId', 'id')"}
