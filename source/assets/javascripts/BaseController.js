@@ -1604,6 +1604,8 @@ angular.module('fiona')
                 $scope.setSelectDefaultObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
 
                 $scope.serialNumber({id: "pet", fieldName : "petCode", numberName : "宠物编号"});
+
+               
             },
             update: function () {
 
@@ -1616,7 +1618,26 @@ angular.module('fiona')
         }
     };
 
+
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
+
+    var defaultDate = '2000-01';
+
+    if ($scope.pet && $scope.pet.petBirthday){
+        defaultDate = $filter('date')($scope.pet.petBirthday, 'yyyy-MM-dd');
+    }
+
+    $("input[name='petBirthday']").datepicker({
+        format: 'yyyy-mm-dd',
+        orientation: "left",
+        startView: 2,
+        minViewMode: 1,
+        maxViewMode: 2,
+        autoclose: !0,
+        defaultDate:defaultDate
+    }).on("changeDate", function () {
+        // $scope.pet.petBirthday = defaultDate;
+    });
 
     $scope.petportal.pupupselect = function () {
 
