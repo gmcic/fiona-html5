@@ -1,10 +1,7 @@
 # 宠物
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 挂号状态
-    fieldKey: status.valueNameCn
 
-  - fieldName: 宠物状态
-    fieldKey: status.valueNameCn
+  - fieldName: 宠物昵称
 
   - fieldName: 会员编号
 
@@ -12,21 +9,10 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 会员电话
 
-  - fieldName: 宠物卡号
-
-  - fieldName: 宠物牌号
-
   - fieldName: 宠物病历号
-
-  - fieldName: 宠物昵称
 
   - fieldName: 宠物性别
     fieldKey: petSex.valueNameCn
-#
-#  - fieldName: 出生日期
-#    filter: date:"yyyy年MM月dd日"
-
-  - fieldName: 身高
 
   - fieldName: 体重(kg)
     fieldKey: petWeight
@@ -34,11 +20,11 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 颜色
     fieldKey: petSkinColor.valueNameCn
 
-  - fieldName: 宠物种类
-    fieldKey: petRace.petRace.name
-
   - fieldName: 宠物品种
     fieldKey: petRace.type
+
+  - fieldName: 宠物状态
+    fieldKey: status.valueNameCn
 
 # 宠物
 portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
