@@ -112,7 +112,7 @@ layout: "page"
         -#    影像检查
 
         %li
-          %a{"data-toggle" => "tab", :href => "//#pets_recipe"}
+          %a{"data-toggle" => "tab", :href => "//#pets_recipe", "ng-click" => "curemanagerportal.valid()"}
             处置处方
 
       .tab-content
@@ -128,7 +128,7 @@ layout: "page"
 
               .row
                 .col-md-2
-                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体重', :maxlength => '6'}
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体重', :maxlength => '6', :required => "true"}
 
                 .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体温', :maxlength => '32'}

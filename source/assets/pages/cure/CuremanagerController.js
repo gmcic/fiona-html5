@@ -199,7 +199,41 @@ angular.module('fiona')
 
            $scope.historyview = "view";
         },
+        //页面切换
+        valid: function(){
+            var info= "";
+            var show = false;
+            console.log('valid',$scope.curemanager);
 
+  //           主述: rheme
+  // 临床检查: examination
+  // 医生诊断: diagnosed
+  // 医嘱: doctorAdvice
+            if (!$scope.curemanager.weight){
+                info += "请补体重！" 
+                show = true;
+            }
+            if (!$scope.curemanager.doctorAdvice){
+                info += "请补全医嘱！" 
+                show = true;
+            }
+            if (!$scope.curemanager.rheme){
+                info += "请补全主述！" 
+                show = true;
+            }
+            if (!$scope.curemanager.examination){
+                info += "请补全临床检查！" 
+                show = true;
+            }
+            if (!$scope.curemanager.diagnosed){
+                info += "请补全医生诊断查！" 
+                show = true;
+            }
+            if(show){
+                alert(info);
+            }
+
+        },
         underway: function(){
             $scope.curemanager= {};
            $scope.play($scope.register);
