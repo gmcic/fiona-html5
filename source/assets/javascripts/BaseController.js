@@ -1636,7 +1636,7 @@ angular.module('fiona')
         autoclose: !0,
         defaultDate:defaultDate
     }).on("changeDate", function () {
-        // $scope.pet.petBirthday = defaultDate;
+        $scope.pet.petBirthday = this.value;
     });
 
     $scope.petportal.pupupselect = function () {
