@@ -1609,7 +1609,7 @@ angular.module('fiona')
 
                 $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
 
-                delete $scope.pet.mobilePhone;
+                // delete $scope.pet.mobilePhone;
 
                 $scope.vipportal.unique($scope.pet.gestId);
             }

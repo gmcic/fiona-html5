@@ -11,41 +11,17 @@
   .portlet-body.form
     .form-body
       .row
-        .col-md-4
+        .col-md-2
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '会员编号', :maxlength => '32', :required => 'true'}
-
-        .col-md-4
+        .col-md-2
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '会员姓名', :maxlength => '32'}
-
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '会员等级', :labelName =>"levelName", :maxlength => '32'}
-
-      .row
-        .col-md-4
+        .col-md-2
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '会员性别', :labelName =>"valueNameCn", :maxlength => '32'}
-
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '出生日期', :maxlength => '16'}
-
-
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '年龄', :maxlength => '16'}
-
-      .row
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '手机', :maxlength => '16'}
-
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '电话', :maxlength => '16'}
-
-        .col-md-4
+        .col-md-2
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '会员电话', :maxlength => '16'}
+        .col-md-2
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '会员等级', :labelName =>"levelName", :maxlength => '32'}
+        .col-md-2
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '账户金额', :maxlength => '16'}
-
-      .row
-        .col-md-8
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '联系地址', :maxlength => '16'}
-
-        .col-md-4
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'vip', :fieldName => '登记日期', :maxlength => '16'}
 
 
