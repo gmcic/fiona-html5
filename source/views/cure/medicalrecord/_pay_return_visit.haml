@@ -1,0 +1,89 @@
+
+%div.print-body-html
+
+  -#.page-header{:style => 'padding-top: 0;margin-top: 0px'}
+  -#  %img{:src => '/assets/images/logo-fiona.png'}
+
+  %center
+    %h1 福莱宠物医院病历单
+
+  %table.table-print-noborder
+    %tbody
+      %tr
+        %th{:style => "width: 70px"} 会员姓名
+        %td {{vip.gestName}}
+
+        %th{:style => "width: 70px"} 会员电话
+        %td {{vip.mobilePhone}}
+
+        %th{:style => "width: 70px"} 病历号
+        %td{:colspan => "7"} {{pet.sickFileCode}}
+
+      %tr
+        %th{:style => "width: 70px"} 宠物昵称
+        %td {{pet.petName}}
+
+        %th{:style => "width: 70px"} 年龄
+        %td {{pet.age}} 岁
+
+        %th{:style => "width: 70px"} 宠物性别
+        %td {{pet.petSex.valueNameCn}}
+
+        %th{:style => "width: 50px"} 体重
+        %td {{medicalrecord.weight}} kg
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th.info 就诊信息
+
+  %tbody
+    %tr
+      %td
+        %table.table-print-noborder
+          %tbody
+            %tr
+            %tr
+              %th{:style => "width: 50px"} 体温
+              %td {{medicalrecord.temperature}}
+
+              %th{:style => "width: 50px"} 心跳
+              %td {{medicalrecord.heartbeat}}
+
+              %th{:style => "width: 50px"} 呼吸
+              %td {{medicalrecord.breath}}
+
+              %th{:style => "width: 50px"} 血压
+              %td {{medicalrecord.bloodPressure}}
+
+            %tr
+              %th{:style => "width: 70px"} 主述
+              %td{"colspan" => "9"} {{medicalrecord.rheme}}
+
+            %tr
+              %th{:style => "width: 70px"} 临床检查
+              %td{"colspan" => "9"} {{medicalrecord.examination}}
+
+            %tr
+              %th{:style => "width: 70px"} 医生诊断
+              %td{"colspan" => "9"} {{medicalrecord.diagnosed}}
+
+            %tr
+              %th{:style => "width: 70px"} 医嘱
+              %td{"colspan" => "9"} {{medicalrecord.doctorAdvice}}
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th.info 回访记录
+
+  %tbody
+    %tr
+      %td
+        %table.table-print-noborder
+          %tbody
+            %tr
+              %td 
+                = partial :'layouts/inputs/textarea', :locals => { :keyword => 'medicalrecord', :fieldName => '回访记录', :maxlength => '16'}
+%center
+  = partial :'layouts/buttons/btn_primary', :locals => {:label=>"保存", :click => "medicalrecordportal.record()"}
