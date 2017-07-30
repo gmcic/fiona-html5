@@ -18,7 +18,7 @@ angular.module('fiona').controller('MedicalrecordController', function($scope, $
 
         name: "病案管理",
 
-        defilters: {petName: "宠物昵称", gestName: "会员姓名", mediTreatmentCode: "就诊编号", doctor: "医生", assistantDoctorName: "助理医生"},
+        defilters: {petName: "宠物昵称", gestName: "会员姓名", mediTreatmentCode: "就诊编号", doctor: "医生"},
 
         server: "/api/v2/medicmedictreatrecords",
 

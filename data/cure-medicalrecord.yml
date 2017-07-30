@@ -3,16 +3,13 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 会员姓名
 
-  - fieldName: 宠物病历号
-    fieldKey: mediTreatmentCode
-
   - fieldName: 宠物昵称
 
   - fieldName: 医生
 
-  - fieldName: 助理医生
-
   - fieldName: 医生诊断
+
+  - fieldName: 医嘱
 
   - fieldName: 就诊时间
     filter: date:"yyyy年MM月dd日 HH时mm分"
@@ -44,6 +41,7 @@ fields: #可定义多个中文名称指向同一个字段
   就诊编号: mediTreatmentCode
 
   体温: temperature
+  体重: weigth
   心跳: heartbeat
   呼吸: breath
   血压: bloodPressure
