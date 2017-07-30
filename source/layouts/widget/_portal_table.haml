@@ -85,6 +85,10 @@
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "recharge" )
             = partial :'layouts/buttons/btn', :locals => {:label => "充值", :icon => "fa-credit-card-alt", :click => @portal_id + 'portal.recharge(' + @portal_id + ')' }
 
+          // 回访记录
+          - if (defined? inline_toolbar) && ( inline_toolbar.include? "payReturnVisit" )
+            = partial :'layouts/buttons/btn_info', :locals => {:label => "回访", :icon => "fa-phone", :click => @portal_id + 'portal.payReturnVisit(' + @portal_id + ')' , :show => "!medicalrecord.payReturnVisit"}
+
       - @portal[$listdataKey].each do |column|
         %td
           - if column.filter?

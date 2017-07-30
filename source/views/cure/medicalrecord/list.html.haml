@@ -3,9 +3,13 @@ layout: "page"
 ---
 - page '病案管理', 'medicalrecord'
 
-= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view', :selection => "none"} do
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'view,payReturnVisit', :selection => "none"} do
   / 不输出
 
 /  查看页面
 = partial :'layouts/partials/modal-portal-view-lg', :locals => {:modal_toolbar => 'close' } do
   = partial 'view'
+
+- modal "回访", "pay_return_visit"
+= partial :'layouts/partials/modal-portal-view-lg' , :locals => {:modal_toolbar => "close"} do
+  = partial 'pay_return_visit'

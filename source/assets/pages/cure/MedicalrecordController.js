@@ -38,6 +38,21 @@ angular.module('fiona').controller('MedicalrecordController', function($scope, $
 
                });
             }
+        },
+        payReturnVisit:function(obj){
+          $scope.vipportal.unique(obj.gestId);
+          $scope.petportal.unique(obj.petId);
+          $scope.medicalrecord = obj;
+
+          $("#pay_return_visitview").modal('show');
+        },
+        record:function(){
+          // 查询医院信息
+          $http.get(commons.getBusinessHostname() + this.server + "/payReturnVisit/" + $scope.medicalrecord.id + "?remark=" + $scope.medicalrecord.payReturnVisitRemark).success(function (data, status, headers, config) {
+              $scope.medicalrecordportal.filter();
+          });
+
+          $("#pay_return_visitview").modal('hide');
         }
     };
 
