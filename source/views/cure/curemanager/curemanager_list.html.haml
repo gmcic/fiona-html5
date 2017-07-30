@@ -36,7 +36,7 @@ layout: "page"
           %div.list-group
             %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in plays", "class": '{active: register.id == node.id}'}}
               %img{"src" => "assets/images/pet{{$index+1}}.png", :width => "45px"}
-              %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}
+              %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}-{{node.petName}} [{{node.createDate|date:'HH:mm'}}]
 
         -# 暂停列表
         #pause_pets.tab-pane
