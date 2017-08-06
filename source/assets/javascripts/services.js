@@ -40,12 +40,12 @@ angular.module('fiona.services', [])
         },
 
         getBusinessHostname : function () {
-           return "http://192.168.1.254:8080/business";
-            // return "http://192.168.1.254:8080/business";
+           return "http://localhost:8080/business";
+            // return "http://localhost:8080/business";
         },
         getAccountHostname : function () {
-           return "http://192.168.1.254:8080/account";
-            // return "http://192.168.1.254:8080/account";
+           return "http://localhost:8080/account";
+            // return "http://localhost:8080/account";
         },
         modaldanger: function (alert_id, msg) {
             App.alert({

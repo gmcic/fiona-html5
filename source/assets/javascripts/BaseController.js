@@ -885,7 +885,8 @@ angular.module('fiona')
 
     component.selection = {};
 
-    component.selectChange = function () {
+    component.selectChange = function (e) {
+        console.log("Event", e);
         component.isRemoves = true;
         angular.forEach(component.selection, function (value, key) {
             if (value == true) {
