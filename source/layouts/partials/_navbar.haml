@@ -16,6 +16,26 @@
     / BEGIN TOP NAVIGATION MENU
     .top-menu
       %ul.nav.navbar-nav.pull-right
+        %li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
+          %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+            %i.fa.fa-bell
+            %span.badge.badge-default{'ng-if' => 'notificationSize != ""'} {{notificationSize}}
+          %ul.dropdown-menu
+            %li.external
+              %h3{'ng-if' => 'notificationSize != ""'}
+                %span.bold {{notificationSize}} 条
+                notifications
+              %a{:href => "page_user_profile_1.html"} view all
+            %li
+              %ul.dropdown-menu-list.scroller{"data-handle-color" => "#637283", :style => "height: 250px;"}
+                %li
+                  %a{:href => "javascript:;", 'ng-repeat' => 'notification in notifications'}
+                    %span.time {{notification.time}}
+                    %span.details
+                      %span{:class => 'label label-sm label-icon {{notification.style}}'}
+                        %i.fa{'class' => 'fa {{notification.icon}}'}
+                      {{notification.msg}}
+
         / BEGIN USER LOGIN DROPDOWN
         %li.dropdown.dropdown-user
           %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
