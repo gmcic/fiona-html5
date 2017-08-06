@@ -27,6 +27,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   就诊编号: mediTreatmentCode
 
+  体重: weight
   体温: temperature
   心跳: heartbeat
   呼吸: breath

@@ -27,5 +27,5 @@
   .portlet-body
     %div.list-group
       %a.list-group-item{:href => 'javascript:;', "ng" => {"class":"{active: record.id == #{id}portal.selectedId}", "repeat": "record in #{id}s", "click": "#{id}portal.switched(record.id)"}}
-        {{ record.#{fieldName||"name"} }}
+        {{ record.updateDate | date:'MM-dd hh:mm'}}({{ record.#{fieldName||"name"} }})
 

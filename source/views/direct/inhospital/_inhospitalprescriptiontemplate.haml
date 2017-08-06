@@ -15,7 +15,7 @@
   -#  = partial 'layouts/widget/tree', :locals => {:sidename => "处方模版类型", :sidefieldname=> 'typeName'}
   .col-md-12
     - portal '住院处方明细', 'inhospitalprescriptiondetail'
-    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :listdataKey => "portalFields", :inline_toolbar => 'remove', :bordered => "false"} do
+    = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :listdataKey => "portalFields", :inline_toolbar => 'remove',:inline_attr_disabled => "inhospitalprescriptiondetail.paidStatus == 'SM00051'", :bordered => "false"} do
       // 不输出按钮
 
       -#= partial :'layouts/buttons/btn', :locals => {:label => "保存为模板"}

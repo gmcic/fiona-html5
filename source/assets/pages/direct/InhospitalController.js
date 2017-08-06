@@ -300,7 +300,13 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
    * */
   $scope.inhospitalprescriptionportal.clonedoctorprescript = function () {
     $http.get(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/copy/" + $scope.inhospitalprescription.prescriptionCode + "?inHospitalRecordCode=" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
-      $scope.inhospitalprescriptionportal.switched();
+       $http.post(commons.getBusinessHostname() + $scope.inhospitalprescriptionportal.server + "/page" + commons.getTimestampStr(), {
+        'pageSize': 10000,
+        'pageNumber': '1',
+        'filters': [{"fieldName": "inHospitalNo", "operator": "EQ", "value": $scope.inhospital.inHospitalNo}]
+        }).success(function (data, status, headers, config) {
+          $scope.inhospitalprescriptions = data.data.content;
+        });
     });
   };
 

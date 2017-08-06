@@ -4,7 +4,7 @@ layout: "page"
 
 - page '宠物管理', 'pet'
 
-= partial 'layouts/widget/portal'
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'remove|update'}
 
 / 编辑
 - modal '宠物管理', 'pet'

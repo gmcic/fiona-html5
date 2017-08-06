@@ -300,7 +300,7 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
   var daysNumOfMonth = function(){
     var days = ['-'];
     var date = new Date();
-    date.setMonth($scope.selectMonth-1);
+    date.setMonth($scope.selectMonth);
     
     if ($scope.currentMonth != $scope.selectMonth){
       date.setDate(0);

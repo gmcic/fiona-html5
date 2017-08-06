@@ -37,12 +37,12 @@ angular.module('fiona').controller('MenusController', function ($scope, $control
    * */
   $scope.menusportal.query = function (parentCode) {
     $http.post(commons.getAccountHostname() + this.server + "/page" + commons.getTimestampStr(), {
-      pageSize: 1,
-      pageNumber: 100000,
+      pageSize: 10000,
+      pageNumber: 1,
       filters: [{
         "fieldName": "parentCode",
         "operator": "LIKE",
-        "value": parentCode
+        "value": parentCode 
       }]
     }).success(function (data, status, headers, config) {
 

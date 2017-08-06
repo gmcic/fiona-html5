@@ -36,7 +36,7 @@ layout: "page"
           %div.list-group
             %a.list-group-item{:href => 'javascript:;', "ng": {"click": "play(node)", "repeat" => "node in plays", "class": '{active: register.id == node.id}'}}
               %img{"src" => "assets/images/pet{{$index+1}}.png", :width => "45px"}
-              %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}
+              %label{:style => "font-size: 15px;padding-left: 5px;"} {{node.gestName}}-{{node.petName}} [{{node.createDate|date:'HH:mm'}}]
 
         -# 暂停列表
         #pause_pets.tab-pane
@@ -112,7 +112,7 @@ layout: "page"
         -#    影像检查
 
         %li
-          %a{"data-toggle" => "tab", :href => "//#pets_recipe"}
+          %a{"data-toggle" => "tab", :href => "//#pets_recipe", "ng-click" => "curemanagerportal.valid()"}
             处置处方
 
       .tab-content
@@ -127,16 +127,19 @@ layout: "page"
                   = partial :'layouts/inputs/textview', :locals => {:fieldName => '就诊编号', :maxlength => '16', :required => "true"}
 
               .row
-                .col-md-3
+                .col-md-2
+                  = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体重', :maxlength => '6', :required => "true"}
+
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '体温', :maxlength => '32'}
 
-                .col-md-3
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '心跳', :maxlength => '32'}
 
-                .col-md-3
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '呼吸', :maxlength => '32'}
 
-                .col-md-3
+                .col-md-2
                   = partial :'layouts/inputs/text', :locals => {:keyword => "curemanager", :fieldName => '血压', :maxlength => '32'}
 
               .row

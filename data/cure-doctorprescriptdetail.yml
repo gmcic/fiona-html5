@@ -6,8 +6,8 @@ module:
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
 
-#  - fieldName: 处方单位
-#    filter: dropdown
+  - fieldName: 处方单位
+    # filter: dropdown
 
   - fieldName: 数量
 
@@ -35,8 +35,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 medicFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
 
-#  - fieldName: 处方单位
-#    filter: dropdown
+  - fieldName: 处方单位
+    # filter: dropdown
 
   - fieldName: 数量
 
@@ -61,8 +61,8 @@ medicFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
 portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 名称
 
-#  - fieldName: 处方单位
-#    filter: dropdown
+  - fieldName: 处方单位
+    # filter: dropdown
 
   - fieldName: 数量
     input: integer
@@ -96,8 +96,8 @@ printFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名
   - fieldName: 名称
     input: text
 
-#  - fieldName: 处方单位
-#    filter: dropdown
+  - fieldName: 处方单位
+    # filter: dropdown
 
   - fieldName: 规格
 

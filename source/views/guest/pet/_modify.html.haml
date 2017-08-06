@@ -13,11 +13,7 @@
       %ul.nav.nav-tabs
         %li.active
           %a{"data-toggle" => "tab", :href => "//#pet_basic"} 基本信息
-        %li
-          %a{"data-toggle" => "tab", :href => "//#pet_pictures"} 图片信息
-        %li
-          %a{"data-toggle" => "tab", :href => "//#pet_vaccine"} 疫苗注射情况
-
+         
       .tab-content
         #pet_basic.tab-pane.active
           .form-body
@@ -33,11 +29,11 @@
                   = partial :'layouts/inputs/select', :locals => {:keyword => 'pet', :fieldName => '宠物性别', :maxlength => '32', :required => "true", :options => "type as type.valueNameCn for type in dropdowns.petSexSet"}
 
             .row
-              -#.col-md-4
-              -#  = partial :'layouts/inputs/date', :locals => { :keyword => 'pet', :fieldName => '出生日期', :maxlength => '16', :required => "true"}
+              .col-md-4
+                = partial :'layouts/inputs/date_ym', :locals => {:keyword => "pet", :fieldName => '出生日期', :maxlength => '32', :required => "true"}
 
               .col-md-4
-                = partial :'layouts/inputs/text', :locals => { :keyword => 'pet', :fieldName => '宠物年龄', :maxlength => '16'}
+                = partial :'layouts/inputs/textview', :locals => { :keyword => 'pet', :fieldName => '宠物年龄', :maxlength => '16'}
 
               .col-md-4
                 .form-group
@@ -82,14 +78,7 @@
               .col-md-12
                 = partial :'layouts/inputs/textarea', :locals => { :keyword => 'pet', :fieldName => '备注', :maxlength => '16'}
 
-        #pet_pictures.tab-pane
-          = partial :'layouts/inputs/fileupload', :locals => { :keyword => 'pet', :fieldName => '备注', :maxlength => '16'}
-
-          %button.btn.blue{:type => "button"} 上传图片
-          %button.btn.blue{:type => "button"} 拍摄照片
-          %button.btn.blue{:type => "button"} 删除图片
-          %button.btn.blue{:type => "button"} 设为头像
+        
 
 
-        #pet_vaccine.tab-pane
-          疫苗注射情况
+       

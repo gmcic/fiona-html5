@@ -192,8 +192,8 @@ angular.module('fiona.services', [])
 
             var _db = this.getLocalDB();
 
-           var baseURL = "http://192.168.1.254:8080/business/api/v2/";
-            // var baseURL = "http://192.168.1.254:8080/business/api/v2/";
+           var baseURL = "http://localhost:8080/business/api/v2/";
+            // var baseURL = "http://localhost:8080/business/api/v2/";
 
             // 重新创建表
             angular.forEach(["dicttypedetails", "userdictdetails", 'itemcates', 'itemtypes'], function(name){

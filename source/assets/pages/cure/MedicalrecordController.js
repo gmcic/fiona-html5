@@ -18,7 +18,7 @@ angular.module('fiona').controller('MedicalrecordController', function($scope, $
 
         name: "病案管理",
 
-        defilters: {petName: "宠物昵称", gestName: "会员姓名", mediTreatmentCode: "就诊编号", doctor: "医生", assistantDoctorName: "助理医生"},
+        defilters: {petName: "宠物昵称", gestName: "会员姓名", mediTreatmentCode: "就诊编号", doctor: "医生"},
 
         server: "/api/v2/medicmedictreatrecords",
 
@@ -38,6 +38,21 @@ angular.module('fiona').controller('MedicalrecordController', function($scope, $
 
                });
             }
+        },
+        payReturnVisit:function(obj){
+          $scope.vipportal.unique(obj.gestId);
+          $scope.petportal.unique(obj.petId);
+          $scope.medicalrecord = obj;
+
+          $("#pay_return_visitview").modal('show');
+        },
+        record:function(){
+          // 查询医院信息
+          $http.get(commons.getBusinessHostname() + this.server + "/payReturnVisit/" + $scope.medicalrecord.id + "?remark=" + $scope.medicalrecord.payReturnVisitRemark).success(function (data, status, headers, config) {
+              $scope.medicalrecordportal.filter();
+          });
+
+          $("#pay_return_visitview").modal('hide');
         }
     };
 

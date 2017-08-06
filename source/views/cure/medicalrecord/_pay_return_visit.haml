@@ -72,53 +72,18 @@
               %th{:style => "width: 70px"} 医嘱
               %td{"colspan" => "9"} {{medicalrecord.doctorAdvice}}
 
-// 处方
-
-%table.table.table-bordered{ "ng-repeat" => "_doctorprescript in doctorprescripts"}
+%table.table.table-bordered
   %thead
     %tr
-      %th.info  处方 {{_doctorprescript.prescriptionCode}}
+      %th.info 回访记录
 
   %tbody
     %tr
       %td
-        -# 嵌套模块
-        - @localPortal = data["cure-doctorprescriptdetail"]
-
-        %table.table.table-bordered
-          %thead
-            %tr
-              - @localPortal['medicFields'].each do |field|
-                %th #{field.aliasName || field.fieldName}
-
+        %table.table-print-noborder
           %tbody
-            %tr{ "ng-repeat" => "doctorprescriptdetail in _doctorprescript.details"}
-              - @localPortal["medicFields"].each do |column|
-                %td
-                  - if column.filter?
-                    = bindFilter "doctorprescriptdetail", (column.fieldKey || @localPortal.fields[column.fieldName] || 'error'), column.filter
-                  - else
-                    = bind "doctorprescriptdetail", (column.fieldKey || @localPortal.fields[column.fieldName] || 'error')
-
-
-%table.table-print-noborder
-  %tbody
-    %tr
-      %th{:style => "width: 90px"} 诊疗医生
-      %td{:style => "width: 180px"} {{medicalrecord.doctor}}
-
-      %th{:style => "width: 90px"}  助理医生
-      %td{:style => "width: 180px"} {{medicalrecord.assistantDoctorName}}
-
-      %td.text-right.h4{"ng-if" => "$last"} 费用: {{doctorprescript.prescriptionCost | currency:"￥"}}&nbsp;&nbsp;&nbsp;&nbsp;
-
-    %tr
-      %th{:colspan => "5"}
-
-.text-right
-  医院电话: {{hospital.telPhone}}
-  医院地址: {{hospital.areaCode}}
-
-%h5
-  .text-right
-    {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
+            %tr
+              %td 
+                = partial :'layouts/inputs/textarea', :locals => { :keyword => 'medicalrecord', :fieldName => '回访记录', :maxlength => '16'}
+%center
+  = partial :'layouts/buttons/btn_primary', :locals => {:label=>"保存", :click => "medicalrecordportal.record()"}
