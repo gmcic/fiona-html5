@@ -1,7 +1,9 @@
 // 角色管理
 angular.module('fiona').controller('MenusController', function ($scope, $controller, $http, commons) {
 
-  $scope.dropdowns = {};
+  $scope.dropdowns = {
+    leafSet: [{id: true, valueNameCn: '是'}, {id: false, valueNameCn: '否'}]
+  };
 
   commons.findDict($scope.dropdowns, {petRaceNameSet: "厂家类型"});
 
@@ -31,6 +33,17 @@ angular.module('fiona').controller('MenusController', function ($scope, $control
 
   $controller('BaseCRUDController', {$scope: $scope, component: $scope.menusportal}); //继承
 
+  $scope.menusportal.update = function (id) {
+
+    $scope[this.id + 'form'].submitted = false;
+
+    $scope[this.id] = $scope[this.id + 's'].getObjectWithIdValue(id);
+
+    console.log('UPDATE', this.id, $scope[this.id]);
+
+    $('#' + this.id).modal({backdrop: 'static', keyboard: false});
+  };
+
   /**
    * 搜索不分页
    * ---------------------------
@@ -42,15 +55,15 @@ angular.module('fiona').controller('MenusController', function ($scope, $control
       filters: [{
         "fieldName": "parentCode",
         "operator": "LIKE",
-        "value": parentCode 
+        "value": parentCode
       }]
     }).success(function (data, status, headers, config) {
 
       // this.selectionReset();
 
-      console.log("菜单列表", data.data);
+      console.log("菜单列表", data.data.content);
 
-      $scope['menuss'] = data.data;
+      $scope['menuss'] = data.data.content;
     });
   };
 
@@ -131,17 +144,22 @@ angular.module('fiona').controller('MenusController', function ($scope, $control
     treeEventsObj: {
       'select_node': function (e, item) {
 
-        $scope.menusideportal.selectedId = item.selected[0];
+        console.log('ITEM', item);
 
-        angular.forEach($scope.menusides, function (data) {
+        $scope.menusideportal.selected = item.node.original;
+        $scope.menuside = item.node.original;
 
-          // console.log('EQ', {"SELECT ID": $scope.menusideportal.selectedId, "DATA ID": data.id});
+        // $scope.menusideportal.selectedId = item.selected[0];
 
-          if (data.id == $scope.menusideportal.selectedId) {
-            $scope.menusideportal.selected = data;
-            $scope.menuside = data;
-          }
-        });
+        // angular.forEach($scope.menusides, function (data) {
+        //
+        //   // console.log('EQ', {"SELECT ID": $scope.menusideportal.selectedId, "DATA ID": data.id});
+        //   if (data.id == $scope.menusideportal.selectedId) {
+        console.log('PARENT', $scope.menusideportal.selected)
+        //     $scope.menusideportal.selected = data;
+        //     $scope.menuside = data;
+        //   }
+        // });
 
         // 查询子节点
         $scope.menusportal.query($scope.menusideportal.selected.code);
@@ -156,15 +174,21 @@ angular.module('fiona').controller('MenusController', function ($scope, $control
 
         // console.log("菜单", data.data);
 
+        var sidedata = [];
+
         angular.forEach(data.data, function (item) {
-          item.text = item.name;
-          item.parent = item.parentId || "#";
+          if (!item.leaf) {
+            item.text = item.name;
+            item.parent = item.parentId || "#";
+
+            sidedata.push(item);
+          }
           // item.parent = "#";
           // // console.log("Text: " + item.text)
           // // console.log("Parent: " + item.parent)
         });
 
-        $scope['menusides'] = data.data;
+        $scope['menusides'] = sidedata;
 
         $scope.menusideportal.treeConfig.version++;
       });

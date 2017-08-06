@@ -1,5 +1,4 @@
-
-%h4 在 父节点 [ {{parentName}} ] 下创建 [{{menus.name||"未命名"}}] 子节点
+%h4 在 父节点 [ {{parentName}} ] 下创建 [{{menus.name||"未命名"}}] 子节点, {{menus.leaf}}
 %p
 .form-body
   .row
@@ -14,10 +13,15 @@
 
   .row
     .col-md-6
+      = partial :'layouts/inputs/text', :locals => {:fieldName => '链接', :maxlength => '32'}
+
+    .col-md-3
       = partial :'layouts/inputs/text', :locals => {:fieldName => '图标', :maxlength => '32'}
 
-    .col-md-6
-      = partial :'layouts/inputs/text', :locals => {:fieldName => '链接', :maxlength => '32'}
+    .col-md-3
+      .form-group
+        %label.control-label{:for=>'leaf'} 是否叶节点
+        %input.form-control{:type=>"checkbox", :id=>'leaf',  'ng-model'=>"menus.leaf"}
 
   .row
     .col-md-12

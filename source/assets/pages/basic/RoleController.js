@@ -54,7 +54,7 @@ angular.module('fiona').controller('RoleController', function ($scope, $controll
         $scope['role' + "s"].unshift(data.data);
 
         $scope.userroleportal.save($scope.role.id);
-        $scope.rolemenuportal.save($scope.role.id);
+        $scope.rolemenuportal.save($scope.role.code);
 
         $('#' + 'role').modal('hide');
         commons.success("保存成功")
@@ -128,7 +128,7 @@ angular.module('fiona').controller('RoleController', function ($scope, $controll
 
       // this.selectionReset();
 
-      console.log("用户列表", this.id, data.data);
+      // console.log("用户列表", this.id, data.data);
 
       $scope['users'] = data.data;
 
@@ -173,7 +173,7 @@ angular.module('fiona').controller('RoleController', function ($scope, $controll
   };
 
   $scope.userroleportal.save = function (roleId) {
-    alert(roleId);
+    // alert(roleId);
     angular.forEach($scope.userportal.selection, function (value, key) {
       console.log(roleId, key, value);
     })
@@ -217,12 +217,15 @@ angular.module('fiona').controller('RoleController', function ($scope, $controll
     });
   };
 
-  $scope.rolemenuportal.save = function (roleId) {
-    alert(roleId);
+  $scope.rolemenuportal.save = function (roleCode) {
+    // 获取选中的菜单
+    var checked = $scope.treeInstance.jstree(true).get_checked();
+
+    console.log(checked);
+    // $scope.menusportal.treeEventsObj.
     angular.forEach($scope.menuss, function (data) {
-      if (data.state && data.state.checked) {
-        alert(data.state.checked);
-        console.log(roleId, data.code);
+      if (checked.indexOf(data.id) != -1) {
+        console.log(roleCode, data.code);
       }
     })
   };
@@ -259,7 +262,7 @@ angular.module('fiona').controller('RoleController', function ($scope, $controll
         worker: true
       },
       checkbox: {
-        tie_selection: false,
+        'tie_selection': false
       },
       types: {
         default: {
@@ -274,11 +277,15 @@ angular.module('fiona').controller('RoleController', function ($scope, $controll
     // 树事件
     treeEventsObj: {
       'check_node': function (e, item) {
+        // alert('check_node: ' + item.node.id);
+        // console.log('check_node', item);
         // console.log("scope", $scope);
         // console.log('check_node', item);
       },
 
       'uncheck_node': function (e, item) {
+        // alert('uncheck_node: ' + item.node.id);
+        // console.log('uncheck_node', item);
         // console.log("uncheck_node", item);
       }
     },
