@@ -2373,8 +2373,7 @@ the specific language governing permissions and limitations under the Apache Lic
         // single
         onSelect: function (data, options) {
 
-            // alert(!this.triggerSelect(data));
-            // if (!this.triggerSelect(data)) { return; }
+            if (!this.triggerSelect(data)) { return; }
 
             var old = this.opts.element.val(),
                 oldData = this.data();
@@ -3180,7 +3179,7 @@ the specific language governing permissions and limitations under the Apache Lic
                     if (equal(this.opts.id(current[i]), this.opts.id(old[j]))) {
                         current.splice(i, 1);
                         if(i>0){
-                        	i--;
+                            i--;
                         }
                         old.splice(j, 1);
                         j--;
