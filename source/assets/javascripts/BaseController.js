@@ -175,15 +175,16 @@ angular.module('fiona')
       // alert('notification');
 
       $scope.notifications = [
-        {time: 'just now', icon: 'fa-plus', msg: 'New user registered.', url: 'javascript:void(0)', style: 'label-success'},
-        {time: '3 mins', icon: 'fa-bolt', msg: 'Server #12 overloa', url: 'javascript:void(0)', style: 'label-danger'},
-        {time: '10 mins', icon: 'bell-o', msg: 'Server #2 not resp', url: 'javascript:void(0)', style: 'label-warning'},
-        {time: '14 hrs', icon: 'fa-bullhorn', msg: 'Application error.', url: 'javascript:void(0)', style: 'label-info'},
-        {time: '2 days', icon: 'fa-bolt', msg: 'Database overloade', url: 'javascript:void(0)', style: 'label-danger'},
-        {time: '3 days', icon: 'fa-bolt', msg: 'A user IP blocked.', url: 'javascript:void(0)', style: 'label-danger'},
-        {time: '4 days', icon: 'bell-o', msg: 'Storage Server #4', url: 'javascript:void(0)', style: 'label-warning'},
-        {time: '5 days', icon: 'fa-bullhorn', msg: 'System Error.', url: 'javascript:void(0)', style: 'label-info'},
-        {time: '9 days', icon: 'fa-bolt', msg: 'Storage server fai', url: 'javascript:void(0)', style: 'label-danger'}
+      //   {time: 'just now', icon: 'fa-plus', msg: 'New user registered.', url: 'javascript:void(0)', style: 'label-success'},
+      //   {time: '3 mins', icon: 'fa-bolt', msg: 'Server #12 overloa', url: 'javascript:void(0)', style: 'label-danger'},
+      //   {time: '10 mins', icon: 'bell-o', msg: 'Server #2 not resp', url: 'javascript:void(0)', style: 'label-warning'},
+      //   {time: '14 hrs', icon: 'fa-bullhorn', msg: 'Application error.', url: 'javascript:void(0)', style: 'label-info'},
+      //   {time: '2 days', icon: 'fa-bolt', msg: 'Database overloade', url: 'javascript:void(0)', style: 'label-danger'},
+      //   {time: '3 days', icon: 'fa-bolt', msg: 'A user IP blocked.', url: 'javascript:void(0)', style: 'label-danger'},
+      //   {time: '4 days', icon: 'bell-o', msg: 'Storage Server #4', url: 'javascript:void(0)', style: 'label-warning'},
+      //   {time: '5 days', icon: 'fa-bullhorn', msg: 'System Error.', url: 'javascript:void(0)', style: 'label-info'},
+      //   {time: '9 days', icon: 'fa-bolt', msg: 'Storage server fai', url: 'javascript:void(0)', style: 'label-danger'}
+      // 
       ];
 
       $scope.notificationSize = ($scope.notifications && $scope.notifications.length > 0) ? $scope.notifications.length + '' : '';
