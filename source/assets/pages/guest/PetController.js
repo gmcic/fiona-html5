@@ -15,6 +15,11 @@ angular.module('fiona').controller('PetController', function($scope, $controller
      * */
     $controller('PetPopupCheckedPanelController', {$scope: $scope}); //继承
 
+    $("#pet").on('shown.bs.modal', function(){
+        var petRace = $('#petRace').select2();
+        petRace.val($('#petRace').val()).trigger("change");
+    })
+
     /**
      * 选择会员
      * ---------------------------

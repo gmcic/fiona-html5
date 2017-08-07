@@ -1,4 +1,4 @@
-angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJsTree', 'angucomplete'])
+angular.module('fiona', ['ngRoute','fiona.services', 'blueimp.fileupload', 'ngJsTree', 'angucomplete','ui.select2'])
     .config(['$routeProvider','$httpProvider', 'fileUploadProvider', function($routeProvider,$httpProvider, fileUploadProvider) {
        delete $httpProvider.defaults.headers.common['X-Requested-With'];
         fileUploadProvider.defaults.redirect = window.location.href.replace(
