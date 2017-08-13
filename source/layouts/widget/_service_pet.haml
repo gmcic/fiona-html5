@@ -34,7 +34,7 @@
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '宠物性别', :labelName =>"valueNameCn", :maxlength => '32'}
       .row
         .col-md-12
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '年龄', :maxlength => '16'}
+          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '出生日期', :filter => "date:'yyyy年MM月'", :maxlength => '16'}
       .row
         .col-md-12
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '体重', :maxlength => '16'}

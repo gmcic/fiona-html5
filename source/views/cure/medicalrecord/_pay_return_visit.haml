@@ -84,6 +84,6 @@
           %tbody
             %tr
               %td 
-                = partial :'layouts/inputs/textarea', :locals => { :keyword => 'medicalrecord', :fieldName => '回访记录', :maxlength => '16'}
+                = partial :'layouts/inputs/textarea', :locals => { :keyword => 'medicalrecord', :fieldName => '回访记录', :maxlength => '256'}
 %center
   = partial :'layouts/buttons/btn_primary', :locals => {:label=>"保存", :click => "medicalrecordportal.record()"}

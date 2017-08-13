@@ -46,7 +46,7 @@
 
       %tr
         %th{:style => "width: 70px"} 年(日)龄
-        %td{:style => "border-bottom:1px #000000 solid;"} {{pet.age}}
+        %td{:style => "border-bottom:1px #000000 solid;"} {{pet.age|number:1}}
 
         %th{:style => "width: 70px"} 开具日期
         %td{:style => "border-bottom:1px #000000 solid;",:colspan => "4"} {{nowtime | date:"yyyy年MM月dd日 HH:mm:ss"}}
