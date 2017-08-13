@@ -2,6 +2,8 @@
 
 - fields = data["" << @module[$keyword] << "-" << $keyword].fields
 
+- $filter = (defined? filter) ? " | " << filter : ""
+
 - $required = ((defined? required) ? required : 'false')
 
 - $columnName = inputName($keyword, (fields[fieldName] || 'error'))
@@ -17,7 +19,7 @@
   - if $required == 'true'
     .input-icon.right
       %i.fa.fa-calendar
-      %input.form-control.date-picker-ym{:type => "text", :maxlength => "#{$maxlength}",:required => "#{$required}" , :name => "#{$columnName}", "ng-model"=>"#{$ngModel}|date:'yyyy-MM-dd'", :readonly => 'true' }/
+      %input.form-control.date-picker-ym{:type => "text", :maxlength => "#{$maxlength}",:required => "#{$required}" , :name => "#{$columnName}", "ng-model"=>"#{$ngModel}", "date-format" => '', :readonly => 'true' }/
 
   - if $required == 'false'
     .input-icon.right

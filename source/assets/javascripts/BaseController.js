@@ -109,6 +109,26 @@ angular.module('fiona')
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|chrome-extension):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|chrome-extension):/);
   })
+  .directive('dateFormat', ['$filter',function($filter) {  
+      var dateFilter = $filter('date');  
+      return {  
+          require: 'ngModel',  
+          link: function(scope, elm, attrs, ctrl) {  
+    
+              function formatter(value) {  
+                  return dateFilter(value, 'yyyy-MM-dd'); //format  
+              }  
+    
+              function parser() {  
+                  return ctrl.$modelValue;  
+              }  
+    
+              ctrl.$formatters.push(formatter);  
+              ctrl.$parsers.unshift(parser);  
+    
+          }  
+      };  
+  }])
   // 拦截器(验证用户是否登录)
   .factory('UserInterceptor', ["$q", "$window", "commons", function ($q, $window, commons, Auth) {
     return {

@@ -37,7 +37,9 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
   - fieldName: 宠物卡号
 
   - fieldName: 宠物昵称
-
+    
+  - fieldName: 出生日期
+    
   - fieldName: 宠物性别
     fieldKey: petSex.valueNameCn
 
