@@ -1,0 +1,53 @@
+/ BEGIN SAMPLE FORM PORTLET
+.row
+  .col-md-3
+    = partial 'layouts/widget/service_pet' do
+      // 不输出
+
+  .col-md-9
+    -#寄养登记表单
+    .row
+      = partial :'layouts/inputs/hidden', :locals => { :fieldName => '宠物ID', :maxlength => '32', :required => 'true', "msg" => "宠物信息"}
+
+      .col-md-3
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '寄养号', :maxlength => '16'}
+
+      .col-md-3
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '笼舍编号', :maxlength => '16', :required => "true"}
+
+      .col-md-2
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '预计天数', :maxlength => '16', :required => "true"}
+
+    .row
+      .col-md-3
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '预付金', :maxlength => '16'}
+
+      .col-md-2
+        = partial :'layouts/inputs/textview', :locals => {:fieldName => '主管人员', :fieldKey => "manufacturerName"}
+
+      .col-md-2
+        = partial :'layouts/inputs/textview', :locals => {:fieldName => '业务员', :fieldKey => "managerBy"}
+
+    .row
+      .col-md-12
+        = partial :'layouts/inputs/textview', :locals => { :fieldName => '备注', :maxlength => '16'}
+
+    .tabbable-line
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "//#fosterage_consumeview"} 寄养期间消费
+
+        %li
+          %a{"data-toggle" => "tab", :href => "//#fosterage_prepayview"} 预付金记录
+
+      .tab-content
+        
+        -#住院处方
+        #fosterage_consumeview.tab-pane.active
+          - portal "寄养期间消费", "fosteragedetail"
+          = partial 'layouts/widget/portal_view', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none', :bordered => "false", :selection => "none" } 
+
+        -#预付金记录
+        #fosterage_prepayview.tab-pane 
+          - portal "预付金额记录", "vipprepay"
+          = partial 'layouts/widget/portal_view', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none', :bordered => "false", :selection => "none" }

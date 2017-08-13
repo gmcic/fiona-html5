@@ -4,10 +4,14 @@ layout: "page"
 
 - page "寄养管理", "fosterage"
 
-= partial 'layouts/widget/portal'
+= partial 'layouts/widget/portal', :locals => {:inline_toolbar => 'remove|view|update', :inline_attr_disabled => "fosterage.status.dictDetailCode == 'SM00039'" }
 
-= partial :'layouts/partials/modal-portal-full' do
+= partial :'layouts/partials/modal-portal-full' , :locals => {:modal_toolbar => 'close|submit|outhospital'}  do
   = partial 'modify'
+
+/  查看页面
+= partial :'layouts/partials/modal-portal-view-full', :locals => {:modal_toolbar => 'close' } do
+  = partial 'view'
 
 / 健康记录
 - modal "健康记录", "fosteragehealth"

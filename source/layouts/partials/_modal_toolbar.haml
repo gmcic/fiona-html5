@@ -11,6 +11,11 @@
     %i.fa.fa-plus
     出院
 
+// 结束寄养
+%button.btn.btn-success{:type => "button",  "ng-click"=> "fosterageportal.outhospital()", "ng-show" => "fosterage.id"}
+  %i.fa.fa-plus
+  结束寄养
+
 // 提交表单
 - if (!defined? modal_toolbar) || ( modal_toolbar.include? "submit" )
   = partial :'layouts/buttons/btn_primary', :locals => {:click => "#{@modal_id}portal.submit()", :show => "instorage.status.dictDetailCode != 'SM00043'"}

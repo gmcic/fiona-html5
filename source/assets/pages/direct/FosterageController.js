@@ -21,10 +21,20 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         server: "/api/v2/fosterrecords",
 
         defilters: {fosterNo:"寄养号", gestCode:"会员编号", gestName:"会员姓名", petName:"宠物昵称"},
-
         callback: {
             update: function () {
                 $scope.petportal.unique($scope.fosterage.petId);
+
+                $scope.vipportal.unique($scope.fosterage.gestId);
+
+                $scope.fosteragedetailportal.searchAll();
+
+                $scope.vipprepayportal.searchAll();
+            },
+            view: function () {
+                $scope.petportal.unique($scope.fosterage.petId);
+
+                $scope.vipportal.unique($scope.fosterage.gestId);
 
                 $scope.fosteragedetailportal.searchAll();
 
@@ -72,6 +82,29 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
             }
         }
     };
+
+// 出院
+  $scope.fosterageportal.outhospital = function () {
+    alert('出院');
+    // if ($scope.inhospital.inputMoney ==  undefined){
+    //   $scope.inhospital.inputMoney = 0;
+    // }
+
+    // if ($scope.inhospital.inputMoney === 0) {
+    //   $http.get(commons.getBusinessHostname() + $scope.inhospitalportal.server + "/over/" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
+    //     $('#' + $scope.inhospitalportal.id).modal('hide');
+    //     $scope.inhospitalportal.filter();
+    //     commons.success("出院成功");
+    //   });
+    // }
+    // else if($scope.inhospital.inputMoney && $scope.inhospital.inputMoney > 0)
+    // {
+    //   commons.modaldanger($scope.inhospitalportal.id, "清零后再出院");
+    // }
+    // else if($scope.inhospital.inputMoney && $scope.inhospital.inputMoney < 0){
+    //   commons.modaldanger($scope.inhospitalportal.id, "通过押金补齐");
+    // }
+  };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosterageportal}); //继承
 
@@ -205,6 +238,12 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosteragehealthportal}); //继承
 
     /**
+     * 会员管理
+     * ---------------------------
+     * */
+    $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
+
+    /**
      * 宠物管理
      * ---------------------------
      * */
@@ -232,6 +271,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
         // 宠物名称
         $scope.fosterage.petName = _pet.petName;
 
+        $scope.vipportal.unique(_pet.gestId);
 
         $("#petselect").modal('hide');
     };
