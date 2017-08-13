@@ -47,6 +47,10 @@ angular.module('fiona').controller('MedicalrecordController', function($scope, $
           $("#pay_return_visitview").modal('show');
         },
         record:function(){
+          if (!$scope.medicalrecord.payReturnVisitRemark || null === $scope.medicalrecord.payReturnVisitRemark){
+            alert('请填写回访记录!')
+            return;
+          }
           // 查询医院信息
           $http.get(commons.getBusinessHostname() + this.server + "/payReturnVisit/" + $scope.medicalrecord.id + "?remark=" + $scope.medicalrecord.payReturnVisitRemark).success(function (data, status, headers, config) {
               $scope.medicalrecordportal.filter();
