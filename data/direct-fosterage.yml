@@ -18,9 +18,6 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 预计天数
 
-  - fieldName: 寄养类型
-    fieldKey: itemName
-
   - fieldName: 状态
     fieldKey: status.valueNameCn
 

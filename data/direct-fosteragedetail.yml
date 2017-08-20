@@ -14,8 +14,6 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
     filter: currency:"￥"
 
   - fieldName: 数量
-    input: number
-    event: ng-change='productportal.resize()'
 
   - fieldName: 单位
     filter: dropdown

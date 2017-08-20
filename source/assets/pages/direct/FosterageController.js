@@ -1,6 +1,6 @@
 
 // 寄养管理
-angular.module('fiona').controller('FosterageController', function($scope, $controller, commons) {
+angular.module('fiona').controller('FosterageController', function($scope, $controller,$http, commons) {
 
     $scope.dropdowns = {};
 
@@ -85,25 +85,25 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
 // 出院
   $scope.fosterageportal.outhospital = function () {
-    alert('出院');
-    // if ($scope.inhospital.inputMoney ==  undefined){
-    //   $scope.inhospital.inputMoney = 0;
-    // }
+    
+    if ($scope.fosterage.inputMoney ==  undefined){
+      $scope.fosterage.inputMoney = 0;
+    }
 
-    // if ($scope.inhospital.inputMoney === 0) {
-    //   $http.get(commons.getBusinessHostname() + $scope.inhospitalportal.server + "/over/" + $scope.inhospital.inHospitalNo).success(function (data, status, headers, config) {
-    //     $('#' + $scope.inhospitalportal.id).modal('hide');
-    //     $scope.inhospitalportal.filter();
-    //     commons.success("出院成功");
-    //   });
-    // }
-    // else if($scope.inhospital.inputMoney && $scope.inhospital.inputMoney > 0)
-    // {
-    //   commons.modaldanger($scope.inhospitalportal.id, "清零后再出院");
-    // }
-    // else if($scope.inhospital.inputMoney && $scope.inhospital.inputMoney < 0){
-    //   commons.modaldanger($scope.inhospitalportal.id, "通过押金补齐");
-    // }
+    if ($scope.fosterage.inputMoney === 0) {
+      $http.get(commons.getBusinessHostname() + $scope.fosterageportal.server + "/over/" + $scope.fosterage.id).success(function (data, status, headers, config) {
+        $('#' + $scope.fosterageportal.id).modal('hide');
+        $scope.fosterageportal.filter();
+        commons.success("出院成功");
+      });
+    }
+    else if($scope.fosterage.inputMoney && $scope.fosterage.inputMoney > 0)
+    {
+      commons.modaldanger($scope.fosterageportal.id, "清零后再出院");
+    }
+    else if($scope.fosterage.inputMoney && $scope.fosterage.inputMoney < 0){
+      commons.modaldanger($scope.fosterageportal.id, "通过押金补齐");
+    }
   };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosterageportal}); //继承
@@ -143,13 +143,13 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
             $scope.fosteragedetails = [];
         }
 
-        if($scope.fosteragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
+//         if($scope.fosteragedetails.existprop('itemCode', _product.itemCode)) {   // 是否已选择
 
-            var fosteragedetail = $scope.fosteragedetails.unique('itemCode', _product.itemCode);
+//             var fosteragedetail = $scope.fosteragedetails.unique('itemCode', _product.itemCode);
 
-//            commons.modaldanger("fosterage", "[ 商品" +_product.itemName+ " ]已存在");
-        }
-        else {
+// //            commons.modaldanger("fosterage", "[ 商品" +_product.itemName+ " ]已存在");
+//         }
+//         else {
             // 未选择新添加
 
             var fosteragedetail= {};
@@ -169,22 +169,24 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
             $scope.fosteragedetails.push(fosteragedetail);
 
 //            commons.modalsuccess("fosterage", "成功添加[ " +fosteragedetail.itemName+ " ]商品");
-        }
+        // }
 
-        $scope.productportal.resize();
+        // $scope.productportal.resize();
     };
 
     // 计算 数量和金额
-    $scope.productportal.resize = function () {
+    $scope.productportal.resize = function (event) {
 
         $scope.fosterage.totalMoney = 0;
-
+        console.log('resize',event);
         angular.forEach($scope.fosteragedetails, function (_fosteragedetail) {
-            // 小计
-            _fosteragedetail.totalCost = _fosteragedetail.sellPrice * _fosteragedetail.itemNum;
+            if (_fosteragedetail.paidStatus != 'SM00051'){
+                // 小计
+                _fosteragedetail.totalCost = _fosteragedetail.sellPrice * _fosteragedetail.itemNum;
 
-            // 总金额
-            $scope.fosterage.totalMoney += _fosteragedetail.totalCost;
+                // 总金额
+                $scope.fosterage.totalMoney += _fosteragedetail.totalCost;
+            }
         });
     }
 

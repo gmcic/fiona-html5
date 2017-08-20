@@ -26,7 +26,7 @@ layout: "page"
 / 选择宠物
 - portal "选择宠物", "pet"
 
-= partial :'views/commons/pet/portal_pet' do
+= partial 'layouts/widget/service_pet_select' do
   = partial :'layouts/buttons/insert', :locals => {:click => 'productportal.insert()'}
   = partial :'layouts/buttons/removes', :locals => {:click => 'productportal.removes()', 'disabled': 'isRemoves'}
 

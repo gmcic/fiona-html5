@@ -50,13 +50,13 @@
               = partial 'views/commons/product/product_autocomplete'
 
           - portal "寄养期间消费", "fosteragedetail"
-          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false", :selection => "none" } do
+          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove', :bordered => "false", :selection => "none" ,:inline_attr_disabled => "fosteragedetail.paidStatus == 'SM00051'",} do
             // 不输出按钮
 
         -#预付金记录
         #fosterage_prepay.tab-pane
           - portal "预付金额记录", "vipprepay"
-          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }
+          = partial 'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'none' , :selection => "none" }
 
         -#-#健康状态记录
         -##fosterage_health.tab-pane
