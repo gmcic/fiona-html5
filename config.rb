@@ -97,7 +97,7 @@ helpers do
         if fieldName == 'error'
             return "<span class='label label-danger'>Danger</span>"
         else
-            return "<input type='" << inputType << "' class='form-control form-filter input-sm' ng-model='" << key << "." << fieldName << "' " << event << " >";
+            return "<input type='" << inputType << "' class='form-control form-filter input-sm' ng-readonly='" << key << ".readonly' " << "ng-model='" << key << "." << fieldName << "' " << event << " >";
         end
     end
 

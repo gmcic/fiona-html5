@@ -77,6 +77,8 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
                     // 寄养编号
                     _fosteragedetail.fosterNo = $scope.fosterage.fosterNo;
 
+                    delete _fosteragedetail.readonly;
+
                     $scope.fosteragedetailportal.saveWithEntity(_fosteragedetail);
                 });
             }
@@ -126,7 +128,15 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
         defilters: { },
 
-        callback: {}
+        callback: {
+            search:function(){
+                angular.forEach($scope.fosteragedetails, function (_fosteragedetail) {
+                    _fosteragedetail["readonly"] = _fosteragedetail.paidStatus === 'SM00051';
+                });
+
+                console.log("_fosteragedetail", $scope.fosteragedetails);
+            }
+        }
     };
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.fosteragedetailportal}); //继承
@@ -168,7 +178,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
             $scope.fosteragedetails.push(fosteragedetail);
 
-//            commons.modalsuccess("fosterage", "成功添加[ " +fosteragedetail.itemName+ " ]商品");
+           commons.modalsuccess("fosterage", "成功添加[ " +fosteragedetail.itemName+ " ]商品");
         // }
 
         // $scope.productportal.resize();
