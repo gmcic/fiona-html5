@@ -4,7 +4,7 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
     $scope.dropdowns = {};
 
-    commons.findDict($scope.dropdowns, {managerIdSet: "主管人员", manufacturerIdSet: "业务员"});
+    commons.findDict($scope.dropdowns, {managerIdSet: "主管人员", manufacturerIdSet: "业务员",recipeUnitSet: "物品单位"});
 
     $controller('BaseController', {$scope: $scope}); //继承
 
@@ -164,10 +164,11 @@ angular.module('fiona').controller('FosterageController', function($scope, $cont
 
             var fosteragedetail= {};
 
-            angular.forEach(["itemCode", "itemName", "recipeUnit", "sellPrice",  "useWay", "itemStandard"], function (name) {
+            angular.forEach(["itemCode", "itemName", "recipeUnit", "useWay", "itemStandard"], function (name) {
                 fosteragedetail[name] = _product[name];
             });
 
+            fosteragedetail['sellPrice']=_product['recipePrice'];
             fosteragedetail.manufacturerCode = _product.dealerCode;
             fosteragedetail.manufacturerName = _product.dealerName;
 
