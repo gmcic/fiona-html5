@@ -295,6 +295,17 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
           }
 
         });
+
+      //寄养押金
+      $http.get(commons.getBusinessHostname() + "/api/v2/reports/foster?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+        $scope.fosterMoneyTotal=0;
+        $scope.fosterCount=0;
+        if (data.data){
+          $scope.fosterMoneyTotal=data.data.fosterMoneyTotal;
+          $scope.fosterCount=data.data.fosterCount;
+        }
+      });
+      
   }
 
   var daysNumOfMonth = function(){
