@@ -311,11 +311,12 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
   var daysNumOfMonth = function(){
     var days = ['-'];
     var date = new Date();
-    date.setMonth($scope.selectMonth);
     
     if ($scope.currentMonth != $scope.selectMonth){
-      date.setDate(0);
+      date = new Date(date.getYear(), $scope.selectMonth, 0)
     }
+
+    console.log('daysNumOfMonth', date);
 
     for (var i = 1; i < date.getDate() + 1; i++)
       days.push(i);
