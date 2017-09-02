@@ -86,6 +86,16 @@ angular.module('fiona').controller('InstorageController', function($scope, $cont
         $scope.instorageportal.update(id);
     };
 
+    $scope.instorageportal.paystatus = function (id) {
+        console.log('paystatus');
+
+        $http.get(commons.getBusinessHostname() + $scope.instorageportal.server + "/paystatus/" + id + commons.getTimestampStr()).success(function (data, status, headers, config) {
+            $scope.instorageportal.filter();
+        }).error(function (data, status, headers, config) { //     错误
+            commons.modaldanger(instorage.id, "保存失败");
+        });
+    };
+
     /** 入库审核 */
     $scope.auditing  = function () {
 

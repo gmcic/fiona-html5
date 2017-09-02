@@ -73,6 +73,10 @@
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "auditing" )
             = partial :'layouts/buttons/btn', :locals => {:label => "审核", :icon => "fa-gavel", :click => @portal_id + 'portal.auditing(' + @portal_id + '.id)', :disabled => "#{inline_attr_disabled}"}
 
+          // 支付状态按钮
+          - if (defined? inline_toolbar) && ( inline_toolbar.include? "paystatus" )
+            = partial :'layouts/buttons/btn', :locals => {:label => "支付", :icon => "fa-check", :click => @portal_id + 'portal.paystatus(' + @portal_id + '.id)', :disabled => @portal_id + ".paidStatus == '已付款'"}
+
           // 打印按钮
           - if (defined? inline_toolbar) && ( inline_toolbar.include? "print1" )
             = partial :'layouts/buttons/btn', :locals => {:label => "打印", :icon => "fa-print", :click => @portal_id + 'portal.print1(' + @portal_id + ')', :disabled => "#{inline_attr_disabled}"}

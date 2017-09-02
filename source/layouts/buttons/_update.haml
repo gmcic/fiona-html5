@@ -4,20 +4,20 @@
 
 - if (defined? disabled) && ((defined? show) && (show != ""))
   %button.btn.btn-circle.btn-default.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}", 'show': "#{show}"}}
-    %i.fa.fa-plus
+    %i.fa.fa-pencil
     #{$label}
 
 - elsif defined? disabled
   %button.btn.btn-circle.btn-default.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'disabled': "#{disabled}"}}
-    %i.fa.fa-plus
+    %i.fa.fa-pencil
     #{$label}
 
 - elsif ((defined? show) && (show != ""))
   %button.btn.btn-circle.btn-default.btn-sm{:type => "button", 'ng': {'click':"#{$click}", 'show': "#{show}"}}
-    %i.fa.fa-plus
+    %i.fa.fa-pencil
     #{$label}
 
 - else
   %button.btn.btn-circle.btn-default.btn-sm{:type => "button", 'ng': {'click':"#{$click}"}}
-    %i.fa.fa-plus
+    %i.fa.fa-pencil
     #{$label}
