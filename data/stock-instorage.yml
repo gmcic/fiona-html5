@@ -7,6 +7,8 @@ module:
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
   - fieldName: 入库单号
 
+  - fieldName: 经销商
+  
   - fieldName: 备注
 
   - fieldName: 入库仓库
@@ -29,7 +31,8 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
 searchFields:
   - fieldName: 备注
-
+  - fieldName: 经销商
+  
 fields: #可定义多个中文名称指向同一个字段
 
   仓库ID: warehouseId
