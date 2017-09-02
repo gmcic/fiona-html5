@@ -1,5 +1,5 @@
 // 宠物管理
-angular.module('fiona').controller('PetController', function($scope, $controller, $http, commons) {
+angular.module('fiona').controller('PetController', function($scope, $controller, $http,$filter,commons) {
 
     // 声明要使用的下拉选项
     $scope.dropdowns= {};
@@ -25,6 +25,34 @@ angular.module('fiona').controller('PetController', function($scope, $controller
      * ---------------------------
      * */
     $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
+
+    $scope.petportal.callback.update = function () {
+      var defaultDate = '2000-01';
+
+      if ($scope.pet && $scope.pet.petBirthday) {
+        $scope.pet.petBirthday = $filter('date')($scope.pet.petBirthday, 'yyyy-MM-dd');
+      }
+
+      console.log('pet update', defaultDate)
+
+      $("input[name='petBirthday']").datepicker({
+        format: 'yyyy-mm-dd',
+        orientation: "left",
+        startView: 2,
+        minViewMode: 1,
+        maxViewMode: 2,
+        autoclose: !0,
+        defaultDate: defaultDate
+      }).on("changeDate", function () {
+        $scope.pet.petBirthday = this.value;
+      });
+
+      $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+      // delete $scope.pet.mobilePhone;
+      
+      $scope.vipportal.unique($scope.pet.gestId);
+    }
 
     $scope.petportal.filter();
 });

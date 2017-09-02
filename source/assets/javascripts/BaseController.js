@@ -109,26 +109,26 @@ angular.module('fiona')
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|chrome-extension):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|chrome-extension):/);
   })
-  .directive('dateFormat', ['$filter',function($filter) {  
-      var dateFilter = $filter('date');  
-      return {  
-          require: 'ngModel',  
-          link: function(scope, elm, attrs, ctrl) {  
+  // .directive('dateFormat', ['$filter',function($filter) {  
+  //     var dateFilter = $filter('date');  
+  //     return {  
+  //         require: 'ngModel',  
+  //         link: function(scope, elm, attrs, ctrl) {  
     
-              function formatter(value) {  
-                  return dateFilter(value, 'yyyy-MM-dd'); //format  
-              }  
+  //             function formatter(value) {  
+  //                 return dateFilter(value, 'yyyy-MM-dd'); //format  
+  //             }  
     
-              function parser() {  
-                  return ctrl.$modelValue;  
-              }  
+  //             function parser() {  
+  //                 return ctrl.$modelValue;  
+  //             }  
     
-              ctrl.$formatters.push(formatter);  
-              ctrl.$parsers.unshift(parser);  
+  //             ctrl.$formatters.push(formatter);  
+  //             ctrl.$parsers.unshift(parser);  
     
-          }  
-      };  
-  }])
+  //         }  
+  //     };  
+  // }])
   // 拦截器(验证用户是否登录)
   .factory('UserInterceptor', ["$q", "$window", "commons", function ($q, $window, commons, Auth) {
     return {
@@ -1586,7 +1586,7 @@ angular.module('fiona')
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.productportal}); //继承
   })
 
-  .controller('PetPopupCheckedPanelController', function ($scope, $controller, $http, commons) {
+  .controller('PetPopupCheckedPanelController', function ($scope, $controller, $http, commons,$filter) {
 
     /**
      * 弹出选择宠物
@@ -1627,23 +1627,6 @@ angular.module('fiona')
 
     $controller('BaseCRUDController', {$scope: $scope, component: $scope.petportal}); //继承
 
-    var defaultDate = '2000-01';
-
-    if ($scope.pet && $scope.pet.petBirthday) {
-      defaultDate = $filter('date')($scope.pet.petBirthday, 'yyyy-MM-dd');
-    }
-
-    $("input[name='petBirthday']").datepicker({
-      format: 'yyyy-mm-dd',
-      orientation: "left",
-      startView: 2,
-      minViewMode: 1,
-      maxViewMode: 2,
-      autoclose: !0,
-      defaultDate: defaultDate
-    }).on("changeDate", function () {
-      $scope.pet.petBirthday = this.value;
-    });
 
     $scope.petportal.pupupselect = function () {
 

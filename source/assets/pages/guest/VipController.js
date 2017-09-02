@@ -82,6 +82,33 @@ angular.module('fiona').controller('VipController', function ($scope,$filter, $c
 
     $scope.petportal.callback.update = function () {
       $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+
+
+      var defaultDate = '2000-01';
+
+      if ($scope.pet && $scope.pet.petBirthday) {
+        $scope.pet.petBirthday = $filter('date')($scope.pet.petBirthday, 'yyyy-MM-dd');
+      }
+
+      console.log('pet update', defaultDate)
+
+      $("input[name='petBirthday']").datepicker({
+        format: 'yyyy-mm-dd',
+        orientation: "left",
+        startView: 2,
+        minViewMode: 1,
+        maxViewMode: 2,
+        autoclose: !0,
+        defaultDate: defaultDate
+      }).on("changeDate", function () {
+        $scope.pet.petBirthday = this.value;
+      });
+
+        var petRace = $('#petRace').select2();
+        petRace.val($('#petRace').val()).trigger("change");
+
+
     }
 
     $scope.petportal.submit = function(){
