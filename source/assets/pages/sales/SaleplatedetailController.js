@@ -133,7 +133,7 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
         if($scope.paymentpractical.operateAction == "会员")
         {
-            if(!$scope.vip.prepayMoney || $scope.vip.prepayMoney <= $scope.paymentpractical.price)
+            if(!$scope.vip.prepayMoney || $scope.vip.prepayMoney < $scope.paymentpractical.price)
             {
                 $scope.allowmessage = "会员余额不足";
                 $scope.allowpay = false;

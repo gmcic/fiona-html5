@@ -80,10 +80,33 @@ angular.module('fiona').controller('VipController', function ($scope,$filter, $c
     $scope.petportal.foreign =  "vip";
     $scope.petportal.foreignkey =  "gestId";
 
+    $scope.petportal.callback.insert = function () {
+      var defaultDate = '2000-01';
+      $scope.setSelectDefault("pet", ["petBreed.valueNameCn"]);
+
+      $scope.setSelectDefaultObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+      $scope.serialNumber({id: "pet", fieldName: "petCode", numberName: "宠物编号"});
+
+      $("input[name='petBirthday']").datepicker({
+        format: 'yyyy-mm-dd',
+        orientation: "left",
+        startView: 2,
+        minViewMode: 1,
+        maxViewMode: 2,
+        autoclose: !0,
+        defaultDate: defaultDate
+      }).on("changeDate", function () {
+        $scope.pet.petBirthday = this.value;
+      });
+
+        var petRace = $('#petRace').select2();
+        petRace.val($('#petRace').val()).trigger("change");
+    }
+
+
     $scope.petportal.callback.update = function () {
       $scope.replaceLocalObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
-
-
 
       var defaultDate = '2000-01';
 

@@ -367,8 +367,8 @@ angular.module('fiona')
                 if (items && items.length > 0)
                 {
                     var data = items[0];
-
-                    if ((data.itemBulk > 1 ? (data.itemCountNum * data.itemBulk + data.scatteredCountNum): data.itemCountNum) - source.itemCount <= 0){
+                    console.log('data.itemBulk:', data.itemBulk,data.itemCountNum, data.scatteredCountNum, source.itemCount, (data.itemBulk > 1 ? (data.itemCountNum * data.itemBulk + data.scatteredCountNum): data.itemCountNum) <= 0)
+                    if ((data.itemBulk > 1 ? (data.itemCountNum * data.itemBulk + data.scatteredCountNum): data.itemCountNum) <= 0){
                         commons.modaldanger("doctorprescript", "抱歉 ，[ 商品" +source.itemName + "(" + source.itemCode +")"+ " ]库存数量不足,请确认后再开方!");
                     }
                 }

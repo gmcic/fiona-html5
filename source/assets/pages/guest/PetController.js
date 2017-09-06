@@ -26,6 +26,27 @@ angular.module('fiona').controller('PetController', function($scope, $controller
      * */
     $controller('VipPopupCheckedPanelController', {$scope: $scope}); //继承
 
+    $scope.petportal.callback.insert = function () {
+      var defaultDate = '2000-01';
+      $scope.setSelectDefault("pet", ["petBreed.valueNameCn"]);
+
+      $scope.setSelectDefaultObject("pet", ["petSkinColor", "petSex", "petRace", "status"]);
+
+      $scope.serialNumber({id: "pet", fieldName: "petCode", numberName: "宠物编号"});
+
+      $("input[name='petBirthday']").datepicker({
+        format: 'yyyy-mm-dd',
+        orientation: "left",
+        startView: 2,
+        minViewMode: 1,
+        maxViewMode: 2,
+        autoclose: !0,
+        defaultDate: defaultDate
+      }).on("changeDate", function () {
+        $scope.pet.petBirthday = this.value;
+      });
+    }
+
     $scope.petportal.callback.update = function () {
       var defaultDate = '2000-01';
 
