@@ -70,15 +70,21 @@ angular.module('fiona').controller('PersonnelController', function ($scope, $htt
    * ---------------------------
    * */
   $scope.roleportal.list = function () {
-    $http.post(commons.getAccountHostname() + this.server + "/list" + commons.getTimestampStr(), {}).success(function (data, status, headers, config) {
-
-      $scope['roles'] = data.data;
-
-      var roleSet = [{}];
-      $scope.roles.forEach(function (role) {
-        roleSet.push({id: role.code, valueNameCn: role.name});
-      });
+    $scope['roles'] = [{id:'nurse', code:'nurse', name:'护士'},{id:'service',code:'service', name:'美容'},{id:'doctor',code:'doctor', name:'医生'}];  
+    $scope.dropdowns.roleSet = [{}];
+    $scope.roles.forEach(function (role) {
+      $scope.dropdowns.roleSet.push({id: role.code, valueNameCn: role.name});
     });
+
+    // $http.post(commons.getAccountHostname() + this.server + "/list" + commons.getTimestampStr(), {}).success(function (data, status, headers, config) {
+
+    //   $scope['roles'] = data.data;
+
+    //   var roleSet = [{}];
+    //   $scope.roles.forEach(function (role) {
+    //     roleSet.push({id: role.code, valueNameCn: role.name});
+    //   });
+    // });
   };
 
   $scope.personnelportal.filter();
