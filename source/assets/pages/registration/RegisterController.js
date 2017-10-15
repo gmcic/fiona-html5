@@ -59,9 +59,11 @@ angular.module('fiona').controller('RegisterController', function($scope, $contr
                     commons.modaldanger("register", "生成登记编号失败");
                 });
 
+                $scope.doctor = $scope.dropdowns.doctorIdSet.filter(function(item){return item.roleId === 'doctor'});
                 // $scope.setSelectDefault("register", ["doctorId", "operatorMan", "assistantDoctorId", "itemCode"]);
             },
             update: function () {
+
                 // $scope.petportal.get($scope.beauty.gestId);
                 // $scope.vipportal.search();
             }

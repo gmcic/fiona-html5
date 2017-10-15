@@ -26,7 +26,7 @@
               = partial :'layouts/inputs/number', :locals => {:fieldName => '金额', :maxlength => '16', :required => "true"}
           .row
             .col-md-12
-              = partial :'layouts/inputs/select', :locals => {:fieldName => '医生', :required => "true" , :options => "type.id as type.personName for type in dropdowns.doctorIdSet", :change => "registerportal.selectchange('doctorId', 'id')"}
+              = partial :'layouts/inputs/select', :locals => {:fieldName => '医生', :required => "true" , :options => "type.id as type.personName for type in doctor", :change => "registerportal.selectchange('doctorId', 'id')"}
           .row
             .col-md-12
               = partial :'layouts/inputs/select', :locals => {:fieldName => '业务员', :options => "type.personName as type.personName for type in dropdowns.operatorManSet"}
