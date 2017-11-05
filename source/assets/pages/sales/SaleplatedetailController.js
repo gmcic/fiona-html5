@@ -333,6 +333,8 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
                     }else{
                       commons.success("成功添加[ " +source.itemName+ " ]商品");
                     }
+                }else{
+                  commons.success("成功添加[ " +source.itemName+ " ]商品");
                 }
 
             });
