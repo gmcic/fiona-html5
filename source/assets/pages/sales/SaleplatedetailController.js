@@ -286,8 +286,56 @@ angular.module('fiona').controller('SaleplatedetailController', function($scope,
 
             $scope.saleplatedetails.push(saleplatedetail);
 
-            commons.success("成功添加[ " +saleplatedetail.itemName+ " ]商品");
+            $scope.itemcountsportal.searchByWhere({"itemCode": _product.itemCode}, saleplatedetail);
         }
+    };
+
+    /**
+     * 库存变更
+     * ---------------------------
+     * */
+    $scope.itemcountsportal = {
+
+        id: "itemcounts",
+
+        name: "库存变更",
+
+        server: "/api/v2/itemcounts",
+
+        callback: {
+        }
+    };
+
+    $controller('BaseCRUDController', {$scope: $scope, component: $scope.itemcountsportal}); //继承
+
+    /**
+     * 搜索
+     * ---------------------------
+     * */
+    $scope.itemcountsportal.searchByWhere = function(condition, source){
+
+        var filters = [];
+
+        angular.forEach(condition, function(data, key){
+            filters.push({"fieldName": key, "operator": "EQ", "value": data});
+        });
+
+        $http.post(commons.getBusinessHostname() + this.server + "/page" + commons.getTimestampStr(), { 'pageSize': 10000, 'pageNumber': 1,"filters":[], 'andFilters': filters})
+            .success(function (data, status, headers, config) {
+                var items = data.data.content;
+
+                if (items && items.length > 0)
+                {
+                    var data = items[0];
+                    console.log('data.itemBulk:', data.itemBulk,data.itemCountNum, data.scatteredCountNum, source.itemNum, (data.itemBulk > 1 ? (data.itemCountNum * data.itemBulk + data.scatteredCountNum): data.itemCountNum) <= 0)
+                    if ((data.itemBulk > 1 ? (data.itemCountNum * data.itemBulk + data.scatteredCountNum): data.itemCountNum) <= 0){
+                      commons.danger("抱歉 ，[ 商品" +source.itemName + "(" + source.itemCode +")"+ " ]库存数量不足,请确认后再开方!");
+                    }else{
+                      commons.success("成功添加[ " +source.itemName+ " ]商品");
+                    }
+                }
+
+            });
     };
 
     $scope.productportal.autocompletedata();
