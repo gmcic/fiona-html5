@@ -160,14 +160,13 @@ angular.module('fiona')
 
     // alert(sessionStorage.getItem("authorization"));
 
-    // 本地存储
-    commons.loadDB($http);
 
     // 用户凭证
     if (sessionStorage.getItem("authorization")) {
       $http.get(commons.getAccountHostname() + "/api/v2/auth", {headers: {'authorization': sessionStorage.getItem("authorization")}}).success(function (data, status, headers, config) {
 
         sessionStorage.setItem("userName", data.data.name);
+        sessionStorage.setItem("organize", data.data.organize.code);
         $scope.userName = sessionStorage.getItem("userName");
 
         // 加载用户目录
@@ -176,6 +175,10 @@ angular.module('fiona')
         }).error(function (data, status, headers, config) {
           alert('加载目录树失败');
         });
+        
+        // 本地存储
+        commons.loadDB($http);
+
       }).error(function (data, status, headers, config) {
         console.log('加载用户信息失败');
       });

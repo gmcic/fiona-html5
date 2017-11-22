@@ -34,18 +34,26 @@ angular.module('fiona.services', [])
 //            return  'fc5db3b3-4063-4a12-a511-880ba19e4b58';
             return sessionStorage.getItem("authorization");
         },
+        getOrganize : function () {
+            return sessionStorage.getItem("organize");
+        },
 
         getTimestampStr: function () {
           return "?_timestamp=" + new Date().getTime();
         },
 
         getBusinessHostname : function () {
-           return "http://localhost:8080/business";
-            // return "http://localhost:8080/business";
+            console.log('getBusinessHostname', this.getOrganize());
+            if ('lf' === this.getOrganize()){
+                return "http://localhost:8080/lf/business";
+            }else{
+                return "http://localhost:8080/business";
+            }    
+            // return "http://192.168.1.254:8080/business";
         },
         getAccountHostname : function () {
            return "http://localhost:8080/account";
-            // return "http://localhost:8080/account";
+            // return "http://192.168.1.254:8080/account";
         },
         modaldanger: function (alert_id, msg) {
             App.alert({
@@ -191,9 +199,13 @@ angular.module('fiona.services', [])
         loadDB : function($http) {
 
             var _db = this.getLocalDB();
+            var baseURL = "http://localhost:8080/business/api/v2/";
 
-           var baseURL = "http://localhost:8080/business/api/v2/";
-            // var baseURL = "http://localhost:8080/business/api/v2/";
+            if ('lf' === this.getOrganize()){
+                baseURL = "http://localhost:8080/lf/business/api/v2/";
+            }
+           
+            // var baseURL = "http://192.168.1.254:8080/business/api/v2/";
 
             // 重新创建表
             angular.forEach(["dicttypedetails", "userdictdetails", 'itemcates', 'itemtypes'], function(name){
