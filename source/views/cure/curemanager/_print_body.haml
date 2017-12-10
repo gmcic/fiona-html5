@@ -23,7 +23,7 @@
     %img{:src => '/assets/images/logo-fiona.png'}
 
   %center{"ng-if" => "$index == 0"}
-    %h1 北京福莱动物医院处方笺
+    %h1 {{hospital.fullName}}处方笺
 
   %table.table-print-noborder{"ng-if" => "$index == 0"}
     %tbody
