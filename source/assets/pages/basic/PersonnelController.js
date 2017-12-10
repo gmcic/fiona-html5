@@ -36,6 +36,7 @@ angular.module('fiona').controller('PersonnelController', function ($scope, $htt
         // 加载角色选项
         $scope.roleportal.list();
         $scope.setSelectDefault("personnel", ["isSyncEas", "personStatus", "sex", "roleId"]);
+        $scope.personnel.organizeCode = commons.getOrganize()
 
         $http.get(commons.getBusinessHostname() + "/api/v2/appconfigs/genNumberByName?name=会员编号").success(function (data, status, headers, config) {
 
