@@ -16,50 +16,7 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       // $scope.items = data.data;
       var table = $('#sample_2');
 
-      table.dataTable({
-        "ordering": true,
-        searching:true,
-        autoWidth:false,
-        language: {
-          aria: {
-            sortAscending: ": activate to sort column ascending",
-            sortDescending: ": activate to sort column descending"
-          },
-          emptyTable: "无记录",
-          info: "显示 _START_ 到 _END_ 总 _TOTAL_ 记录",
-          infoEmpty: "没有找到记录",
-          infoFiltered: "(从 _MAX_ 条记录过滤)",
-          lengthMenu: "每页 _MENU_ 条记录",
-          search: "搜索:",
-          zeroRecords: "未找到匹配记录",
-          paginate: {
-            previous: "上一页",
-            next: "下一页",
-            last: "尾页",
-            first: "首页"
-          }
-        },destroy:true
-        ,data: data.data,columns: [
-          { title: "名称",data: 'itemName',"width": "20%" },
-          { title: "销售数量",data: 'totalNum' },
-          { title: "销售均价",data: 'avgPrice' },
-          { title: "销售金额",data: 'total' ,orderable:true},
-          { title: "平均进价",data: 'avgInputPrice' },
-          { title: "总成本",data: 'totalCost' },
-          { title: "库存",data: 'inventory' },
-          { title: "时间",data: 'createDate' },
-        ],columnDefs:[
-          {
-            targets:[2,3,4,5],
-            render:function(data, type, full){
-              return Number(data).toFixed(2);
-            }
-          }
-
-        ],"order": [
-          [3, "desc"]
-        ]
-      });
+      table.dataTable();
     });
 
     // 查询模板明细

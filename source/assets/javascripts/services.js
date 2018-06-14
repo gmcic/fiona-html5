@@ -49,11 +49,11 @@ angular.module('fiona.services', [])
             }else{
                 return "http://localhost:8080/business";
             }    
-            // return "http://192.168.1.254:8080/business";
+            // return "http://localhost:8080/business";
         },
         getAccountHostname : function () {
            return "http://localhost:8080/account";
-            // return "http://192.168.1.254:8080/account";
+            // return "http://localhost:8080/account";
         },
         modaldanger: function (alert_id, msg) {
             App.alert({
@@ -205,7 +205,7 @@ angular.module('fiona.services', [])
                 baseURL = "http://localhost:8080/lf/business/api/v2/";
             }
            
-            // var baseURL = "http://192.168.1.254:8080/business/api/v2/";
+            // var baseURL = "http://localhost:8080/business/api/v2/";
 
             // 重新创建表
             angular.forEach(["dicttypedetails", "userdictdetails", 'itemcates', 'itemtypes'], function(name){

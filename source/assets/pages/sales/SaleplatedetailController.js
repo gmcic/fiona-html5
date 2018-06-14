@@ -1,7 +1,7 @@
 // 销售查询
 angular.module('fiona').controller('SaleplatedetailController', function($scope, $http, $controller, commons) {
 
-    $scope.dropdowns = {paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "会员", valueNameCn: "会员"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}] };
+    $scope.dropdowns = {paymentTypeSet: [{id: "现金", valueNameCn: "现金"}, {id: "会员", valueNameCn: "会员"}, {id: "支付宝", valueNameCn: "支付宝"}, {id: "微信", valueNameCn: "微信"}, {id: "银行卡", valueNameCn: "银行卡"}, {id: "团购", valueNameCn: "团购"}] };
 
     commons.findDict($scope.dropdowns, {sellUnitSet: "物品单位"});
 
