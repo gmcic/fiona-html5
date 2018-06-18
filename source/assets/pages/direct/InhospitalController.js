@@ -58,8 +58,6 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         $scope.vipportal.unique($scope.inhospital.gestId);
 
-        $scope.personnelportal.unique(commons.getAuthorization());
-
         // $scope.inhospitalportal.searchAll();
         // $scope.inhospitaldetailportal.searchAll();
 
@@ -325,6 +323,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     $scope.inhospitalprescriptiondetail2ds = [];
 
     var size = $scope.inhospitalprescriptiondetails.length;
+
+    $scope.personnelportal.unique(commons.getAuthorization());
 
     // 首页
     $scope.inhospitalprescriptiondetail2ds.push($scope.inhospitalprescriptiondetails.slice(0, size > $first ? $first : size));
