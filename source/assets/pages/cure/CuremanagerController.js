@@ -462,6 +462,12 @@ angular.module('fiona')
 //    }
 
     /**
+     * 员工管理
+     * ---------------------------
+     * */
+    $controller('PersonnelController', {$scope: $scope}); //继承
+
+    /**
     * 医生处方明细
     * ---------------------------
     * */
@@ -495,6 +501,8 @@ angular.module('fiona')
         $scope.doctorprescriptdetail2ds = [];
 
         var size = $scope.doctorprescriptdetails.length;
+
+        $scope.personnelportal.unique(commons.getAuthorization());
 
         // 首页
         $scope.doctorprescriptdetail2ds.push($scope.doctorprescriptdetails.slice(0, size > $first ? $first : size));
