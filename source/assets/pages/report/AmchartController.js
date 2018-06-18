@@ -222,108 +222,111 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       });
   }
 
-  var initReport=function(month, day){
-    // 查询模板明细-挂号
-    $http.get(commons.getBusinessHostname() + "/api/v2/reports/medic/register/record?month="+month+"&day=" + day).success(function (data, status, headers, config) {
-        $scope.registerRecordLegend = [];
-        $scope.registerRecordData = [];
-        $scope.registerRecordAllTotal = 0;
-        $scope.registerRecordCount = 0;
-        // 遍历保存所有子项
-        angular.forEach(data.data, function (item) {
-          var total = Number(item[0]).toFixed(2);
-          $scope.registerRecordAllTotal += Number(total);
-          $scope.registerRecordCount += item[2];
-          console.log(item);
-          var name = item[1]+"("+item[2]+")" ;
+  var shoRegister = function () {
+      // 基于准备好的dom，初始化echarts图表
+      var registerRecordPie = echarts.init(document.getElementById('RegisterRecordPie'));
 
-          $scope.registerRecordLegend[$scope.registerRecordLegend.length] = name;
-          $scope.registerRecordData[$scope.registerRecordData.length] = {value:total, name:name};
-        });
-
-        $scope.registerRecordAllTotal = Number($scope.registerRecordAllTotal).toFixed(2);
-
-        // 基于准备好的dom，初始化echarts图表
-        var registerRecordPie = echarts.init(document.getElementById('RegisterRecordPie'));
-
-        // 为echarts对象加载数据
-        registerRecordPie.setOption({
+      // 为echarts对象加载数据
+      registerRecordPie.setOption({
           title : {
-            text: '挂号统计('+$scope.registerRecordCount + ")",
-            subtext: '',
-            x:'center'
+              text: '挂号统计('+$scope.registerRecordCount + ")",
+              subtext: '',
+              x:'center'
           },
           tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+              trigger: 'item',
+              formatter: "{a} <br/>{b} : {c} ({d}%)"
           },
           legend: {
-            orient : 'vertical',
-            x : 'left',
-            data:$scope.registerRecordLegend
+              orient : 'vertical',
+              x : 'left',
+              data:$scope.registerRecordLegend
           },
           toolbox: {
-            show : false,
-            feature : {
-              mark : {show: true},
-              dataView : {show: true, readOnly: false},
-              magicType : {
-                show: true,
-                type: ['pie', 'funnel'],
-                option: {
-                  funnel: {
-                    x: '25%',
-                    width: '50%',
-                    funnelAlign: 'left',
-                    max: 1548
-                  }
-                }
-              },
-              restore : {show: true},
-              saveAsImage : {show: true}
-            }
+              show : false,
+              feature : {
+                  mark : {show: true},
+                  dataView : {show: true, readOnly: false},
+                  magicType : {
+                      show: true,
+                      type: ['pie', 'funnel'],
+                      option: {
+                          funnel: {
+                              x: '25%',
+                              width: '50%',
+                              funnelAlign: 'left',
+                              max: 1548
+                          }
+                      }
+                  },
+                  restore : {show: true},
+                  saveAsImage : {show: true}
+              }
           },
           calculable : true,
           series : [
-            {
-              name:'挂号统计',
-              type:'pie',
-              radius : '55%',
-              center: ['50%', '60%'],
-              data:$scope.registerRecordData
-            }
+              {
+                  name:'挂号统计',
+                  type:'pie',
+                  radius : '55%',
+                  center: ['50%', '60%'],
+                  data:$scope.registerRecordData
+              }
           ]
-        });
       });
+  }
 
+  var initReportRegister = function (company, month, day) {
       // 查询模板明细-挂号
-      $http.get(commons.getBusinessHostname() + "/api/v2/reports/gest/vip?month="+month+"&day=" + day).success(function (data, status, headers, config) {
-          $scope.gestCount = 0;
-          $scope.vipCount = 0;
-          $scope.vipMoneyTotal = 0;
-          $scope.inputMoneyTotal = 0;
-          $scope.outputMoneyTotal = 0;
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/medic/register/record?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+
+          // 遍历保存所有子项
+          angular.forEach(data.data, function (item) {
+              var total = Number(Number(item[0]).toFixed(2));
+              $scope.registerRecordAllTotal += Number(total);
+              $scope.registerRecordCount += item[2];
+              console.log(item);
+              var name = item[1] + "(" + item[2] + ")";
+
+              $scope.registerRecordLegend[$scope.registerRecordLegend.length] = name;
+              $scope.registerRecordData[$scope.registerRecordData.length] = {value: total, name: name};
+          });
+
+          $scope.registerRecordAllTotal = Number(Number($scope.registerRecordAllTotal).toFixed(2));
+
+          shoRegister();
+      });
+  }
+
+  var initReportTotal = function (company, month, day) {
+      // 查询模板明细-挂号
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/gest/vip?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+
 
           if (data.data){
-            $scope.gestCount=data.data.gestCount;
-            $scope.vipCount=data.data.vipCount
-            $scope.vipMoneyTotal=data.data.vipMoneyTotal
-            $scope.inputMoneyTotal=data.data.inputMoneyTotal
-            $scope.outputMoneyTotal=-data.data.outputMoneyTotal
+              $scope.gestCount+=Number(data.data.gestCount);
+              $scope.vipCount+=Number(data.data.vipCount)
+              $scope.vipMoneyTotal+=Number(data.data.vipMoneyTotal)
+              $scope.inputMoneyTotal+=Number(data.data.inputMoneyTotal)
+              $scope.outputMoneyTotal+=-Number(data.data.outputMoneyTotal)
           }
 
-        });
+      });
 
       //寄养押金
-      $http.get(commons.getBusinessHostname() + "/api/v2/reports/foster?month="+month+"&day=" + day).success(function (data, status, headers, config) {
-        $scope.fosterMoneyTotal=0;
-        $scope.fosterCount=0;
-        if (data.data){
-          $scope.fosterMoneyTotal=data.data.fosterMoneyTotal;
-          $scope.fosterCount=data.data.fosterCount;
-        }
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/foster?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+
+          if (data.data){
+              $scope.fosterMoneyTotal+=Number(data.data.fosterMoneyTotal);
+              $scope.fosterCount+=Number(data.data.fosterCount);
+          }
       });
-      
+  }
+
+  var initReport=function(month, day){
+      $scope.changeCompany()
+
+
   }
 
   var daysNumOfMonth = function(){
@@ -363,18 +366,39 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       $scope.paidData = [];
       $scope.paidAllTotal = 0;
 
+      //register
+      $scope.registerRecordLegend = [];
+      $scope.registerRecordData = [];
+      $scope.registerRecordAllTotal = 0;
+      $scope.registerRecordCount = 0;
+
+      //gest vip
+      $scope.gestCount = 0;
+      $scope.vipCount = 0;
+      $scope.vipMoneyTotal = 0;
+      $scope.inputMoneyTotal = 0;
+      $scope.outputMoneyTotal = 0;
+
+      // foster
+      $scope.fosterMoneyTotal=0;
+      $scope.fosterCount=0;
+
       if ($scope.currentCompany.value === '-'){
           $scope.compays.forEach(function (c) {
               if (c.value != '-'){
                   initItemsData(c, $scope.selectMonth,$scope.currentDay)
                   initPersonData(c, $scope.selectMonth,$scope.currentDay)
                   initReportAction(c, $scope.selectMonth,$scope.currentDay)
+                  initReportRegister(c, $scope.selectMonth,$scope.currentDay)
+                  initReportTotal(c, $scope.selectMonth,$scope.currentDay)
               }
           });
       }else{
           initItemsData($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
           initPersonData($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
           initReportAction($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
+          initReportRegister($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
+          initReportTotal($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
       }
   }
 
