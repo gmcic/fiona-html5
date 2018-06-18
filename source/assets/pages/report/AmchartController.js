@@ -147,78 +147,82 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       });
   }
 
-  var initReport=function(month, day){
-   // 查询模板明细
-  $http.get(commons.getBusinessHostname() + "/api/v2/reports/gest/paid/action?month="+month+"&day=" + day).success(function (data, status, headers, config) {
-      $scope.paiLegend = [];
-      $scope.paidData = [];
-      $scope.paidAllTotal = 0;
-      // 遍历保存所有子项
-      angular.forEach(data.data, function (item) {
-        var total = Number(item[0]).toFixed(2);
-        $scope.paidAllTotal += Number(total);
-        console.log(item);
-        var name = item[1] ;
-
-        $scope.paiLegend[$scope.paiLegend.length] = name;
-        $scope.paidData[$scope.paidData.length] = {value:total, name:name};
-      });
-
-      $scope.paidAllTotal = Number($scope.paidAllTotal).toFixed(2);
-
+  var showAction = function(){
       // 基于准备好的dom，初始化echarts图表
       var paidDiv = echarts.init(document.getElementById('paidDiv'));
 
       // 为echarts对象加载数据
       paidDiv.setOption({
-        title : {
-          text: '支付统计',
-          subtext: '',
-          x:'center'
-        },
-        tooltip : {
-          trigger: 'item',
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-          orient : 'vertical',
-          x : 'left',
-          data:$scope.paiLegend
-        },
-        toolbox: {
-          show : false,
-          feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            magicType : {
-              show: true,
-              type: ['pie', 'funnel'],
-              option: {
-                funnel: {
-                  x: '25%',
-                  width: '50%',
-                  funnelAlign: 'left',
-                  max: 1548
-                }
+          title : {
+              text: '支付统计',
+              subtext: '',
+              x:'center'
+          },
+          tooltip : {
+              trigger: 'item',
+              formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+          legend: {
+              orient : 'vertical',
+              x : 'left',
+              data:$scope.paiLegend
+          },
+          toolbox: {
+              show : false,
+              feature : {
+                  mark : {show: true},
+                  dataView : {show: true, readOnly: false},
+                  magicType : {
+                      show: true,
+                      type: ['pie', 'funnel'],
+                      option: {
+                          funnel: {
+                              x: '25%',
+                              width: '50%',
+                              funnelAlign: 'left',
+                              max: 1548
+                          }
+                      }
+                  },
+                  restore : {show: true},
+                  saveAsImage : {show: true}
               }
-            },
-            restore : {show: true},
-            saveAsImage : {show: true}
-          }
-        },
-        calculable : true,
-        series : [
-          {
-            name:'支付统计',
-            type:'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-            data:$scope.paidData
-          }
-        ]
+          },
+          calculable : true,
+          series : [
+              {
+                  name:'支付统计',
+                  type:'pie',
+                  radius : '55%',
+                  center: ['50%', '60%'],
+                  data:$scope.paidData
+              }
+          ]
       });
-    });
+  }
 
+  var initReportAction = function(company, month, day){
+      // 查询模板明细
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/gest/paid/action?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+          // 遍历保存所有子项
+          angular.forEach(data.data, function (item) {
+              var total = Number(item[0]).toFixed(2);
+              $scope.paidAllTotal += Number(total);
+              console.log(item);
+              var name = item[1];
+
+              $scope.paiLegend[$scope.paiLegend.length] = company.label + ':' + name;
+              $scope.paidData[$scope.paidData.length] = {value: total, name: company.label + ':' + name};
+          });
+
+          $scope.paidAllTotal = Number(Number($scope.paidAllTotal).toFixed(2));
+
+          showAction();
+
+      });
+  }
+
+  var initReport=function(month, day){
     // 查询模板明细-挂号
     $http.get(commons.getBusinessHostname() + "/api/v2/reports/medic/register/record?month="+month+"&day=" + day).success(function (data, status, headers, config) {
         $scope.registerRecordLegend = [];
@@ -354,16 +358,23 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       $scope.data = [];
       $scope.allTotal = 0;
 
+      //action
+      $scope.paiLegend = [];
+      $scope.paidData = [];
+      $scope.paidAllTotal = 0;
+
       if ($scope.currentCompany.value === '-'){
           $scope.compays.forEach(function (c) {
               if (c.value != '-'){
-                  initItemsData(c.value, $scope.selectMonth,$scope.currentDay)
-                  initPersonData(c.value, $scope.selectMonth,$scope.currentDay)
+                  initItemsData(c, $scope.selectMonth,$scope.currentDay)
+                  initPersonData(c, $scope.selectMonth,$scope.currentDay)
+                  initReportAction(c, $scope.selectMonth,$scope.currentDay)
               }
           });
       }else{
-          initItemsData($scope.currentCompany.value, $scope.selectMonth,$scope.currentDay)
-          initPersonData($scope.currentCompany.value, $scope.selectMonth,$scope.currentDay)
+          initItemsData($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
+          initPersonData($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
+          initReportAction($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
       }
   }
 
