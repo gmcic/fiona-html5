@@ -58,6 +58,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         $scope.vipportal.unique($scope.inhospital.gestId);
 
+        $scope.personnelportal.unique(commons.getAuthorization());
+
         // $scope.inhospitalportal.searchAll();
         // $scope.inhospitaldetailportal.searchAll();
 
@@ -495,6 +497,12 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
       $scope.inhospitalprescription.prescriptionCost += _totalCost;
     });
   };
+
+  /**
+   * 员工管理
+   * ---------------------------
+   * */
+  $controller('PersonnelController', {$scope: $scope}); //继承
 
   /**
    * 会员管理
