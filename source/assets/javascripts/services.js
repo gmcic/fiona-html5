@@ -55,6 +55,9 @@ angular.module('fiona.services', [])
            return "http://localhost:8080/account";
             // return "http://localhost:8080/account";
         },
+        getBusinessHostnameByCompany : function (company) {
+            return "http://localhost:8080/" + (company==='bj'?'':company+'/') + 'business';
+        },
         modaldanger: function (alert_id, msg) {
             App.alert({
                 container: "#" + alert_id + "_alert",
