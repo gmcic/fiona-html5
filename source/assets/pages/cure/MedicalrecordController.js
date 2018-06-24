@@ -32,7 +32,7 @@ angular.module('fiona').controller('MedicalrecordController', function($scope, $
 
                    angular.forEach($scope.doctorprescripts, function(_doctorprescript){
                         $scope.doctorprescriptdetailportal.searchByWhere({prescriptionId: _doctorprescript.id}, function(details){
-                            _doctorprescript.details = details;
+                            _doctorprescript.details = commons.filterSell(details);
                         });
                    });
 

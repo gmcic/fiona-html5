@@ -37,6 +37,29 @@ angular.module('fiona.services', [])
         getOrganize : function () {
             return sessionStorage.getItem("organize");
         },
+        filterSell : function (itemTypes) {
+            console.log('itemTypes', itemTypes)
+
+            var _db = this.getLocalDB();
+
+            var products = _db.find('product');
+
+            console.log('products', products)
+
+            items = []
+
+            for (var i = 0; i < itemTypes.length; i++){
+                var _product = products.findObjectWithProperty('itemCode', itemTypes[i].itemCode);
+                console.log('_product', _product)
+                console.log('_product.isSell', _product.isSell)
+                if (_product.isSell != '否')
+                    items[items.length] = itemTypes[i]
+            }
+
+            console.log('items', items)
+
+            return items;
+        },
 
         getTimestampStr: function () {
           return "?_timestamp=" + new Date().getTime();
@@ -273,8 +296,7 @@ angular.module('fiona.services', [])
             // 缓存商品明细
             $http.get(baseURL + "itemtypes").success(function (data, status, headers, config) {
 
-//                console.log("商品信息");
-//                console.log(data.data);
+               console.log('商品信息', data.data);
 
                 _db.insert("product", data.data);
             });
