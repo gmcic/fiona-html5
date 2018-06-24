@@ -37,6 +37,10 @@ angular.module('fiona.services', [])
         getOrganize : function () {
             return sessionStorage.getItem("organize");
         },
+        setIsSellShow : function(v){
+            sessionStorage.setItem('is_sell_show', v)
+            console.log('is_sell_show',sessionStorage.getItem('is_sell_show') )
+        },
         filterSell : function (itemTypes) {
             console.log('itemTypes', itemTypes)
 
@@ -52,7 +56,7 @@ angular.module('fiona.services', [])
                 var _product = products.findObjectWithProperty('itemCode', itemTypes[i].itemCode);
                 console.log('_product', _product)
                 console.log('_product.isSell', _product.isSell)
-                if (_product.isSell != '否')
+                if (_product.isSell != sessionStorage.getItem('is_sell_show'))
                     items[items.length] = itemTypes[i]
             }
 
@@ -223,6 +227,7 @@ angular.module('fiona.services', [])
         },
 
         loadDB : function($http) {
+            sessionStorage.setItem('is_sell_show', '所有');
 
             var _db = this.getLocalDB();
             var baseURL = "http://localhost:8080/business/api/v2/";

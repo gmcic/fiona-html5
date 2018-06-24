@@ -37,6 +37,11 @@ layout: "formset"
     .row
       .col-md-12
         = partial :'layouts/inputs/text', :locals => {:fieldName => '地址', :maxlength => '32'}
+    .row
+      .col-md-12
+        %label.control-label
+          售卖药品显示
+        %input.form-control{:type => "text", :name => "isSell", "ng-model"=>"isSellShow" , "ng-change" => "onChange()"}
 
     .row
       .col-md-12
