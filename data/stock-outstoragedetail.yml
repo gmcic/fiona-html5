@@ -1,6 +1,6 @@
 # 经销商与生产商
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 条码
+  - fieldName: 编号
 
   - fieldName: 名称
 
@@ -9,6 +9,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 生产商
 
   - fieldName: 销售单位
+    filter: dropdown
 
   - fieldName: 售价
     filter: currency:"￥"

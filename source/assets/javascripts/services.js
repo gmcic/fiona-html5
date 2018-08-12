@@ -227,7 +227,7 @@ angular.module('fiona.services', [])
         },
 
         loadDB : function($http) {
-            sessionStorage.setItem('is_sell_show', '所有');
+            sessionStorage.setItem('is_sell_show', '否');
 
             var _db = this.getLocalDB();
             var baseURL = "http://localhost:8080/business/api/v2/";

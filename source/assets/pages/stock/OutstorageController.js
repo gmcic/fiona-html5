@@ -36,6 +36,9 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
         },
 
         callback: {
+            view: function () {
+                $scope.outstoragedetailportal.searchAll();
+            },
             update: function () {
                 $scope.outstoragedetailportal.search();
             },
@@ -54,7 +57,12 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
 
                 $scope.setSelectDefault("outstorage", ["warehouseId.id"]);
             },
-
+            submitbefore: function () {
+              if($scope.outstorage.warehouseId)
+              {
+                $scope.outstorage.outWarehouse = $scope.dropdowns.warehouseIdSet.getObjectWithId({id: $scope.outstorage.warehouseId}).valueNameCn;
+              }
+            },
             submit : function () {
                 // 遍历保存所有子项
                 angular.forEach($scope.outstoragedetails, function (_outstoragedetail, index, array) {

@@ -3,7 +3,7 @@
 angular.module('fiona').controller('HospitalController', function($scope, $http, $controller, commons) {
 
     $scope.hospital = {};
-    $scope.isSellShow='所有';
+    $scope.isSellShow='否';
 
     $http.get(commons.getBusinessHostname() + "/api/v2/enterprises" + commons.getTimestampStr()).success(function (data, status, headers, config) {
         angular.forEach(data.data, function (item) {
