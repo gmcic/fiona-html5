@@ -6,12 +6,7 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
 
   - fieldName: 规格
 
-  - fieldName: 生产商
-
-  - fieldName: 销售单位
-    filter: dropdown
-
-  - fieldName: 售价
+  - fieldName: 进价
     filter: currency:"￥"
 
   - fieldName: 数量
@@ -48,7 +43,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   零散比: itemBulk
 
-  出厂价格: inputPrice
+  进价: inputPrice
 
   药品形状: drugForm
 

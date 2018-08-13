@@ -170,7 +170,7 @@ angular.module('fiona').controller('OutstorageController', function($scope, $htt
             $scope.outstorage.totalCount += _outstoragedetail.inputCount;
 
             // 小计
-            _outstoragedetail.inputCost = _outstoragedetail.sellPrice * _outstoragedetail.inputCount;
+            _outstoragedetail.inputCost = _outstoragedetail.inputPrice * _outstoragedetail.inputCount;
 
             // 总金额
             $scope.outstorage.outWarehouseTotalCost += _outstoragedetail.inputCost;
