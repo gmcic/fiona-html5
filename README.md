@@ -34,3 +34,5 @@
 - 处方模版	前台	数量为非1是入库自动加一
 - 处方模版	前台	支持拼音缩写搜索BarCode
 - 库存	入库	仓库名称现实为空
+
+# https://middlemanapp.com/basics/install/
