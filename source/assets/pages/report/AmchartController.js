@@ -61,8 +61,8 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
           ]
       });
   }
-  var initItemsData = function(company, month, day){
-    $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/item?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+  var initItemsData = function(company, year,month, day){
+    $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/item?year="+year+"&month="+month+"&day=" + day).success(function (data, status, headers, config) {
         if ($scope.reportItemData.length === 0){
             $scope.reportItemData = data.data;
         }else{
@@ -126,8 +126,8 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       });
   }
 
-  var initPersonData = function(company, month, day){
-      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/person?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+  var initPersonData = function(company, year,month, day){
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/person?year="+year+"&month="+month+"&day=" + day).success(function (data, status, headers, config) {
           // 遍历保存所有子项
           angular.forEach(data.data, function (item) {
               var total = Number(item.total).toFixed(2);
@@ -201,9 +201,9 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       });
   }
 
-  var initReportAction = function(company, month, day){
+  var initReportAction = function(company, year,month, day){
       // 查询模板明细
-      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/gest/paid/action?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/gest/paid/action?year="+year+"&month="+month+"&day=" + day).success(function (data, status, headers, config) {
           // 遍历保存所有子项
           angular.forEach(data.data, function (item) {
               var total = Number(item[0]).toFixed(2);
@@ -276,9 +276,9 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       });
   }
 
-  var initReportRegister = function (company, month, day) {
+  var initReportRegister = function (company, year,month, day) {
       // 查询模板明细-挂号
-      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/medic/register/record?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/medic/register/record?year="+year+"&month="+month+"&day=" + day).success(function (data, status, headers, config) {
 
           // 遍历保存所有子项
           angular.forEach(data.data, function (item) {
@@ -298,9 +298,9 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       });
   }
 
-  var initReportTotal = function (company, month, day) {
+  var initReportTotal = function (company, year,month, day) {
       // 查询模板明细-挂号
-      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/gest/vip?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/gest/vip?year="+year+"&month="+month+"&day=" + day).success(function (data, status, headers, config) {
 
 
           if (data.data){
@@ -314,7 +314,7 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       });
 
       //寄养押金
-      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/foster?month="+month+"&day=" + day).success(function (data, status, headers, config) {
+      $http.get(commons.getBusinessHostnameByCompany(company) + "/api/v2/reports/foster?year="+year+"&month="+month+"&day=" + day).success(function (data, status, headers, config) {
 
           if (data.data){
               $scope.fosterMoneyTotal+=Number(data.data.fosterMoneyTotal);
@@ -345,6 +345,8 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
   }
 
   $scope.currentDay = '-';
+  $scope.currentYear = new Date().getFullYear();
+  $scope.selectYear = $scope.currentYear;
   $scope.currentMonth = new Date().getMonth() + 1;
   $scope.selectMonth = $scope.currentMonth;
   $scope.compays = [{'label':'-','value':'-'}, {'label':'亦庄','value':'bj'}, {'label':'廊坊','value':'lf'}];
@@ -386,31 +388,36 @@ angular.module('fiona').controller('AmchartController', function ($scope, $http,
       if ($scope.currentCompany.value === '-'){
           $scope.compays.forEach(function (c) {
               if (c.value != '-'){
-                  initItemsData(c, $scope.selectMonth,$scope.currentDay)
-                  initPersonData(c, $scope.selectMonth,$scope.currentDay)
-                  initReportAction(c, $scope.selectMonth,$scope.currentDay)
-                  initReportRegister(c, $scope.selectMonth,$scope.currentDay)
-                  initReportTotal(c, $scope.selectMonth,$scope.currentDay)
+                  initItemsData(c, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+                  initPersonData(c, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+                  initReportAction(c, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+                  initReportRegister(c, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+                  initReportTotal(c, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
               }
           });
       }else{
-          initItemsData($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
-          initPersonData($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
-          initReportAction($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
-          initReportRegister($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
-          initReportTotal($scope.currentCompany, $scope.selectMonth,$scope.currentDay)
+          initItemsData($scope.currentCompany, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+          initPersonData($scope.currentCompany, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+          initReportAction($scope.currentCompany, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+          initReportRegister($scope.currentCompany, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
+          initReportTotal($scope.currentCompany, $scope.selectYear,$scope.selectMonth,$scope.currentDay)
       }
   }
 
   $scope.changeMonth = function(){
-    initReport($scope.selectMonth,$scope.currentDay);
+    initReport($scope.selectYear,$scope.selectMonth,$scope.currentDay);
+    $scope.maxDays=daysNumOfMonth();
+  }
+
+  $scope.changeYear = function(){
+    initReport($scope.selectYear,$scope.selectYear,$scope.selectMonth,$scope.currentDay);
     $scope.maxDays=daysNumOfMonth();
   }
 
   $scope.selectDay=function(){
     console.log($scope.currentDay);
-    initReport($scope.selectMonth,$scope.currentDay);
+    initReport($scope.selectYear,$scope.selectMonth,$scope.currentDay);
   }
 
-  initReport($scope.selectMonth,$scope.currentDay);
+  initReport($scope.selectYear,$scope.selectMonth,$scope.currentDay);
 });
