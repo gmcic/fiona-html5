@@ -36,3 +36,5 @@
 - 库存	入库	仓库名称现实为空
 
 # https://middlemanapp.com/basics/install/
+
+## ruby 2.2.0
