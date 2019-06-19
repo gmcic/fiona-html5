@@ -37,4 +37,4 @@
 
 # https://middlemanapp.com/basics/install/
 
-## ruby 2.2.0
+## ruby 2.2.0/2.3
