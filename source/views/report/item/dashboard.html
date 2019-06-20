@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='operate_msg_box'></div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+      <ul class="page-breadcrumb">
+        <li>
+          <a href="index.html">首页</a>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>报表</span>
+        </li>
+      </ul>
+      <div class="page-toolbar" style="width:400px">
+        <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <select class="form-control" ng-model="currentCompany" ng-options="x.label for x in compays" ng-change="changeCompany()">
+                </select>
+            </div>
+        </div>
+        <!--/span-->
+          <div class="col-md-3">
+            <div class="form-group">
+              <select class="form-control" ng-model="selectYear" ng-options="d as d for d in [2016,2017,2018,2019,2020,2021,2022,2023,2024]" ng-change="changeYear()">
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <select class="form-control" ng-model="selectMonth" ng-options="d as d for d in [1,2,3,4,5,6,7,8,9,10,11,12]" ng-change="changeMonth()">
+              </select>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-3">
+            <div class="form-group">
+              <select class="form-control" ng-model="currentDay" ng-options="d as d for d in maxDays" ng-change="selectDay()">
+              </select>
+            </div>
+          </div>
+          <!--/span-->
+        </div>
+      </div>
+    </div>
+    <!-- END PAGE BAR -->
+
+    <!-- BEGIN PAGE TITLE -->
+    <h3 class='page-title'>
+      报表
+      <small>商品销售报表</small>
+
+    </h3>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light portlet-fit portlet-datatable bordered" id="form_wizard_1">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class=" icon-layers font-green"></i>
+              <span class="caption-subject font-green sbold uppercase">商品销售统计-月度</span>
+            </div>
+            <div class="actions">
+
+            </div>
+          </div>
+          <div class="portlet-body">
+            <table class="table table-bordered table-hover no-footer" id="item_month">
+
+            </table>
+          </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light portlet-fit portlet-datatable bordered" id="form_wizard_1">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class=" icon-layers font-green"></i>
+              <span class="caption-subject font-green sbold uppercase">商品销售统计-日</span>
+            </div>
+            <div class="actions">
+
+            </div>
+          </div>
+          <div class="portlet-body">
+            <table class="table table-bordered table-hover no-footer" id="item_day">
+
+            </table>
+          </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+      </div>
+
+    </div>
+
+  </body>
+</html>

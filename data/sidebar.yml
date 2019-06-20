@@ -359,6 +359,11 @@
           uri: /doctor/dashboard
           template: /doctor/dashboard.html
 
+        - name: ItemDashboard
+          icon: fa fa-area-chart
+          controller: ItemController
+          uri: /item/dashboard
+          template: /item/dashboard.html
 #
 #    - name: 护士工作站
 #      uri: javascript:;
