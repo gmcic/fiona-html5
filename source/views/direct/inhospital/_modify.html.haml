@@ -54,8 +54,8 @@
         -#%li.active
         -#  %a{"data-toggle" => "tab", :href => "//#inhospital_consume"} 住院期间消费
 
-        -#%li
-        -#  %a{"data-toggle" => "tab", :href => "//#inhospital_health"} 健康状态记录
+        %li
+          %a{"data-toggle" => "tab", :href => "//#inhospital_health"} 健康状态记录
 
       .tab-content
         -#-#住院期间消费
@@ -84,8 +84,8 @@
             = partial :'layouts/buttons/insert', :locals => {:click => 'vipprepayportal.insert()'}
 
         -#健康状态记录
-        -##inhospital_health.tab-pane
-        -#  - portal "健康状态记录", "inhospitalhealth"
-        -#
-        -#  = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove' }  do
-        -#    = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalhealthportal.insert()'}
+        #inhospital_health.tab-pane
+          - portal "健康状态记录", "inhospitalhealth"
+        
+          = partial :'layouts/widget/portal', :locals => {:filterbar => "none", :pagingbar => "none", :inline_toolbar => 'remove|update' }  do
+            = partial :'layouts/buttons/insert', :locals => {:click => 'inhospitalhealthportal.insert()'}

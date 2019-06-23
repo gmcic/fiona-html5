@@ -4,15 +4,18 @@ module:
   server: inhospitalhealths
 
 listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名称与字段名称一致, 则不需要定义 aliasName
-  - fieldName: 寄养号
+  - fieldName: 编号
+  - fieldName: 创建时间
+    filter: date:"yyyy年MM月dd日 HH时mm分"
+  - fieldName: 备注
 
 searchFields:
-  - fieldName: 寄养号
+  - fieldName: 编号
 
 fields: #可定义多个中文名称指向同一个字段
-  编号: fosterNo
+  编号: inHospitalNo
 
-  说明: remark
+  备注: remark
 
   主键: id
 

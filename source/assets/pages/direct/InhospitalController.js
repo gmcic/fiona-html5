@@ -45,7 +45,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         $scope.inhospitalprescriptionportal.search();
 
-        $scope.vipprepayportal.search();
+        $scope.inhospitalhealthportal.search();
       },
 
       unique: function () {
@@ -58,6 +58,8 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         $scope.vipportal.unique($scope.inhospital.gestId);
 
+
+
         // $scope.inhospitalportal.searchAll();
         // $scope.inhospitaldetailportal.searchAll();
 
@@ -65,7 +67,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
         $scope.inhospitalprescriptionportal.search();
 
-        $scope.vipprepayportal.search();
+        $scope.inhospitalhealthportal.search();
       },
       insert: function () {
         $scope.pet = {};
@@ -206,7 +208,7 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     foreign: "inhospital", // 外键
 
-    foreignkey: "relationId", // 外键
+    foreignkey: "inHospitalNo", // 外键
 
     id: "inhospitalhealth",
 
@@ -216,10 +218,26 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
 
     defilters: {},
 
-    callback: {}
+    callback: {
+      submitbefore: function () {
+        $scope.inhospitalhealth.inHospitalNo = $scope.inhospital.inHospitalNo;
+
+      }
+    }
   };
 
   $controller('BaseCRUDController', {$scope: $scope, component: $scope.inhospitalhealthportal}); //继承
+
+  $scope.inhospitalhealthportal.search = function () {
+
+    $http.post(commons.getBusinessHostname() + $scope.inhospitalhealthportal.server + "/page" + commons.getTimestampStr(), {
+      'pageSize': 10000,
+      'pageNumber': '1',
+      'filters': [{"fieldName": "inHospitalNo", "operator": "EQ", "value": $scope.inhospital.inHospitalNo}]
+    }).success(function (data, status, headers, config) {
+      $scope.inhospitalhealths = data.data.content;
+    });
+  };
 
   /**
    * 住院处方

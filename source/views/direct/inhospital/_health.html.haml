@@ -1,1 +1,5 @@
-= partial :'layouts/inputs/fileupload', :locals => { :fieldName => '笼舍编号'}
+.form-body
+  .row
+    .col-md-12
+      = partial :'layouts/inputs/textview', :locals => { :fieldName => '住院号', :maxlength => '16'}
+      = partial :'layouts/inputs/textarea', :locals => { :fieldName => '备注', :maxlength => '16'}
