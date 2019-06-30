@@ -8,12 +8,19 @@ listFields: # aliasName 显示使用, fieldName 关联字段使用,若显示名�
   - fieldName: 创建时间
     filter: date:"yyyy年MM月dd日 HH时mm分"
   - fieldName: 备注
+  - fieldName: 创建人
+    fieldKey: createUser.personName
 
 searchFields:
   - fieldName: 编号
 
 fields: #可定义多个中文名称指向同一个字段
   编号: inHospitalNo
+  体温: temperature
+  体重: weight
+  临床检查: rheme
+  住院情况: diagnosed
+  医生意见: doctorAdvice
 
   备注: remark
 
@@ -21,7 +28,7 @@ fields: #可定义多个中文名称指向同一个字段
 
   状态: status
 
-  创建人: createUserId
+  创建人: createUser
 
   创建时间: createDate
 

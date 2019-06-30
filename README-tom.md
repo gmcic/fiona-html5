@@ -15,3 +15,18 @@
 1. 审核后->查看审核日期显示错误
 1. 审核后->入库仓库 不许更改
 
+体重
+
+体温 
+
+临床检查
+
+住院情况
+
+备注
+
+创建人
+
+处方创建人
+
+= partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '备注', :maxlength => '16'} 嵌套 没有加 keyword
