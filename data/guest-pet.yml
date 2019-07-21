@@ -55,6 +55,10 @@ portalFields: # aliasName 显示使用, fieldName 关联字段使用,若显示�
   - fieldName: 宠物品种
     fieldKey: petRace.type
 
+  - fieldName: 绝育状态
+    fieldKey: dropdown
+
+
 searchFields:
   - fieldName: 宠物病历号
 

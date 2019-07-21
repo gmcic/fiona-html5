@@ -48,7 +48,7 @@
 
       .row
         .col-md-12
-          = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '绝育状态', :maxlength => '16'}
+          = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '绝育状态', :options => "type.id as type.valueNameCn for type in dropdowns.petBreedSet"}
       .row
         .col-md-12
           = partial :'layouts/inputs/textview', :locals => {:keyword => 'pet', :fieldName => '病历编号', :maxlength => '16'}

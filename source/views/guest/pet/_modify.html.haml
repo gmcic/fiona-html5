@@ -37,7 +37,7 @@
 
               .col-md-4
                 .form-group
-                  = partial :'layouts/inputs/select', :locals => {:keyword => 'pet', :fieldName => '绝育状态', :maxlength => '32', :required => "true", :options => "type.valueNameCn as type.valueNameCn for type in dropdowns.petBreedSet"}
+                  = partial :'layouts/inputs/select', :locals => {:keyword => "pet", :fieldName => '绝育状态', :maxlength => '32', :required => "true", :options => "type.id as type.valueNameCn for type in dropdowns.petBreedSet"}
 
             .row
               .col-md-4
