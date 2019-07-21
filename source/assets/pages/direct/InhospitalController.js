@@ -1,6 +1,13 @@
 // 住院管理
 angular.module('fiona').controller('InhospitalController', function ($scope, $controller, $http, commons) {
 
+// 声明要使用的下拉选项
+    $scope.dropboxargs = {
+        dicts: {statusSet: "会员状态",petBreedSet: "绝育状态", sickFileCodeSet: "宠物状态", doctorStatusSet : "就诊状态", paidStatusSet: "付款状态"},
+        userdicts: {gestSexSet: "性别",petSexSet: "动物性别", petSkinColorSet: "动物颜色", frequencySet: "用药频次", useWaySet: "药品使用方法", useUnitSet: "物品单位"},
+        
+    };
+
   $scope.dropdowns = {};
 
   commons.findDict($scope.dropdowns, {
@@ -9,11 +16,13 @@ angular.module('fiona').controller('InhospitalController', function ($scope, $co
     recipeUnitSet: "物品单位",
     frequencySet: "用药频次",
     useWaySet: "药品使用方法",
-    useUnitSet: "物品单位",
-    paidStatusSet: "付款状态"
+    useUnitSet: "物品单位"
   });
 
   $controller('BaseController', {$scope: $scope}); //继承
+
+  // 会员等级, 会员状态
+  $scope.dropboxinit($scope.dropboxargs);
 
   // 住院类型
   // $scope.dropdownWithTable({id: "itemCode", server: "/api/v2/itemtypes", condition : {"cateNo": "7b3fe252-bddd-4ffe-9527-468aaa6629b7"}});
