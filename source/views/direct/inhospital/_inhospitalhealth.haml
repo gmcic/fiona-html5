@@ -4,7 +4,7 @@
       = partial :'layouts/inputs/textview', :locals => { :fieldName => '住院号', :maxlength => '16'}
       = partial :'layouts/inputs/text', :locals => { :keyword => "inhospitalhealth", :fieldName => '体温', :maxlength => '16'}
       = partial :'layouts/inputs/number', :locals => { :keyword => "inhospitalhealth", :fieldName => '体重'}
-      = partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '临床检查'}
-      = partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '住院情况'}
-      = partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '医生意见'}
+      = partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '临床检查', :maxlength => '256'}
+      = partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '住院情况', :maxlength => '256'}
+      = partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '医生意见', :maxlength => '256'}
       = partial :'layouts/inputs/textarea', :locals => { :keyword => "inhospitalhealth", :fieldName => '备注', :maxlength => '16'}

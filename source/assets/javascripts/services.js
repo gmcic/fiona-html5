@@ -72,18 +72,18 @@ angular.module('fiona.services', [])
         getBusinessHostname : function () {
             console.log('getBusinessHostname', this.getOrganize());
             if ('lf' === this.getOrganize()){
-                return "http://localhost:8080/lf/business";
+                return "http://172.3.139.42:8080/lf/business";
             }else{
-                return "http://localhost:8080/business";
+                return "http://172.3.139.42:8080/business";
             }    
-            // return "http://localhost:8080/business";
+            // return "http://172.3.139.42:8080/business";
         },
         getAccountHostname : function () {
-           return "http://localhost:8080/account";
-            // return "http://localhost:8080/account";
+           return "http://172.3.139.42:8080/account";
+            // return "http://172.3.139.42:8080/account";
         },
         getBusinessHostnameByCompany : function (company) {
-            return "http://localhost:8080/" + (company.value==='bj'?'':company.value+'/') + 'business';
+            return "http://172.3.139.42:8080/" + (company.value==='bj'?'':company.value+'/') + 'business';
         },
         modaldanger: function (alert_id, msg) {
             App.alert({
@@ -230,13 +230,13 @@ angular.module('fiona.services', [])
             sessionStorage.setItem('is_sell_show', '否');
 
             var _db = this.getLocalDB();
-            var baseURL = "http://localhost:8080/business/api/v2/";
+            var baseURL = "http://172.3.139.42:8080/business/api/v2/";
 
             if ('lf' === this.getOrganize()){
-                baseURL = "http://localhost:8080/lf/business/api/v2/";
+                baseURL = "http://172.3.139.42:8080/lf/business/api/v2/";
             }
            
-            // var baseURL = "http://localhost:8080/business/api/v2/";
+            // var baseURL = "http://172.3.139.42:8080/business/api/v2/";
 
             // 重新创建表
             angular.forEach(["dicttypedetails", "userdictdetails", 'itemcates', 'itemtypes'], function(name){
